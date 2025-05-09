@@ -2,74 +2,21 @@
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+## Nuxt 기본 폴더 구조
+
+```
+/assets      # 이미지, 스타일 등 정적 리소스
+/components  # Vue 컴포넌트
+/layouts     # 레이아웃 컴포넌트
+/middleware  # 미들웨어
+/pages       # 라우트 페이지
+/plugins     # 플러그인
+/public      # 정적 파일
+/store       # Pinia 등 상태관리(옵션)
+```
+
 ## Setup
 
 Make sure to install dependencies:
 
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
