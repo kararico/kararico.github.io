@@ -15,7 +15,7 @@ import ContactSection from '@/components/sections/ContactSection.vue';
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables.scss'; 
+@use '@/assets/scss/variables.scss' as *; 
 
 .home {
   background-color: $color-background;

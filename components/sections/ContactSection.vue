@@ -69,7 +69,6 @@ const handleSubmit = () => {
 
 <style lang="scss" scoped>
 @use '@/assets/scss/variables.scss' as *;
-
 .contact-section {
   padding: $spacing-xxl 0;
   background: $color-background;
@@ -180,7 +179,7 @@ const handleSubmit = () => {
     width: 100%;
 
     &:hover {
-      background: darken($color-accent, 10%);
+    //   background: darken($color-accent, 10%);
       transform: translateY(-2px);
       box-shadow: 0 4px 15px rgba($color-accent, 0.2);
     }
@@ -202,7 +201,7 @@ const handleSubmit = () => {
   transition: all 0.3s ease;
 
   &:hover {
-    background: darken($color-accent, 10%);
+    // background: darken($color-accent, 10%);
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba($color-accent, 0.3);
   }

@@ -34,7 +34,7 @@
           </NuxtLink>
         </div>
       </div>
-    </div>
+    </div> 
   </section>
 </template>
 
@@ -167,7 +167,7 @@
     box-shadow: 0 4px 15px rgba($color-accent, 0.2);
 
     &:hover {
-      background: darken($color-accent, 10%);
+    //   background: darken($color-accent, 10%);
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba($color-accent, 0.3);
     }

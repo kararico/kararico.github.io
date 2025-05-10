@@ -221,7 +221,7 @@
     transition: all 0.3s ease;
   
     &:hover {
-      background: darken($color-accent, 10%);
+    //   background: darken($color-accent, 10%);
       transform: translateY(-2px);
     }
   
