@@ -1,0 +1,65 @@
+@use "sass:color";
+
+// Colors
+$color-primary: #1a365d;    // 진한 네이비
+$color-accent: #2b6cb0;     // 밝은 블루
+$color-background: #f8fafc; // 밝은 그레이
+$color-text: #1a202c;       // 진한 그레이
+$color-text-secondary: #4a5568; // 중간 그레이
+$color-border: #eaeaea;
+$color-hover: #ff1a4f;
+
+// Border Radius
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+$border-radius-full: 9999px;
+
+// Typography
+$font-primary: 'Inter', sans-serif;
+$font-size-base: 16px;
+$line-height-base: 1.6;
+
+// Font Weights
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Spacing
+$spacing-xs: 0.5rem;
+$spacing-sm: 1rem;
+$spacing-md: 1.5rem;
+$spacing-lg: 2rem;
+$spacing-xl: 3rem;
+$spacing-xxl: 4rem;
+$spacing-xxxl: 5rem;
+
+// Breakpoints
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+
+// Grid
+$grid-columns: 12;
+$grid-gap: 30px;
+$container-max-width: 1200px;
+
+// Transitions
+$transition-base: 0.3s ease;
+$transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Z-index
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal: 1040;
+$z-index-popover: 1050;
+$z-index-tooltip: 1060;
+
+// Shadows
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
