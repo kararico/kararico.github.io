@@ -43,7 +43,7 @@
 <script setup lang="ts">
 const menuItems = [
   { name: 'About', path: '/about' },
-  { name: 'Works', path: '/projects' },
+  { name: 'Works', path: '/projects/project' },
   { name: 'Contact', path: '/contact' }
 ];
 </script>

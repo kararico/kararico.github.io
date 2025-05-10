@@ -24,7 +24,7 @@
           </div>
         </div>
         <div class="hero-cta">
-          <NuxtLink to="/works" class="btn btn-primary">
+          <NuxtLink to="/projects/project" class="btn btn-primary">
             <i class="fas fa-folder-open"></i>
             작업물 보기
           </NuxtLink>
