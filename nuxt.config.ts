@@ -12,20 +12,31 @@ export default defineNuxtConfig({
         {
           rel: 'stylesheet',
           href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap'
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;700&display=swap'
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.cdnfonts.com/css/helvetica-neue-9'
         }
       ]
     }
   },
   css: [
-    '@/assets/scss/reset.scss',
-    '@/assets/scss/common.scss'
+    '@/assets/scss/style.scss',
   ],
   vite: {
     css: {
       preprocessorOptions: {
-        // scss: {
-        //   additionalData: '@import "@/assets/scss/variables.scss";'
-        // }
+        scss: {
+          additionalData: '@use "@/assets/scss/abstracts/_var" as *;'
+        }
       }
     }
   }

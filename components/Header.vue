@@ -1,212 +1,79 @@
 <template>
-  <header class="header" :class="{ 'is-scrolled': isScrolled }">
-    <div class="container">
-      <div class="header-content">
-        <div class="header-logo">
-          <NuxtLink to="/home">
-            <span class="logo-text">Web</span>
-            <span class="logo-text accent">in</span>
-            <span class="logo-text">us</span>
-          </NuxtLink>
-        </div>
-        
-        <nav class="header-nav" :class="{ 'is-active': isMenuOpen }">
-          <ul class="nav-menu">
-            <li v-for="(item, index) in menuItems" :key="index">
-              <NuxtLink :to="item.path" @click="closeMenu" class="nav-link">
-                {{ item.name }}
-              </NuxtLink>
-            </li>
-          </ul>
-        </nav>
-
-        <button class="menu-toggle" @click="toggleMenu" aria-label="Toggle menu">
-          <span class="toggle-line"></span>
-          <span class="toggle-line"></span>
-          <span class="toggle-line"></span>
-        </button>
-      </div>
+  <header class="header">
+    <div class="logo-area">
+      <h1 class="logo" data-hover>
+        <NuxtLink to="/" class="link-logo">
+          <span class="blind">Oh hyerim Portfolio</span>
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 819.1 298.4" style="enable-background:new 0 0 819.1 298.4;" xml:space="preserve">
+            <g>
+              <path d="M295.9,149.4c0,85.8-71.1,149-149.8,149S0,235.2,0,149.4C0,61.9,69.9,0,148.6,0S295.9,63.2,295.9,149.4z M258.7,149.4
+                c0-86.2-40.2-145.2-108.4-145.2c-68.6,0-112.6,59-112.6,145.2c0,85.8,38.5,144.8,106.7,144.8C212.6,294.2,258.7,235.2,258.7,149.4z"/>
+              <path d="M566.1,294.3c-12.8,0-34.1,0-40.7,0s-31.9,0-44.7,0c-0.9,0-0.8-3,0-3c20.3,0,25.4-3.3,26.6-19.4V161.1H355.3v96.7
+                c0,28.6,2.2,33.5,27,33.5c0.9,0,1,3,0,3c-12.8,0-34.1,0-40.7,0c-6.6,0-31.9,0-44.7,0c-0.9,0-0.8-3,0-3c20.3,0,25.4-3.3,26.6-19.4
+                V29.4C322.5,10.7,317.8,7,296.7,7c-0.9,0-1-3,0-3h85.4c0.9,0,0.8,3,0,3c-21.9,0-26.1,3.8-26.8,23.6v126.3h152.1V29.4
+                C506.4,10.7,501.7,7,480.6,7c-0.9,0-1-3,0-3H566c0.9,0,0.8,3,0,3c-21.9,0-26.1,3.8-26.8,23.6v227.2c0,28.6,2.2,33.5,27,33.5
+                C567,291.3,567.1,294.3,566.1,294.3z"/>
+              <path d="M818.6,294.2l-49.6-0.1c-10.9,0.1-15.8-4.1-20.2-10.9c-7.2-11.3-15.7-27.7-25.4-50.5c-9.8-22.7-16.8-35.9-23.3-44
+                c-9.8-12.5-27.3-15.8-30.9-16.4c-0.2,0-0.3,0-0.5-0.1c-0.2,0-0.3,0-0.3,0l0.1,0c0,0,0,0-0.1,0l-0.1,0l0,0
+                c-11-1.8-10.5-8.9-10.5-8.9c0-8.5,13.2-10.7,17.2-11.2l0,0c0.3,0,0.5-0.1,0.7-0.1c4.6-0.5,31.5-4.5,49.5-22.2
+                C738.2,116.5,745,98,745,76.2c0-45.7-27.2-68.3-80.8-68.3h-20.2c-10.8,2-13.1,8.3-13.4,24.8v234.4c0.7,20.3,5.1,24.1,26.9,24.1
+                c0.9,0,1,3,0,3h-85.4c-0.9,0-0.7-3,0-3c21.3,0,25.8-3.6,26.8-21.9V33.1c-0.5-21.9-4.3-26-25.7-26c-0.9,0-1-3,0-3h97.3l-0.2,0.1h0.2
+                c67.8,0,110.5,25.6,110.5,72.4c0,40.1-33.3,69-83.4,76l-26,3.8c0,0-9.4,1.3-9.4,7.6c0,0.5,0.1,0.9,0.2,1.3
+                c1.5,4.2,11.6,3.6,11.6,3.6c12.2-0.1,21.1,1.2,26.9,2.5c0.2,0,0.5,0.1,0.7,0.2c5.5,1.3,8.1,2.5,8.1,2.5l-0.3,0
+                c7,2.8,13.3,7,18.5,12.8c9.3,10.5,18.4,26,29.7,48.6c8.6,18.2,13.6,26.7,18.1,33.1c9.6,13.8,25.4,22.2,42.2,22.1c0.2,0,0.4,0,0.7,0
+                C818.6,290.5,819.6,292.6,818.6,294.2z"/>
+            </g>
+          </svg>
+        </NuxtLink>
+      </h1>
+    </div>
+    <div class="contact-area">
+      <a href="mailto:tmvkfmxk00@naver.com" class="link-mail" data-hover>
+        <span class="text">CONTACT</span>
+      </a>
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
-const isMenuOpen = ref(false);
-const isScrolled = ref(false);
+import { onMounted, onUnmounted } from 'vue'
 
-const menuItems = [
-  { name: 'About', path: '/about' },
-  { name: 'Works', path: '/projects/project' },
-  { name: 'Contact', path: '/contact' }
-];
-
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value;
-};
-
-const closeMenu = () => {
-  isMenuOpen.value = false;
-};
-
-// 스크롤 이벤트 처리
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-});
+  window.addEventListener('scroll', handleScroll)
+})
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
+  window.removeEventListener('scroll', handleScroll)
+})
 
 const handleScroll = () => {
-  isScrolled.value = window.scrollY > 50;
-};
+  const curr = window.scrollY
+  const contactArea = document.querySelector('.sc-contact')?.getBoundingClientRect().top || 0
+  const goalArea = document.querySelector('.sc-goal')?.getBoundingClientRect().top || 0
+  const header = document.querySelector('.header')
+
+  if (window.innerWidth >= 1024) {
+    // large
+    if (curr >= contactArea - 200) {
+      header?.classList.add('active')
+    } else {
+      header?.classList.remove('active')
+    }
+  } else if (window.innerWidth >= 768 && window.innerWidth <= 1023) {
+    // medium
+    if (curr >= goalArea + 200) {
+      header?.classList.add('active')
+    } else {
+      header?.classList.remove('active')
+    }
+  } else {
+    // small
+    if (curr >= goalArea + 500) {
+      header?.classList.add('active')
+    } else {
+      header?.classList.remove('active')
+    }
+  }
+}
 </script>
-
-<style lang="scss" scoped>
-@use '@/assets/scss/variables.scss' as *;
-
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: $z-index-sticky;
-  padding: $spacing-md 0;
-  transition: all 0.3s ease;
-  background: transparent;
-
-  &.is-scrolled {
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(10px);
-    box-shadow: $shadow-sm;
-    padding: $spacing-sm 0;
-  }
-}
-
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.header-logo {
-  .logo-text {
-    font-size: 1.8rem;
-    font-weight: $font-weight-bold;
-    color: $color-primary;
-    transition: $transition-smooth;
-
-    &.accent {
-      color: $color-accent;
-    }
-
-    &:hover {
-      color: $color-accent;
-    }
-  }
-}
-
-.header-nav {
-  @media (max-width: $breakpoint-md) {
-    position: fixed;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    height: calc(100vh - 70px);
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(10px);
-    transform: translateX(100%);
-    transition: $transition-smooth;
-    padding: $spacing-lg;
-
-    &.is-active {
-      transform: translateX(0);
-    }
-  }
-}
-
-.nav-menu {
-  display: flex;
-  gap: $spacing-lg;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  @media (max-width: $breakpoint-md) {
-    flex-direction: column;
-    gap: $spacing-md;
-  }
-}
-
-.nav-link {
-  color: $color-primary;
-  font-weight: $font-weight-medium;
-  text-decoration: none;
-  transition: $transition-smooth;
-  position: relative;
-  font-size: 1.1rem;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: $color-accent;
-    transition: $transition-smooth;
-  }
-
-  &:hover {
-    color: $color-accent;
-
-    &::after {
-      width: 100%;
-    }
-  }
-
-  @media (max-width: $breakpoint-md) {
-    font-size: 1.25rem;
-  }
-}
-
-.menu-toggle {
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 24px;
-  height: 18px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  z-index: $z-index-dropdown;
-
-  @media (max-width: $breakpoint-md) {
-    display: flex;
-  }
-}
-
-.toggle-line {
-  display: block;
-  width: 100%;
-  height: 2px;
-  background-color: $color-text;
-  transition: $transition-smooth;
-  transform-origin: center;
-
-  .is-active & {
-    &:first-child {
-      transform: translateY(8px) rotate(45deg);
-    }
-
-    &:nth-child(2) {
-      opacity: 0;
-    }
-
-    &:last-child {
-      transform: translateY(-8px) rotate(-45deg);
-    }
-  }
-}
-</style>
