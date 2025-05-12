@@ -1,5 +1,8 @@
-@use '@/assets/scss/abstracts/_var' as *;
-@use '@/assets/scss/abstracts/_mixins' as *;
+@use '../abstracts/_var' as *;
+@use '../abstracts/_mixins' as mix;
+@use '../abstracts/_breakpoints' as *;
+
+
 
 .sc-visual {
     display: flex;
@@ -38,9 +41,11 @@
             margin-right: 30px;
         }
     }
+  
+
 }
 
-@include mobile {
+@include mix.mobile {
     .sc-visual {
         .sc-title {
             padding-left: 2vw;
@@ -141,7 +146,7 @@
                 left: 0;
                 width: 25vw;
                 height: 35vw;
-                background-image: url(../images/ohr-profile.jpeg);
+                background-image: url(@/assets/images/ohr-profile.jpeg);
                 background-repeat: no-repeat;
                 background-size: 100%;
             }
@@ -229,7 +234,7 @@
     }
 }
 
-@include tablet {
+@include mix.tablet {
     .sc-intro {
         .intro-area {
             .intro-box {
@@ -268,7 +273,7 @@
     }
 }
 
-@include mobile {
+@include mix.mobile {
     .sc-intro {
         .intro-area {
             display: flex;
@@ -415,7 +420,7 @@
     }
 }
 
-@include tablet {
+@include mix.tablet {
     .sc-goal {
         .num-area {
             .num-box {
@@ -435,7 +440,7 @@
     }
 }
 
-@include mobile {
+@include mix.mobile {
     .sc-goal {
         .num-area {
             justify-content: center;
@@ -460,12 +465,10 @@
             }
             .column-right {
                 padding-right: 0;
-                //height: 70vh;
                 overflow: hidden;
                 img {
                     width: 100%;
                     height: 100%;
-
                 }
             }
             .desc-box {
@@ -516,12 +519,12 @@
         line-height: 1;
     }
 }
-@include tablet {
+@include mix.tablet {
     .sc-contact {
         height: 60vh;
     }
 }
-@include mobile {
+@include mix.mobile {
     .sc-contact {
         height: 80vh;
         .msg-area {

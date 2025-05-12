@@ -2,7 +2,7 @@
   <section class="sc-visual" data-color="#000">
     <h2 class="sc-title">
       <div class="txt-line1">
-        <span class="txt-motion">PORTFOLIO</span>
+        <span class="txt-motion" >PORTFOLIO</span>
         <span class="txt-motion">&</span>
       </div>
       <div class="txt-line2">

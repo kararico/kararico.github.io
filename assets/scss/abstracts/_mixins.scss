@@ -1,4 +1,5 @@
 @use '@/assets/scss/abstracts/_var' as *;
+@use '@/assets/scss/abstracts/_breakpoints' as *;
 
 @mixin ellip($line-height:15px,$lines:1) {
     text-overflow: ellipsis;
@@ -33,12 +34,6 @@
     font-size: 12px;
     transition: background-color 0.8s, border 0.8s , color 0.8s;
 }
-// responsive
-
-$laptop: 1023px;
-$tablet: 768px;
-$mobile: 767px;
-
 
 @mixin laptop {
     @media (max-width:$laptop){

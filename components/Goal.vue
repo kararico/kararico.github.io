@@ -29,15 +29,28 @@
   </section>
 </template>
 
-<script>
-export default {
-  name: 'Goal',
-  data() {
-    return {
-      numbers: [0, 1, 2]
-    }
-  }
-}
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+const numbers = ref([0, 1, 2])
+
+onMounted(() => {
+  gsap.registerPlugin(ScrollTrigger)
+
+  gsap.set('.sc-goal .num-list', { y: 0 })
+
+  gsap.to('.sc-goal .num-list', {
+    scrollTrigger: {
+      trigger: '.sc-goal .num-list',
+      start: "top 50%",
+      end: "bottom top",
+    },
+    duration: 1,
+    y: '-560px'
+  })
+})
 </script>
 
 <style scoped>
@@ -45,3 +58,5 @@ export default {
   /* 기존 CSS 스타일 유지 */
 }
 </style> 
+
+

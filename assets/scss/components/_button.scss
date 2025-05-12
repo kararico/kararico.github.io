@@ -76,7 +76,7 @@
             margin: 24px 0;
             font-size: 18px;
             font-family: $font-en2;
-            a {
+            .btn-link {
                 display: inline-block;
                 padding: 10px 20px;
                 border: 1px solid #000;
@@ -92,7 +92,7 @@
         }
     }
     .wrap1 {
-        a[data-hover] {
+        .btn-link {
             border: 1px solid #fff;
             &:hover {
                 background-color: #fff;
@@ -101,7 +101,7 @@
         }
     }
     .wrap3 {
-        a[data-hover] {
+        .btn-link {
             border: 1px solid #fff;
             &:hover {
                 background-color: #fff;
@@ -110,7 +110,7 @@
         }
     }
     .wrap5 {
-        a[data-hover] {
+        .btn-link {
             &:hover {
                 background-color: #fff;
                 color: #ff6f62;
@@ -118,7 +118,7 @@
         }
     }
     .wrap6 {
-        a[data-hover] {
+        .btn-link {
             border: 1px solid #fff;
             &:hover {
                 background-color: #fff;
@@ -127,7 +127,7 @@
         }
     }
     .wrap7 {
-        a[data-hover] {
+        .btn-link {
             border: 1px solid #fff;
             &:hover {
                 background-color: #fff;
@@ -141,7 +141,7 @@
     .sc-project {
         .project-wrap {
             .links {
-                a {
+                .btn-link {
                     &:hover {
                         background-color: transparent;
                         color: #000;
@@ -152,7 +152,7 @@
             }
         }
         .wrap1 {
-            a[data-hover] {
+            .btn-link {
                 &:hover {
                     background-color: transparent;
                     border: 1px solid #fff;

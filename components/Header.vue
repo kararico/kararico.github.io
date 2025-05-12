@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header" :class="{ active: isHeaderActive }">
     <div class="logo-area">
       <h1 class="logo" data-hover>
         <NuxtLink to="/" class="link-logo">
@@ -37,7 +37,26 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const isHeaderActive = ref(false)
+
+const handleScroll = () => {
+  const curr = window.scrollY
+  const contactArea = document.querySelector('.sc-contact')?.getBoundingClientRect().top || 0
+  const goalArea = document.querySelector('.sc-goal')?.getBoundingClientRect().top || 0
+
+  if (window.innerWidth >= 1024) {
+    // large
+    isHeaderActive.value = curr >= contactArea - 200
+  } else if (window.innerWidth >= 768 && window.innerWidth <= 1023) {
+    // medium
+    isHeaderActive.value = curr >= goalArea + 200
+  } else {
+    // small
+    isHeaderActive.value = curr >= goalArea + 500
+  }
+}
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
@@ -46,34 +65,4 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
-
-const handleScroll = () => {
-  const curr = window.scrollY
-  const contactArea = document.querySelector('.sc-contact')?.getBoundingClientRect().top || 0
-  const goalArea = document.querySelector('.sc-goal')?.getBoundingClientRect().top || 0
-  const header = document.querySelector('.header')
-
-  if (window.innerWidth >= 1024) {
-    // large
-    if (curr >= contactArea - 200) {
-      header?.classList.add('active')
-    } else {
-      header?.classList.remove('active')
-    }
-  } else if (window.innerWidth >= 768 && window.innerWidth <= 1023) {
-    // medium
-    if (curr >= goalArea + 200) {
-      header?.classList.add('active')
-    } else {
-      header?.classList.remove('active')
-    }
-  } else {
-    // small
-    if (curr >= goalArea + 500) {
-      header?.classList.add('active')
-    } else {
-      header?.classList.remove('active')
-    }
-  }
-}
 </script>

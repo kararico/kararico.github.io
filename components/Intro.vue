@@ -71,7 +71,21 @@ const numbers = ref([0, 1, 2])
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger)
 
-  // 텍스트 모션 초기 설정
+  gsap.to('.sc-intro .txt-motion',{
+    scrollTrigger:{
+        trigger:'.sc-visual',
+        start: "40% top",
+    },
+    transformStyle: "preserve-3d",
+    opacity: 1,
+    rotationX: 0,
+    transformOrigin: "50% 50%",
+    yPercent: 0,
+    duration:1.5,
+    stagger:0.1
+  });
+
+  // // 텍스트 모션 초기 설정
   gsap.set(".txt-motion", {
     yPercent: 110,
     transformStyle: "preserve-3d",
@@ -80,43 +94,20 @@ onMounted(() => {
     transformOrigin: "0% 50% -100%",
   })
 
-  // 인트로 섹션 애니메이션
-  const introAni = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.sc-intro',
-      start: 'top 30%',
-      end: 'bottom top',
-      scrub: 1
-    }
-  })
-
-  introAni
-    .addLabel('a')
-    .to('.sc-intro .txt-line1', { xPercent: 100 }, 'a')
-    .to('.sc-intro .txt-line2', { xPercent: -100 }, 'a')
-    .to('.sc-intro .txt-line3', { xPercent: 100 }, 'a')
-
   // 숫자 카운트 애니메이션
-  const numAni = gsap.timeline({
+  gsap.set('.sc-intro .num-list', { y: 0 })
+  gsap.set('.sc-goal .num-list', { y: 0 })
+
+  gsap.to('.sc-intro .num-list', {
     scrollTrigger: {
-      trigger: '.num-area',
-      start: 'top 80%',
-      end: 'bottom 20%',
-      scrub: 1
-    }
+      trigger: '.sc-intro .num-list',
+      start: "top 50%",
+      end: "bottom top",
+    },
+    duration: 1,
+    y: '-280px'
   })
 
-  numAni
-    .to('.num-list', {
-      yPercent: -100,
-      duration: 1,
-      ease: 'none'
-    })
 })
 </script>
 
-<style scoped>
-.sc-intro {
-  /* 기존 CSS 스타일 유지 */
-}
-</style> 
