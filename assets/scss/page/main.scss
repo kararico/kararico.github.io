@@ -1,6 +1,5 @@
 @use '../abstracts/_var' as *;
-@use '../abstracts/_mixins' as mix;
-@use '../abstracts/_breakpoints' as *;
+@use '../abstracts/_mixins' as *;
 
 
 
@@ -45,7 +44,7 @@
 
 }
 
-@include mix.mobile {
+@include mobile {
     .sc-visual {
         .sc-title {
             padding-left: 2vw;
@@ -234,7 +233,7 @@
     }
 }
 
-@include mix.tablet {
+@include tablet {
     .sc-intro {
         .intro-area {
             .intro-box {
@@ -273,7 +272,7 @@
     }
 }
 
-@include mix.mobile {
+@include mobile {
     .sc-intro {
         .intro-area {
             display: flex;
@@ -420,7 +419,7 @@
     }
 }
 
-@include mix.tablet {
+@include tablet {
     .sc-goal {
         .num-area {
             .num-box {
@@ -440,7 +439,7 @@
     }
 }
 
-@include mix.mobile {
+@include mobile {
     .sc-goal {
         .num-area {
             justify-content: center;
@@ -519,14 +518,14 @@
         line-height: 1;
     }
 }
-@include mix.tablet {
+@include tablet {
     .sc-contact {
         height: 60vh;
     }
 }
-@include mix.mobile {
+@include mobile {
     .sc-contact {
-        height: 80vh;
+        height: 80vh; 
         .msg-area {
             padding-left: 0;
             margin-bottom: 20vw;

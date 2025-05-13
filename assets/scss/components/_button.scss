@@ -45,7 +45,7 @@
 
 .sc-intro {
     .round {
-        @include round-Point;
+        // @include round-Point;
         &:hover {
             border: 1px solid transparent;
             background-color: #fff;
@@ -57,7 +57,7 @@
 @include laptop {
     .sc-intro {
         .round {
-            @include round-Point;
+            // @include round-Point;
             pointer-events: none;
             &:hover {
                 border: 1px solid rgba(255, 255, 255, 0.2);
@@ -204,7 +204,7 @@
 .sc-contact {
     .link-mail {
         display: block;
-        @include round-Point;
+        // @include round-Point;
         &:hover {
             border: 1px solid transparent;
             background-color: #fff;
