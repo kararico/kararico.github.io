@@ -10,7 +10,7 @@
         <Intro />
         <Project />
         <Goal />
-        <Contact />
+        <Contact /> 
       </main>
     </div>
   </div>
