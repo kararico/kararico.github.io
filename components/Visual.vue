@@ -151,7 +151,7 @@ onUnmounted(() => {
         gap: 1rem;
 
         @include tablet {
-            font-size: 7rem;
+            font-size: 5rem;
         }
     }
 

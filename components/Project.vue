@@ -10,7 +10,7 @@
                         <div class="project__info">
                             <h3>
                                 <span class="project__category">{{ project.category }}</span>
-                                {{ project.company }}
+                                <span :class="{ 'font-small': project.company === 'SHINSEGAE CASA' }">{{ project.company }}</span>
                             </h3>
                             <h4>
                                 {{ project.title }}
@@ -38,9 +38,7 @@
                                         <span>#{{ skill }}</span>
                                     </li>
                                 </ul>
-                                <p class="project__description">
-                                    {{ project.description }}
-                                </p>
+                                <p class="project__description" v-html="project.description"></p>
                             </div>
                         </div>
                     </div>
@@ -98,7 +96,7 @@ const projects = ref([
         category: 'Project',
         company: 'HYUNDAI',
         title: 'EZWEL',
-        description: 'Nuxt.js, TypeScript, SCSS를 사용하여 프로젝트를 진행중에 있습니다.',
+        description: '<em class="highlight">EZWEL</em> 프로젝트를 진행중에 있습니다.',
         siteUrl: '',
         mediaType: 'video',
         videoUrl: 'https://uploads-ssl.webflow.com/6481baa8b4e61d7cb8a9f0a0/64980d39c97910472fbfa13f_HeroVideo_04_compressed-transcode.mp4',
@@ -109,7 +107,7 @@ const projects = ref([
         category: 'Project',
         company: 'SKT COMPANY',
         title: 'STARBUCKS',
-        description: '임직원 사내용 하이브리드 웹 프로젝트입니다.',
+        description: '<em class="highlight">스타벅스</em> 임직원 사내용 하이브리드 웹 프로젝트입니다.',
         siteUrl: '',
         mediaType: 'video',
         videoUrl: 'https://assets.website-files.com/63f5d378a903c2a12583ce2f/641319fe73926c0e5bc81ccf_ver 2-transcode.mp4',
@@ -120,10 +118,10 @@ const projects = ref([
         category: 'Operation',
         company: 'F&F',
         title: 'MLB KOREA',
-        description: '엠엘비 코리아 홈페이지 부분 개편 운영 프로젝트입니다.',
+        description: '<em class="highlight">엠엘비 코리아</em> 홈페이지 부분 개편 운영 프로젝트입니다.',
         siteUrl: 'https://www.mlb-korea.com/',
         mediaType: 'video',
-        videoUrl: 'https://homepage-static.fnf.co.kr/pcVideo_67db5edf809283.56040568.mp4',
+        videoUrl: 'https://cdn.prod.website-files.com/646a4e539ffa024a48651555/649070038794a919744c0b8f_background-video-1280x720-30fps-transcode.mp4',
         contribution: '100%',
         skills: ['HTML', 'JavaScript', 'SCSS']
     },
@@ -131,7 +129,7 @@ const projects = ref([
         category: 'Operation',
         company: 'F&F',
         title: 'DISCOVERY',
-        description: '디스커버리 홈페이지 부분 개편 및 운영 프로젝트입니다.',
+        description: '<em class="highlight">디스커버리</em> 홈페이지 부분 개편 및 운영 프로젝트입니다.',
         siteUrl: 'https://www.discovery-expedition.com',
         mediaType: 'video',
         videoUrl: 'https://homepage-static.fnf.co.kr/pcVideo_67db5edf809283.56040568.mp4',
@@ -142,7 +140,7 @@ const projects = ref([
         category: 'Project',
         company: 'SHINSEGAE CASA',
         title: 'CASAMINA',
-        description: '카사미나 홈페이지 개편 프로젝트입니다.',
+        description: '<em class="highlight">까사미아</em> 홈페이지 개편 프로젝트입니다.',
         siteUrl: 'https://casamia.co.kr/home',
         mediaType: 'iframe',
         videoUrl: 'https://www.youtube.com/watch?v=7ZTkYBRDmA0',
@@ -153,7 +151,7 @@ const projects = ref([
         category: 'Project',
         company: 'SHINSEGAE CASA',
         title: 'GUUD',
-        description: '굳닷컴 개편 및 운영 프로젝트입니다.',
+        description: '<em class="highlight">굳닷컴</em> 개편 및 운영 프로젝트입니다.',
         siteUrl: 'https://guud.com',
         mediaType: 'iframe',
         videoUrl: 'https://www.youtube.com/watch?v=1Jy2Chi5hbQ',
@@ -192,15 +190,13 @@ onMounted(() => {
 
     // 각 프로젝트 아이템에 대한 애니메이션
     projects.value.forEach((_, index) => {
-        // 첫 번째 엘리먼트는 스킵
-        if (index === 0) return
-
         const currentIndex = index + 1
         const prevIndex = index
 
+        // 첫 번째 아이템은 width 100%로 시작
         projectTl
             .set(`.project__item:nth-child(${currentIndex})`, { 
-                width: '80%'
+                width: index === 0 ? '100%' : '80%'
             })
             .to(`.project__item:nth-child(${currentIndex})`, { 
                 transform: 'translateY(0)',
@@ -208,12 +204,16 @@ onMounted(() => {
             .to(`.project__item:nth-child(${currentIndex})`, { 
                 width: '100%',
             }, `item${currentIndex}`)
-            .to(`.project__item:nth-child(${prevIndex}) .img-wrap`, {
-                opacity: 0,
-            }, `item${currentIndex}+=0.1`)
-            .to('.project__numbers li', {
-                xPercent: -(100 * index),
-            }, `item${currentIndex}`)
+
+        if (index > 0) {
+            projectTl
+                .to(`.project__item:nth-child(${prevIndex}) .img-wrap`, {
+                    opacity: 0,
+                }, `item${currentIndex}+=0.1`)
+                .to('.project__numbers li', {
+                    xPercent: -(100 * index),
+                }, `item${currentIndex}`)
+        }
     })
 })
 </script>
@@ -293,27 +293,33 @@ onMounted(() => {
         h3 {
             letter-spacing: -.02em;
             margin: 0;
-            font-size: 7em;
+            font-size: 5em;
             font-weight: 400;
             line-height: .9;
             text-transform: uppercase;
-
+            font-family: v.$font-en1;
             @include tablet {
                 font-size: 3em;
             }
             @include mobile {
-                font-size: 4.8em;
+                font-size: 4em;
+            }
+            .font-small {
+                font-size: 0.75em;
+                letter-spacing: 0;
+                vertical-align: middle;
             }
         }
         h4 {
-            font-size: 7em;
+            font-size: 5em;
             font-weight: 400;
             line-height: 1.2;
+            font-family: v.$font-en1;
             @include tablet {
                 font-size: 3em;
             }
             @include mobile {
-                font-size: 4.8em;
+                font-size: 4em;
             }
         }
     }
@@ -327,7 +333,7 @@ onMounted(() => {
         text-transform: initial;
 
         @include mobile {
-           font-size: 0.8em;
+           font-size: 0.5em;
            margin-bottom: 0.6em;
         }
     }
@@ -384,9 +390,9 @@ onMounted(() => {
         }
 
         @include mobile {
-            margin-top: 0.5em;
+            margin-top: 1em;
             border-radius: 2.5em;
-            padding: 0.7em 3.6em;
+            padding: 0.5em 3em;
         }
 
         span {
@@ -430,7 +436,7 @@ onMounted(() => {
         margin-top: 2em;
         color: #747474;
         text-transform: uppercase;
-        font-size: 0.9em;
+        font-size: 1.4em;
 
         @include tablet {
             font-size: 1.2em;
@@ -459,7 +465,10 @@ onMounted(() => {
         letter-spacing: -0.025em;
         color: #bbbbbb;
         margin-top: 1em;
-
+        font-size: 1.4em;
+        :deep(.highlight){
+            color: v.$main-color; 
+        }
         span {
             color: #ffffff;
         }
@@ -501,55 +510,6 @@ onMounted(() => {
         left: -100%;
         right: -100%;
     }
-
-    // &__pagination {
-    //     z-index: 9;
-    //     width: 100%;
-    //     justify-content:  flex-end;
-    //     padding: 3.75em 4em;
-    //     display: flex;
-    //     top: 5em;
-    //     position: absolute;
-
-    //     @include mobile {
-    //         padding: 10em 6em 8.5em;
-    //     }
-    // }
-
-    // &__numbers {
-    //     width: 35px;
-    //     height: 2.5em;
-    //     overflow: hidden;
-
-    //     @include mobile {
-    //         height: 5em;
-    //         margin-bottom: 1.1em;
-    //     }
-
-    //     ul {
-    //         display: flex;
-    //         flex-direction: w;
-    //         align-items: flex-start;
-            
-    //         li {
-    //             display: flex;
-    //             align-items: center;
-    //             justify-content: center;
-    //             width: 37px;
-    //             height: 1.5em;
-    //             letter-spacing: .02em;
-    //             font-size: 2em;
-    //             font-weight: 300;
-    //             line-height: 1.75;
-
-    //             @include mobile {
-    //                 font-size: 3.6em;
-    //             }
-    //         }
-    //     }
-
-    // }
-
     &__label {
         letter-spacing: .02em;
         font-size: 1em;

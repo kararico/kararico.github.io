@@ -9,11 +9,22 @@
         </h2>
         <p class="about__summary highlight">웹을 좋아하는 마음으로, <span class="main-color">끊임없이 성장합니다.</span></p>
         <div class="about__content card-style">
-            <div class="about__profile-float">
+            <div class="about__profile-float" 
+                 :class="{ skeleton: isSkeleton }"
+                 v-show="isProfileVisible"
+            >
                 <img src="@/assets/images/layout/about/profile.jpg" alt="정원 프로필" />
             </div>
             <p class="about__paragraph about__paragraph--profile-hover">
-                저는 웹퍼블리셔로 12년째 즐겁게 일하고 있는 <strong class="about__profile-hover-trigger">정원</strong>이에요.
+                저는 웹퍼블리셔로 12년째 즐겁게 일하고 있는
+                <span
+                    class="about__profile-hover-trigger"
+                    tabindex="0"
+                    @mouseenter="showProfile"
+                    @mouseleave="hideProfile"
+                    @focus="showProfile"
+                    @blur="hideProfile"
+                >정원</span>이에요.
             </p>
 
             <p class="about__paragraph">
@@ -55,9 +66,27 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+const isProfileVisible = ref(false)
+const isSkeleton = ref(false)
+let skeletonTimer: number | null = null
+
+const showProfile = () => {
+    isSkeleton.value = true
+    if (skeletonTimer) clearTimeout(skeletonTimer)
+    skeletonTimer = window.setTimeout(() => {
+        isProfileVisible.value = true
+        isSkeleton.value = false
+    }, 1000)
+}
+const hideProfile = () => {
+    if (skeletonTimer) clearTimeout(skeletonTimer)
+    isProfileVisible.value = false
+    isSkeleton.value = false
+}
 
 onMounted(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -113,28 +142,6 @@ onMounted(() => {
             scrub: 1.2
         }
     });
-
-    // PC에서만: 첫 문단 hover 시 프로필 이미지 등장
-    if (window.matchMedia('(min-width: 1025px)').matches) {
-        const trigger = document.querySelector('.about__profile-hover-trigger') as HTMLElement | null;
-        const profileFloat = document.querySelector('.about__profile-float') as HTMLElement | null;
-        if (trigger && profileFloat) {
-            profileFloat.style.opacity = '0';
-            profileFloat.style.pointerEvents = 'none';
-            trigger.addEventListener('mouseenter', () => {
-                profileFloat.classList.add('skeleton');
-                setTimeout(() => {
-                    profileFloat.style.opacity = '1';
-                    profileFloat.style.pointerEvents = 'auto';
-                    profileFloat.classList.remove('skeleton');
-                }, 1000);
-            });
-            trigger.addEventListener('mouseleave', () => {
-                profileFloat.style.opacity = '0';
-                profileFloat.style.pointerEvents = 'none';
-            });
-        }
-    }
 })
 </script>
 
@@ -146,13 +153,13 @@ onMounted(() => {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    padding: 10em 12em 20em;
+    padding: 6em 12em 20em;
     background-color: #151619;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 3em;
+    gap: 1em;
 
     @include tablet { padding: 10em 5em 15em; }
     @include mobile { gap: 2.5em; padding: 4em 1.2em; }
@@ -196,11 +203,12 @@ onMounted(() => {
     &__summary {
         font-size: 2.2em;
         font-weight: 600;
-        margin-bottom: 2em;
+        margin-bottom: .5em;
         color: #fff;
         text-shadow: 0 2px 16px rgba(76,222,128,0.15);
         z-index: 1;
         .main-color { color: v.$main-color; font-weight: 700; }
+        @include tablet { font-size: 1.5em; margin-bottom:0;}
         @include mobile { font-size: 1.5em; margin-bottom: 0; }
     }
     .card-style, .about__content {
@@ -279,6 +287,16 @@ onMounted(() => {
 @keyframes loading {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
+}
+
+.about__profile-hover-trigger {
+    cursor: pointer;
+    display: inline-block;
+    outline: none;
+    transition: color 0.2s;
+    &:hover, &:focus {
+        color: v.$main-color;
+    }
 }
 </style>  
 

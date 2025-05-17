@@ -4,6 +4,17 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   app: {
     head: {
+      title: '정원 포트폴리오 | JUNGWON Portfolio',
+      meta: [
+        { name: 'description', content: '2025년 웹퍼블리셔 정원의 포트폴리오 사이트입니다.' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { property: 'og:type', content: 'Website' },
+        { property: 'og:title', content: '정원 포트폴리오 | JUNGWON Portfolio' },
+        { property: 'og:url', content: 'https://kararico.github.io' },
+        { property: 'og:description', content: '2025년 웹퍼블리셔 정원의 포트폴리오 사이트입니다.' },
+        { property: 'og:image', content: 'https://kararico.github.io/assets/images/og-image.png' },
+        { property: 'og:site_name', content: '정원 포트폴리오 | JUNGWON Portfolio' },
+      ],
       link: [
         {
           rel: 'stylesheet',

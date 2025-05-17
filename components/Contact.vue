@@ -13,6 +13,7 @@
                         <div class="form-group">
                             <label for="name">이름</label>
                             <input 
+                                ref="nameRef"
                                 type="text" 
                                 id="name" 
                                 v-model="formData.name" 
@@ -25,6 +26,7 @@
                         <div class="form-group">
                             <label for="email">이메일</label>
                             <input 
+                                ref="emailRef"
                                 type="email" 
                                 id="email" 
                                 v-model="formData.email" 
@@ -37,6 +39,7 @@
                         <div class="form-group">
                             <label for="subject">제목</label>
                             <input 
+                                ref="subjectRef"
                                 type="text" 
                                 id="subject" 
                                 v-model="formData.subject" 
@@ -48,6 +51,7 @@
                         <div class="form-group">
                             <label for="message">메시지</label>
                             <textarea 
+                                ref="messageRef"
                                 id="message" 
                                 v-model="formData.message" 
                                 placeholder="메시지를 입력해주세요"
@@ -84,9 +88,46 @@ const formData = ref({
 const statusMsg = ref('')
 const statusType = ref<'success'|'error'|''>('')
 
+const nameRef = ref<HTMLInputElement | null>(null)
+const emailRef = ref<HTMLInputElement | null>(null)
+const subjectRef = ref<HTMLInputElement | null>(null)
+const messageRef = ref<HTMLTextAreaElement | null>(null)
+
+const validateForm = () => {
+    if (!formData.value.name.trim()) {
+        alert('이름을 입력해주세요.');
+        nameRef.value?.focus();
+        return false;
+    }
+    if (!formData.value.email.trim()) {
+        alert('이메일을 입력해주세요.');
+        emailRef.value?.focus();
+        return false;
+    }
+    // 간단한 이메일 형식 체크
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(formData.value.email)) {
+        alert('올바른 이메일 형식을 입력해주세요.');
+        emailRef.value?.focus();
+        return false;
+    }
+    if (!formData.value.subject.trim()) {
+        alert('제목을 입력해주세요.');
+        subjectRef.value?.focus();
+        return false;
+    }
+    if (!formData.value.message.trim()) {
+        alert('메시지를 입력해주세요.');
+        messageRef.value?.focus();
+        return false;
+    }
+    return true;
+}
+
 const handleSubmit = async () => {
     statusMsg.value = ''
     statusType.value = ''
+    if (!validateForm()) return;
     try {
         await emailjs.send(
             import.meta.env.VITE_EMAILJS_SERVICE_ID, // EmailJS Service ID
@@ -103,9 +144,11 @@ const handleSubmit = async () => {
         statusMsg.value = '메시지가 성공적으로 전송되었습니다!'
         statusType.value = 'success'
         formData.value = { name: '', email: '', subject: '', message: '' }
+        alert('메시지가 성공적으로 전송되었습니다!')
     } catch (e) {
         statusMsg.value = '메시지 전송에 실패했습니다. 다시 시도해주세요.'
         statusType.value = 'error'
+        alert('메시지 전송에 실패했습니다. 다시 시도해주세요.')
     }
 }
 

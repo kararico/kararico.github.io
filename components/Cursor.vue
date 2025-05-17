@@ -1,86 +1,67 @@
 <template>
-  <div class="cursor">
+  <div
+    class="cursor"
+    :class="{
+      'cursor-over': isCursorOver,
+      'img-over': isCursorImgOver,
+      'cursor-shrink': isCursorShrink
+    }"
+    :style="{ left: cursorX + 'px', top: cursorY + 'px' }"
+    v-show="!isMobile"
+  >
     <span>View more</span>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
-import gsap from 'gsap'
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const cursorX = ref(0)
+const cursorY = ref(0)
+const isCursorOver = ref(false)
+const isCursorImgOver = ref(false)
+const isCursorShrink = ref(false)
+const isMobile = ref(false)
+
+const handleMouseMove = (e: MouseEvent) => {
+  cursorX.value = e.clientX
+  cursorY.value = e.clientY
+}
+const handleHoverEnter = () => { isCursorOver.value = true }
+const handleHoverLeave = () => { isCursorOver.value = false }
+const handleImgEnter = () => { isCursorImgOver.value = true }
+const handleImgLeave = () => { isCursorImgOver.value = false }
+const handleShrinkEnter = () => { isCursorShrink.value = true }
+const handleShrinkLeave = () => { isCursorShrink.value = false }
+
+let mouseoverHandler: ((e: Event) => void) | null = null
+let mouseoutHandler: ((e: Event) => void) | null = null
 
 onMounted(() => {
-  // 모바일 환경에서는 커서 숨김
-  if (window.matchMedia('(max-width: 767px)').matches) {
-    const cursor = document.querySelector('.cursor') as HTMLElement
-    if (cursor) cursor.style.display = 'none'
-    return
-  }
-  // 마우스 이벤트
+  isMobile.value = window.matchMedia('(max-width: 767px)').matches
+  if (isMobile.value) return
   window.addEventListener('mousemove', handleMouseMove)
-  
-  // 호버 이벤트
-  const hoverElements = document.querySelectorAll('[data-hover]')
-  hoverElements.forEach(el => {
-    el.addEventListener('mouseenter', handleHoverEnter)
-    el.addEventListener('mouseleave', handleHoverLeave)
-  })
-
-  // 이미지 호버 이벤트
-  const imgElements = document.querySelectorAll('[data-img]')
-  imgElements.forEach(el => {
-    el.addEventListener('mouseenter', handleImgEnter)
-    el.addEventListener('mouseleave', handleImgLeave)
-  })
+  mouseoverHandler = (e: Event) => {
+    const target = e.target as HTMLElement
+    if (target.matches('[data-hover]')) handleHoverEnter()
+    if (target.matches('[data-img]')) handleImgEnter()
+    if (target.matches('a, button')) handleShrinkEnter()
+  }
+  mouseoutHandler = (e: Event) => {
+    const target = e.target as HTMLElement
+    if (target.matches('[data-hover]')) handleHoverLeave()
+    if (target.matches('[data-img]')) handleImgLeave()
+    if (target.matches('a, button')) handleShrinkLeave()
+  }
+  document.addEventListener('mouseover', mouseoverHandler)
+  document.addEventListener('mouseout', mouseoutHandler)
 })
 
 onUnmounted(() => {
   window.removeEventListener('mousemove', handleMouseMove)
-  
-  const hoverElements = document.querySelectorAll('[data-hover]')
-  hoverElements.forEach(el => {
-    el.removeEventListener('mouseenter', handleHoverEnter)
-    el.removeEventListener('mouseleave', handleHoverLeave)
-  })
-
-  const imgElements = document.querySelectorAll('[data-img]')
-  imgElements.forEach(el => {
-    el.removeEventListener('mouseenter', handleImgEnter)
-    el.removeEventListener('mouseleave', handleImgLeave)
-  })
+  if (mouseoverHandler) document.removeEventListener('mouseover', mouseoverHandler)
+  if (mouseoutHandler) document.removeEventListener('mouseout', mouseoutHandler)
 })
-
-const handleMouseMove = (e: MouseEvent) => {
-  e.preventDefault()
-  gsap.to('.cursor', {
-    x: e.clientX,
-    y: e.clientY,
-    duration: 0.2
-  })
-}
-
-const handleHoverEnter = (e: Event) => {
-  const target = e.currentTarget as HTMLElement
-  document.querySelector('.cursor')?.classList.add('cursor-over')
-  target.classList.add('active')
-}
-
-const handleHoverLeave = (e: Event) => {
-  const target = e.currentTarget as HTMLElement
-  document.querySelector('.cursor')?.classList.remove('cursor-over')
-  target.classList.remove('active')
-}
-
-const handleImgEnter = (e: Event) => {
-  const target = e.currentTarget as HTMLElement
-  document.querySelector('.cursor')?.classList.add('img-over')
-  target.classList.add('active')
-}
-
-const handleImgLeave = (e: Event) => {
-  const target = e.currentTarget as HTMLElement
-  document.querySelector('.cursor')?.classList.remove('img-over')
-  target.classList.remove('active')
-}
 </script> 
 
 <style lang="scss" scoped>
@@ -91,9 +72,9 @@ const handleImgLeave = (e: Event) => {
     top: 0;
     left: 0;
     z-index: 10000;
-    width: 10px;
-    height: 30px;
-    background-color: #fff;
+    width: 20px;
+    height: 20px;
+    background-color: v.$main-color;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
@@ -116,6 +97,11 @@ const handleImgLeave = (e: Event) => {
             display: inline-block;
             color: #000;
         }
+    }
+    &.cursor-shrink {
+        width: 8px !important;
+        height: 8px !important;
+        transition: width 0.2s, height 0.2s;
     }
     @include mobile {
         body {
