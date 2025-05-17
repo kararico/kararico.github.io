@@ -54,5 +54,12 @@ export default defineNuxtConfig({
         }
       }
     }
+  },
+  runtimeConfig: {
+    public: {
+      emailjsServiceId: 'service_kcpb8c8',
+      emailjsTemplateId: 'template_svlyog9',
+      emailjsPublicKey: '2mwZfZ5PDdllye2lc'
+    }
   }
 })

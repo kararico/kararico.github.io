@@ -79,6 +79,7 @@
   <script setup lang="ts">
   import { ref } from 'vue';
   import emailjs from '@emailjs/browser';
+  const config = useRuntimeConfig();
   
   const form = ref({
     name: '', 
@@ -95,8 +96,8 @@
     statusType.value = '';
     try {
       await emailjs.send(
-        'service_kcpb8c8', // EmailJS Service ID
-        'template_svlyog9', // EmailJS Template ID
+        config.public.emailjsServiceId as string, // EmailJS Service ID
+        config.public.emailjsTemplateId as string, // EmailJS Template ID
         {
           name: form.value.name,
           email: form.value.email,
@@ -104,7 +105,7 @@
           message: form.value.message,
           to_email: 'ixkfo86@gmail.com', // 템플릿에 to_email 필드가 있다면 명시적으로 지정
         },
-        '2mwZfZ5PDdllye2lc' // EmailJS Public Key
+        config.public.emailjsPublicKey as string // EmailJS Public Key
       );
       statusMsg.value = '메시지가 성공적으로 전송되었습니다!';
       statusType.value = 'success';
