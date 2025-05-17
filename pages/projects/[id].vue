@@ -75,9 +75,9 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { useRoute } from 'nuxt/app';
-import finance from '/images/portfolio/finance.jpg';
-import shopping from '/images/portfolio/shopping.jpg';
-import corporate from '/images/portfolio/corporate.jpg';
+// import finance from '/images/portfolio/finance.jpg';
+// import shopping from '/images/portfolio/shopping.jpg';
+// import corporate from '/images/portfolio/corporate.jpg';
  
 const route = useRoute();
 const projectId = ref(route.params.id);
@@ -88,9 +88,9 @@ const projectsData = {
     title: '금융권 웹사이트',
     date: '2024.01',
     description: '웹 접근성과 웹 표준을 준수한 금융권 웹사이트 퍼블리싱 프로젝트입니다. 사용자 경험을 최우선으로 고려하여 설계되었으며, 모든 사용자가 쉽게 이용할 수 있도록 접근성을 높였습니다.',
-    mainImage: finance,
+    mainImage: "",
     images: [
-      '/images/portfolio/finance-detail1.jpg',
+      // '/images/portfolio/finance-detail1.jpg',
     //   '/images/portfolio/finance-detail2.jpg',
     //   '/images/portfolio/finance-detail3.jpg'
     ],
@@ -123,9 +123,9 @@ const projectsData = {
     title: '쇼핑몰 메인',
     date: '2024.02',
     description: '반응형 웹 디자인이 적용된 쇼핑몰 메인 페이지 퍼블리싱 프로젝트입니다. 모바일 사용자를 고려한 UI/UX 설계와 빠른 페이지 로딩을 구현했습니다.',
-    mainImage: shopping,
+    mainImage: "",
     images: [
-      '/images/portfolio/shopping-detail1.jpg',
+      // '/images/portfolio/shopping-detail1.jpg',
     //   '/images/portfolio/shopping-detail2.jpg'
     ],
     tags: ['반응형', 'SCSS', 'JavaScript'],
@@ -155,9 +155,9 @@ const projectsData = {
     title: '기업 홈페이지',
     date: '2024.03',
     description: '시맨틱 마크업이 적용된 기업 홈페이지 퍼블리싱 프로젝트입니다. 검색 엔진 최적화(SEO)와 접근성을 고려한 설계를 구현했습니다.',
-    mainImage: corporate,
+    mainImage: "",
     images: [
-      '/images/portfolio/corporate-detail1.jpg',
+      // '/images/portfolio/corporate-detail1.jpg',
     //   '/images/portfolio/corporate-detail2.jpg'
     ],
     tags: ['시맨틱', 'CSS3', 'jQuery'],
