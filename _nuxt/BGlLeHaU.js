@@ -1,1 +1,0 @@
-import{g as e,c as o,o as t}from"./D_9GXFud.js";import{_ as s}from"./DlAUqK2U.js";const _={class:"home"},a=e({__name:"Home",setup(c){return(n,m)=>(t(),o("main",_))}}),d=s(a,[["__scopeId","data-v-0115d7db"]]);export{d as default};
