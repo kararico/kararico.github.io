@@ -1,68 +1,421 @@
 <template>
-  <header class="header" :class="{ active: isHeaderActive }">
-    <div class="logo-area">
-      <h1 class="logo" data-hover>
-        <NuxtLink to="/" class="link-logo">
-          <span class="blind">Oh hyerim Portfolio</span>
-          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-            viewBox="0 0 819.1 298.4" style="enable-background:new 0 0 819.1 298.4;" xml:space="preserve">
-            <g>
-              <path d="M295.9,149.4c0,85.8-71.1,149-149.8,149S0,235.2,0,149.4C0,61.9,69.9,0,148.6,0S295.9,63.2,295.9,149.4z M258.7,149.4
-                c0-86.2-40.2-145.2-108.4-145.2c-68.6,0-112.6,59-112.6,145.2c0,85.8,38.5,144.8,106.7,144.8C212.6,294.2,258.7,235.2,258.7,149.4z"/>
-              <path d="M566.1,294.3c-12.8,0-34.1,0-40.7,0s-31.9,0-44.7,0c-0.9,0-0.8-3,0-3c20.3,0,25.4-3.3,26.6-19.4V161.1H355.3v96.7
-                c0,28.6,2.2,33.5,27,33.5c0.9,0,1,3,0,3c-12.8,0-34.1,0-40.7,0c-6.6,0-31.9,0-44.7,0c-0.9,0-0.8-3,0-3c20.3,0,25.4-3.3,26.6-19.4
-                V29.4C322.5,10.7,317.8,7,296.7,7c-0.9,0-1-3,0-3h85.4c0.9,0,0.8,3,0,3c-21.9,0-26.1,3.8-26.8,23.6v126.3h152.1V29.4
-                C506.4,10.7,501.7,7,480.6,7c-0.9,0-1-3,0-3H566c0.9,0,0.8,3,0,3c-21.9,0-26.1,3.8-26.8,23.6v227.2c0,28.6,2.2,33.5,27,33.5
-                C567,291.3,567.1,294.3,566.1,294.3z"/>
-              <path d="M818.6,294.2l-49.6-0.1c-10.9,0.1-15.8-4.1-20.2-10.9c-7.2-11.3-15.7-27.7-25.4-50.5c-9.8-22.7-16.8-35.9-23.3-44
-                c-9.8-12.5-27.3-15.8-30.9-16.4c-0.2,0-0.3,0-0.5-0.1c-0.2,0-0.3,0-0.3,0l0.1,0c0,0,0,0-0.1,0l-0.1,0l0,0
-                c-11-1.8-10.5-8.9-10.5-8.9c0-8.5,13.2-10.7,17.2-11.2l0,0c0.3,0,0.5-0.1,0.7-0.1c4.6-0.5,31.5-4.5,49.5-22.2
-                C738.2,116.5,745,98,745,76.2c0-45.7-27.2-68.3-80.8-68.3h-20.2c-10.8,2-13.1,8.3-13.4,24.8v234.4c0.7,20.3,5.1,24.1,26.9,24.1
-                c0.9,0,1,3,0,3h-85.4c-0.9,0-0.7-3,0-3c21.3,0,25.8-3.6,26.8-21.9V33.1c-0.5-21.9-4.3-26-25.7-26c-0.9,0-1-3,0-3h97.3l-0.2,0.1h0.2
-                c67.8,0,110.5,25.6,110.5,72.4c0,40.1-33.3,69-83.4,76l-26,3.8c0,0-9.4,1.3-9.4,7.6c0,0.5,0.1,0.9,0.2,1.3
-                c1.5,4.2,11.6,3.6,11.6,3.6c12.2-0.1,21.1,1.2,26.9,2.5c0.2,0,0.5,0.1,0.7,0.2c5.5,1.3,8.1,2.5,8.1,2.5l-0.3,0
-                c7,2.8,13.3,7,18.5,12.8c9.3,10.5,18.4,26,29.7,48.6c8.6,18.2,13.6,26.7,18.1,33.1c9.6,13.8,25.4,22.2,42.2,22.1c0.2,0,0.4,0,0.7,0
-                C818.6,290.5,819.6,292.6,818.6,294.2z"/>
-            </g>
-          </svg>
-        </NuxtLink>
-      </h1>
-    </div>
-    <div class="contact-area">
-      <a href="mailto:tmvkfmxk00@naver.com" class="link-mail" data-hover>
-        <span class="text">CONTACT</span>
-      </a>
-    </div>
-  </header>
+    <header class="header" :class="{ 'is-scrolled': isScrolled }" role="banner">
+        <section class="header-container">
+            <NuxtLink to="/" class="logo" aria-label="JUGWON 홈으로 이동">
+                <span>JUGWON</span>
+            </NuxtLink>
+            <div class="gnb-wrap">
+                <button 
+                    class="hamburger" 
+                    :class="{ 'is-active': isMenuOpen }"
+                    aria-expanded="false"
+                    aria-controls="mobileMenu"
+                    aria-label="메뉴 열기"
+                    @click="toggleMenu">
+                    <span class="hamburger-line"></span> 
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+
+            <div id="mobileMenu" class="open-menu" :class="{ 'is-active': isMenuOpen }" role="navigation" aria-label="메인 메뉴">
+                <div class="dimmed" @click="toggleMenu"></div>
+                <div class="menu-content">
+                    <ul class="m-menu-list">
+                        <li class="m-menu-item">
+                            <a href="#scAbout" @click="toggleMenu">
+                                <span class="menu-text">About</span>
+                            </a>
+                        </li>
+                        <li class="m-menu-item">
+                            <a href="#scMain" @click="toggleMenu">
+                                <span class="menu-text">Works</span>
+                            </a>
+                        </li>
+                        <li class="m-menu-item">
+                            <a href="#scSide" @click="toggleMenu">
+                                <span class="menu-text">Contact</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="time-area" role="region" aria-label="현재 날짜 및 날씨 정보">
+                        <div class="inner local">
+                            <span class="sr-only">현재 위치 날짜 및 날씨</span>
+                            <em>{{ userCity || 'LOADING...' }}</em>
+                            <div class="date" id="localDate" aria-live="polite">2024.03.21</div>
+                            <div class="weather" v-if="weatherInfo">
+                                <img :src="weatherInfo.icon" :alt="weatherInfo.description" class="weather-icon">
+                                <span class="temperature">{{ Math.round(weatherInfo.temp) }}°C</span>
+                            </div>
+                            <span class="dot" aria-hidden="true">
+                                <span class="dot-in"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </header>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+import gsap from 'gsap'
 
-const isHeaderActive = ref(false)
+const isMenuOpen = ref(false)
+const mobileMenu = ref<HTMLElement | null>(null)
+const userTimezone = ref<string>('')
+const userCity = ref<string>('')
+const weatherInfo = ref<{
+    temp: number;
+    description: string;
+    icon: string;
+} | null>(null)
+const isScrolled = ref(false)
+
+const toggleMenu = () => {
+    isMenuOpen.value = !isMenuOpen.value
+    const button = document.querySelector('.open') as HTMLButtonElement
+    if (button) {
+        button.setAttribute('aria-expanded', isMenuOpen.value.toString())
+    }
+}
+
+const getUserLocation = async () => {
+    try {
+        // IP 기반 위치 정보 가져오기
+        const response = await fetch('https://ipapi.co/json/')
+        const data = await response.json()
+        
+        if (data) {
+            userCity.value = data.city
+            userTimezone.value = data.timezone
+            // 위치 정보를 가져온 후 날씨 정보도 가져오기
+            if (data.latitude && data.longitude) {
+                getWeatherInfo(data.latitude, data.longitude)
+            }
+        } else {
+            userCity.value = 'Unknown'
+            userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone
+        }
+        
+        updateDate()
+    } catch (error) {
+        console.error('위치 정보를 가져오는데 실패했습니다:', error)
+        userCity.value = 'Unknown'
+        userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone
+        updateDate()
+    }
+}
+
+const getWeatherInfo = async (lat: number, lon: number) => {
+    try {
+        const API_KEY = '048b40e147a9bf3ad8ee6763b548a0a3' // OpenWeatherMap API 키를 입력하세요
+        const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
+        )
+        const data = await response.json()
+        
+        if (data.main && data.weather && data.weather[0]) {
+            weatherInfo.value = {
+                temp: data.main.temp,
+                description: data.weather[0].description,
+                icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+            }
+        }
+    } catch (error) {
+        console.error('날씨 정보를 가져오는데 실패했습니다:', error)
+    }
+}
+
+const updateDate = () => {
+    const now = new Date()
+    
+    const localDate = new Date(now.toLocaleString('en-US', { timeZone: userTimezone.value }))
+        .toLocaleDateString('ko-KR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        }).replace(/\. /g, '.').replace('.', '')
+    
+    const localDateElement = document.getElementById('localDate')
+    if (localDateElement) localDateElement.textContent = localDate
+}
+
+let dateInterval: number
+
+const menuAnimation = () => {
+    const menuItems = document.querySelectorAll('.menu-text')
+    const timeArea = document.querySelector('.time-area')
+    
+    if (isMenuOpen.value) {
+        // 메뉴 열릴 때
+        gsap.fromTo([menuItems, timeArea], 
+            {
+                y: 50,
+                opacity: 0
+            },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power3.out"
+            }
+        )
+    } else {
+        // 메뉴 닫힐 때
+        gsap.to([menuItems, timeArea], {
+            y: -50,
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.05,
+            ease: "power3.in"
+        })
+    }
+}
+
+watch(isMenuOpen, (newValue) => {
+    menuAnimation()
+})
 
 const handleScroll = () => {
-  const curr = window.scrollY
-  const contactArea = document.querySelector('.sc-contact')?.getBoundingClientRect().top || 0
-  const goalArea = document.querySelector('.sc-goal')?.getBoundingClientRect().top || 0
-
-  if (window.innerWidth >= 1024) {
-    // large
-    isHeaderActive.value = curr >= contactArea - 200
-  } else if (window.innerWidth >= 768 && window.innerWidth <= 1023) {
-    // medium
-    isHeaderActive.value = curr >= goalArea + 200
-  } else {
-    // small
-    isHeaderActive.value = curr >= goalArea + 500
-  }
+    isScrolled.value = window.scrollY > 50
 }
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
+    getUserLocation()
+    dateInterval = window.setInterval(updateDate, 60000)
+    window.addEventListener('scroll', handleScroll)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
+    if (dateInterval) {
+        clearInterval(dateInterval)
+    }
+    window.removeEventListener('scroll', handleScroll)
 })
 </script>
+
+<style lang="scss" scoped>
+@use '@/assets/scss/common/_var' as v;
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: transparent;
+    color: #fff;
+    transition: background-color 0.3s ease;
+
+    &.is-scrolled {
+        background: rgb(0 0 0 / 10%);
+        backdrop-filter: blur(10px);
+    }
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 36px 50px;
+}
+
+.logo {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 24px;
+    font-family: v.$font-en5;
+}
+
+.time-area {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 1em;
+    
+    .inner {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        
+        em {
+            font-style: normal;
+            font-weight: bold;
+            min-width: 56px;
+            font-size: 1.2em;
+        }
+
+        .date {
+            font-family: monospace;
+            font-size: 1.2em;
+        }
+
+        .weather {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            
+            .weather-icon {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .temperature {
+                font-size: 1.2em;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+.gnb-wrap {
+    z-index: 1001;
+}
+
+.hamburger {
+    width: 30px;
+    height: 20px;
+    position: relative;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    
+    .hamburger-line {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: #fff;
+        position: absolute;
+        left: 0;
+        transition: all 0.3s ease;
+        
+        &:nth-child(1) {
+            top: 0;
+        }
+        
+        &:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        &:nth-child(3) {
+            bottom: 0;
+        }
+    }
+    
+    &.is-active {
+        .hamburger-line {
+            &:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            
+            &:nth-child(2) {
+                opacity: 0;
+            }
+            
+            &:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+        }
+    }
+}
+
+.open-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 100;
+    pointer-events: none;
+    
+    .dimmed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        pointer-events: auto;
+    }
+    
+    .menu-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        pointer-events: auto;
+    }
+    
+    &.is-active {
+        .dimmed {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .menu-content {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+    
+    .m-menu-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2em;
+        
+        .m-menu-item {
+            a {
+                color: #fff;
+                text-decoration: none;
+                font-size: 5em;
+                display: flex;
+                align-items: center;
+                
+                .menu-text {
+                    line-height: 1.2;
+                    position: relative;
+                    overflow: hidden;
+                    font-family: v.$font-en5;
+                    transition: color 0.3s ease;
+                }
+
+                &:hover .menu-text {
+                    color: v.$main-color;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        padding: 20px;
+    }
+    
+    .logo {
+        font-size: 20px;
+    }
+    
+    .time-area {
+        .inner {
+            .date {
+                display: none;
+            }
+        }
+    }
+}
+</style>

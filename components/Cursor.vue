@@ -76,3 +76,49 @@ const handleImgLeave = (e: Event) => {
   target.classList.remove('active')
 }
 </script> 
+
+<style lang="scss" scoped>
+@use '@/assets/scss/common/_var' as v;
+@use '@/assets/scss/common/_mixins' as *;
+.cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    width: 10px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    mix-blend-mode: difference;
+    span {
+        @include position-Center;
+        display: none;
+        white-space: nowrap;
+        font-family: v.$font-en4;
+    }
+    &.cursor-over {
+        width: 10px;
+        height: 10px;
+    }
+    &.img-over {
+        width: 120px;
+        height: 120px;
+        mix-blend-mode:normal;
+        span {
+            display: inline-block;
+            color: #000;
+        }
+    }
+    @include mobile {
+        body {
+            cursor: auto;
+        }
+        .cursor {
+            display: none;
+        }
+    }
+}
+</style>
+

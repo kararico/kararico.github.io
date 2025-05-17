@@ -24,18 +24,22 @@ export default defineNuxtConfig({
         {
           rel: 'stylesheet',
           href: 'https://fonts.cdnfonts.com/css/helvetica-neue-9'
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap'
         }
       ]
     }
   },
   css: [
-    '@/assets/scss/style.scss',
+    '@/assets/scss/imports.scss',
   ],
   vite: {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@use "@/assets/scss/abstracts/_var" as *;'
+          // additionalData: '@use "@/assets/scss/abstracts/_var" as *;'
         }
       }
     }

@@ -40,28 +40,32 @@
           </div>
   
           <div class="contact-form">
-            <form @submit.prevent="handleSubmit">
+            <form @submit.prevent="handleSubmit" aria-label="Contact form" novalidate>
               <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" v-model="form.name" required>
+                <input type="text" id="name" v-model="form.name" required autocomplete="name" aria-required="true">
               </div>
   
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" v-model="form.email" required>
+                <input type="email" id="email" v-model="form.email" required autocomplete="email" aria-required="true">
               </div>
   
               <div class="form-group">
                 <label for="subject">Subject</label>
-                <input type="text" id="subject" v-model="form.subject" required>
+                <input type="text" id="subject" v-model="form.subject" required aria-required="true">
               </div>
   
               <div class="form-group">
                 <label for="message">Message</label>
-                <textarea id="message" v-model="form.message" rows="5" required></textarea>
+                <textarea id="message" v-model="form.message" rows="5" required aria-required="true"></textarea>
               </div>
   
-              <button type="submit" class="submit-button">
+              <div aria-live="polite" class="sr-only" v-if="statusMsg">
+                {{ statusMsg }}
+              </div>
+  
+              <button type="submit" class="submit-button" :aria-busy="statusType === 'success' ? 'false' : statusType === 'error' ? 'false' : 'true'">
                 Send Message
                 <i class="fas fa-paper-plane"></i>
               </button>
@@ -73,19 +77,55 @@
   </template>
   
   <script setup lang="ts">
+  import { ref } from 'vue';
+  import emailjs from '@emailjs/browser';
+  
   const form = ref({
-    name: '',
+    name: '', 
     email: '',
     subject: '',
     message: ''
   });
   
-  const handleSubmit = () => {
-    // TODO: Implement form submission
-    console.log('Form submitted:', form.value);
+  const statusMsg = ref('');
+  const statusType = ref<'success'|'error'|''>('');
+  
+  const handleSubmit = async () => {
+    statusMsg.value = '';
+    statusType.value = '';
+    try {
+      await emailjs.send(
+        'service_kcpb8c8', // EmailJS Service ID
+        'template_svlyog9', // EmailJS Template ID
+        {
+          name: form.value.name,
+          email: form.value.email,
+          subject: form.value.subject,
+          message: form.value.message,
+          to_email: 'ixkfo86@gmail.com', // 템플릿에 to_email 필드가 있다면 명시적으로 지정
+        },
+        '2mwZfZ5PDdllye2lc' // EmailJS Public Key
+      );
+      statusMsg.value = '메시지가 성공적으로 전송되었습니다!';
+      statusType.value = 'success';
+      form.value = { name: '', email: '', subject: '', message: '' };
+    } catch (e) {
+      statusMsg.value = '메시지 전송에 실패했습니다. 다시 시도해주세요.';
+      statusType.value = 'error';
+    }
   };
   </script>
   
   <style lang="scss" scoped>
-  
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
   </style> 
