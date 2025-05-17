@@ -43,22 +43,22 @@
             <form @submit.prevent="handleSubmit" aria-label="Contact form" novalidate>
               <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" v-model="form.name" required autocomplete="name" aria-required="true">
+                <input type="text" id="name" v-model="form.name" required autocomplete="name" aria-required="true" ref="nameRef">
               </div>
   
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" v-model="form.email" required autocomplete="email" aria-required="true">
+                <input type="email" id="email" v-model="form.email" required autocomplete="email" aria-required="true" ref="emailRef">
               </div>
   
               <div class="form-group">
                 <label for="subject">Subject</label>
-                <input type="text" id="subject" v-model="form.subject" required aria-required="true">
+                <input type="text" id="subject" v-model="form.subject" required aria-required="true" ref="subjectRef">
               </div>
   
               <div class="form-group">
                 <label for="message">Message</label>
-                <textarea id="message" v-model="form.message" rows="5" required aria-required="true"></textarea>
+                <textarea id="message" v-model="form.message" rows="5" required aria-required="true" ref="messageRef"></textarea>
               </div>
   
               <div aria-live="polite" class="sr-only" v-if="statusMsg">
@@ -73,6 +73,12 @@
           </div>
         </div>
       </div>
+      <div v-if="popup.visible" class="popup-layer" @click.self="closePopup">
+        <div class="popup-content">
+          <span class="popup-message">{{ popup.message }}</span>
+          <button class="popup-close" @click="closePopup" aria-label="닫기">확인</button>
+        </div>
+      </div>
     </div>
   </template>
   
@@ -80,7 +86,7 @@
   import { ref } from 'vue';
   import emailjs from '@emailjs/browser';
   const config = useRuntimeConfig();
-  
+  console.log(config );
   const form = ref({
     name: '', 
     email: '',
@@ -91,9 +97,70 @@
   const statusMsg = ref('');
   const statusType = ref<'success'|'error'|''>('');
   
+  const nameRef = ref<HTMLInputElement | null>(null)
+  const emailRef = ref<HTMLInputElement | null>(null)
+  const subjectRef = ref<HTMLInputElement | null>(null)
+  const messageRef = ref<HTMLTextAreaElement | null>(null)
+  
+  const popup = ref({ visible: false, message: '' })
+  function showPopup(msg: string) {
+    popup.value.message = msg
+    popup.value.visible = true
+    setTimeout(() => { popup.value.visible = false }, 2500)
+  }
+  function closePopup() {
+    popup.value.visible = false
+  }
+    
+  const validateForm = () => {
+    if (!form.value.name.trim()) {
+      statusMsg.value = '이름을 입력해주세요.';
+      showPopup('이름을 입력해주세요.');
+      setTimeout(() => {
+        nameRef.value?.focus();
+      }, 300);
+      return false;
+    }
+    if (!form.value.email.trim()) {
+      statusMsg.value = '이메일을 입력해주세요.';
+      showPopup('이메일을 입력해주세요.');
+      setTimeout(() => {
+        emailRef.value?.focus();
+      }, 300);
+      return false;
+    }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(form.value.email)) {
+      statusMsg.value = '올바른 이메일 형식을 입력해주세요.';
+      showPopup('올바른 이메일 형식을 입력해주세요.');
+      setTimeout(() => {
+        emailRef.value?.focus();
+      }, 300);
+      return false;
+    }
+    if (!form.value.subject.trim()) {
+      statusMsg.value = '제목을 입력해주세요.';
+      showPopup('제목을 입력해주세요.');
+      setTimeout(() => {
+        subjectRef.value?.focus();
+      }, 300);
+      return false;
+    }
+    if (!form.value.message.trim()) {
+      statusMsg.value = '메시지를 입력해주세요.';
+      showPopup('메시지를 입력해주세요.');
+      setTimeout(() => {
+        messageRef.value?.focus();
+      }, 300);
+      return false;
+    }
+    return true;
+  }
+  
   const handleSubmit = async () => {
     statusMsg.value = '';
     statusType.value = '';
+    if (!validateForm()) return;
     try {
       await emailjs.send(
         config.public.emailjsServiceId as string, // EmailJS Service ID
@@ -118,15 +185,43 @@
   </script>
   
   <style lang="scss" scoped>
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+  .popup-layer {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  </style> 
+  .popup-content {
+    background: #fff;
+    color: #222;
+    border-radius: 1em;
+    padding: 2em 2.5em;
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 220px;
+  }
+  .popup-message {
+    font-size: 1.15em;
+    margin-bottom: 1.2em;
+    text-align: center;
+  }
+  .popup-close {
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 0.5em;
+    padding: 0.5em 1.5em;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .popup-close:hover {
+    background: #444;
+  }
+  </style>
+  

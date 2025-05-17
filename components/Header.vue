@@ -2,7 +2,7 @@
     <header class="header" :class="{ 'is-scrolled': isScrolled }" role="banner">
         <section class="header-container">
             <NuxtLink to="/" class="logo" aria-label="JUGWON 홈으로 이동">
-                <span>JUGWON</span>
+                <span>JW</span>
             </NuxtLink>
             <div class="gnb-wrap">
                 <button 

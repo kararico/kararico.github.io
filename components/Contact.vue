@@ -70,11 +70,17 @@
                 </div>
             </div>
         </div>
+        <div v-if="popup.visible" class="popup-layer" @click.self="closePopup">
+            <div class="popup-content">
+                <span class="popup-message">{{ popup.message }}</span>
+                <button class="popup-close" @click="closePopup" aria-label="닫기">확인</button>
+            </div>
+        </div>
     </section>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 import gsap from 'gsap'
 import emailjs from '@emailjs/browser'
 
@@ -93,32 +99,70 @@ const emailRef = ref<HTMLInputElement | null>(null)
 const subjectRef = ref<HTMLInputElement | null>(null)
 const messageRef = ref<HTMLTextAreaElement | null>(null)
 
+const popup = ref<{ visible: boolean, message: string, refToFocus?: any }>({ visible: false, message: '' })
+
+function focusAfterPopup(el: any) {
+    if (!el) return;
+    requestAnimationFrame(() => {
+        if (typeof el.focus === 'function') {
+            el.focus();
+            console.log('focus on dom', el);
+        } else if (el.$el && typeof el.$el.focus === 'function') {
+            el.$el.focus();
+            console.log('focus on $el', el.$el);
+        } else {
+            console.log('no focusable element', el);
+        }
+    });
+}
+
+function showPopup(msg: string, refToFocus?: any) {
+    popup.value.message = msg
+    popup.value.visible = true
+    popup.value.refToFocus = refToFocus
+    const focusRef = refToFocus;
+    setTimeout(() => {
+        popup.value.visible = false
+        nextTick(() => {
+            focusAfterPopup(focusRef?.value);
+        });
+    }, 1500)
+}
+
+function closePopup() {
+    popup.value.visible = false
+    const focusRef = popup.value.refToFocus;
+    nextTick(() => {
+        focusAfterPopup(focusRef?.value);
+    });
+}
+
 const validateForm = () => {
     if (!formData.value.name.trim()) {
-        alert('이름을 입력해주세요.');
-        nameRef.value?.focus();
+        statusMsg.value = '이름을 입력해주세요.';
+        showPopup('이름을 입력해주세요.', nameRef);
         return false;
     }
     if (!formData.value.email.trim()) {
-        alert('이메일을 입력해주세요.');
-        emailRef.value?.focus();
+        statusMsg.value = '이메일을 입력해주세요.';
+        showPopup('이메일을 입력해주세요.', emailRef);
         return false;
     }
     // 간단한 이메일 형식 체크
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailPattern = /^[^\s@]+@[^-\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(formData.value.email)) {
-        alert('올바른 이메일 형식을 입력해주세요.');
-        emailRef.value?.focus();
+        statusMsg.value = '올바른 이메일 형식을 입력해주세요.';
+        showPopup('올바른 이메일 형식을 입력해주세요.', emailRef);
         return false;
     }
     if (!formData.value.subject.trim()) {
-        alert('제목을 입력해주세요.');
-        subjectRef.value?.focus();
+        statusMsg.value = '제목을 입력해주세요.';
+        showPopup('제목을 입력해주세요.', subjectRef);
         return false;
     }
     if (!formData.value.message.trim()) {
-        alert('메시지를 입력해주세요.');
-        messageRef.value?.focus();
+        statusMsg.value = '메시지를 입력해주세요.';
+        showPopup('메시지를 입력해주세요.', messageRef);
         return false;
     }
     return true;
@@ -337,5 +381,44 @@ onMounted(() => {
             }
         }
     }
+}
+
+.popup-layer {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.popup-content {
+    background: #fff;
+    color: #222;
+    border-radius: 1em;
+    padding: 2em 2.5em;
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 220px;
+}
+.popup-message {
+    font-size: 1.15em;
+    margin-bottom: 1.2em;
+    text-align: center;
+}
+.popup-close {
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 0.5em;
+    padding: 0.5em 1.5em;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.popup-close:hover {
+    background: #444;
 }
 </style>

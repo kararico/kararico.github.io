@@ -6,6 +6,7 @@
     <main class="container">
       <Visual />
       <About />
+      <!-- <Client /> -->
       <Project />
       <Contact />
     </main>
@@ -17,6 +18,7 @@
   import Visual from '~/components/Visual.vue'
   import About from '~/components/About.vue'
   import Project from '~/components/Project.vue'
+  import Client from '~/components/Client.vue'
   import Contact from '~/components/Contact.vue'
   import Cursor from '~/components/Cursor.vue'
   import gsap from 'gsap'
