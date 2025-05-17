@@ -69,8 +69,8 @@
 
     @include tablet{ padding: 10em 5em 15em; }
     @include mobile{
-        gap: 8em;
-        padding: 0em 5em 24em;
+        gap: 2em;
+        padding: 0em 2em 3em;
     }
 
     h2{
@@ -80,9 +80,9 @@
         font-size: 4em;
         font-weight: 400;
         line-height: 1;
-        font-family: 'Pretendard', sans-serif;
+        font-family: v.$font-en5;
 
-        @include mobile{ font-size: 7em; }
+        @include mobile{ font-size: 2em; }
     }
     .group-bottom{
         z-index: 2;
@@ -90,7 +90,7 @@
         justify-content: space-between;
 
         @include mobile{
-            gap: 8em;
+            gap: 2em;
             flex-direction: column;
         }
 
@@ -118,7 +118,7 @@
                     @include laptop{ font-size: 1em; }
                     @include tablet{ font-size: 1.2em; }
                     @include mobile{
-                        font-size: 4em;
+                        font-size: 1.2em;
                         line-height: 1.5;
                     }
                 }
@@ -127,10 +127,8 @@
                     margin-top: 1em;
                     gap: 1em;
 
-                    @include mobile{ gap: 3em;margin-top: 2em; }
+                    @include mobile{ margin-top: 1em; }
                     a{
-                        // border: 1px solid rgba(255, 255, 255, 0.1);
-                        // padding: 0.3em;
                         border-radius: 100em;
                         img{
                             width: 2em;
@@ -204,7 +202,7 @@
                 align-items: flex-end;
 
                 @include mobile{
-                    font-size: 3em;
+                    font-size: 1.2em;
                 }
 
                 .group-producer{

@@ -199,6 +199,7 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 @use '@/assets/scss/common/_var' as v;
+@use '@/assets/scss/common/_mixins' as *;
 .header {
     position: fixed;
     top: 0;
@@ -376,7 +377,9 @@ onUnmounted(() => {
         align-items: center;
         justify-content: center;
         gap: 2em;
-        
+        @include mobile {
+            gap: 1em;
+        }
         .m-menu-item {
             a {
                 color: #fff;
@@ -396,6 +399,10 @@ onUnmounted(() => {
                 &:hover .menu-text {
                     color: v.$main-color;
                 }
+                @include mobile {
+                    font-size: 3.5em;
+                }
+                
             }
         }
     }

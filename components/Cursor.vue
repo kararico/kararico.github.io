@@ -9,6 +9,12 @@ import { onMounted, onUnmounted } from 'vue'
 import gsap from 'gsap'
 
 onMounted(() => {
+  // 모바일 환경에서는 커서 숨김
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    const cursor = document.querySelector('.cursor') as HTMLElement
+    if (cursor) cursor.style.display = 'none'
+    return
+  }
   // 마우스 이벤트
   window.addEventListener('mousemove', handleMouseMove)
   

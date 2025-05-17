@@ -155,7 +155,7 @@ onMounted(() => {
     gap: 3em;
 
     @include tablet { padding: 10em 5em 15em; }
-    @include mobile { gap: 6em; padding: 20em 1.5em 24em; }
+    @include mobile { gap: 2.5em; padding: 4em 1.2em; }
 
     .about-bg-circles {
         position: absolute;
@@ -190,8 +190,8 @@ onMounted(() => {
         padding-bottom: 0.25em;
         letter-spacing: .025em;
         font-family: v.$font-en5;
-        @include tablet { font-size: 2em; }
-        @include mobile { font-size: 2.2em; }
+        @include tablet { font-size: 2em; margin-bottom:0;}
+        @include mobile { font-size: 2.2em; margin-bottom:0;}
     }
     &__summary {
         font-size: 2.2em;
@@ -201,7 +201,7 @@ onMounted(() => {
         text-shadow: 0 2px 16px rgba(76,222,128,0.15);
         z-index: 1;
         .main-color { color: v.$main-color; font-weight: 700; }
-        @include mobile { font-size: 1.5em; }
+        @include mobile { font-size: 1.5em; margin-bottom: 0; }
     }
     .card-style, .about__content {
         background: rgba(255,255,255,0.13);
@@ -217,6 +217,7 @@ onMounted(() => {
         border: 1px solid rgba(255,255,255,0.18);
         backdrop-filter: blur(16px);
         position: relative;
+        @include mobile { padding: 1em 1.5em; margin-top:0; }
         &::before {
             content: '';
             position: absolute;

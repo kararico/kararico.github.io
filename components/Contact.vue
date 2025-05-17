@@ -1,9 +1,8 @@
 <template>
     <section class="sc-contact" data-color="#000">
-        <h2 id="contact-heading" class="blind">CONTACT</h2>
         <div class="contact-container">
             <div class="msg-area">
-                <p class="contact-msg">함께 일하고 싶으신가요?</p>
+                <h2 class="contact-msg">CONTACT ME</h2>
             </div>
             <div class="contact-area">
                 <div class="contact-content">
@@ -90,16 +89,16 @@ const handleSubmit = async () => {
     statusType.value = ''
     try {
         await emailjs.send(
-            'YOUR_SERVICE_ID', // EmailJS Service ID
-            'YOUR_TEMPLATE_ID', // EmailJS Template ID
+            import.meta.env.VITE_EMAILJS_SERVICE_ID, // EmailJS Service ID
+            import.meta.env.VITE_EMAILJS_TEMPLATE_ID, // EmailJS Template ID
             {
                 name: formData.value.name,
                 email: formData.value.email,
                 subject: formData.value.subject,
                 message: formData.value.message,
-                to_email: 'ixkfo86@gmail.com', // 템플릿에 to_email 필드가 있다면 명시적으로 지정
+                to_email: 'ixkfo86@gmail.com',
             },
-            'YOUR_PUBLIC_KEY' // EmailJS Public Key
+            import.meta.env.VITE_EMAILJS_PUBLIC_KEY // EmailJS Public Key
         )
         statusMsg.value = '메시지가 성공적으로 전송되었습니다!'
         statusType.value = 'success'
@@ -186,7 +185,7 @@ onMounted(() => {
     }
 
     .msg-area {
-        text-align: center;
+        text-align: left;
         margin-bottom: 4em;
 
         .contact-msg {
@@ -209,7 +208,7 @@ onMounted(() => {
 
         .contact-title {
             margin-bottom: 2em;
-            text-align: center;
+            text-align: left;
 
             .title-text {
                 font-size: 2em;

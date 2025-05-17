@@ -238,7 +238,7 @@ onMounted(() => {
         margin-bottom: 3em;
 
         @include mobile {
-            font-size: 3.6em;
+            // font-size: 3.6em;
             margin-bottom: 2em;
         }
     }
@@ -299,16 +299,22 @@ onMounted(() => {
             text-transform: uppercase;
 
             @include tablet {
-                font-size: 6em;
+                font-size: 3em;
             }
             @include mobile {
-                font-size: 13em;
+                font-size: 4.8em;
             }
         }
         h4 {
             font-size: 7em;
             font-weight: 400;
             line-height: 1.2;
+            @include tablet {
+                font-size: 3em;
+            }
+            @include mobile {
+                font-size: 4.8em;
+            }
         }
     }
 
@@ -321,7 +327,8 @@ onMounted(() => {
         text-transform: initial;
 
         @include mobile {
-            margin-bottom: 0.3em;
+           font-size: 0.8em;
+           margin-bottom: 0.6em;
         }
     }
 
@@ -377,8 +384,9 @@ onMounted(() => {
         }
 
         @include mobile {
+            margin-top: 0.5em;
             border-radius: 2.5em;
-            padding: 1.8em 3.6em;
+            padding: 0.7em 3.6em;
         }
 
         span {
@@ -391,7 +399,7 @@ onMounted(() => {
                 font-size: 1.1em;
             }
             @include mobile {
-                font-size: 3.2em;
+                font-size: 1.2em;
             }
         }
 
@@ -409,8 +417,8 @@ onMounted(() => {
         align-items: center;
 
         @include mobile {
-            width: 3.6em;
-            height: 3.6em;
+            width: 1.2em;
+            height: 1.2em;
         }
     }
 
@@ -428,7 +436,7 @@ onMounted(() => {
             font-size: 1.2em;
         }
         @include mobile {
-            font-size: 3em;
+            font-size: 1.2em;
             margin-top: 1em;
             flex-wrap: wrap;
             row-gap: 0;
@@ -460,9 +468,9 @@ onMounted(() => {
             font-size: 1.3em;
         }
         @include mobile {
-            font-size: 3.7em;
+            font-size: 1.2em;
             line-height: 1.4;
-            width: 80%;
+            width: 100%;
             margin-top: 0.8em;
         }
     }

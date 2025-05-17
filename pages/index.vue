@@ -28,7 +28,7 @@
   })
 </script>
 
-<style lang="scss" scoped>
+<!-- <style lang="scss" scoped>
   .background {
     position: fixed;
     top: 0;
@@ -47,4 +47,4 @@
       background-color: #000;
     }
   }
-</style>+
+</style> -->
