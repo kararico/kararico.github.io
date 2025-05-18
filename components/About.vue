@@ -206,7 +206,9 @@ onMounted(() => {
         margin-bottom: .5em;
         color: #fff;
         text-shadow: 0 2px 16px rgba(76,222,128,0.15);
+        line-height: 1.3;
         z-index: 1;
+        word-break:keep-all;
         .main-color { color: v.$main-color; font-weight: 700; }
         @include tablet { font-size: 1.5em; margin-bottom:0;}
         @include mobile { font-size: 1.5em; margin-bottom: 0; }
@@ -246,6 +248,7 @@ onMounted(() => {
         strong { color: v.$main-color; font-weight: 700; background: rgba(76,222,128,0.08); border-radius: 0.3em; padding: 0 0.2em; }
         span[aria-label] { font-size: 1.2em; vertical-align: middle; }
         &:last-child { margin-bottom: 0; }
+        @include mobile { font-size: 1.1em; line-height: 1.3; margin-bottom: 1em; }
     }
     .about__profile-float {
         position: absolute;

@@ -2,11 +2,11 @@
     <section ref="heroRef" class="hero" role="banner" aria-label="메인 비주얼" :style="{ height: `${windowHeight}px` }">
         <h2 ref="titleRef" class="hero__title">
             <div class="hero__title-line">
-                <span class="hero__text">PORTFOLIO</span>
+                <span class="hero__text" style="opacity: 0">PORTFOLIO</span>
             </div>
             <div class="hero__title-line">
-                <span class="hero__text">WEB</span>
-                <span class="hero__text">PUBLISHER</span>
+                <span class="hero__text" style="opacity: 0">WEB</span>
+                <span class="hero__text" style="opacity: 0">PUBLISHER</span>
             </div>
         </h2>
         <div class="hero__background">
@@ -17,13 +17,11 @@
                     muted
                     playsinline
                     aria-hidden="true"
-                    data-object-fit="cover">
+                    data-object-fit="cover"
+                    poster="@/assets/videos/poster.jpg">
                     <source
-                        src="https://assets.website-files.com/63f5d378a903c2a12583ce2f/64132dde932dbe26445541a5_BG-transcode.mp4"
+                        src="@/assets/videos/intro.mp4"
                         type="video/mp4">
-                    <source
-                        src="https://assets.website-files.com/63f5d378a903c2a12583ce2f/64132dde932dbe26445541a5_BG-transcode.webm"
-                        type="video/webm">
                 </video>
             </div>
         </div>
@@ -38,26 +36,26 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 const windowHeight = ref(0)
 const heroRef = ref<HTMLElement | null>(null)
 const titleRef = ref<HTMLElement | null>(null)
+const isAnimationStarted = ref(false)
 
 const updateHeight = () => { 
     windowHeight.value = window.innerHeight
 }
 
-onMounted(async () => {
-    updateHeight()
-    window.addEventListener('resize', updateHeight)
-    gsap.registerPlugin(ScrollTrigger)
+// 텍스트 애니메이션 함수
+const startTextAnimation = async () => {
+    if (!titleRef.value || isAnimationStarted.value) return
 
-    // DOM이 완전히 렌더링될 때까지 대기
-    await nextTick()
-
-    // 초기 텍스트 설정
-    const texts = titleRef.value?.querySelectorAll('.hero__text')
+    isAnimationStarted.value = true
+    const texts = titleRef.value.querySelectorAll('.hero__text')
+    
     if (texts) {
         gsap.set(texts, {
-            y: 100,
-            opacity: 0
+            y: 100
         })
+
+        // .2초 지연 후 애니메이션 시작
+        await new Promise(resolve => setTimeout(resolve, 200))
 
         // 텍스트 등장 애니메이션
         gsap.to(texts, {
@@ -68,6 +66,22 @@ onMounted(async () => {
             ease: 'power3.out'
         })
     }
+}
+
+// Loading 애니메이션 완료 이벤트 리스너
+const handleLoadingComplete = () => {
+    setTimeout(() => {
+        startTextAnimation()
+    }, 1000)
+}
+
+onMounted(async () => {
+    updateHeight()
+    window.addEventListener('resize', updateHeight)
+    gsap.registerPlugin(ScrollTrigger)
+
+    // DOM이 완전히 렌더링될 때까지 대기
+    await nextTick()
 
     // 비주얼 섹션 스크롤 애니메이션
     if (heroRef.value) {
@@ -113,6 +127,11 @@ onUnmounted(() => {
     window.removeEventListener('resize', updateHeight)
     // ScrollTrigger 인스턴스 정리
     ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+})
+
+// Loading 컴포넌트의 이벤트를 받기 위해 defineExpose 사용
+defineExpose({
+    handleLoadingComplete
 })
 </script>
 

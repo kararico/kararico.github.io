@@ -12,7 +12,7 @@ export default defineNuxtConfig({
         { property: 'og:title', content: '정원 포트폴리오 | JUNGWON Portfolio' },
         { property: 'og:url', content: 'https://kararico.github.io' },
         { property: 'og:description', content: '2025년 웹퍼블리셔 정원의 포트폴리오 사이트입니다.' },
-        { property: 'og:image', content: 'https://kararico.github.io/images/og-image.png' },
+        { property: 'og:image', content: 'https://kararico.github.io/images/og_img.png' },
         { property: 'og:site_name', content: '정원 포트폴리오 | JUNGWON Portfolio' },
       ],
       link: [

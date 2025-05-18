@@ -1,179 +1,147 @@
 <template>
-    <div class="loading" role="status" aria-label="페이지 로딩 중">
-        <div class="num-wrap">
-            <div
-                v-for="(list, index) in LETTER_LISTS"
-                :key="index"
-                class="num-box"
-                role="presentation">
-                <ul :class="['num-list', `list${index + 1}`]" role="presentation">
-                    <li
-                        v-for="(letter, letterIndex) in list"
-                        :key="letterIndex"
-                        class="num-item"
-                        role="presentation">
-                        <span aria-hidden="true">{{ letter }}</span>
-                    </li>
-                </ul>
-            </div>
-            <span class="num-txt" aria-hidden="true">.</span>
-        </div>
-        <div class="sr-only">페이지가 로딩 중입니다. 잠시만 기다려주세요.</div>
-    </div>
+  <div class="loading-container">
+    <h1 class="loading-text">
+      <span v-for="(letter, index) in letters" :key="index" class="letter" ref="letterRefs">{{ letter }}</span>
+      <span class="dots">
+        <span v-for="(dot, index) in dots" :key="index" class="dot" ref="dotRefs">{{ dot }}</span>
+      </span>
+    </h1>
+  </div>
 </template>
 
 <script setup lang="ts">
-    import {onMounted, ref} from 'vue'
-    import gsap from "gsap"
+import { onMounted, ref, onBeforeUnmount } from 'vue'
+import gsap from 'gsap'
 
-    // 상태 관리
-    const isLoading = ref(true)
+const emit = defineEmits(['animationComplete'])
+const letters = ref(['L', 'o', 'a', 'd', 'i', 'n', 'g'])
+const dots = ref(['.', '.', '.'])
+const letterRefs = ref<HTMLElement[]>([])
+const dotRefs = ref<HTMLElement[]>([])
 
-    // 상수 정의
-    const ALPHABET = Array.from('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
-    const LETTER_LISTS = [ALPHABET, ALPHABET, ALPHABET, ALPHABET]
+// 스크롤 잠금 함수
+const lockScroll = () => {
+  document.body.style.overflow = 'hidden'
+  document.documentElement.style.overflow = 'hidden'
+}
 
-    // 애니메이션 설정
-    const ANIMATION_CONFIG = [
-        {
-            y: '-340vw',
-            duration: 3
-        }, {
-            y: '-160vw',
-            duration: 4
-        }, {
-            y: '-40vw',
-            duration: 2
-        }, {
-            y: '-280vw',
-            duration: 1
-        }
-    ]
+// 스크롤 해제 함수
+const unlockScroll = () => {
+  document.body.style.overflow = ''
+  document.documentElement.style.overflow = ''
+}
 
-    // 유틸리티 함수
-    const preventScroll = (e: Event) => {
-        e.preventDefault()
+onMounted(() => {
+  // 스크롤 잠금
+  lockScroll()
+
+  // 초기 상태 설정
+  gsap.set([...letterRefs.value, ...dotRefs.value], {
+    opacity: 0,
+    y: 30
+  })
+
+  // 전체 애니메이션 타임라인 생성
+  const tl = gsap.timeline({
+    onComplete: () => {
+      // 애니메이션이 끝나면 이벤트 발생
+      emit('animationComplete')
+      // 스크롤 해제
+      unlockScroll()
     }
+  })
 
-    // 애니메이션 함수
-    const initLoadingAnimation = () => {
-        const loadingAni = gsap.timeline({
-            onComplete: () => {
-                handleLoadingComplete()
-            }
-        })
+  // 글자 애니메이션
+  tl.to(letterRefs.value, {
+    opacity: 1,
+    y: 0,
+    duration: 0.6,
+    stagger: 0.1,
+    ease: "power2.out"
+  })
 
-        loadingAni.addLabel('a')
-        LETTER_LISTS.forEach((_, index) => {
-            loadingAni.to(`.loading .list${index + 1}`, ANIMATION_CONFIG[index], 'a')
-        })
-        loadingAni.to('.loading', {
-            yPercent: -100,
-            display: 'none'
-        }, 'a+=5')
-    }
+  // 점 애니메이션 (글자 애니메이션과 약간 겹치도록)
+  tl.to(dotRefs.value, {
+    opacity: 1,
+    y: 0,
+    duration: 0.4,
+    stagger: 0.1,
+    ease: "power2.out"
+  }, "-=0.2") // 글자 애니메이션이 끝나기 0.2초 전에 시작
+})
 
-    const initIntroAnimation = () => {
-        return gsap.to('.sc-visual .txt-motion', {
-            transformStyle: "preserve-3d",
-            opacity: 1,
-            rotationX: 0,
-            transformOrigin: "50% 50%",
-            yPercent: 0,
-            duration: 1.2,
-            stagger: 0.1,
-            paused: true
-        })
-    }
-
-    // 이벤트 핸들러
-    const handleLoadingComplete = () => {
-        // 스크롤 및 커서 복원
-        document.documentElement.style.overflow = 'auto'
-        document.body.style.overflow = 'auto'
-        window.removeEventListener('wheel', preventScroll)
-        window.removeEventListener('touchmove', preventScroll)
-
-        const cursor = document.querySelector('.cursor')as HTMLElement
-        if (cursor) 
-            cursor.style.display = ''
-
-            // 인트로 애니메이션 시작
-        const introAni = initIntroAnimation()
-        introAni.play()
-
-        isLoading.value = false
-    }
-
-    // 라이프사이클 훅
-    onMounted(() => {
-        // 초기 설정
-        window.scrollTo(0, 0)
-        const cursor = document.querySelector('.cursor')as HTMLElement
-        if (cursor) 
-            cursor.style.display = 'none'
-
-            // 스크롤 방지
-        document.documentElement.style.overflow = 'hidden'
-        document.body.style.overflow = 'hidden'
-        window.addEventListener('wheel', preventScroll, {passive: false})
-        window.addEventListener('touchmove', preventScroll, {passive: false})
-
-        // 로딩 애니메이션 시작
-        initLoadingAnimation()
-    })
+// 컴포넌트가 제거되기 전에 스크롤 해제
+onBeforeUnmount(() => {
+  unlockScroll()
+})
 </script>
 
-<style lang="scss" scoped="scoped">
-    @use '@/assets/scss/common/_var' as v;
-    .loading {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 10001;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: v.$font-en1;
-        font-size: 20vw;
-        line-height: 1;
-        color: #fff;
-        background: url('@/assets/images/layout/intro/intro_bg.png') center center no-repeat;
-        background-size: cover;
-        .num-wrap {
-            position: relative;
-            display: flex;
-            overflow: hidden;
-            z-index: 3;
-        }
-        .num-list {
-            height: 20vw;
-            text-align: center;
-        }
+<style lang="scss" scoped>
+@use '@/assets/scss/common/_var' as v;
+@use '@/assets/scss/common/_mixins' as *;
 
-        .video-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            video {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-            .dim-bg {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.75);
-                z-index: 2;
-            }
-        }
-    }
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  z-index: 9999;
+}
+
+.loading-text {
+  font-family: v.$font-en1;
+  font-size: 4rem;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include tablet {
+    font-size: 3rem;
+    letter-spacing: 0.3em;
+  }
+
+  @include mobile {
+    font-size: 2rem;
+    letter-spacing: 0.2em;
+  }
+}
+
+.letter {
+  display: inline-block;
+}
+
+.dots {
+  display: inline-block;
+  margin-left: 0.2em;
+
+  @include tablet {
+    margin-left: 0.15em;
+  }
+
+  @include mobile {
+    margin-left: 0.1em;
+  }
+}
+
+.dot {
+  display: inline-block;
+  letter-spacing: 0.1em;
+
+  @include tablet {
+    letter-spacing: 0.05em;
+  }
+
+  @include mobile {
+    letter-spacing: 0.03em;
+  }
+}
 </style>

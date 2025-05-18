@@ -64,6 +64,8 @@ import gsap from 'gsap'
 
 const isMenuOpen = ref(false)
 const mobileMenu = ref<HTMLElement | null>(null)
+const menuContent = ref<HTMLElement | null>(null)
+const hamburgerButton = ref<HTMLElement | null>(null)
 const userTimezone = ref<string>('')
 const userCity = ref<string>('')
 const weatherInfo = ref<{
@@ -73,11 +75,75 @@ const weatherInfo = ref<{
 } | null>(null)
 const isScrolled = ref(false)
 
+// 포커스 트랩 관련 변수
+let focusableElements: HTMLElement[] = []
+let firstFocusableElement: HTMLElement | null = null
+let lastFocusableElement: HTMLElement | null = null
+
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value
-    const button = document.querySelector('.open') as HTMLButtonElement
+    const button = document.querySelector('.hamburger') as HTMLButtonElement
     if (button) {
         button.setAttribute('aria-expanded', isMenuOpen.value.toString())
+    }
+
+    if (isMenuOpen.value) {
+        // 메뉴가 열릴 때
+        document.body.style.overflow = 'hidden'
+        setupFocusTrap()
+    } else {
+        // 메뉴가 닫힐 때
+        document.body.style.overflow = ''
+        if (hamburgerButton.value) {
+            hamburgerButton.value.focus()
+        }
+    }
+}
+
+const setupFocusTrap = () => {
+    if (!menuContent.value || !hamburgerButton.value) return
+
+    // 포커스 가능한 요소들 찾기 (햄버거 버튼 포함)
+    focusableElements = [
+        hamburgerButton.value,
+        ...Array.from(
+            menuContent.value.querySelectorAll(
+                'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+            )
+        )
+    ] as HTMLElement[]
+
+    if (focusableElements.length) {
+        firstFocusableElement = focusableElements[0]
+        lastFocusableElement = focusableElements[focusableElements.length - 1]
+        
+        // 첫 번째 메뉴 항목에 포커스 (햄버거 버튼 제외)
+        const firstMenuItem = focusableElements[1]
+        if (firstMenuItem) {
+            firstMenuItem.focus()
+        }
+    }
+}
+
+const handleKeyDown = (e: KeyboardEvent) => {
+    if (!isMenuOpen.value) return
+
+    if (e.key === 'Tab') {
+        if (e.shiftKey) {
+            // Shift + Tab
+            if (document.activeElement === firstFocusableElement) {
+                e.preventDefault()
+                lastFocusableElement?.focus()
+            }
+        } else {
+            // Tab
+            if (document.activeElement === lastFocusableElement) {
+                e.preventDefault()
+                firstFocusableElement?.focus()
+            }
+        }
+    } else if (e.key === 'Escape') {
+        toggleMenu()
     }
 }
 
@@ -187,6 +253,12 @@ onMounted(() => {
     getUserLocation()
     dateInterval = window.setInterval(updateDate, 60000)
     window.addEventListener('scroll', handleScroll)
+    window.addEventListener('keydown', handleKeyDown)
+    
+    // ref 설정
+    mobileMenu.value = document.getElementById('mobileMenu') as HTMLElement
+    menuContent.value = document.querySelector('.menu-content') as HTMLElement
+    hamburgerButton.value = document.querySelector('.hamburger') as HTMLElement
 })
 
 onUnmounted(() => {
@@ -194,6 +266,8 @@ onUnmounted(() => {
         clearInterval(dateInterval)
     }
     window.removeEventListener('scroll', handleScroll)
+    window.removeEventListener('keydown', handleKeyDown)
+    document.body.style.overflow = ''
 })
 </script>
 
