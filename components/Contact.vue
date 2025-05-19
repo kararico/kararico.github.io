@@ -1,16 +1,16 @@
 <template>
-    <section class="sc-contact" data-color="#000">
-        <div class="contact-container">
-            <div class="msg-area">
-                <h2 class="contact-msg">CONTACT ME</h2>
+    <section class="contact">
+        <div class="contact__container">
+            <div class="contact__msg-area">
+                <h2 class="contact__msg">CONTACT ME</h2>
             </div>
-            <div class="contact-area">
-                <div class="contact-content">
-                    <h3 class="contact-title">
-                        <span class="title-text">메시지를 보내주세요</span>
+            <div class="contact__area">
+                <div class="contact__content">
+                    <h3 class="contact__title">
+                        <span class="contact__title-text">메시지를 보내주세요</span>
                     </h3>
-                    <form class="contact-form" @submit.prevent="handleSubmit" aria-labelledby="contact-heading" novalidate>
-                        <div class="form-group">
+                    <form class="contact__form" @submit.prevent="handleSubmit" aria-labelledby="contact-heading" novalidate>
+                        <div class="contact__form-group">
                             <label for="name">이름</label>
                             <input 
                                 ref="nameRef"
@@ -23,7 +23,7 @@
                                 aria-required="true"
                             >
                         </div>
-                        <div class="form-group">
+                        <div class="contact__form-group">
                             <label for="email">이메일</label>
                             <input 
                                 ref="emailRef"
@@ -36,7 +36,7 @@
                                 aria-required="true"
                             >
                         </div>
-                        <div class="form-group">
+                        <div class="contact__form-group">
                             <label for="subject">제목</label>
                             <input 
                                 ref="subjectRef"
@@ -48,7 +48,7 @@
                                 aria-required="true"
                             >
                         </div>
-                        <div class="form-group">
+                        <div class="contact__form-group">
                             <label for="message">메시지</label>
                             <textarea 
                                 ref="messageRef"
@@ -63,18 +63,15 @@
                         <div aria-live="polite" class="sr-only" v-if="statusMsg">
                             {{ statusMsg }}
                         </div>
-                        <button type="submit" class="submit-btn" :aria-busy="statusType === 'success' ? 'false' : statusType === 'error' ? 'false' : 'true'">
+                        <button type="submit" class="contact__submit-btn" :aria-busy="statusType === 'success' ? 'false' : statusType === 'error' ? 'false' : 'true'">
                             <span class="btn-text">보내기</span>
                         </button>
                     </form>
                 </div>
             </div>
         </div>
-        <div v-if="popup.visible" class="popup-layer" @click.self="closePopup">
-            <div class="popup-content">
-                <span class="popup-message">{{ popup.message }}</span>
-                <button class="popup-close" @click="closePopup" aria-label="닫기">확인</button>
-            </div>
+        <div v-if="popup.visible" class="contact__toast-message">
+            <span class="contact__toast-text">{{ popup.message }}</span>
         </div>
     </section>
 </template>
@@ -82,7 +79,10 @@
 <script setup lang="ts">
 import { ref, onMounted, nextTick } from 'vue'
 import gsap from 'gsap'
-import emailjs from '@emailjs/browser'
+import { useRuntimeConfig } from '#imports'
+
+const config = useRuntimeConfig()
+const emailjs = ref<any>(null)
 
 const formData = ref({
     name: '',
@@ -173,66 +173,72 @@ const handleSubmit = async () => {
     statusType.value = ''
     if (!validateForm()) return;
     try {
-        await emailjs.send(
-            import.meta.env.VITE_EMAILJS_SERVICE_ID, // EmailJS Service ID
-            import.meta.env.VITE_EMAILJS_TEMPLATE_ID, // EmailJS Template ID
+        await emailjs.value.send(
+            config.public.emailjsServiceId,
+            config.public.emailjsTemplateId,
             {
+                user_id: config.public.emailjsPublicKey,
                 name: formData.value.name,
                 email: formData.value.email,
-                subject: formData.value.subject,
-                message: formData.value.message,
+                to_name: '정원',
                 to_email: 'ixkfo86@gmail.com',
-            },
-            import.meta.env.VITE_EMAILJS_PUBLIC_KEY // EmailJS Public Key
+                reply_to: formData.value.email,
+                subject: formData.value.subject,
+                message: formData.value.message
+            }
         )
         statusMsg.value = '메시지가 성공적으로 전송되었습니다!'
         statusType.value = 'success'
         formData.value = { name: '', email: '', subject: '', message: '' }
-        alert('메시지가 성공적으로 전송되었습니다!')
+        showPopup('메시지가 성공적으로 전송되었습니다!')
     } catch (e) {
         statusMsg.value = '메시지 전송에 실패했습니다. 다시 시도해주세요.'
         statusType.value = 'error'
-        alert('메시지 전송에 실패했습니다. 다시 시도해주세요.')
+        showPopup('메시지 전송에 실패했습니다. 다시 시도해주세요.')
+        console.error('EmailJS error:', e)
     }
 }
 
-onMounted(() => {
+onMounted(async () => {
+    emailjs.value = (await import('@emailjs/browser')).default
+    emailjs.value.init(config.public.emailjsPublicKey)
+
     const contactAnimation = () => {
         const tl = gsap.timeline({
             scrollTrigger: {
-                trigger: '.sc-contact',
+                trigger: '.contact',
                 start: 'top center',
                 end: 'bottom center',
                 toggleActions: 'play none none reverse'
             }
         })
 
-        tl.from('.contact-msg', {
+        tl.from('.contact__msg', {
             y: 100,
             opacity: 0,
             duration: 1,
             ease: 'power3.out'
         })
-        .from('.contact-title', {
+        .from('.contact__title', {
             y: 50,
             opacity: 0,
             duration: 0.8,
             ease: 'power3.out'
         }, '-=0.5')
-        .from('.form-group', {
+        .from('.contact__form-group', {
             y: 30,
             opacity: 0,
             duration: 0.8,
             stagger: 0.1,
             ease: 'power3.out'
         }, '-=0.4')
-        .from('.submit-btn', {
+        .from('.contact__submit-btn', {
             y: 30,
             opacity: 0,
             duration: 0.8,
             ease: 'power3.out',
             onComplete: () => {
-                gsap.to('.submit-btn', {
+                gsap.to('.contact__submit-btn', {
                     scale: 1,
                     duration: 0.5,
                     ease: 'power1.inOut'
@@ -249,7 +255,7 @@ onMounted(() => {
 @use '@/assets/scss/common/_var' as v;
 @use '@/assets/scss/common/_mixins' as *;
 
-.sc-contact {
+.contact {
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -264,18 +270,18 @@ onMounted(() => {
         padding: 6em 0;
     }
 
-    .contact-container {
+    .contact__container {
         width: 100%;
         max-width: 800px;
         margin: 0 auto;
         padding: 0 2em;
     }
 
-    .msg-area {
+    .contact__msg-area {
         text-align: left;
         margin-bottom: 4em;
 
-        .contact-msg {
+        .contact__msg {
             font-size: 3.5em;
             font-weight: 500;
             line-height: 1.2;
@@ -288,16 +294,16 @@ onMounted(() => {
         }
     }
 
-    .contact-area {
-        .contact-content {
+    .contact__area {
+        .contact__content {
             width: 100%;
         }
 
-        .contact-title {
+        .contact__title {
             margin-bottom: 2em;
             text-align: left;
 
-            .title-text {
+            .contact__title-text {
                 font-size: 2em;
                 font-weight: 400;
                 letter-spacing: -0.02em;
@@ -309,8 +315,8 @@ onMounted(() => {
             }
         }
 
-        .contact-form {
-            .form-group {
+        .contact__form {
+            .contact__form-group {
                 margin-bottom: 2em;
 
                 label {
@@ -347,7 +353,7 @@ onMounted(() => {
                 }
             }
 
-            .submit-btn {
+            .contact__submit-btn {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
@@ -383,42 +389,27 @@ onMounted(() => {
     }
 }
 
-.popup-layer {
+.contact__toast-message {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.35);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.popup-content {
-    background: #fff;
-    color: #222;
-    border-radius: 1em;
-    padding: 2em 2.5em;
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 220px;
-}
-.popup-message {
-    font-size: 1.15em;
-    margin-bottom: 1.2em;
-    text-align: center;
-}
-.popup-close {
-    background: #222;
+    left: 50%;
+    bottom: 3em;
+    transform: translateX(-50%);
+    background: v.$main-color;
     color: #fff;
-    border: none;
-    border-radius: 0.5em;
-    padding: 0.5em 1.5em;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background 0.2s;
+    padding: 1em 2em;
+    border-radius: 2em;
+    font-size: 1.1em;
+    box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18);
+    z-index: 9999;
+    animation: toast-fadein 0.3s, toast-fadeout 0.3s 1.2s;
+    pointer-events: none;
 }
-.popup-close:hover {
-    background: #444;
+@keyframes toast-fadein {
+    from { opacity: 0; transform: translateX(-50%) translateY(30px);}
+    to   { opacity: 1; transform: translateX(-50%) translateY(0);}
+}
+@keyframes toast-fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
 }
 </style>

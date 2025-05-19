@@ -1,54 +1,59 @@
 <template>
-    <header class="header" :class="{ 'is-scrolled': isScrolled }" role="banner">
-        <section class="header-container">
-            <NuxtLink to="/" class="logo" aria-label="JUGWON 홈으로 이동">
-                <span>JW</span>
+    <header class="header" :class="{ 'header--scrolled': isScrolled }" role="banner">
+        <section class="header__container">
+            <NuxtLink to="/" class="header__logo" aria-label="JUGWON 홈으로 이동">
+                <span>H</span>
             </NuxtLink>
-            <div class="gnb-wrap">
+            <div class="header__gnb-wrap">
                 <button 
-                    class="hamburger" 
-                    :class="{ 'is-active': isMenuOpen }"
+                    class="header__hamburger" 
+                    :class="{ 'header__hamburger--active': isMenuOpen }"
                     aria-expanded="false"
-                    aria-controls="mobileMenu"
+                    aria-controls="header__open-menu"
                     aria-label="메뉴 열기"
                     @click="toggleMenu">
-                    <span class="hamburger-line"></span> 
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
+                    <span class="header__hamburger-line"></span> 
+                    <span class="header__hamburger-line"></span>
+                    <span class="header__hamburger-line"></span>
                 </button>
             </div>
 
-            <div id="mobileMenu" class="open-menu" :class="{ 'is-active': isMenuOpen }" role="navigation" aria-label="메인 메뉴">
-                <div class="dimmed" @click="toggleMenu"></div>
-                <div class="menu-content">
-                    <ul class="m-menu-list">
-                        <li class="m-menu-item">
-                            <a href="#scAbout" @click="toggleMenu">
-                                <span class="menu-text">About</span>
-                            </a>
+            <div id="header__open-menu" class="header__open-menu" :class="{ 'header__open-menu--active': isMenuOpen }" role="navigation" aria-label="메인 메뉴">
+                <div class="header__dimmed" @click="toggleMenu"></div>
+                <div class="header__menu-content">
+                    <ul class="header__menu-list">
+                        <li class="header__menu-item">
+                            <button @click="handleMenuClick('about')">
+                                <span class="header__menu-text">About</span>
+                            </button>
                         </li>
-                        <li class="m-menu-item">
-                            <a href="#scMain" @click="toggleMenu">
-                                <span class="menu-text">Works</span>
-                            </a>
+                        <li class="header__menu-item">
+                            <button @click="handleMenuClick('client')">
+                                <span class="header__menu-text">Client</span>
+                            </button>
                         </li>
-                        <li class="m-menu-item">
-                            <a href="#scSide" @click="toggleMenu">
-                                <span class="menu-text">Contact</span>
-                            </a>
+                        <li class="header__menu-item">
+                            <button @click="handleMenuClick('project')">
+                                <span class="header__menu-text">Project</span>
+                            </button>
+                        </li>
+                        <li class="header__menu-item">
+                            <button @click="handleMenuClick('contact')">
+                                <span class="header__menu-text">Contact</span>
+                            </button>
                         </li>
                     </ul>
-                    <div class="time-area" role="region" aria-label="현재 날짜 및 날씨 정보">
-                        <div class="inner local">
+                    <div class="header__time-area" role="region" aria-label="현재 날짜 및 날씨 정보">
+                        <div class="header__time-inner">
                             <span class="sr-only">현재 위치 날짜 및 날씨</span>
                             <em>{{ userCity || 'LOADING...' }}</em>
-                            <div class="date" id="localDate" aria-live="polite">2024.03.21</div>
-                            <div class="weather" v-if="weatherInfo">
-                                <img :src="weatherInfo.icon" :alt="weatherInfo.description" class="weather-icon">
-                                <span class="temperature">{{ Math.round(weatherInfo.temp) }}°C</span>
+                            <div class="header__date" id="header__date" aria-live="polite">2024.03.21</div>
+                            <div class="header__weather" v-if="weatherInfo">
+                                <img :src="weatherInfo.icon" :alt="weatherInfo.description" class="header__weather-icon">
+                                <span class="header__temperature">{{ Math.round(weatherInfo.temp) }}°C</span>
                             </div>
-                            <span class="dot" aria-hidden="true">
-                                <span class="dot-in"></span>
+                            <span class="header__dot" aria-hidden="true">
+                                <span class="header__dot-in"></span>
                             </span>
                         </div>
                     </div>
@@ -60,6 +65,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { inject } from 'vue'
+
 import gsap from 'gsap'
 
 const isMenuOpen = ref(false)
@@ -75,6 +82,16 @@ const weatherInfo = ref<{
 } | null>(null)
 const isScrolled = ref(false)
 
+// inject로 스크롤 함수 받아오기
+const scrollToSection = inject('scrollToSection') as (section: string) => void
+
+const handleMenuClick = (menu: string) => {
+  if (scrollToSection) {
+    scrollToSection(menu)
+    toggleMenu()
+  }
+}
+
 // 포커스 트랩 관련 변수
 let focusableElements: HTMLElement[] = []
 let firstFocusableElement: HTMLElement | null = null
@@ -82,7 +99,7 @@ let lastFocusableElement: HTMLElement | null = null
 
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value
-    const button = document.querySelector('.hamburger') as HTMLButtonElement
+    const button = document.querySelector('.header__hamburger') as HTMLButtonElement
     if (button) {
         button.setAttribute('aria-expanded', isMenuOpen.value.toString())
     }
@@ -90,10 +107,12 @@ const toggleMenu = () => {
     if (isMenuOpen.value) {
         // 메뉴가 열릴 때
         document.body.style.overflow = 'hidden'
+        document.documentElement.style.overflow = 'hidden'
         setupFocusTrap()
     } else {
         // 메뉴가 닫힐 때
         document.body.style.overflow = ''
+        document.documentElement.style.overflow = ''
         if (hamburgerButton.value) {
             hamburgerButton.value.focus()
         }
@@ -176,7 +195,7 @@ const getUserLocation = async () => {
 
 const getWeatherInfo = async (lat: number, lon: number) => {
     try {
-        const API_KEY = '048b40e147a9bf3ad8ee6763b548a0a3' // OpenWeatherMap API 키를 입력하세요
+        const API_KEY = '048b40e147a9bf3ad8ee6763b548a0a3';
         const response = await fetch(
             `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
         )
@@ -204,15 +223,15 @@ const updateDate = () => {
             day: '2-digit'
         }).replace(/\. /g, '.').replace('.', '')
     
-    const localDateElement = document.getElementById('localDate')
+    const localDateElement = document.getElementById('header__date')
     if (localDateElement) localDateElement.textContent = localDate
 }
 
 let dateInterval: number
 
 const menuAnimation = () => {
-    const menuItems = document.querySelectorAll('.menu-text')
-    const timeArea = document.querySelector('.time-area')
+    const menuItems = document.querySelectorAll('.header__menu-text')
+    const timeArea = document.querySelector('.header__time-area')
     
     if (isMenuOpen.value) {
         // 메뉴 열릴 때
@@ -256,9 +275,9 @@ onMounted(() => {
     window.addEventListener('keydown', handleKeyDown)
     
     // ref 설정
-    mobileMenu.value = document.getElementById('mobileMenu') as HTMLElement
-    menuContent.value = document.querySelector('.menu-content') as HTMLElement
-    hamburgerButton.value = document.querySelector('.hamburger') as HTMLElement
+    mobileMenu.value = document.getElementById('header__open-menu') as HTMLElement
+    menuContent.value = document.querySelector('.header__menu-content') as HTMLElement
+    hamburgerButton.value = document.querySelector('.header__hamburger') as HTMLElement
 })
 
 onUnmounted(() => {
@@ -268,6 +287,7 @@ onUnmounted(() => {
     window.removeEventListener('scroll', handleScroll)
     window.removeEventListener('keydown', handleKeyDown)
     document.body.style.overflow = ''
+    document.documentElement.style.overflow = ''
 })
 </script>
 
@@ -284,61 +304,69 @@ onUnmounted(() => {
     color: #fff;
     transition: background-color 0.3s ease;
 
-    &.is-scrolled {
+    &.header--scrolled {
         background: rgb(0 0 0 / 10%);
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(0.625rem);
     }
 }
 
-.header-container {
+.header__container {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    padding: 36px 50px;
+    align-items: center;
+    padding: 2.25rem 3.125rem;
 }
 
-.logo {
+.header__logo {
     text-decoration: none;
     color: #fff;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-family: v.$font-en5;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
 }
 
-.time-area {
+.header__time-area {
     display: flex;
-    gap: 16px;
+    gap: 1rem;
     justify-content: center;
     margin-top: 1em;
     
-    .inner {
+    .header__time-inner {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 0.5rem;
         
         em {
             font-style: normal;
             font-weight: bold;
-            min-width: 56px;
+            min-width: 3.5rem;
             font-size: 1.2em;
         }
 
-        .date {
+        .header__date {
             font-family: monospace;
             font-size: 1.2em;
         }
 
-        .weather {
+        .header__weather {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 0.5rem;
             
-            .weather-icon {
-                width: 32px;
-                height: 32px;
+            .header__weather-icon {
+                width: 2rem;
+                height: 2rem;
             }
             
-            .temperature {
+            .header__temperature {
                 font-size: 1.2em;
                 font-weight: 500;
             }
@@ -346,23 +374,23 @@ onUnmounted(() => {
     }
 }
 
-.gnb-wrap {
+.header__gnb-wrap {
     z-index: 1001;
 }
 
-.hamburger {
-    width: 30px;
-    height: 20px;
+.header__hamburger {
+    width: 1.875rem;
+    height: 1.25rem;
     position: relative;
     background: none;
     border: none;
     padding: 0;
     cursor: pointer;
     
-    .hamburger-line {
+    .header__hamburger-line {
         display: block;
         width: 100%;
-        height: 2px;
+        height: 0.125rem;
         background-color: #fff;
         position: absolute;
         left: 0;
@@ -382,10 +410,10 @@ onUnmounted(() => {
         }
     }
     
-    &.is-active {
-        .hamburger-line {
+    &.header__hamburger--active {
+        .header__hamburger-line {
             &:nth-child(1) {
-                transform: translateY(9px) rotate(45deg);
+                transform: translateY(0.5625rem) rotate(45deg);
             }
             
             &:nth-child(2) {
@@ -393,13 +421,13 @@ onUnmounted(() => {
             }
             
             &:nth-child(3) {
-                transform: translateY(-9px) rotate(-45deg);
+                transform: translateY(-0.5625rem) rotate(-45deg);
             }
         }
     }
 }
 
-.open-menu {
+.header__open-menu {
     position: fixed;
     top: 0;
     left: 0;
@@ -408,7 +436,7 @@ onUnmounted(() => {
     z-index: 100;
     pointer-events: none;
     
-    .dimmed {
+    .header__dimmed {
         position: absolute;
         top: 0;
         left: 0;
@@ -421,7 +449,7 @@ onUnmounted(() => {
         pointer-events: auto;
     }
     
-    .menu-content {
+    .header__menu-content {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -433,19 +461,19 @@ onUnmounted(() => {
         pointer-events: auto;
     }
     
-    &.is-active {
-        .dimmed {
+    &.header__open-menu--active {
+        .header__dimmed {
             opacity: 1;
             visibility: visible;
         }
         
-        .menu-content {
+        .header__menu-content {
             opacity: 1;
             visibility: visible;
         }
     }
     
-    .m-menu-list {
+    .header__menu-list {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -454,15 +482,15 @@ onUnmounted(() => {
         @include mobile {
             gap: 1em;
         }
-        .m-menu-item {
-            a {
+        .header__menu-item {
+            button {
                 color: #fff;
                 text-decoration: none;
                 font-size: 5em;
                 display: flex;
                 align-items: center;
                 
-                .menu-text {
+                .header__menu-text {
                     line-height: 1.2;
                     position: relative;
                     overflow: hidden;
@@ -470,7 +498,7 @@ onUnmounted(() => {
                     transition: color 0.3s ease;
                 }
 
-                &:hover .menu-text {
+                &:hover .header__menu-text {
                     color: v.$main-color;
                 }
                 @include mobile {
@@ -482,18 +510,18 @@ onUnmounted(() => {
     }
 }
 
-@media (max-width: 768px) {
-    .header-container {
-        padding: 20px;
+@media (max-width: 48rem) {
+    .header__container {
+        padding: 1.25rem;
     }
     
-    .logo {
-        font-size: 20px;
+    .header__logo {
+        font-size: 1.25rem;
     }
     
-    .time-area {
-        .inner {
-            .date {
+    .header__time-area {
+        .header__time-inner {
+            .header__date {
                 display: none;
             }
         }

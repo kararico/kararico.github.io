@@ -23,12 +23,19 @@ const dotRefs = ref<HTMLElement[]>([])
 const lockScroll = () => {
   document.body.style.overflow = 'hidden'
   document.documentElement.style.overflow = 'hidden'
+  document.body.style.position = 'fixed'
+  document.body.style.width = '100%'
+  document.body.style.top = `-${window.scrollY}px`
 }
 
 // 스크롤 해제 함수
 const unlockScroll = () => {
   document.body.style.overflow = ''
   document.documentElement.style.overflow = ''
+  document.body.style.position = ''
+  document.body.style.width = ''
+  document.body.style.top = ''
+  window.scrollTo(0, parseInt(document.body.style.top || '0') * -1)
 }
 
 onMounted(() => {

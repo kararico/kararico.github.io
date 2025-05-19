@@ -153,7 +153,7 @@ onMounted(() => {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    padding: 6em 12em 20em;
+    padding: 6em 12em 8em;
     background-color: #151619;
     overflow: hidden;
     display: flex;
@@ -161,7 +161,7 @@ onMounted(() => {
     align-items: flex-start;
     gap: 1em;
 
-    @include tablet { padding: 10em 5em 15em; }
+    @include tablet { padding: 5em 2.5em 8em; }
     @include mobile { gap: 2.5em; padding: 4em 1.2em; }
 
     .about-bg-circles {
@@ -192,9 +192,8 @@ onMounted(() => {
         align-items: center;
         font-size: 3em;
         font-weight: 800;
-        margin-bottom: 1.5em;
+        margin-bottom: .75em;
         z-index: 1;
-        padding-bottom: 0.25em;
         letter-spacing: .025em;
         font-family: v.$font-en5;
         @include tablet { font-size: 2em; margin-bottom:0;}
@@ -203,22 +202,21 @@ onMounted(() => {
     &__summary {
         font-size: 2.2em;
         font-weight: 600;
-        margin-bottom: .5em;
         color: #fff;
         text-shadow: 0 2px 16px rgba(76,222,128,0.15);
         line-height: 1.3;
         z-index: 1;
         word-break:keep-all;
         .main-color { color: v.$main-color; font-weight: 700; }
-        @include tablet { font-size: 1.5em; margin-bottom:0;}
-        @include mobile { font-size: 1.5em; margin-bottom: 0; }
+        @include tablet { font-size: 1.5em; }
+        @include mobile { font-size: 1.5em;  }
     }
     .card-style, .about__content {
         background: rgba(255,255,255,0.13);
         border-radius: 2.2em;
         box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
         padding: 3.5em 2.5em;
-        margin-top: 2em;
+        margin-top: 1em;
         z-index: 1;
         width: 100%;
         overflow-wrap: break-word;

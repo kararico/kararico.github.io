@@ -1,11 +1,15 @@
 <template>
-    <section class="client-section">
-        <div class="client-container">
-            <h2 class="client-title">Client</h2>
-            <div class="rolling-wrapper" ref="rollingRef">
-                <ul class="rolling-list">
-                    <li v-for="(logo, i) in logos" :key="i" class="rolling-item">
-                        <span v-html="logo"></span>
+    <section class="client__section">
+        <div class="client__container">
+            <h2 class="client__title">Client</h2>
+            <p class="client__summary">그동안 함께 작업했던 <span class="main-color">클라이언트</span>들입니다.</p>
+            <div class="client__rolling-wrapper">
+                <ul class="client__rolling-list">
+                    <li v-for="(logo, i) in logos" :key="`a-${i}`" class="client__rolling-item">
+                        <img :src="logo" :alt="`client-logo-${i}`" />
+                    </li>
+                    <li v-for="(logo, i) in logos" :key="`b-${i}`" class="client__rolling-item">
+                        <img :src="logo" :alt="`client-logo-${i}`" />
                     </li>
                 </ul>
             </div>
@@ -14,91 +18,100 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue'
-import gsap from 'gsap'
-
-const rollingRef = ref<HTMLElement | null>(null)
 const logos = [
-  `<svg viewBox="0 0 48 48" width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="24" fill="#fff"/><path d="M24 14l7.5 13h-15L24 14z" fill="#181a1e"/></svg>`,
-  `<svg viewBox="0 0 48 48" width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="24" fill="#fff"/><circle cx="24" cy="24" r="10" fill="#181a1e"/></svg>`,
-  `<svg viewBox="0 0 48 48" width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="24" fill="#fff"/><rect x="16" y="16" width="16" height="16" rx="4" fill="#181a1e"/></svg>`,
-  `<svg viewBox="0 0 48 48" width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="24" fill="#fff"/><path d="M24 14v20M14 24h20" stroke="#181a1e" stroke-width="4" stroke-linecap="round"/></svg>`,
-  `<svg viewBox="0 0 48 48" width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="24" fill="#fff"/><ellipse cx="24" cy="24" rx="10" ry="16" fill="#181a1e"/></svg>`,
-  `<svg viewBox="0 0 48 48" width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="24" fill="#fff"/><rect x="18" y="18" width="12" height="12" rx="6" fill="#181a1e"/></svg>`,
-  `<svg viewBox="0 0 48 48" width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="24" fill="#fff"/><path d="M14 34l20-20M14 14l20 20" stroke="#181a1e" stroke-width="4" stroke-linecap="round"/></svg>`,
-  `<svg viewBox="0 0 48 48" width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="24" fill="#fff"/><path d="M24 14c5.523 0 10 4.477 10 10s-4.477 10-10 10-10-4.477-10-10 4.477-10 10-10z" stroke="#181a1e" stroke-width="4"/></svg>`
+  '/images/clients/amorepacific.png',
+  '/images/clients/bing.png',
+  '/images/clients/bullsone.png',
+  '/images/clients/casamia-logo.png',
+  '/images/clients/discovery.png',
+  '/images/clients/good-logo.png',
+  '/images/clients/hodoo.png',
+  '/images/clients/ktng.png',
+  '/images/clients/laneige.png',
+  '/images/clients/lgu.png',
+  '/images/clients/lifeplanet.png',
+  '/images/clients/lingtea2.png',
+  '/images/clients/mb-logo.png',
+  '/images/clients/megabox.png',
+  '/images/clients/mlb.png',
+  '/images/clients/nc.png',
+  '/images/clients/nexon-1.png',
+  '/images/clients/png-logo.png',
+  '/images/clients/samsung.png',
+  '/images/clients/simmons.png',
+  '/images/clients/starbucks-logo.png'
 ]
-
-onMounted(async () => {
-    await nextTick();
-    const items = rollingRef.value?.querySelectorAll('.rolling-item')
-    if (!items || items.length === 0) return
-
-    const itemCount = items.length
-    const duration = 8 // 한 바퀴 도는 시간(초)
-
-    gsap.set(items, {
-        xPercent: i => i * 100
-    })
-
-    items.forEach((item, i) => {
-        gsap.to(item, {
-            xPercent: `-=${itemCount * 100}`,
-            duration: duration * itemCount,
-            ease: 'none',
-            repeat: -1,
-            modifiers: {
-                xPercent: gsap.utils.wrap(-100, itemCount * 100 - 100)
-            }
-        })
-    })
-})
 </script>
 
 <style lang="scss" scoped>
-.client-section {
-    width: 100%;
-    background: #181a1e;
-    padding: 6em 0 4em 0;
-    overflow: hidden;
-}
-.client-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2em;
-}
-.client-title {
-    font-size: 2.2em;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 2em;
-    text-align: left;
-}
-.rolling-wrapper {
-    width: 100vw;
-    overflow: hidden;
-    position: relative;
-}
-.rolling-list {
-    display: flex;
-    align-items: center;
-    width: max-content;
-}
-.rolling-item {
-    flex: 0 0 auto;
-    margin-right: 4em;
-    img {
-        width: 120px;
-        height: 60px;
-        object-fit: contain;
-        filter: grayscale(1) brightness(1.2);
-        opacity: 0.85;
-        transition: filter 0.2s, opacity 0.2s;
-        &:hover {
-            filter: grayscale(0) brightness(1);
-            opacity: 1;
+    @use '@/assets/scss/common/_var' as v;
+    @use '@/assets/scss/common/_mixins' as *;
+    .client__section {
+        width: 100%;
+        background: #181a1e;
+        padding: 6em 12em;
+        overflow: hidden;
+        @include tablet { padding: 5em 2.5em 5em; }
+        @include mobile { padding: 4em 1.2em 4em; }
+    }
+
+    .client__title {
+        color: #fff;
+        font-size: 3em;
+        font-weight: 800;
+        margin-bottom: 0.75em;
+        z-index: 1;
+        padding-bottom: 0.25em;
+        letter-spacing: 0.025em;
+        font-family: v.$font-en5;
+        @include tablet { font-size: 2em; margin-bottom:.5rem;}
+        @include mobile { font-size: 1.5em; margin-bottom: 0; }
+    }
+    .client__summary {
+        font-size: 2.2em;
+        font-weight: 600;
+        margin-bottom: .5em;
+        color: #fff;
+        text-shadow: 0 2px 16px rgba(76,222,128,0.15);
+        line-height: 1.3;
+        z-index: 1;
+        word-break:keep-all;
+        .main-color { color: v.$main-color; font-weight: 700; }
+        @include tablet { font-size: 1.5em; margin-bottom:0;}
+        @include mobile { font-size: 1.5em; margin-bottom: 0; }
+    }
+    .client__rolling-wrapper {
+        width: 100vw;
+        overflow: hidden;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 5em;
+        @include tablet { margin-top: 3em;}
+        @include mobile { margin-top: 2em;}
+    }
+    .client__rolling-list {
+        display: flex;
+        gap: 0;
+        width: max-content;
+        animation: rolling 100s linear infinite;
+    }
+    .client__rolling-item {
+        flex: 0 0 auto;
+        margin: 0 .2rem;
+        img {
+            width: 25.875rem;
+            height: 13.75rem;
+            object-fit: contain;
+            display: block;
+            
+            @include tablet { width: 10.375rem; height: 5.625rem; }
+            @include mobile { width: 10.375rem; height: 5.625rem; }
         }
     }
+    @keyframes rolling {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
 }
 </style>
 

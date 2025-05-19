@@ -1,5 +1,5 @@
 <template>
-    <section class="project target" aria-labelledby="project-title">
+    <section class="project target" aria-labelledby="project-title" :style="{ height: sectionHeight }">
         <div class="project__inner">
             <div v-for="(project, index) in projects" 
                  :key="index"
@@ -10,12 +10,18 @@
                         <div class="project__info">
                             <h3>
                                 <span class="project__category">{{ project.category }}</span>
-                                <span :class="{ 'font-small': project.company === 'SHINSEGAE CASA' }">{{ project.company }}</span>
                             </h3>
                             <h4>
                                 {{ project.title }}
                             </h4>
                             <div class="project__details">
+                                <ul class="project__tags">
+                                    <li><span>skill</span></li>
+                                    <li v-for="skill in project.skills" :key="skill">
+                                        <span>#{{ skill }}</span>
+                                    </li>
+                                </ul>
+                                <p class="project__description" v-html="project.description"></p>
                                 <ul class="project__links">
                                     <li>
                                         <a :href="project.siteUrl" 
@@ -32,13 +38,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <ul class="project__tags">
-                                    <li><span>기여도: {{ project.contribution }}</span></li>
-                                    <li v-for="skill in project.skills" :key="skill">
-                                        <span>#{{ skill }}</span>
-                                    </li>
-                                </ul>
-                                <p class="project__description" v-html="project.description"></p>
+                        
                             </div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, onUnmounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -94,74 +94,126 @@ const handleSiteClick = (url: string) => {
 const projects = ref([
     {
         category: 'Project',
-        company: 'HYUNDAI',
+        // company: 'HYUNDAI',
         title: 'EZWEL',
-        description: '<em class="highlight">EZWEL</em> 프로젝트를 진행중에 있습니다.',
+        description: '<em class="highlight">EZWEL</em> 프로젝트를 진행중에 있습니다. <br />현재 업무는 공통 컴포넌트 작업 및 퍼블리싱 PL파트를 담당하고 있습니다.',
         siteUrl: '',
         mediaType: 'video',
-        videoUrl: 'https://uploads-ssl.webflow.com/6481baa8b4e61d7cb8a9f0a0/64980d39c97910472fbfa13f_HeroVideo_04_compressed-transcode.mp4',
-        contribution: '45%',
-        skills: ['Nuxt.js', 'Vue.js', 'TypeScript', 'SCSS' ]
+        videoUrl: 'https://img.ezwelfare.net/welfare_corp/css/user/front/renew/images/main_visual01.mp4',
+        // contribution: '45%',
+        skills: ['Nuxt.js', 'TypeScript', 'HTML5', 'SCSS', 'STORYBOOK' ]
     },
     {
         category: 'Project',
-        company: 'SKT COMPANY',
+        // company: 'SCK COMPANY',
         title: 'STARBUCKS',
-        description: '<em class="highlight">스타벅스</em> 임직원 사내용 하이브리드 웹 프로젝트입니다.',
+        description: '<em class="highlight">스타벅스</em> 임직원 사내용 하이브리드 앱 프로젝트입니다.',
         siteUrl: '',
         mediaType: 'video',
-        videoUrl: 'https://assets.website-files.com/63f5d378a903c2a12583ce2f/641319fe73926c0e5bc81ccf_ver 2-transcode.mp4',
-        contribution: '100%',
-        skills: ['HTML', 'JavaScript', 'SCSS']
+        videoUrl: 'https://videos.pexels.com/video-files/28043968/12290715_2560_1440_24fps.mp4',
+        // contribution: '100%',
+        skills: ['HTML5', 'JavaScript','Jquery', 'SCSS']
     },
     {
         category: 'Operation',
-        company: 'F&F',
+        // company: 'F&F',
         title: 'MLB KOREA',
         description: '<em class="highlight">엠엘비 코리아</em> 홈페이지 부분 개편 운영 프로젝트입니다.',
         siteUrl: 'https://www.mlb-korea.com/',
         mediaType: 'video',
         videoUrl: 'https://cdn.prod.website-files.com/646a4e539ffa024a48651555/649070038794a919744c0b8f_background-video-1280x720-30fps-transcode.mp4',
-        contribution: '100%',
+        // contribution: '100%',
         skills: ['HTML', 'JavaScript', 'SCSS']
     },
     {
         category: 'Operation',
-        company: 'F&F',
+        // company: 'F&F',
         title: 'DISCOVERY',
         description: '<em class="highlight">디스커버리</em> 홈페이지 부분 개편 및 운영 프로젝트입니다.',
         siteUrl: 'https://www.discovery-expedition.com',
         mediaType: 'video',
         videoUrl: 'https://homepage-static.fnf.co.kr/pcVideo_67db5edf809283.56040568.mp4',
-        contribution: '100%',
+        // contribution: '100%',
         skills: ['HTML', 'JavaScript', 'SCSS']
     },
     {
         category: 'Project',
-        company: 'SHINSEGAE CASA',
+        // company: 'SHINSEGAE CASA',
         title: 'CASAMINA',
         description: '<em class="highlight">까사미아</em> 홈페이지 개편 프로젝트입니다.',
         siteUrl: 'https://casamia.co.kr/home',
-        mediaType: 'iframe',
-        videoUrl: 'https://www.youtube.com/watch?v=7ZTkYBRDmA0',
-        contribution: '100%',
+        mediaType: 'video',
+        videoUrl: 'https://videos.pexels.com/video-files/32013494/13644778_2560_1440_25fps.mp4',
+        // contribution: '100%',
         skills: ['HTML', 'JavaScript', 'SCSS']
     },
     {
         category: 'Project',
-        company: 'SHINSEGAE CASA',
+        // company: 'SHINSEGAE CASA',
         title: 'GUUD',
         description: '<em class="highlight">굳닷컴</em> 개편 및 운영 프로젝트입니다.',
         siteUrl: 'https://guud.com',
-        mediaType: 'iframe',
-        videoUrl: 'https://www.youtube.com/watch?v=1Jy2Chi5hbQ',
-        contribution: '100%',
+        mediaType: 'video',
+        videoUrl: 'https://videos.pexels.com/video-files/31646575/13482899_2560_1440_60fps.mp4',
+        // contribution: '100%',
+        skills: ['HTML', 'JavaScript', 'SCSS']
+    },
+    {
+        category: 'Project',
+        // company: 'Bullsone',
+        title: 'BULLSONE',
+        description: '<em class="highlight">불스원</em> 구축 프로젝트입니다.',
+        siteUrl: 'https://bullsone.com/',
+        mediaType: 'video',
+        videoUrl: 'https://videos.pexels.com/video-files/29792714/12800431_1920_1080_60fps.mp4',
+        // contribution: '100%',
+        skills: ['HTML', 'JavaScript', 'SCSS']
+    },
+    {
+        category: 'Project',
+        // company: 'LG',
+        title: 'LG SIGNATURE GLOBAL',
+        description: '<em class="highlight">LG시그니처 글로벌 사이트</em> 구축 프로젝트입니다.',
+        siteUrl: 'https://www.lg.com/global/',
+        mediaType: 'video',
+        videoUrl: 'https://videos.pexels.com/video-files/30975000/13241693_2160_1440_24fps.mp4',
+        // contribution: '100%',
+        skills: ['HTML', 'JavaScript', 'SCSS']
+    },
+    {
+        category: 'Project',
+        // company: 'Fun&I',
+        title: 'Funbeerking',
+        description: '<em class="highlight">펀비어킹</em> 구축 프로젝트입니다.',
+        siteUrl: 'http://www.funbeerking.com/index.php',
+        mediaType: 'video',
+        videoUrl: 'https://videos.pexels.com/video-files/10741100/10741100-hd_2560_1440_30fps.mp4',
+        // contribution: '100%',
         skills: ['HTML', 'JavaScript', 'SCSS']
     },
     
+    
 ])
 
+const sectionHeight = ref('600vh')
+
+const updateSectionHeight = () => {
+    const isMobile = window.matchMedia('(max-width: 767px)').matches
+    const isTablet = window.matchMedia('(min-width: 768px) and (max-width: 1023px)').matches
+    
+    if (isMobile) {
+        sectionHeight.value = '400vh'
+    } else if (isTablet) {
+        sectionHeight.value = '500vh'
+    } else {
+        sectionHeight.value = '600vh'
+    }
+}
+
 onMounted(() => {
+    updateSectionHeight()
+    window.addEventListener('resize', updateSectionHeight)
+    
     gsap.registerPlugin(ScrollTrigger)
     // 인트로 애니메이션
     const introTl = gsap.timeline({
@@ -215,6 +267,10 @@ onMounted(() => {
                 }, `item${currentIndex}`)
         }
     })
+})
+
+onUnmounted(() => {
+    window.removeEventListener('resize', updateSectionHeight)
 })
 </script>
 
@@ -319,7 +375,9 @@ onMounted(() => {
                 font-size: 3em;
             }
             @include mobile {
-                font-size: 4em;
+                font-size: 2.8em;
+                word-break: keep-all;
+                white-space: pre-line;
             }
         }
     }
@@ -350,7 +408,7 @@ onMounted(() => {
         width: 52em;
         justify-content: center;
         position: relative;
-
+        margin-top: 2em;
         @include mobile {
             width: 100%;
             gap: 0.6em;
@@ -375,7 +433,7 @@ onMounted(() => {
         justify-content: center;
         gap: 0.2em;
         border-radius: 0.7em;
-        padding: 0.4em 1em;
+        padding: 1em 4em;
         backdrop-filter: blur(20px);
         background-color: rgba(16,18,20,.25);
         border: 1px solid rgba(255,255,255,.1);
@@ -433,7 +491,6 @@ onMounted(() => {
         gap: 1em;
         align-items: center;
         justify-content: center;
-        margin-top: 2em;
         color: #747474;
         text-transform: uppercase;
         font-size: 1.4em;
@@ -461,11 +518,11 @@ onMounted(() => {
     &__description {
         font-family: 'Pretendard', sans-serif;
         font-weight: 400;
-        line-height: 1.92;
         letter-spacing: -0.025em;
         color: #bbbbbb;
-        margin-top: 1em;
+        margin-top: .5em;
         font-size: 1.4em;
+        line-height: 1.5;
         :deep(.highlight){
             color: v.$main-color; 
         }
