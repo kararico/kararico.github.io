@@ -38,7 +38,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 
-// 키보드 접근성을 위한 포커스 스타일
+// 포커스 시 아웃라인 스타일 적용 함수
 const handleFocus = (event: Event) => {
   const target = event.target as HTMLElement
   if (target.tagName === 'A') {
@@ -47,6 +47,7 @@ const handleFocus = (event: Event) => {
   }
 }
 
+// 포커스 해제 시 아웃라인 스타일 제거 함수
 const handleBlur = (event: Event) => {
   const target = event.target as HTMLElement
   if (target.tagName === 'A') {
@@ -54,8 +55,9 @@ const handleBlur = (event: Event) => {
   }
 }
 
+// 컴포넌트 마운트 시 실행
 onMounted(() => {
-  // 키보드 접근성 이벤트 리스너 추가
+  // 모든 푸터 링크에 키보드 접근성 이벤트 리스너 추가
   const links = document.querySelectorAll('.footer a')
   links.forEach(link => {
     link.addEventListener('focus', handleFocus as EventListener)
@@ -68,11 +70,13 @@ onMounted(() => {
 @use '@/assets/scss/common/_var' as v;
 @use '@/assets/scss/common/_mixins' as *;
 
+// 푸터 기본 스타일
 .footer {
   position: relative;
   z-index: 10;
   background-color: #111;
 
+  // 푸터 상단 영역
   .footer__top-area {
     display: flex;
     justify-content: space-between;
@@ -87,10 +91,12 @@ onMounted(() => {
 	  border:0;
     }
 
+    // 푸터 텍스트 박스
     .footer__txt-box {
       flex: 1;
       position: relative;
 
+      // 푸터 제목
       .footer__tit {
         text-align: center;
         font-size: 5rem;
@@ -114,6 +120,7 @@ onMounted(() => {
         }
       }
 
+      // 호버 효과를 위한 가상 요소
       &::after {
         content: "";
         position: absolute;
@@ -126,6 +133,7 @@ onMounted(() => {
         z-index: -1;
       }
 
+      // 데스크톱 호버 효과
       @media (hover: hover) {
         &:hover {
           &::after {
@@ -138,7 +146,7 @@ onMounted(() => {
           }
         }
       }
-      // 모바일에서 hover 효과 제거
+      // 모바일에서 호버 효과 제거
       @media (hover: none) and (pointer: coarse) {
         &:hover {
           &::after {
@@ -152,6 +160,7 @@ onMounted(() => {
       }
     }
 
+    // 푸터 링크 영역
     .footer__link-area {
       display: flex;
       justify-content: space-between;
@@ -182,6 +191,7 @@ onMounted(() => {
         }
       }
 
+      // 각 링크 박스
       .footer__box {
         border-left: 1px solid rgba(255, 255, 255, 0.3);
         height: 100%;
@@ -212,6 +222,7 @@ onMounted(() => {
           }
         }
 
+        // 호버 효과를 위한 가상 요소
         &::after {
           content: "";
           position: absolute;
@@ -224,6 +235,7 @@ onMounted(() => {
           z-index: -1;
         }
 
+        // 데스크톱 호버 효과
         @media (hover: hover) {
           &:hover {
             &::after {
@@ -231,7 +243,7 @@ onMounted(() => {
             }
           }
         }
-        // 모바일에서 hover 효과 제거
+        // 모바일에서 호버 효과 제거
         @media (hover: none) and (pointer: coarse) {
           &:hover {
             &::after {
@@ -241,6 +253,7 @@ onMounted(() => {
         }
       }
 
+      // 이메일, 전화 링크 아이콘
       .footer__link-mail,
       .footer__link-phone {
         img {
@@ -252,6 +265,7 @@ onMounted(() => {
         }
       }
 
+      // 인스타그램, 깃허브 링크 아이콘
       .footer__link-velog,
       .footer__link-github {
         img {
@@ -265,6 +279,7 @@ onMounted(() => {
     }
   }
 
+  // 푸터 하단 영역
   .footer__bottom-area {
     padding: 1rem 0 1rem 4rem;
     text-align: center;
@@ -273,6 +288,7 @@ onMounted(() => {
       padding: 1.4rem;
     }
 
+    // 저작권 텍스트
     .footer__copy {
       font-size: 1.4rem;
       font-family: v.$font-kn1;

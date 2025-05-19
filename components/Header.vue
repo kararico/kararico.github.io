@@ -66,13 +66,15 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { inject } from 'vue'
-
 import gsap from 'gsap'
 
+// 메뉴 상태 관리
 const isMenuOpen = ref(false)
 const mobileMenu = ref<HTMLElement | null>(null)
 const menuContent = ref<HTMLElement | null>(null)
 const hamburgerButton = ref<HTMLElement | null>(null)
+
+// 위치 및 날씨 정보 상태 관리
 const userTimezone = ref<string>('')
 const userCity = ref<string>('')
 const weatherInfo = ref<{
@@ -80,11 +82,14 @@ const weatherInfo = ref<{
     description: string;
     icon: string;
 } | null>(null)
+
+// 스크롤 상태 관리
 const isScrolled = ref(false)
 
-// inject로 스크롤 함수 받아오기
+// 스크롤 함수 실행행
 const scrollToSection = inject('scrollToSection') as (section: string) => void
 
+// 메뉴 클릭 처리 함수
 const handleMenuClick = (menu: string) => {
   if (scrollToSection) {
     scrollToSection(menu)
@@ -97,6 +102,7 @@ let focusableElements: HTMLElement[] = []
 let firstFocusableElement: HTMLElement | null = null
 let lastFocusableElement: HTMLElement | null = null
 
+// 메뉴 토글 함수
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value
     const button = document.querySelector('.header__hamburger') as HTMLButtonElement
@@ -119,6 +125,7 @@ const toggleMenu = () => {
     }
 }
 
+// 포커스 트랩 설정 함수
 const setupFocusTrap = () => {
     if (!menuContent.value || !hamburgerButton.value) return
 
@@ -144,6 +151,7 @@ const setupFocusTrap = () => {
     }
 }
 
+// 키보드 이벤트 처리 함수
 const handleKeyDown = (e: KeyboardEvent) => {
     if (!isMenuOpen.value) return
 
@@ -166,6 +174,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
     }
 }
 
+// 사용자 위치 정보 가져오기 함수
 const getUserLocation = async () => {
     try {
         // IP 기반 위치 정보 가져오기
@@ -193,6 +202,7 @@ const getUserLocation = async () => {
     }
 }
 
+// 날씨 정보 가져오기 함수
 const getWeatherInfo = async (lat: number, lon: number) => {
     try {
         const API_KEY = '048b40e147a9bf3ad8ee6763b548a0a3';
@@ -213,6 +223,7 @@ const getWeatherInfo = async (lat: number, lon: number) => {
     }
 }
 
+// 날짜 업데이트 함수
 const updateDate = () => {
     const now = new Date()
     
@@ -227,8 +238,10 @@ const updateDate = () => {
     if (localDateElement) localDateElement.textContent = localDate
 }
 
+// 날짜 업데이트 인터벌
 let dateInterval: number
 
+// 메뉴 애니메이션 함수
 const menuAnimation = () => {
     const menuItems = document.querySelectorAll('.header__menu-text')
     const timeArea = document.querySelector('.header__time-area')
@@ -260,14 +273,17 @@ const menuAnimation = () => {
     }
 }
 
+// 메뉴 상태 변경 감시
 watch(isMenuOpen, (newValue) => {
     menuAnimation()
 })
 
+// 스크롤 이벤트 처리 함수
 const handleScroll = () => {
     isScrolled.value = window.scrollY > 50
 }
 
+// 컴포넌트 마운트 시 실행
 onMounted(() => {
     getUserLocation()
     dateInterval = window.setInterval(updateDate, 60000)
@@ -280,6 +296,7 @@ onMounted(() => {
     hamburgerButton.value = document.querySelector('.header__hamburger') as HTMLElement
 })
 
+// 컴포넌트 언마운트 시 실행
 onUnmounted(() => {
     if (dateInterval) {
         clearInterval(dateInterval)
@@ -294,6 +311,8 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 @use '@/assets/scss/common/_var' as v;
 @use '@/assets/scss/common/_mixins' as *;
+
+// 헤더 기본 스타일
 .header {
     position: fixed;
     top: 0;
@@ -304,12 +323,14 @@ onUnmounted(() => {
     color: #fff;
     transition: background-color 0.3s ease;
 
+    // 스크롤 시 헤더 스타일
     &.header--scrolled {
         background: rgb(0 0 0 / 10%);
         backdrop-filter: blur(0.625rem);
     }
 }
 
+// 헤더 컨테이너 스타일
 .header__container {
     display: flex;
     justify-content: space-between;
@@ -317,6 +338,7 @@ onUnmounted(() => {
     padding: 2.25rem 3.125rem;
 }
 
+// 로고 스타일
 .header__logo {
     text-decoration: none;
     color: #fff;
@@ -330,20 +352,22 @@ onUnmounted(() => {
     display: flex;
     align-items: center;
     justify-content: center;
-    
 }
 
+// 시간 영역 스타일
 .header__time-area {
     display: flex;
     gap: 1rem;
     justify-content: center;
     margin-top: 1em;
     
+    // 시간 영역 내부 스타일
     .header__time-inner {
         display: flex;
         align-items: center;
         gap: 0.5rem;
         
+        // 도시명 스타일
         em {
             font-style: normal;
             font-weight: bold;
@@ -351,21 +375,25 @@ onUnmounted(() => {
             font-size: 1.2em;
         }
 
+        // 날짜 스타일
         .header__date {
             font-family: monospace;
             font-size: 1.2em;
         }
 
+        // 날씨 정보 스타일
         .header__weather {
             display: flex;
             align-items: center;
             gap: 0.5rem;
             
+            // 날씨 아이콘 스타일
             .header__weather-icon {
                 width: 2rem;
                 height: 2rem;
             }
             
+            // 온도 스타일
             .header__temperature {
                 font-size: 1.2em;
                 font-weight: 500;
@@ -374,10 +402,12 @@ onUnmounted(() => {
     }
 }
 
+// GNB 래퍼 스타일
 .header__gnb-wrap {
     z-index: 1001;
 }
 
+// 햄버거 버튼 스타일
 .header__hamburger {
     width: 1.875rem;
     height: 1.25rem;
@@ -387,6 +417,7 @@ onUnmounted(() => {
     padding: 0;
     cursor: pointer;
     
+    // 햄버거 버튼 라인 스타일
     .header__hamburger-line {
         display: block;
         width: 100%;
@@ -396,30 +427,21 @@ onUnmounted(() => {
         left: 0;
         transition: all 0.3s ease;
         
-        &:nth-child(1) {
-            top: 0;
-        }
-        
+        &:nth-child(1) { top: 0; }
         &:nth-child(2) {
             top: 50%;
             transform: translateY(-50%);
         }
-        
-        &:nth-child(3) {
-            bottom: 0;
-        }
+        &:nth-child(3) { bottom: 0; }
     }
     
+    // 햄버거 버튼 활성화 상태 스타일
     &.header__hamburger--active {
         .header__hamburger-line {
             &:nth-child(1) {
                 transform: translateY(0.5625rem) rotate(45deg);
             }
-            
-            &:nth-child(2) {
-                opacity: 0;
-            }
-            
+            &:nth-child(2) { opacity: 0; }
             &:nth-child(3) {
                 transform: translateY(-0.5625rem) rotate(-45deg);
             }
@@ -427,6 +449,7 @@ onUnmounted(() => {
     }
 }
 
+// 오픈 메뉴 스타일
 .header__open-menu {
     position: fixed;
     top: 0;
@@ -436,6 +459,7 @@ onUnmounted(() => {
     z-index: 100;
     pointer-events: none;
     
+    // 딤드 영역 스타일
     .header__dimmed {
         position: absolute;
         top: 0;
@@ -449,6 +473,7 @@ onUnmounted(() => {
         pointer-events: auto;
     }
     
+    // 메뉴 컨텐츠 스타일
     .header__menu-content {
         position: absolute;
         top: 50%;
@@ -461,6 +486,7 @@ onUnmounted(() => {
         pointer-events: auto;
     }
     
+    // 메뉴 활성화 상태 스타일
     &.header__open-menu--active {
         .header__dimmed {
             opacity: 1;
@@ -473,15 +499,16 @@ onUnmounted(() => {
         }
     }
     
+    // 메뉴 리스트 스타일
     .header__menu-list {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         gap: 2em;
-        @include mobile {
-            gap: 1em;
-        }
+        @include mobile { gap: 1em; }
+        
+        // 메뉴 아이템 스타일
         .header__menu-item {
             button {
                 color: #fff;
@@ -490,6 +517,7 @@ onUnmounted(() => {
                 display: flex;
                 align-items: center;
                 
+                // 메뉴 텍스트 스타일
                 .header__menu-text {
                     line-height: 1.2;
                     position: relative;
@@ -498,18 +526,18 @@ onUnmounted(() => {
                     transition: color 0.3s ease;
                 }
 
+                // 호버 효과
                 &:hover .header__menu-text {
                     color: v.$main-color;
                 }
-                @include mobile {
-                    font-size: 3.5em;
-                }
                 
+                @include mobile { font-size: 3.5em; }
             }
         }
     }
 }
 
+// 모바일 반응형 스타일
 @media (max-width: 48rem) {
     .header__container {
         padding: 1.25rem;

@@ -75,6 +75,7 @@ import { ref, onMounted, computed, onUnmounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+// YouTube URL을 임베드 URL로 변환하는 함수
 const getEmbedUrl = (url: string) => {
     if (url.includes('youtube.com/watch')) {
         const videoId = url.split('v=')[1]?.split('&')[0]
@@ -83,6 +84,7 @@ const getEmbedUrl = (url: string) => {
     return url
 }
 
+// 사이트 링크 클릭 처리 함수
 const handleSiteClick = (url: string) => {
     if (!url) {
         alert('비공개 프로젝트입니다')
@@ -91,6 +93,7 @@ const handleSiteClick = (url: string) => {
     }
 }
 
+// 프로젝트 데이터
 const projects = ref([
     {
         category: 'Project',
@@ -195,8 +198,10 @@ const projects = ref([
     
 ])
 
+// 섹션 높이 설정
 const sectionHeight = ref('600vh')
 
+// 반응형에 따른 섹션 높이 업데이트 함수
 const updateSectionHeight = () => {
     const isMobile = window.matchMedia('(max-width: 767px)').matches
     const isTablet = window.matchMedia('(min-width: 768px) and (max-width: 1023px)').matches
@@ -210,12 +215,13 @@ const updateSectionHeight = () => {
     }
 }
 
+// 컴포넌트 마운트 시 실행
 onMounted(() => {
     updateSectionHeight()
     window.addEventListener('resize', updateSectionHeight)
     
     gsap.registerPlugin(ScrollTrigger)
-    // 인트로 애니메이션
+    // 인트로 애니메이션 설정
     const introTl = gsap.timeline({
         scrollTrigger: {
             trigger: '.target',
@@ -230,7 +236,7 @@ onMounted(() => {
         .to('.project__item', { width: '100%' }, "n")
         .from('.project', { yPercent: 1 }, "n")
 
-    // 프로젝트 아이템 애니메이션
+    // 프로젝트 아이템 애니메이션 설정
     const projectTl = gsap.timeline({
         scrollTrigger: {
             trigger: ".project",
@@ -240,25 +246,30 @@ onMounted(() => {
         }
     })
 
-    // 각 프로젝트 아이템에 대한 애니메이션
+    // 각 프로젝트 아이템에 대한 애니메이션 적용
     projects.value.forEach((_, index) => {
         const currentIndex = index + 1
         const prevIndex = index
 
-        // 첫 번째 아이템은 width 100%로 시작
-        projectTl
-            .set(`.project__item:nth-child(${currentIndex})`, { 
-                width: index === 0 ? '100%' : '80%'
-            })
-            .to(`.project__item:nth-child(${currentIndex})`, { 
-                transform: 'translateY(0)',
-            }, `item${currentIndex}+=0.1`)
-            .to(`.project__item:nth-child(${currentIndex})`, { 
-                width: '100%',
-            }, `item${currentIndex}`)
-
-        if (index > 0) {
+        if (index === 0) {
+            // 첫 번째 아이템은 애니메이션 없이 100% width로 설정하고 바로 보이도록 함
             projectTl
+                .set(`.project__item:nth-child(${currentIndex})`, { 
+                    width: '100%',
+                    transform: 'translateY(0)'
+                })
+        } else {
+            // 나머지 아이템들은 애니메이션 적용
+            projectTl
+                .set(`.project__item:nth-child(${currentIndex})`, { 
+                    width: '80%'
+                })
+                .to(`.project__item:nth-child(${currentIndex})`, { 
+                    transform: 'translateY(0)',
+                }, `item${currentIndex}+=0.1`)
+                .to(`.project__item:nth-child(${currentIndex})`, { 
+                    width: '100%',
+                }, `item${currentIndex}`)
                 .to(`.project__item:nth-child(${prevIndex}) .img-wrap`, {
                     opacity: 0,
                 }, `item${currentIndex}+=0.1`)
@@ -269,6 +280,7 @@ onMounted(() => {
     })
 })
 
+// 컴포넌트 언마운트 시 이벤트 리스너 제거
 onUnmounted(() => {
     window.removeEventListener('resize', updateSectionHeight)
 })

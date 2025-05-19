@@ -18,6 +18,7 @@
 </template>
 
 <script setup lang="ts">
+// 클라이언트 로고 이미지 경로 배열
 const logos = [
   '/images/clients/amorepacific.png',
   '/images/clients/bing.png',
@@ -46,6 +47,7 @@ const logos = [
 <style lang="scss" scoped>
     @use '@/assets/scss/common/_var' as v;
     @use '@/assets/scss/common/_mixins' as *;
+
     .client__section {
         width: 100%;
         background: #181a1e;
@@ -67,6 +69,7 @@ const logos = [
         @include tablet { font-size: 2em; margin-bottom:.5rem;}
         @include mobile { font-size: 1.5em; margin-bottom: 0; }
     }
+
     .client__summary {
         font-size: 2.2em;
         font-weight: 600;
@@ -80,6 +83,7 @@ const logos = [
         @include tablet { font-size: 1.5em; margin-bottom:0;}
         @include mobile { font-size: 1.5em; margin-bottom: 0; }
     }
+
     .client__rolling-wrapper {
         width: 100vw;
         overflow: hidden;
@@ -90,12 +94,14 @@ const logos = [
         @include tablet { margin-top: 3em;}
         @include mobile { margin-top: 2em;}
     }
+
     .client__rolling-list {
         display: flex;
         gap: 0;
         width: max-content;
         animation: rolling 100s linear infinite;
     }
+
     .client__rolling-item {
         flex: 0 0 auto;
         margin: 0 .2rem;
@@ -109,10 +115,12 @@ const logos = [
             @include mobile { width: 10.375rem; height: 5.625rem; }
         }
     }
+
+    // 로고 롤링 애니메이션
     @keyframes rolling {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
-}
+    }
 </style>
 
 

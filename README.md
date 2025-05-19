@@ -1,6 +1,8 @@
-# Nuxt Minimal Starter
+# 2025 포트폴리오
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+```
+  nuxt.js 활용한 2025 포트폴리오 제작 
+```
 
 ## Nuxt 기본 폴더 구조
 
@@ -16,7 +18,11 @@ Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduct
 ```
 
 ## Setup
+node 버전  # 19.9.0
 
-Make sure to install dependencies:
+```
+npm install  # 패키지 설치
+npm run dev  # 로컬 환경 실행
+npm run postgenerate # 깃허브 페이지 자동 배포 
 
 ```

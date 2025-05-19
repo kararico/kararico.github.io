@@ -33,11 +33,13 @@ import { onMounted, onUnmounted, ref, nextTick } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+// 윈도우 높이와 DOM 요소 참조
 const windowHeight = ref(0)
 const heroRef = ref<HTMLElement | null>(null)
 const titleRef = ref<HTMLElement | null>(null)
 const isAnimationStarted = ref(false)
 
+// 윈도우 높이 업데이트 함수
 const updateHeight = () => { 
     windowHeight.value = window.innerHeight
 }
@@ -68,13 +70,14 @@ const startTextAnimation = async () => {
     }
 }
 
-// Loading 애니메이션 완료 이벤트 리스너
+// 로딩 애니메이션 완료 이벤트 처리 함수
 const handleLoadingComplete = () => {
     setTimeout(() => {
         startTextAnimation()
     }, 1000)
 }
 
+// 컴포넌트 마운트 시 실행
 onMounted(async () => {
     updateHeight()
     window.addEventListener('resize', updateHeight)
@@ -123,6 +126,7 @@ onMounted(async () => {
     }
 })
 
+// 컴포넌트 언마운트 시 실행
 onUnmounted(() => {
     window.removeEventListener('resize', updateHeight)
     // ScrollTrigger 인스턴스 정리

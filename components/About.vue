@@ -70,10 +70,12 @@ import { ref, onMounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+// 프로필 표시 상태 관리
 const isProfileVisible = ref(false)
 const isSkeleton = ref(false)
 let skeletonTimer: number | null = null
 
+// 프로필 표시 함수
 const showProfile = () => {
     isSkeleton.value = true
     if (skeletonTimer) clearTimeout(skeletonTimer)
@@ -82,14 +84,18 @@ const showProfile = () => {
         isSkeleton.value = false
     }, 1000)
 }
+
+// 프로필 숨김 함수
 const hideProfile = () => {
     if (skeletonTimer) clearTimeout(skeletonTimer)
     isProfileVisible.value = false
     isSkeleton.value = false
 }
 
+// 컴포넌트 마운트 시 실행
 onMounted(() => {
     gsap.registerPlugin(ScrollTrigger)
+    // 제목 애니메이션
     gsap.from('.about__title', {
         y: 60, opacity: 0, duration: 1,
         scrollTrigger: {
@@ -98,6 +104,7 @@ onMounted(() => {
             toggleActions: 'play none none reverse'
         }
     });
+    // 요약 텍스트 애니메이션
     gsap.from('.about__summary', {
         y: 60, opacity: 0, duration: 1, delay: 0.15,
         scrollTrigger: {
@@ -106,6 +113,7 @@ onMounted(() => {
             toggleActions: 'play none none reverse'
         }
     });
+    // 콘텐츠 영역 애니메이션
     gsap.from('.about__content', {
         y: 80, opacity: 0, duration: 1.1, delay: 0.3,
         scrollTrigger: {
@@ -114,7 +122,7 @@ onMounted(() => {
             toggleActions: 'play none none reverse'
         }
     });
-    // 문단 staggered 등장
+    // 문단 순차적 등장 애니메이션
     gsap.from('.about__paragraph', {
         y: 40, opacity: 0, duration: 0.8, stagger: 0.12,
         scrollTrigger: {
@@ -123,7 +131,7 @@ onMounted(() => {
             toggleActions: 'play none none reverse'
         }
     });
-    // 배경 원 스크롤 연동 모션
+    // 배경 원 스크롤 연동 모션 - 첫 번째 원
     gsap.to('.circle1', {
         y: 200, scale: 1.25, opacity: 0.4,
         scrollTrigger: {
@@ -133,6 +141,7 @@ onMounted(() => {
             scrub: 1
         }
     });
+    // 배경 원 스크롤 연동 모션 - 두 번째 원
     gsap.to('.circle2', {
         x: -160, scale: 1.25, opacity: 0.32,
         scrollTrigger: {
@@ -149,6 +158,7 @@ onMounted(() => {
 @use '@/assets/scss/common/_var' as v;
 @use '@/assets/scss/common/_mixins' as *;
 
+// About 섹션 기본 스타일
 .about {
     position: relative;
     width: 100%;
@@ -164,6 +174,7 @@ onMounted(() => {
     @include tablet { padding: 5em 2.5em 8em; }
     @include mobile { gap: 2.5em; padding: 4em 1.2em; }
 
+    // 배경 원 스타일
     .about-bg-circles {
         position: absolute;
         top: 0; left: 0; width: 100%; height: 100%;
@@ -187,6 +198,7 @@ onMounted(() => {
         }
     }
 
+    // 제목 스타일
     &__title {
         display: flex;
         align-items: center;
@@ -199,6 +211,8 @@ onMounted(() => {
         @include tablet { font-size: 2em; margin-bottom:0;}
         @include mobile { font-size: 2.2em; margin-bottom:0;}
     }
+
+    // 요약 텍스트 스타일
     &__summary {
         font-size: 2.2em;
         font-weight: 600;
@@ -211,6 +225,8 @@ onMounted(() => {
         @include tablet { font-size: 1.5em; }
         @include mobile { font-size: 1.5em;  }
     }
+
+    // 카드 스타일 공통
     .card-style, .about__content {
         background: rgba(255,255,255,0.13);
         border-radius: 2.2em;
@@ -236,6 +252,8 @@ onMounted(() => {
             pointer-events: none;
         }
     }
+
+    // 문단 스타일
     &__paragraph {
         position: relative;
         z-index: 1;
@@ -248,6 +266,8 @@ onMounted(() => {
         &:last-child { margin-bottom: 0; }
         @include mobile { font-size: 1.1em; line-height: 1.3; margin-bottom: 1em; }
     }
+
+    // 프로필 플로팅 이미지 스타일
     .about__profile-float {
         position: absolute;
         left: 50%;
@@ -280,16 +300,20 @@ onMounted(() => {
         @include mobile { display: none !important; }
         @include tablet { display: none !important; }
     }
+
+    // 콘텐츠 영역 스타일
     .about__content {
         position: relative;
     }
 }
 
+// 로딩 애니메이션
 @keyframes loading {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
 }
 
+// 프로필 호버 트리거 스타일
 .about__profile-hover-trigger {
     cursor: pointer;
     display: inline-block;

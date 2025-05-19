@@ -13,9 +13,14 @@
 import { onMounted, ref, onBeforeUnmount } from 'vue'
 import gsap from 'gsap'
 
+// 애니메이션 완료 이벤트 emit 정의
 const emit = defineEmits(['animationComplete'])
+
+// 로딩 텍스트와 점 데이터
 const letters = ref(['L', 'o', 'a', 'd', 'i', 'n', 'g'])
 const dots = ref(['.', '.', '.'])
+
+// DOM 요소 참조
 const letterRefs = ref<HTMLElement[]>([])
 const dotRefs = ref<HTMLElement[]>([])
 
@@ -38,6 +43,7 @@ const unlockScroll = () => {
   window.scrollTo(0, parseInt(document.body.style.top || '0') * -1)
 }
 
+// 컴포넌트 마운트 시 실행
 onMounted(() => {
   // 스크롤 잠금
   lockScroll()

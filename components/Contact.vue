@@ -84,6 +84,7 @@ import { useRuntimeConfig } from '#imports'
 const config = useRuntimeConfig()
 const emailjs = ref<any>(null)
 
+// 폼 데이터 상태 관리
 const formData = ref({
     name: '',
     email: '',
@@ -91,16 +92,20 @@ const formData = ref({
     message: ''
 })
 
+// 폼 상태 메시지 관리
 const statusMsg = ref('')
 const statusType = ref<'success'|'error'|''>('')
 
+// 폼 요소 참조
 const nameRef = ref<HTMLInputElement | null>(null)
 const emailRef = ref<HTMLInputElement | null>(null)
 const subjectRef = ref<HTMLInputElement | null>(null)
 const messageRef = ref<HTMLTextAreaElement | null>(null)
 
+// 팝업 상태 관리
 const popup = ref<{ visible: boolean, message: string, refToFocus?: any }>({ visible: false, message: '' })
 
+// 팝업 후 포커스 처리 함수
 function focusAfterPopup(el: any) {
     if (!el) return;
     requestAnimationFrame(() => {
@@ -116,6 +121,7 @@ function focusAfterPopup(el: any) {
     });
 }
 
+// 팝업 표시 함수
 function showPopup(msg: string, refToFocus?: any) {
     popup.value.message = msg
     popup.value.visible = true
@@ -129,6 +135,7 @@ function showPopup(msg: string, refToFocus?: any) {
     }, 1500)
 }
 
+// 팝업 닫기 함수
 function closePopup() {
     popup.value.visible = false
     const focusRef = popup.value.refToFocus;
@@ -137,6 +144,7 @@ function closePopup() {
     });
 }
 
+// 폼 유효성 검사 함수
 const validateForm = () => {
     if (!formData.value.name.trim()) {
         statusMsg.value = '이름을 입력해주세요.';
@@ -148,7 +156,7 @@ const validateForm = () => {
         showPopup('이메일을 입력해주세요.', emailRef);
         return false;
     }
-    // 간단한 이메일 형식 체크
+    // 이메일 형식 검사
     const emailPattern = /^[^\s@]+@[^-\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(formData.value.email)) {
         statusMsg.value = '올바른 이메일 형식을 입력해주세요.';
@@ -168,6 +176,7 @@ const validateForm = () => {
     return true;
 }
 
+// 폼 제출 처리 함수
 const handleSubmit = async () => {
     statusMsg.value = ''
     statusType.value = ''
@@ -199,10 +208,13 @@ const handleSubmit = async () => {
     }
 }
 
+// 컴포넌트 마운트 시 실행
 onMounted(async () => {
+    // EmailJS 초기화
     emailjs.value = (await import('@emailjs/browser')).default
     emailjs.value.init(config.public.emailjsPublicKey)
 
+    // 컨택트 섹션 애니메이션 설정
     const contactAnimation = () => {
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -255,6 +267,7 @@ onMounted(async () => {
 @use '@/assets/scss/common/_var' as v;
 @use '@/assets/scss/common/_mixins' as *;
 
+// 컨택트 섹션 기본 스타일
 .contact {
     min-height: 100vh;
     display: flex;
@@ -270,6 +283,7 @@ onMounted(async () => {
         padding: 6em 0;
     }
 
+    // 컨택트 컨테이너 스타일
     .contact__container {
         width: 100%;
         max-width: 800px;
@@ -277,6 +291,7 @@ onMounted(async () => {
         padding: 0 2em;
     }
 
+    // 메시지 영역 스타일
     .contact__msg-area {
         text-align: left;
         margin-bottom: 4em;
@@ -294,11 +309,13 @@ onMounted(async () => {
         }
     }
 
+    // 컨택트 영역 스타일
     .contact__area {
         .contact__content {
             width: 100%;
         }
 
+        // 제목 스타일
         .contact__title {
             margin-bottom: 2em;
             text-align: left;
@@ -315,6 +332,7 @@ onMounted(async () => {
             }
         }
 
+        // 폼 스타일
         .contact__form {
             .contact__form-group {
                 margin-bottom: 2em;
@@ -353,6 +371,7 @@ onMounted(async () => {
                 }
             }
 
+            // 제출 버튼 스타일
             .contact__submit-btn {
                 display: inline-flex;
                 align-items: center;
@@ -389,6 +408,7 @@ onMounted(async () => {
     }
 }
 
+// 토스트 메시지 스타일
 .contact__toast-message {
     position: fixed;
     left: 50%;
@@ -404,10 +424,14 @@ onMounted(async () => {
     animation: toast-fadein 0.3s, toast-fadeout 0.3s 1.2s;
     pointer-events: none;
 }
+
+// 토스트 메시지 페이드인 애니메이션
 @keyframes toast-fadein {
     from { opacity: 0; transform: translateX(-50%) translateY(30px);}
     to   { opacity: 1; transform: translateX(-50%) translateY(0);}
 }
+
+// 토스트 메시지 페이드아웃 애니메이션
 @keyframes toast-fadeout {
     from { opacity: 1; }
     to   { opacity: 0; }
