@@ -1,5 +1,5 @@
 <template>
-    <section class="contact">
+    <div class="contact">
         <div class="contact__container">
             <div class="contact__msg-area">
                 <h2 class="contact__msg">CONTACT ME</h2>
@@ -73,7 +73,7 @@
         <div v-if="popup.visible" class="contact__toast-message">
             <span class="contact__toast-text">{{ popup.message }}</span>
         </div>
-    </section>
+    </div>
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,5 @@
 <template>
-    <section class="about"  aria-labelledby="about-title">
+    <div class="about"  aria-labelledby="about-title">
         <div class="about-bg-circles">
             <span class="circle circle1"></span>
             <span class="circle circle2"></span>
@@ -62,7 +62,7 @@
                 제가 계속 성장하게 만드는 원동력입니다.
             </p>
         </div>
-    </section>
+    </div>
 </template>
 
 <script setup lang="ts">

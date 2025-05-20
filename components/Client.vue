@@ -1,5 +1,5 @@
 <template>
-    <section class="client__section">
+    <div class="client__section">
         <div class="client__container">
             <h2 class="client__title">Client</h2>
             <p class="client__summary">그동안 함께 작업했던 <span class="main-color">클라이언트</span>들입니다.</p>
@@ -14,7 +14,7 @@
                 </ul>
             </div>
         </div>  
-    </section>
+    </div>
 </template>
 
 <script setup lang="ts">

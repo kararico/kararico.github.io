@@ -1,5 +1,5 @@
 <template>
-    <section class="project target" aria-labelledby="project-title" :style="{ height: sectionHeight }">
+    <div class="project target" aria-labelledby="project-title" :style="{ height: sectionHeight }">
         <div class="project__inner">
             <div v-for="(project, index) in projects" 
                  :key="index"
@@ -67,7 +67,7 @@
             </div>
             
         </div>
-    </section>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -97,101 +97,83 @@ const handleSiteClick = (url: string) => {
 const projects = ref([
     {
         category: 'Project',
-        // company: 'HYUNDAI',
         title: 'EZWEL',
-        description: '<em class="highlight">EZWEL</em> 프로젝트를 진행중에 있습니다. <br />현재 업무는 공통 컴포넌트 작업 및 퍼블리싱 PL파트를 담당하고 있습니다.',
+        description: '<em class="highlight">EZWEL</em> 프로젝트를 진행중에 있습니다.',
         siteUrl: '',
         mediaType: 'video',
         videoUrl: 'https://img.ezwelfare.net/welfare_corp/css/user/front/renew/images/main_visual01.mp4',
-        // contribution: '45%',
         skills: ['Nuxt.js', 'TypeScript', 'HTML5', 'SCSS', 'STORYBOOK' ]
     },
     {
         category: 'Project',
-        // company: 'SCK COMPANY',
         title: 'STARBUCKS',
         description: '<em class="highlight">스타벅스</em> 임직원 사내용 하이브리드 앱 프로젝트입니다.',
         siteUrl: '',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/28043968/12290715_2560_1440_24fps.mp4',
-        // contribution: '100%',
         skills: ['HTML5', 'JavaScript','Jquery', 'SCSS']
     },
     {
         category: 'Operation',
-        // company: 'F&F',
         title: 'MLB KOREA',
         description: '<em class="highlight">엠엘비 코리아</em> 홈페이지 부분 개편 운영 프로젝트입니다.',
         siteUrl: 'https://www.mlb-korea.com/',
         mediaType: 'video',
         videoUrl: 'https://cdn.prod.website-files.com/646a4e539ffa024a48651555/649070038794a919744c0b8f_background-video-1280x720-30fps-transcode.mp4',
-        // contribution: '100%',
         skills: ['HTML', 'JavaScript', 'SCSS']
     },
     {
         category: 'Operation',
-        // company: 'F&F',
         title: 'DISCOVERY',
         description: '<em class="highlight">디스커버리</em> 홈페이지 부분 개편 및 운영 프로젝트입니다.',
         siteUrl: 'https://www.discovery-expedition.com',
         mediaType: 'video',
         videoUrl: 'https://homepage-static.fnf.co.kr/pcVideo_67db5edf809283.56040568.mp4',
-        // contribution: '100%',
         skills: ['HTML', 'JavaScript', 'SCSS']
     },
     {
         category: 'Project',
-        // company: 'SHINSEGAE CASA',
         title: 'CASAMINA',
         description: '<em class="highlight">까사미아</em> 홈페이지 개편 프로젝트입니다.',
         siteUrl: 'https://casamia.co.kr/home',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/32013494/13644778_2560_1440_25fps.mp4',
-        // contribution: '100%',
         skills: ['HTML', 'JavaScript', 'SCSS']
     },
     {
         category: 'Project',
-        // company: 'SHINSEGAE CASA',
         title: 'GUUD',
         description: '<em class="highlight">굳닷컴</em> 개편 및 운영 프로젝트입니다.',
         siteUrl: 'https://guud.com',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/31646575/13482899_2560_1440_60fps.mp4',
-        // contribution: '100%',
         skills: ['HTML', 'JavaScript', 'SCSS']
     },
     {
         category: 'Project',
-        // company: 'Bullsone',
         title: 'BULLSONE',
         description: '<em class="highlight">불스원</em> 구축 프로젝트입니다.',
         siteUrl: 'https://bullsone.com/',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/29792714/12800431_1920_1080_60fps.mp4',
-        // contribution: '100%',
         skills: ['HTML', 'JavaScript', 'SCSS']
     },
     {
         category: 'Project',
-        // company: 'LG',
         title: 'LG SIGNATURE GLOBAL',
         description: '<em class="highlight">LG시그니처 글로벌 사이트</em> 구축 프로젝트입니다.',
         siteUrl: 'https://www.lg.com/global/',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/30975000/13241693_2160_1440_24fps.mp4',
-        // contribution: '100%',
         skills: ['HTML', 'JavaScript', 'SCSS']
     },
     {
         category: 'Project',
-        // company: 'Fun&I',
         title: 'Funbeerking',
         description: '<em class="highlight">펀비어킹</em> 구축 프로젝트입니다.',
         siteUrl: 'http://www.funbeerking.com/index.php',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/10741100/10741100-hd_2560_1440_30fps.mp4',
-        // contribution: '100%',
         skills: ['HTML', 'JavaScript', 'SCSS']
     },
     
@@ -241,7 +223,7 @@ onMounted(() => {
         scrollTrigger: {
             trigger: ".project",
             scrub: 0,
-            start: "0 0",
+            start: "top top",
             end: "100% 100%",
         }
     })
@@ -252,20 +234,24 @@ onMounted(() => {
         const prevIndex = index
 
         if (index === 0) {
-            // 첫 번째 아이템은 애니메이션 없이 100% width로 설정하고 바로 보이도록 함
+            // 첫 번째 아이템은 초기 상태에서 보이도록 설정
             projectTl
                 .set(`.project__item:nth-child(${currentIndex})`, { 
                     width: '100%',
-                    transform: 'translateY(0)'
+                    transform: 'translateY(0)',
+                    opacity: 1
                 })
         } else {
             // 나머지 아이템들은 애니메이션 적용
             projectTl
                 .set(`.project__item:nth-child(${currentIndex})`, { 
-                    width: '80%'
+                    width: '80%',
+                    opacity: 0
                 })
                 .to(`.project__item:nth-child(${currentIndex})`, { 
                     transform: 'translateY(0)',
+                    opacity: 1,
+                    duration: 0.5
                 }, `item${currentIndex}+=0.1`)
                 .to(`.project__item:nth-child(${currentIndex})`, { 
                     width: '100%',
@@ -291,9 +277,7 @@ onUnmounted(() => {
 @use '@/assets/scss/common/_mixins' as *;
 
 .project {
-    position: relative;
     width: 100%;
-    height: 600vh;
     h2 {
         margin: 0 auto;
         width: 80%;
