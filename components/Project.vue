@@ -225,6 +225,8 @@ onMounted(() => {
             scrub: 0,
             start: "top top",
             end: "100% 100%",
+            pin: true,
+            anticipatePin: 1,
         }
     })
 
@@ -239,14 +241,17 @@ onMounted(() => {
                 .set(`.project__item:nth-child(${currentIndex})`, { 
                     width: '100%',
                     transform: 'translateY(0)',
-                    opacity: 1
+                    opacity: 1,
+                    position: 'relative'
                 })
         } else {
             // 나머지 아이템들은 애니메이션 적용
             projectTl
                 .set(`.project__item:nth-child(${currentIndex})`, { 
                     width: '80%',
-                    opacity: 0
+                    opacity: 0,
+                    position: 'absolute',
+                    top: 0
                 })
                 .to(`.project__item:nth-child(${currentIndex})`, { 
                     transform: 'translateY(0)',
@@ -259,9 +264,6 @@ onMounted(() => {
                 .to(`.project__item:nth-child(${prevIndex}) .img-wrap`, {
                     opacity: 0,
                 }, `item${currentIndex}+=0.1`)
-                .to('.project__numbers li', {
-                    xPercent: -(100 * index),
-                }, `item${currentIndex}`)
         }
     })
 })
