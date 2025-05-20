@@ -1,9 +1,10 @@
 <template>
-    <div class="project target" aria-labelledby="project-title" :style="{ height: sectionHeight }">
+    <div class="project target" aria-labelledby="project-title" >
+        <h2 class="sr-only">프로젝트 소개</h2>
         <div class="project__inner">
             <div v-for="(project, index) in projects" 
                  :key="index"
-                 :class="['project__item', index > 0 ? 'pin' : '']"  
+                 :class="['project__item', index > 0 ? 'pin' : '', '_' + (index + 1)]"  
                  :id="`project-${index + 1}`">
                 <div class="img-wrap">
                     <div class="project__content">
@@ -180,97 +181,50 @@ const projects = ref([
     
 ])
 
-// 섹션 높이 설정
-const sectionHeight = ref('600vh')
 
-// 반응형에 따른 섹션 높이 업데이트 함수
-const updateSectionHeight = () => {
-    const isMobile = window.matchMedia('(max-width: 767px)').matches
-    const isTablet = window.matchMedia('(min-width: 768px) and (max-width: 1023px)').matches
-    
-    if (isMobile) {
-        sectionHeight.value = '400vh'
-    } else if (isTablet) {
-        sectionHeight.value = '500vh'
-    } else {
-        sectionHeight.value = '600vh'
-    }
-}
 
 // 컴포넌트 마운트 시 실행
 onMounted(() => {
-    updateSectionHeight()
-    window.addEventListener('resize', updateSectionHeight)
-    
-    gsap.registerPlugin(ScrollTrigger)
-    // 인트로 애니메이션 설정
-    const introTl = gsap.timeline({
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 인트로 타임라인 (첫 번째 아이템)
+    const inTroTl = gsap.timeline({
         scrollTrigger: {
-            trigger: '.target',
+            trigger: '.project.target',
             start: "-10% 50%",
             end: "0% 50%",
             scrub: 0,
         },
-    })
+    });
+    inTroTl
+        .to('.project__item:first-child', { width: '100%' }, "n")
+        .from('.project.target', { yPercent: 1 }, "n");
 
-    introTl
-        .to('.project h2', { width: '100%' }, "n")
-        .to('.project__item', { width: '100%' }, "n")
-        .from('.project', { yPercent: 1 }, "n")
-
-    // 프로젝트 아이템 애니메이션 설정
-    const projectTl = gsap.timeline({
+    // 순차적 프로젝트 전환 타임라인
+    const pinItems = document.querySelectorAll('.project__item.pin');
+    const introductionpageTl = gsap.timeline({
         scrollTrigger: {
-            trigger: ".project",
+            trigger: ".project.target",
             scrub: 0,
-            start: "top top",
+            start: "0 0",
             end: "100% 100%",
-            pin: true,
-            anticipatePin: 1,
         }
-    })
+    });
 
-    // 각 프로젝트 아이템에 대한 애니메이션 적용
-    projects.value.forEach((_, index) => {
-        const currentIndex = index + 1
-        const prevIndex = index
+    pinItems.forEach((el, idx) => {
+        const currentIndex = idx + 2;
+        const prevIndex = idx + 1;   
+        const label = String.fromCharCode(97 + idx); 
 
-        if (index === 0) {
-            // 첫 번째 아이템은 초기 상태에서 보이도록 설정
-            projectTl
-                .set(`.project__item:nth-child(${currentIndex})`, { 
-                    width: '100%',
-                    opacity: 1,
-                    position: 'relative'
-                })
-        } else {
-            // 나머지 아이템들은 애니메이션 적용
-            projectTl
-                .set(`.project__item:nth-child(${currentIndex})`, { 
-                    width: '80%',
-                    opacity: 0,
-                    position: 'absolute',
-                    top: 0,
-                    transform: 'translateY(100%)'
-                })
-                .to(`.project__item:nth-child(${currentIndex})`, { 
-                    transform: 'translateY(0)',
-                    opacity: 1,
-                    duration: 0.5
-                }, `item${currentIndex}+=0.1`)
-                .to(`.project__item:nth-child(${currentIndex})`, { 
-                    width: '100%',
-                }, `item${currentIndex}`)
-                .to(`.project__item:nth-child(${prevIndex}) .img-wrap`, {
-                    opacity: 0,
-                }, `item${currentIndex}+=0.1`)
-        }
-    })
-})
+        introductionpageTl
+            .to(`.project__item._${currentIndex}`, { transform: 'translateY(0)' }, `${label}+=0.1`)
+            .to(`.project__item._${currentIndex}`, { width: '100%' }, label)
+            .to(`.project__item._${prevIndex} .img-wrap`, { opacity: 0 }, `${label}+=0.1`);
+    });
+});
 
 // 컴포넌트 언마운트 시 이벤트 리스너 제거
 onUnmounted(() => {
-    window.removeEventListener('resize', updateSectionHeight)
 })
 </script>
 
@@ -279,7 +233,9 @@ onUnmounted(() => {
 @use '@/assets/scss/common/_mixins' as *;
 
 .project {
+    position: relative;
     width: 100%;
+    height: 600vh;
     h2 {
         margin: 0 auto;
         width: 80%;
@@ -298,13 +254,13 @@ onUnmounted(() => {
     }
 
     &__inner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: sticky;
-      top: 0px;
-      width: 100%;
-      overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        overflow: hidden;
     }
 
     &__item {
@@ -314,6 +270,7 @@ onUnmounted(() => {
         background-color: #000000;
         position: relative;
         overflow: hidden;
+
         
         &.pin{
             position: absolute;
