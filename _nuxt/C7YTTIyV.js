@@ -1,0 +1,1 @@
+import{g as e,c as o,o as s,_ as t}from"./CIWFynCy.js";const _={class:"home"},a=e({__name:"Home",setup(c){return(n,m)=>(s(),o("main",_))}}),p=t(a,[["__scopeId","data-v-0115d7db"]]);export{p as default};
