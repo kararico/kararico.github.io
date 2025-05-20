@@ -235,36 +235,24 @@ onMounted(() => {
         const currentIndex = index + 1
         const prevIndex = index
 
-        if (index === 0) {
-            // 첫 번째 아이템은 초기 상태에서 보이도록 설정
-            projectTl
-                .set(`.project__item:nth-child(${currentIndex})`, { 
-                    width: '100%',
-                    transform: 'translateY(0)',
-                    opacity: 1,
-                    position: 'relative'
-                })
-        } else {
-            // 나머지 아이템들은 애니메이션 적용
-            projectTl
-                .set(`.project__item:nth-child(${currentIndex})`, { 
-                    width: '80%',
-                    opacity: 0,
-                    position: 'absolute',
-                    top: 0
-                })
-                .to(`.project__item:nth-child(${currentIndex})`, { 
-                    transform: 'translateY(0)',
-                    opacity: 1,
-                    duration: 0.5
-                }, `item${currentIndex}+=0.1`)
-                .to(`.project__item:nth-child(${currentIndex})`, { 
-                    width: '100%',
-                }, `item${currentIndex}`)
-                .to(`.project__item:nth-child(${prevIndex}) .img-wrap`, {
-                    opacity: 0,
-                }, `item${currentIndex}+=0.1`)
-        }
+        projectTl
+            .set(`.project__item:nth-child(${currentIndex})`, { 
+                width: '80%',
+                opacity: 0,
+                position: 'absolute',
+                top: 0
+            })
+            .to(`.project__item:nth-child(${currentIndex})`, { 
+                transform: 'translateY(0)',
+                opacity: 1,
+                duration: 0.5
+            }, `item${currentIndex}+=0.1`)
+            .to(`.project__item:nth-child(${currentIndex})`, { 
+                width: '100%',
+            }, `item${currentIndex}`)
+            .to(`.project__item:nth-child(${prevIndex}) .img-wrap`, {
+                opacity: 0,
+            }, `item${currentIndex}+=0.1`)
     })
 })
 
