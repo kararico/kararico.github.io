@@ -8,6 +8,7 @@
     <section ref="projectRef"><Project /></section>
     <section ref="contactRef"><Contact /></section>
   </main>
+  <ScrollTop />
 </template>
 
 
@@ -20,6 +21,7 @@ import Project from '~/components/Project.vue'
 import Client from '~/components/Client.vue'
 import Contact from '~/components/Contact.vue'
 import Cursor from '~/components/Cursor.vue'
+import ScrollTop from '~/components/ScrollTop.vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
