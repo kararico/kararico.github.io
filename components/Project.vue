@@ -72,7 +72,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, onUnmounted } from 'vue'
+import { ref, onMounted, computed, onUnmounted, nextTick } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -185,41 +185,43 @@ const projects = ref([
 
 // 컴포넌트 마운트 시 실행
 onMounted(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    nextTick(() => {
+        gsap.registerPlugin(ScrollTrigger);
 
-    // 인트로 타임라인 (첫 번째 아이템)
-    const inTroTl = gsap.timeline({
-        scrollTrigger: {
-            trigger: '.project.target',
-            start: "-10% 50%",
-            end: "0% 50%",
-            scrub: 0,
-        },
-    });
-    inTroTl
-        .to('.project__item:first-child', { width: '100%' }, "n")
-        .from('.project.target', { yPercent: 1 }, "n");
+        // 인트로 타임라인 (첫 번째 아이템) 
+        const inTroTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.project.target',
+                start: "-10% 50%",
+                end: "0% 50%",
+                scrub: 0,
+            },
+        });
+        inTroTl
+            .to('.project__item:first-child', { width: '100%' }, "n")
+            .from('.project.target', { yPercent: 1 }, "n");
 
-    // 순차적 프로젝트 전환 타임라인
-    const pinItems = document.querySelectorAll('.project__item.pin');
-    const introductionpageTl = gsap.timeline({
-        scrollTrigger: {
-            trigger: ".project.target",
-            scrub: 0,
-            start: "0 0",
-            end: "100% 100%",
-        }
-    });
+        // 순차적 프로젝트 전환 타임라인
+        const pinItems = document.querySelectorAll('.project__item.pin');
+        const introductionpageTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".project.target",
+                scrub: 0,
+                start: "0 0",
+                end: "100% 100%",
+            }
+        });
 
-    pinItems.forEach((el, idx) => {
-        const currentIndex = idx + 2;
-        const prevIndex = idx + 1;   
-        const label = String.fromCharCode(97 + idx); 
+        pinItems.forEach((el, idx) => {
+            const currentIndex = idx + 2;
+            const prevIndex = idx + 1;   
+            const label = String.fromCharCode(97 + idx);  //알파벳 생성
 
-        introductionpageTl
-            .to(`.project__item._${currentIndex}`, { transform: 'translateY(0)' }, `${label}+=0.1`)
-            .to(`.project__item._${currentIndex}`, { width: '100%' }, label)
-            .to(`.project__item._${prevIndex} .img-wrap`, { opacity: 0 }, `${label}+=0.1`);
+            introductionpageTl
+                .to(`.project__item._${currentIndex}`, { transform: 'translateY(0)' }, `${label}+=0.1`)
+                .to(`.project__item._${currentIndex}`, { width: '100%' }, label)
+                .to(`.project__item._${prevIndex} .img-wrap`, { opacity: 0 }, `${label}+=0.1`);
+        });
     });
 });
 
