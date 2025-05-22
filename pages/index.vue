@@ -1,6 +1,4 @@
 <template>
-  <Loading v-if="isLoading" @animation-complete="handleLoadingComplete" />
-  <Cursor ref="cursorRef" />
   <main class="container">
     <Visual ref="visualRef" />
     <section ref="aboutRef"><About /></section>
@@ -11,39 +9,24 @@
   <ScrollTop />
 </template>
 
-
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import Loading from '~/components/Loading.vue'
 import Visual from '~/components/Visual.vue'
 import About from '~/components/About.vue'
 import Project from '~/components/Project.vue'
 import Client from '~/components/Client.vue'
 import Contact from '~/components/Contact.vue'
-import Cursor from '~/components/Cursor.vue'
 import ScrollTop from '~/components/ScrollTop.vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 
-const isLoading = ref(true)
 const visualRef = ref<InstanceType<typeof Visual> | null>(null)
-const cursorRef = ref<InstanceType<typeof Cursor> | null>(null)
 
 const aboutRef = ref<HTMLElement | null>(null)
 const clientRef = ref<HTMLElement | null>(null)
 const projectRef = ref<HTMLElement | null>(null)
 const contactRef = ref<HTMLElement | null>(null)
-
-
-const handleLoadingComplete = () => {
-  isLoading.value = false
-  // Visual 컴포넌트의 텍스트 애니메이션 시작
-  visualRef.value?.handleLoadingComplete()
-  // 커서 활성화
-  cursorRef.value?.activate()
-}
-
 
 function scrollToSection(section: string) {
   nextTick(() => {

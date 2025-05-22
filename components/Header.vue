@@ -1,5 +1,5 @@
 <template>
-    <header class="header" :class="{ 'header--scrolled': isScrolled }" role="banner">
+    <header class="header" :class="{ 'header--scrolled': isScrolled, 'black': isBlack }" role="banner">
         <section class="header__container">
             <NuxtLink to="/" class="header__logo" aria-label="JUGWON 홈으로 이동">
                 <span>H</span>
@@ -64,248 +64,253 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue'
-import { inject } from 'vue'
-import gsap from 'gsap'
+    import { ref, onMounted, onUnmounted, watch } from 'vue'
+    import { inject } from 'vue'
+    import gsap from 'gsap'
 
-// 메뉴 상태 관리
-const isMenuOpen = ref(false)
-const mobileMenu = ref<HTMLElement | null>(null)
-const menuContent = ref<HTMLElement | null>(null)
-const hamburgerButton = ref<HTMLElement | null>(null)
+    // 메뉴 상태 관리
+    const isMenuOpen = ref(false)
+    const mobileMenu = ref<HTMLElement | null>(null)
+    const menuContent = ref<HTMLElement | null>(null)
+    const hamburgerButton = ref<HTMLElement | null>(null)
 
-// 위치 및 날씨 정보 상태 관리
-const userTimezone = ref<string>('')
-const userCity = ref<string>('')
-const weatherInfo = ref<{
-    temp: number;
-    description: string;
-    icon: string;
-} | null>(null)
+    // 위치 및 날씨 정보 상태 관리
+    const userTimezone = ref<string>('')
+    const userCity = ref<string>('')
+    const weatherInfo = ref<{
+        temp: number;
+        description: string;
+        icon: string;
+    } | null>(null)
 
-// 스크롤 상태 관리
-const isScrolled = ref(false)
+    // 스크롤 상태 관리
+    const isScrolled = ref(false)
 
-// 스크롤 함수 실행행
-const scrollToSection = inject('scrollToSection') as (section: string) => void
+    // 스크롤 함수 실행행
+    const scrollToSection = inject('scrollToSection') as (section: string) => void
 
-// 메뉴 클릭 처리 함수
-const handleMenuClick = (menu: string) => {
-  if (scrollToSection) {
-    scrollToSection(menu)
-    toggleMenu()
-  }
-}
+    // props 정의
+    const props = defineProps<{
+        isBlack?: boolean
+    }>()
 
-// 포커스 트랩 관련 변수
-let focusableElements: HTMLElement[] = []
-let firstFocusableElement: HTMLElement | null = null
-let lastFocusableElement: HTMLElement | null = null
-
-// 메뉴 토글 함수
-const toggleMenu = () => {
-    isMenuOpen.value = !isMenuOpen.value
-    const button = document.querySelector('.header__hamburger') as HTMLButtonElement
-    if (button) {
-        button.setAttribute('aria-expanded', isMenuOpen.value.toString())
-    }
-
-    if (isMenuOpen.value) {
-        // 메뉴가 열릴 때
-        document.body.style.overflow = 'hidden'
-        document.documentElement.style.overflow = 'hidden'
-        setupFocusTrap()
-    } else {
-        // 메뉴가 닫힐 때
-        document.body.style.overflow = ''
-        document.documentElement.style.overflow = ''
-        if (hamburgerButton.value) {
-            hamburgerButton.value.focus()
-        }
-    }
-}
-
-// 포커스 트랩 설정 함수
-const setupFocusTrap = () => {
-    if (!menuContent.value || !hamburgerButton.value) return
-
-    // 포커스 가능한 요소들 찾기 (햄버거 버튼 포함)
-    focusableElements = [
-        hamburgerButton.value,
-        ...Array.from(
-            menuContent.value.querySelectorAll(
-                'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-            )
-        )
-    ] as HTMLElement[]
-
-    if (focusableElements.length) {
-        firstFocusableElement = focusableElements[0]
-        lastFocusableElement = focusableElements[focusableElements.length - 1]
-        
-        // 첫 번째 메뉴 항목에 포커스 (햄버거 버튼 제외)
-        const firstMenuItem = focusableElements[1]
-        if (firstMenuItem) {
-            firstMenuItem.focus()
-        }
-    }
-}
-
-// 키보드 이벤트 처리 함수
-const handleKeyDown = (e: KeyboardEvent) => {
-    if (!isMenuOpen.value) return
-
-    if (e.key === 'Tab') {
-        if (e.shiftKey) {
-            // Shift + Tab
-            if (document.activeElement === firstFocusableElement) {
-                e.preventDefault()
-                lastFocusableElement?.focus()
-            }
-        } else {
-            // Tab
-            if (document.activeElement === lastFocusableElement) {
-                e.preventDefault()
-                firstFocusableElement?.focus()
-            }
-        }
-    } else if (e.key === 'Escape') {
+    // 메뉴 클릭 처리 함수
+    const handleMenuClick = (menu: string) => {
+    if (scrollToSection) {
+        scrollToSection(menu)
         toggleMenu()
     }
-}
+    }
 
-// 사용자 위치 정보 가져오기 함수
-const getUserLocation = async () => {
-    try {
-        // IP 기반 위치 정보 가져오기
-        const response = await fetch('https://ipapi.co/json/')
-        const data = await response.json()
-        
-        if (data) {
-            userCity.value = data.city
-            userTimezone.value = data.timezone
-            // 위치 정보를 가져온 후 날씨 정보도 가져오기
-            if (data.latitude && data.longitude) {
-                getWeatherInfo(data.latitude, data.longitude)
-            }
+    // 포커스 트랩 관련 변수
+    let focusableElements: HTMLElement[] = []
+    let firstFocusableElement: HTMLElement | null = null
+    let lastFocusableElement: HTMLElement | null = null
+
+    // 메뉴 토글 함수
+    const toggleMenu = () => {
+        isMenuOpen.value = !isMenuOpen.value
+        const button = document.querySelector('.header__hamburger') as HTMLButtonElement
+        if (button) {
+            button.setAttribute('aria-expanded', isMenuOpen.value.toString())
+        }
+
+        if (isMenuOpen.value) {
+            // 메뉴가 열릴 때
+            document.body.style.overflow = 'hidden'
+            document.documentElement.style.overflow = 'hidden'
+            setupFocusTrap()
         } else {
+            // 메뉴가 닫힐 때
+            document.body.style.overflow = ''
+            document.documentElement.style.overflow = ''
+            if (hamburgerButton.value) {
+                hamburgerButton.value.focus()
+            }
+        }
+    }
+
+    // 포커스 트랩 설정 함수
+    const setupFocusTrap = () => {
+        if (!menuContent.value || !hamburgerButton.value) return
+
+        // 포커스 가능한 요소들 찾기 (햄버거 버튼 포함)
+        focusableElements = [
+            hamburgerButton.value,
+            ...Array.from(
+                menuContent.value.querySelectorAll(
+                    'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+                )
+            )
+        ] as HTMLElement[]
+
+        if (focusableElements.length) {
+            firstFocusableElement = focusableElements[0]
+            lastFocusableElement = focusableElements[focusableElements.length - 1]
+            
+            // 첫 번째 메뉴 항목에 포커스 (햄버거 버튼 제외)
+            const firstMenuItem = focusableElements[1]
+            if (firstMenuItem) {
+                firstMenuItem.focus()
+            }
+        }
+    }
+
+    // 키보드 이벤트 처리 함수
+    const handleKeyDown = (e: KeyboardEvent) => {
+        if (!isMenuOpen.value) return
+
+        if (e.key === 'Tab') {
+            if (e.shiftKey) {
+                // Shift + Tab
+                if (document.activeElement === firstFocusableElement) {
+                    e.preventDefault()
+                    lastFocusableElement?.focus()
+                }
+            } else {
+                // Tab
+                if (document.activeElement === lastFocusableElement) {
+                    e.preventDefault()
+                    firstFocusableElement?.focus()
+                }
+            }
+        } else if (e.key === 'Escape') {
+            toggleMenu()
+        }
+    }
+
+    // 사용자 위치 정보 가져오기 함수
+    const getUserLocation = async () => {
+        try {
+            // IP 기반 위치 정보 가져오기
+            const response = await fetch('https://ipapi.co/json/')
+            const data = await response.json()
+            
+            if (data) {
+                userCity.value = data.city
+                userTimezone.value = data.timezone
+                // 위치 정보를 가져온 후 날씨 정보도 가져오기
+                if (data.latitude && data.longitude) {
+                    getWeatherInfo(data.latitude, data.longitude)
+                }
+            } else {
+                userCity.value = 'Unknown'
+                userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone
+            }
+            
+            updateDate()
+        } catch (error) {
+            console.error('위치 정보를 가져오는데 실패했습니다:', error)
             userCity.value = 'Unknown'
             userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone
+            updateDate()
         }
-        
-        updateDate()
-    } catch (error) {
-        console.error('위치 정보를 가져오는데 실패했습니다:', error)
-        userCity.value = 'Unknown'
-        userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone
-        updateDate()
     }
-}
 
-// 날씨 정보 가져오기 함수
-const getWeatherInfo = async (lat: number, lon: number) => {
-    try {
-        const API_KEY = '048b40e147a9bf3ad8ee6763b548a0a3';
-        const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
-        )
-        const data = await response.json()
-        
-        if (data.main && data.weather && data.weather[0]) {
-            weatherInfo.value = {
-                temp: data.main.temp,
-                description: data.weather[0].description,
-                icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+    // 날씨 정보 가져오기 함수
+    const getWeatherInfo = async (lat: number, lon: number) => {
+        try {
+            const API_KEY = '048b40e147a9bf3ad8ee6763b548a0a3';
+            const response = await fetch(
+                `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
+            )
+            const data = await response.json()
+            
+            if (data.main && data.weather && data.weather[0]) {
+                weatherInfo.value = {
+                    temp: data.main.temp,
+                    description: data.weather[0].description,
+                    icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+                }
             }
+        } catch (error) {
+            console.error('날씨 정보를 가져오는데 실패했습니다:', error)
         }
-    } catch (error) {
-        console.error('날씨 정보를 가져오는데 실패했습니다:', error)
     }
-}
 
-// 날짜 업데이트 함수
-const updateDate = () => {
-    const now = new Date()
-    
-    const localDate = new Date(now.toLocaleString('en-US', { timeZone: userTimezone.value }))
-        .toLocaleDateString('ko-KR', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit'
-        }).replace(/\. /g, '.').replace('.', '')
-    
-    const localDateElement = document.getElementById('header__date')
-    if (localDateElement) localDateElement.textContent = localDate
-}
-
-// 날짜 업데이트 인터벌
-let dateInterval: number
-
-// 메뉴 애니메이션 함수
-const menuAnimation = () => {
-    const menuItems = document.querySelectorAll('.header__menu-text')
-    const timeArea = document.querySelector('.header__time-area')
-    
-    if (isMenuOpen.value) {
-        // 메뉴 열릴 때
-        gsap.fromTo([menuItems, timeArea], 
-            {
-                y: 50,
-                opacity: 0
-            },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                stagger: 0.1,
-                ease: "power3.out"
-            }
-        )
-    } else {
-        // 메뉴 닫힐 때
-        gsap.to([menuItems, timeArea], {
-            y: -50,
-            opacity: 0,
-            duration: 0.5,
-            stagger: 0.05,
-            ease: "power3.in"
-        })
+    // 날짜 업데이트 함수
+    const updateDate = () => {
+        const now = new Date()
+        
+        const localDate = new Date(now.toLocaleString('en-US', { timeZone: userTimezone.value }))
+            .toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            }).replace(/\. /g, '.').replace('.', '')
+        
+        const localDateElement = document.getElementById('header__date')
+        if (localDateElement) localDateElement.textContent = localDate
     }
-}
 
-// 메뉴 상태 변경 감시
-watch(isMenuOpen, (newValue) => {
-    menuAnimation()
-})
+    // 날짜 업데이트 인터벌
+    let dateInterval: number
 
-// 스크롤 이벤트 처리 함수
-const handleScroll = () => {
-    isScrolled.value = window.scrollY > 50
-}
-
-// 컴포넌트 마운트 시 실행
-onMounted(() => {
-    getUserLocation()
-    dateInterval = window.setInterval(updateDate, 60000)
-    window.addEventListener('scroll', handleScroll)
-    window.addEventListener('keydown', handleKeyDown)
-    
-    // ref 설정
-    mobileMenu.value = document.getElementById('header__open-menu') as HTMLElement
-    menuContent.value = document.querySelector('.header__menu-content') as HTMLElement
-    hamburgerButton.value = document.querySelector('.header__hamburger') as HTMLElement
-})
-
-// 컴포넌트 언마운트 시 실행
-onUnmounted(() => {
-    if (dateInterval) {
-        clearInterval(dateInterval)
+    // 메뉴 애니메이션 함수
+    const menuAnimation = () => {
+        const menuItems = document.querySelectorAll('.header__menu-text')
+        const timeArea = document.querySelector('.header__time-area')
+        
+        if (isMenuOpen.value) {
+            // 메뉴 열릴 때
+            gsap.fromTo([menuItems, timeArea], 
+                {
+                    y: 50,
+                    opacity: 0
+                },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    ease: "power3.out"
+                }
+            )
+        } else {
+            // 메뉴 닫힐 때
+            gsap.to([menuItems, timeArea], {
+                y: -50,
+                opacity: 0,
+                duration: 0.5,
+                stagger: 0.05,
+                ease: "power3.in"
+            })
+        }
     }
-    window.removeEventListener('scroll', handleScroll)
-    window.removeEventListener('keydown', handleKeyDown)
-    document.body.style.overflow = ''
-    document.documentElement.style.overflow = ''
-})
+
+    // 메뉴 상태 변경 감시
+    watch(isMenuOpen, (newValue) => {
+        menuAnimation()
+    })
+
+    // 스크롤 이벤트 처리 함수
+    const handleScroll = () => {
+        isScrolled.value = window.scrollY > 50
+    }
+
+    // 컴포넌트 마운트 시 실행
+    onMounted(() => {
+        getUserLocation()
+        dateInterval = window.setInterval(updateDate, 60000)
+        window.addEventListener('scroll', handleScroll)
+        window.addEventListener('keydown', handleKeyDown)
+        
+        // ref 설정
+        mobileMenu.value = document.getElementById('header__open-menu') as HTMLElement
+        menuContent.value = document.querySelector('.header__menu-content') as HTMLElement
+        hamburgerButton.value = document.querySelector('.header__hamburger') as HTMLElement
+    })
+
+    // 컴포넌트 언마운트 시 실행
+    onUnmounted(() => {
+        if (dateInterval) {
+            clearInterval(dateInterval)
+        }
+        window.removeEventListener('scroll', handleScroll)
+        window.removeEventListener('keydown', handleKeyDown)
+        document.body.style.overflow = ''
+        document.documentElement.style.overflow = ''
+    })
 </script>
 
 <style lang="scss" scoped>
@@ -327,6 +332,17 @@ onUnmounted(() => {
     &.header--scrolled {
         background: rgb(0 0 0 / 10%);
         backdrop-filter: blur(0.625rem);
+    }
+
+    // 검은색 배경 스타일
+    &.black {
+        .header__logo{ 
+            color: #111111;
+            border-color: #111111;
+        }
+        .header__hamburger-line {
+            background-color: #111111;
+        }
     }
 }
 
