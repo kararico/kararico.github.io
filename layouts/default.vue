@@ -6,8 +6,8 @@
     </main>
     <Footer />
     <Cursor ref="cursorRef" />
+    <Loading v-if="isLoading" @animationComplete="handleLoadingComplete" />
   </div>
-  <Loading v-if="isLoading" @animation-complete="handleLoadingComplete" />
 </template>
 
 <script setup lang="ts">
