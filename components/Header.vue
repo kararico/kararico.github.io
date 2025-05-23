@@ -351,7 +351,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2.25rem 3.125rem;
+    padding: 1.25rem 3.125rem;
 }
 
 // 로고 스타일
