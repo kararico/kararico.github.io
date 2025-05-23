@@ -14,7 +14,7 @@ import { onMounted, ref, onBeforeUnmount } from 'vue'
 import gsap from 'gsap'
 
 // 애니메이션 완료 이벤트 emit 정의
-const emit = defineEmits(['animationComplete'])
+const emit = defineEmits(['animation-complete'])
 
 // 로딩 텍스트와 점 데이터
 const letters = ref(['L', 'o', 'a', 'd', 'i', 'n', 'g'])
@@ -58,7 +58,7 @@ onMounted(() => {
   const tl = gsap.timeline({
     onComplete: () => {
       // 애니메이션이 끝나면 이벤트 발생
-      emit('animationComplete')
+      emit('animation-complete')
       // 스크롤 해제
       unlockScroll()
     }

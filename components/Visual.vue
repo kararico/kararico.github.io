@@ -46,10 +46,15 @@ const updateHeight = () => {
 
 // 텍스트 애니메이션 함수
 const startTextAnimation = async () => {
-    if (!titleRef.value || isAnimationStarted.value) return
+    console.log('startTextAnimation called')
+    if (!titleRef.value || isAnimationStarted.value) {
+        console.log('startTextAnimation early return:', { titleRef: !!titleRef.value, isAnimationStarted: isAnimationStarted.value })
+        return
+    }
 
     isAnimationStarted.value = true
     const texts = titleRef.value.querySelectorAll('.hero__text')
+    console.log('texts found:', texts.length)
     
     if (texts) {
         gsap.set(texts, {
@@ -72,7 +77,9 @@ const startTextAnimation = async () => {
 
 // 로딩 애니메이션 완료 이벤트 처리 함수
 const handleLoadingComplete = () => {
+    console.log('handleLoadingComplete called')
     setTimeout(() => {
+        console.log('setTimeout callback')
         startTextAnimation()
     }, 1000)
 }
@@ -81,6 +88,7 @@ const handleLoadingComplete = () => {
 onMounted(async () => {
     updateHeight()
     window.addEventListener('resize', updateHeight)
+    window.addEventListener('loading-complete', handleLoadingComplete)
     gsap.registerPlugin(ScrollTrigger)
 
     // DOM이 완전히 렌더링될 때까지 대기
@@ -129,6 +137,7 @@ onMounted(async () => {
 // 컴포넌트 언마운트 시 실행
 onUnmounted(() => {
     window.removeEventListener('resize', updateHeight)
+    window.removeEventListener('loading-complete', handleLoadingComplete)
     // ScrollTrigger 인스턴스 정리
     ScrollTrigger.getAll().forEach(trigger => trigger.kill())
 })

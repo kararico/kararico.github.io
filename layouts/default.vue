@@ -6,8 +6,8 @@
     </main>
     <Footer />
     <Cursor ref="cursorRef" />
-    <Loading v-if="isLoading" @animationComplete="handleLoadingComplete" />
   </div>
+  <Loading v-if="isLoading" @animation-complete="handleLoadingComplete" />
 </template>
 
 <script setup lang="ts">
@@ -15,11 +15,13 @@
   import Footer from '@/components/Footer.vue'
   import Loading from '@/components/Loading.vue'
   import Cursor from '@/components/Cursor.vue'
-  import { provide, computed, ref } from 'vue'
+  import Visual from '@/components/Visual.vue'
+  import { provide, computed, ref, inject, type Ref } from 'vue'
   import { useRoute } from 'vue-router'
 
   const route = useRoute()
   const cursorRef = ref<InstanceType<typeof Cursor> | null>(null)
+  const visualRef = inject<Ref<InstanceType<typeof Visual> | null>>('visualRef', ref(null))
 
   // 헤더가 검은색이어야 하는 페이지 목록
   const blackHeaderPages = ['/about', '/project', '/contact']
@@ -35,6 +37,10 @@
     isLoading.value = false
     // 커서 활성화
     cursorRef.value?.activate()
+    // Visual 컴포넌트의 handleLoadingComplete 호출
+    visualRef.value?.handleLoadingComplete()
+    // 이벤트 발생
+    window.dispatchEvent(new CustomEvent('loading-complete'))
   }
 
   const scrollToSection = (section: string) => {
@@ -48,5 +54,6 @@
 .layout {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 </style>

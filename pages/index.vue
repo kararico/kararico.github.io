@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, provide, type Ref } from 'vue'
 import Visual from '~/components/Visual.vue'
 import About from '~/components/About.vue'
 import Project from '~/components/Project.vue'
@@ -22,6 +22,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 
 const visualRef = ref<InstanceType<typeof Visual> | null>(null)
+provide('visualRef', visualRef as Ref<InstanceType<typeof Visual> | null>)
 
 const aboutRef = ref<HTMLElement | null>(null)
 const clientRef = ref<HTMLElement | null>(null)
