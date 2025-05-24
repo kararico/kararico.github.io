@@ -13,7 +13,7 @@
                  :class="{ skeleton: isSkeleton }"
                  v-show="isProfileVisible"
             >
-                <img src="@/assets/images/layout/about/profile.jpg" alt="정원 프로필" />
+                <img src="@/assets/images/layout/about/profile_01.jpg" alt="정원 프로필" />
             </div>
             <p class="about__paragraph about__paragraph--profile-hover">
                 저는 웹퍼블리셔로 12년째 즐겁게 일하고 있는
@@ -205,6 +205,7 @@ onMounted(() => {
         font-size: 3em;
         font-weight: 800;
         margin-bottom: .75em;
+        letter-spacing: 0.025em;
         z-index: 1;
         letter-spacing: .025em;
         font-family: v.$font-en5;

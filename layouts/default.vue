@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <Header :class="{ 'black': isBlackHeader }" />
+    <Header />
     <main>
       <slot />
     </main>
@@ -16,20 +16,12 @@
   import Loading from '@/components/Loading.vue'
   import Cursor from '@/components/Cursor.vue'
   import Visual from '@/components/Visual.vue'
-  import { provide, computed, ref, inject, type Ref } from 'vue'
+  import { provide, ref, inject, type Ref } from 'vue'
   import { useRoute } from 'vue-router'
 
   const route = useRoute()
   const cursorRef = ref<InstanceType<typeof Cursor> | null>(null)
   const visualRef = inject<Ref<InstanceType<typeof Visual> | null>>('visualRef', ref(null))
-
-  // 헤더가 검은색이어야 하는 페이지 목록
-  const blackHeaderPages = ['/about', '/project', '/contact']
-
-  // 현재 페이지가 검은색 헤더를 사용해야 하는지 확인
-  const isBlackHeader = computed(() => {
-    return blackHeaderPages.includes(route.path)
-  })
 
   const isLoading = ref(true)
 

@@ -21,6 +21,7 @@
     overflow-wrap: break-word;
     -moz-tab-size: 4;
     tab-size: 4;
+
 }
 canvas,
 img,
@@ -62,6 +63,7 @@ body {
     background-color: #000;
     word-wrap: break-word;
     word-break: break-all;
+    line-height: 1.25;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     cursor: none;
