@@ -2,54 +2,11 @@
   <div class="about-page">
     <main class="main-content">
       <div class="hero-background">
-        <svg class="background-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:0.5">
-                <animate attributeName="offset" values="0;1;0" dur="10s" repeatCount="indefinite" />
-              </stop>
-              <stop offset="100%" style="stop-color:#4ECDC4;stop-opacity:0.5">
-                <animate attributeName="offset" values="1;0;1" dur="10s" repeatCount="indefinite" />
-              </stop>
-            </linearGradient>
-            <linearGradient id="gradient2" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style="stop-color:#FFE66D;stop-opacity:0.5">
-                <animate attributeName="offset" values="0;1;0" dur="8s" repeatCount="indefinite" />
-              </stop>
-              <stop offset="100%" style="stop-color:#6B66FF;stop-opacity:0.5">
-                <animate attributeName="offset" values="1;0;1" dur="8s" repeatCount="indefinite" />
-              </stop>
-            </linearGradient>
-          </defs>
-          <circle class="floating-circle" cx="20" cy="20" r="15" fill="url(#gradient1)">
-            <animate attributeName="cx" values="20;80;20" dur="20s" repeatCount="indefinite" />
-            <animate attributeName="cy" values="20;80;20" dur="20s" repeatCount="indefinite" />
-          </circle>
-          <circle class="floating-circle" cx="80" cy="80" r="12" fill="url(#gradient2)">
-            <animate attributeName="cx" values="80;20;80" dur="15s" repeatCount="indefinite" />
-            <animate attributeName="cy" values="80;20;80" dur="15s" repeatCount="indefinite" />
-          </circle>
-          <path class="floating-path" d="M10,50 Q50,10 90,50 T90,50" fill="none" stroke="url(#gradient1)" stroke-width="0.5">
-            <animate attributeName="d" 
-              values="M10,50 Q50,10 90,50 T90,50;
-                      M10,50 Q50,90 90,50 T90,50;
-                      M10,50 Q50,10 90,50 T90,50"
-              dur="8s" 
-              repeatCount="indefinite" />
-          </path>
-          <path class="floating-path" d="M10,30 Q50,70 90,30 T90,30" fill="none" stroke="url(#gradient2)" stroke-width="0.5">
-            <animate attributeName="d" 
-              values="M10,30 Q50,70 90,30 T90,30;
-                      M10,30 Q50,-10 90,30 T90,30;
-                      M10,30 Q50,70 90,30 T90,30"
-              dur="6s" 
-              repeatCount="indefinite" />
-          </path>
-        </svg>
+
       </div>
       <div class="container">
         <h1 class="page-title">About Me </h1>
-        <em class="page-subtitle">반갑습니다. 저에 대해 간단히 소개드릴게요.</em>
+        <em class="page-subtitle">“안녕하세요 😊 저는 ISTJ 성향의 웹 퍼블리셔 허정원입니다.</em>
         <div class="main-visual">
           <div class="image-container">
             <img 
@@ -60,6 +17,7 @@
               class="profile-image"
               :class="{ 'active': currentImageIndex === index }"
             >
+            <p class="profile-image-text">가족과의 여행 중, 웹 얘기만 하던 날 📷</p>
           </div>
         </div>
 
@@ -67,30 +25,79 @@
           <div class="about-section">
             <h2 class="section-title sr-only">About Me</h2>
             <p class="about-description">
-              안녕하세요 &#128522;<br>
-              저는 ISTJ 성향의 웹 퍼블리셔 허정원입니다.<br><br>
-
-              체계적이고 꼼꼼한 성격 덕분에, 주어진 작업을 효율적으로 정리하고 안정적으로 구현해내는 데에 자신이 있어요.<br>
-              웹 퍼블리싱이라는 일은 <span class="highlight">디자인과 개발 사이의 다리 역할</span>을 하는 매력적인 작업이라고 생각합니다.<br>
-              그래서 언제나 <span class="highlight">사용자 경험을 중심</span>에 두고, 시각적 완성도와 기능적 완성도를 동시에 갖춘 웹사이트를 만드는 것을 좋아해요.<br><br>
-
-              늘 새로운 기술과 트렌드에 관심을 갖고,<br>
-              조금씩이라도 매일 성장하는 퍼블리셔가 되기 위해 오늘도 배우고 있습니다.<br>
-              작은 디테일 하나에도 사용자 입장에서 고민하며, 완성도 높은 결과물을 위해 최선을 다합니다.<br>
-              협업 속에서도 책임감을 잃지 않고, 맡은 바를 끝까지 마무리하는 것이 제 강점입니다.<br>
-              웹을 통해 더 나은 경험을 만들 수 있다는 믿음으로, 매 프로젝트에 진심을 담고 있습니다.
+              체계적이고 꼼꼼한 성격 덕분에, 주어진 작업을 효율적으로 정리하고 안정적으로 구현해내는 데 자신이 있어요.<br />
+              퍼블리셔는 디자인과 개발 사이의 '다리 역할'을 하는 직업이라고 생각합니다.<br />
+              사용자의 시선 흐름을 고려해 마크업 구조를 설계하고, <br />
+              웹접근성과 웹표준을 준수하여 누구나 편하게 사용할 수 있는 UI를 만드는 데 집중하고 있어요.<br />
+              완성도 높은 결과물을 위해, 오늘도 기술과 트렌드를 꾸준히 배우며 성장하고 있습니다.
             </p>
           </div>
 
           <div class="about-section">
+            <h2 class="section-title">Skills</h2>
+            <em class="section-subtitle">제가 보유한 기술 스택입니다.</em>
+            <div class="skills-grid">
+              <div class="skill-card">
+                <div class="skill-header">
+                  <div class="skill-icon">🎨</div>
+                  <h3>Design</h3>
+                </div>
+                <ul class="skill-list">
+                  <li>Figma</li>
+                  <li>Photoshop</li>
+                  <li>Illustrator</li>
+                  <li>XD</li>
+                </ul>
+              </div>
+              <div class="skill-card">
+                <div class="skill-header">
+                  <div class="skill-icon">💻</div>
+                  <h3>Frontend</h3>
+                </div>
+                <ul class="skill-list">
+                  <li>HTML5</li>
+                  <li>CSS3/SCSS</li>
+                  <li>JavaScript</li>
+                  <li>Vue.js</li>
+                </ul>
+              </div>
+              <div class="skill-card">
+                <div class="skill-header">
+                  <div class="skill-icon">🛠️</div>
+                  <h3>Tools</h3>
+                </div>
+                <ul class="skill-list">
+                  <li>Git</li>
+                  <li>VS Code</li>
+                  <li>Webpack</li>
+                  <li>npm</li>
+                </ul>
+              </div>
+              <div class="skill-card">
+                <div class="skill-header">
+                  <div class="skill-icon">📱</div>
+                  <h3>Responsive</h3>
+                </div>
+                <ul class="skill-list">
+                  <li>Mobile First</li>
+                  <li>Cross Browser</li>
+                  <li>Media Queries</li>
+                  <li>Flexbox/Grid</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-section">
             <h2 class="section-title">History</h2>
-            <em class="section-subtitle">그동안 제가 다녔던 회사를 소개합니다.</em>
+            <em class="section-subtitle">다양한 환경 속에서 퍼블리셔로 성장해온 여정입니다.</em>
             <div class="history-timeline">
               <div class="timeline-item">
                 <div class="year">2022.10 ~ 재직중</div>
                 <div class="content">
                   <h3>플그림</h3>
                   <p>패션 이커머스 구축 및 운영 업무</p>
+                  <p>👉 Nuxt 기반, React 적응형 퍼블리싱 / 반응형 설계 / 카테고리 시스템 UI 개선</p>
                 </div>
               </div>
               <div class="timeline-item">
@@ -98,6 +105,7 @@
                 <div class="content">
                   <h3>신세계 까사</h3>
                   <p>브랜드 사이트 구축 및 운영 업무</p>
+                  <p>👉 Vue 기반 퍼블리싱 / GSAP 인터랙션 구현 / 모바일 퍼포먼스 개선 / 프로모션 이벤트 페이지 제작 </p>
                 </div>
               </div>
               <div class="timeline-item">
@@ -105,6 +113,7 @@
                 <div class="content">
                   <h3>애드쿠아 인터렉티브</h3>
                   <p>마이크로 사이트 구축 및 운영 업무</p>
+                  <p>👉 Vue 기반 퍼블리싱 / GSAP 인터랙션 구현 / 모바일 환경 최적화 / 브랜드 프로모션 페이지 제작</p>
                 </div>
               </div>
               <div class="timeline-item">
@@ -112,6 +121,7 @@
                 <div class="content">
                   <h3>피싱트리</h3>
                   <p>사이트 구축 및 운영 업무</p>
+                  <p>👉 웹/모바일 사이트 운영 및 신규 구축 / 이벤트·기획전 마이크로 페이지 제작 / 웹표준·접근성 마크업 고도화</p>
                 </div>
               </div>
               <div class="timeline-item">
@@ -119,6 +129,7 @@
                 <div class="content">
                   <h3>이지넷</h3>
                   <p>사이트 구축 및 운영 업무</p>
+                  <p>👉 웹/모바일 및 글로벌 사이트 퍼블리싱 / SEO 최적화 / HTML5·CSS3·jQuery 기반 구조 설계</p>
                 </div>
               </div>
               <div class="timeline-item">
@@ -126,8 +137,96 @@
                 <div class="content">
                   <h3>해리코리아</h3>
                   <p>사이트 구축 및 운영 업무</p>
+                  <p>👉 웹/모바일 및 반응형 사이트 퍼블리싱 / 이벤트·프로모션 페이지 제작 / 웹표준·크로스브라우징 대응</p>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="about-section">
+            <h2 class="section-title">What I Value</h2>
+            <em class="section-subtitle">퍼블리셔로서 일할 때 제가 가장 중요하게 생각하는 가치들입니다.</em>
+            <div class="philosophy-grid">
+              <div class="philosophy-card">
+                <div class="philosophy-header">
+                  <div class="philosophy-icon">📐</div>
+                  <h3>기본에 충실한 구조</h3>
+                </div>
+                <p>
+                  시맨틱 태그와 체계적인 마크업 구조, 효율적인 CSS 설계가  
+                  탄탄한 퍼블리싱의 시작이라고 믿습니다.
+                </p>
+              </div>
+              <div class="philosophy-card">
+                <div class="philosophy-header">
+                  <div class="philosophy-icon">♿</div>
+                  <h3>누구나 접근 가능한 웹</h3>
+                </div>
+                <p>
+                  웹접근성은 선택이 아닌 기본입니다.  
+                  다양한 사용자 환경을 고려해 ARIA, 키보드 내비게이션까지 세심하게 챙깁니다.
+                </p>
+              </div>
+              <div class="philosophy-card">
+                <div class="philosophy-header">
+                  <div class="philosophy-icon">🧠</div>
+                  <h3>기획부터 생각하는 퍼블리싱</h3>
+                </div>
+                <p>
+                  단순히 디자인을 구현하는 것이 아니라  
+                  정보 구조와 사용자 흐름을 함께 고민합니다.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="about-section">
+            <h2 class="section-title">TMI</h2>
+            <em class="section-subtitle">저에 대한 조금 더 자세한 이야기입니다.</em>
+            <div class="tmi-grid">
+              <div class="tmi-card">
+                <h3>Personality</h3>
+                <ul class="tmi-list">
+                  <li>커리어의 성과도 중요하지만, 매일 꾸준히 나아가는 힘이 진짜 실력이라는 걸 느껴요.</li>
+                  <li>예전엔 '완벽하게 만드는 것'이 목표였다면, 이제는 완성도와 현실 사이의 균형이 더 중요하다고 생각해요.</li>
+                  <li>체력도 멘탈도 결국은 지속가능한 일의 원동력이라는 걸 요즘 더 깊이 느껴요.</li>
+                  <li>가끔 지칠 때면, "이 일이 내 아이에게 자랑스러울 수 있을까?"라는 질문으로 마음을 다잡곤 해요.</li>
+                  <li>유행을 따르기보다는, 내 안의 기준을 믿고 선택하는 것에 더 집중하게 됐어요.</li>
+                  <li>예전엔 밤늦게까지 일하는 걸 뿌듯해했는데, 지금은 정해진 시간 안에 집중해서 끝내는 걸 더 멋지다고 느껴요.</li>
+                  <li>개발자와 디자이너 사이에서, 서로를 이해하고 연결해주는 <span class="highlight">믿음직한 다리 같은 사람</span>이 되고 싶어요.</li>
+                </ul>
+              </div>
+              <div class="tmi-card">
+                <h3>Typography</h3>
+                <ul class="tmi-list">
+                  <li>폰트를 고를 땐, '디자인과 어울리는 분위기'를 가장 먼저 생각해요.</li>
+                  <li>Pretendard는 정돈된 구조와 담백한 인상이 마음에 들어요.</li>
+                  <li>Playfair Display는 우아하고 클래식한 느낌이 필요할 때 자주 써요.</li>
+                  <li>프로젝트의 성격에 따라 폰트도 감정을 담는 도구라고 생각해요.</li>
+                  <li>한글과 영문의 조화를 맞추는 것도 꽤 섬세한 작업이에요.</li>
+                  <li>결국 타이포그래피는 '읽히는 디자인'을 완성하는 마지막 터치 같아요.</li>
+                </ul>
+              </div>
+              <div class="tmi-card">
+                <h3>Interests</h3>
+                <ul class="tmi-list">
+                  <li>단순히 예쁜 화면보다, 반응형으로 잘 작동하는 UI/UX에 더 큰 매력을 느껴요.</li>
+                  <li>화면 기획 단계부터 구조를 설계하는 일이 가장 재미있어요.</li>
+                  <li>퍼블리셔로 시작했지만, 프론트엔드 개발에도 점점 깊이 빠지고 있어요.</li>
+                  <li>작은 인터랙션 하나에도 사용자의 감정을 담을 수 있다고 믿어요.</li>
+                  <li>접근성과 웹표준은 단순한 체크리스트가 아니라 기본값이라고 생각해요.</li>
+                  <li>결국 좋은 웹은, 누구에게나 편안하게 닿는 화면이라고 믿어요.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-section">
+            <h2 class="section-title">Resume</h2>
+            <em class="section-subtitle">전체 이력이 담긴 PDF 이력서를 다운로드하실 수 있어요.</em>
+            <div class="resume-download">
+              <a href="/profile.pdf" class="download-button" download>
+                <span class="download-icon">📄</span>
+                <span class="download-text">이력서 다운로드</span>
+              </a>
             </div>
           </div>
         </div>
@@ -145,8 +244,8 @@ import profile3 from '@/assets/images/layout/about/profile_03.png'
 const emit = defineEmits(['animationComplete'])
 const currentImageIndex = ref(0)
 const images = [
-  profile1,
-  profile2,
+  // profile1,
+  // profile2,
   profile3
 ]
 
@@ -251,7 +350,7 @@ onUnmounted(() => {
       font-family: v.$font-kn2;
       color: #fff;
       font-weight: 400;
-      letter-spacing: 0.1em;
+      letter-spacing: -0.02em;
       @include tablet {
         font-size: 1rem;
       }
@@ -278,12 +377,10 @@ onUnmounted(() => {
         margin: 0 auto;
         max-width: 100rem;
         aspect-ratio: 16/9;
-        overflow: hidden;
         background-color: #f5f5f5;
         margin-bottom: 1.25rem;
         font-size:0;
         padding:0;
-        overflow: hidden;
         @include mobile {
           aspect-ratio: 4/3;
         }
@@ -296,7 +393,19 @@ onUnmounted(() => {
           top: 0;
           left: 0;
           opacity: 0;
-          
+          &-text {
+            color: #fff;
+            font-size: 1.2rem;
+            font-family: v.$font-kn2;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            position: absolute;
+            bottom: -2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            text-align: center;
+          }
           &.active {
             opacity: 1;
           }
@@ -478,6 +587,461 @@ onUnmounted(() => {
   .highlight {
     color: v.$main-color;
     font-weight: 500;
+  }
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.skill-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.3);
+
+      &::before {
+        opacity: 1;
+      }
+
+      .skill-icon {
+        transform: scale(1.1);
+      }
+
+      .skill-list li {
+        transform: translateX(5px);
+      }
+    }
+  }
+
+  .skill-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    @include tablet {
+      flex-direction: column;
+    }
+    @include mobile {
+      flex-direction: column;
+    }
+  }
+
+  .skill-icon {
+    font-size: 2.5rem;
+    transition: transform 0.4s ease;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    font-family: v.$font-en5;
+    margin: 0;
+  }
+
+  .skill-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      color: #fff;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      padding-left: 1.5rem;
+      position: relative;
+      font-family: v.$font-kn2;
+      transition: transform 0.4s ease;
+
+      &::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: v.$main-color;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  @include mobile {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.5rem;
+
+    .skill-header {
+      margin-bottom: 0;
+      min-width: 100px;
+    }
+
+    .skill-icon {
+      font-size: 2rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+    }
+
+    .skill-list {
+      flex: 1;
+
+      li {
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+        padding-left: 1rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+.tmi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.tmi-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.3);
+
+      &::before {
+        opacity: 1;
+      }
+
+    }
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: #fff;
+    font-family: v.$font-en5;
+  }
+
+  .tmi-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      color: #fff;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      padding-left: 1.5rem;
+      position: relative;
+      font-family: v.$font-kn2;
+      transition: transform 0.4s ease;
+
+      &::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: v.$main-color;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  @include mobile {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+
+    .tmi-icon {
+      font-size: 2rem;
+      margin-bottom: 0;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0;
+    }
+
+    .tmi-list {
+      flex: 1;
+
+      li {
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+        padding-left: 1rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+.resume-download {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+
+  .download-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 2rem;
+    padding: 1rem 2rem;
+    color: #fff;
+    text-decoration: none;
+    font-family: v.$font-kn2;
+    font-size: 1.1rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        border-color: rgba(255, 255, 255, 0.3);
+
+        &::before {
+          opacity: 1;
+        }
+
+        .download-icon {
+          transform: scale(1.1);
+        }
+      
+      }
+    }
+
+    .download-icon {
+      font-size: 1.5rem;
+      transition: transform 0.4s ease;
+    }
+
+    .download-text {
+      transition: transform 0.4s ease;
+    }
+  }
+
+  @include mobile {
+    .download-button {
+      padding: 0.875rem 1.75rem;
+      font-size: 1rem;
+
+      .download-icon {
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
+
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.philosophy-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.3);
+
+      &::before {
+        opacity: 1;
+      }
+
+      .philosophy-icon {
+        transform: scale(1.1);
+      }
+
+      p {
+        transform: translateX(5px);
+      }
+    }
+  }
+
+  .philosophy-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .philosophy-icon {
+    font-size: 2.5rem;
+    transition: transform 0.4s ease;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+    font-family: v.$font-en5;
+    margin: 0;
+  }
+
+  p {
+    color: #fff;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+    font-family: v.$font-kn2;
+    transition: transform 0.4s ease;
+  }
+
+  @include mobile {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+
+    .philosophy-header {
+      margin-bottom: 0;
+      min-width: 100px;
+    }
+
+    .philosophy-icon {
+      font-size: 2rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+      flex: 1;
+    }
   }
 }
 </style> 

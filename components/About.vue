@@ -9,22 +9,11 @@
         </h2>
         <p class="about__summary highlight">웹을 좋아하는 마음으로, <span class="main-color">끊임없이 성장합니다.</span></p>
         <div class="about__content card-style">
-            <div class="about__profile-float" 
-                 :class="{ skeleton: isSkeleton }"
-                 v-show="isProfileVisible"
-            >
+            <div class="about__profile-float" >
                 <img src="@/assets/images/layout/about/profile_01.jpg" alt="정원 프로필" />
             </div>
             <p class="about__paragraph about__paragraph--profile-hover">
-                저는 웹퍼블리셔로 12년째 즐겁게 일하고 있는
-                <span
-                    class="about__profile-hover-trigger"
-                    tabindex="0"
-                    @mouseenter="showProfile"
-                    @mouseleave="hideProfile"
-                    @focus="showProfile"
-                    @blur="hideProfile"
-                >정원</span>이에요.
+                저는 웹퍼블리셔로 12년째 즐겁게 일하고 있는 <strong>정원</strong>이에요.
             </p>
 
             <p class="about__paragraph">
@@ -61,36 +50,21 @@
                 배우는 게 재밌고, 만드는 게 즐거운 이 마음이  
                 제가 계속 성장하게 만드는 원동력입니다.
             </p>
+
+            <!-- <div class="about__detail-button">
+                <NuxtLink to="/about" class="detail-button">
+                    <span class="detail-icon">👋</span>
+                    <span class="detail-text">자세히 보기</span>
+                </NuxtLink>
+            </div> -->
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-// 프로필 표시 상태 관리
-const isProfileVisible = ref(false)
-const isSkeleton = ref(false)
-let skeletonTimer: number | null = null
-
-// 프로필 표시 함수
-const showProfile = () => {
-    isSkeleton.value = true
-    if (skeletonTimer) clearTimeout(skeletonTimer)
-    skeletonTimer = window.setTimeout(() => {
-        isProfileVisible.value = true
-        isSkeleton.value = false
-    }, 1000)
-}
-
-// 프로필 숨김 함수
-const hideProfile = () => {
-    if (skeletonTimer) clearTimeout(skeletonTimer)
-    isProfileVisible.value = false
-    isSkeleton.value = false
-}
 
 // 컴포넌트 마운트 시 실행
 onMounted(() => {
@@ -322,6 +296,79 @@ onMounted(() => {
     transition: color 0.2s;
     &:hover, &:focus {
         color: v.$main-color;
+    }
+}
+
+// 자세히보기 버튼 스타일
+.about__detail-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+
+    .detail-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8em;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 2em;
+        padding: 0.8em 1.8em;
+        color: #fff;
+        text-decoration: none;
+        font-family: v.$font-kn2;
+        font-size: 1.1em;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        @media (hover: hover) {
+            &:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                border-color: rgba(255, 255, 255, 0.3);
+
+                &::before {
+                    opacity: 1;
+                }
+
+                .detail-icon {
+                    transform: scale(1.1);
+                }
+            }
+        }
+
+        .detail-icon {
+            font-size: 1.3em;
+            transition: transform 0.4s ease;
+        }
+
+        .detail-text {
+            font-weight: 500;
+        }
+    }
+
+    @include mobile {
+        .detail-button {
+            padding: 0.7em 1.5em;
+            font-size: 1em;
+
+            .detail-icon {
+                font-size: 1.2em;
+            }
+        }
     }
 }
 </style>  
