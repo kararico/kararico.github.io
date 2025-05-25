@@ -233,6 +233,7 @@
       </div>
     </main>
   </div>
+  <ScrollTop />
 </template>
 
 <script lang="ts" setup>
@@ -240,7 +241,7 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import profile1 from '@/assets/images/layout/about/profile_01.png'
 import profile2 from '@/assets/images/layout/about/profile_02.png'
 import profile3 from '@/assets/images/layout/about/profile_03.png'
-
+import ScrollTop from '@/components/ScrollTop.vue'
 const emit = defineEmits(['animationComplete'])
 const currentImageIndex = ref(0)
 const images = [
@@ -316,12 +317,15 @@ onUnmounted(() => {
     padding: 6.25rem 0 2.5rem;
     }
     @include mobile {
-      padding: 6.25rem 0 2.5rem;
+      padding: 5rem 0 2rem;
     }
     .container {
       max-width: 75rem;
       margin: 0 auto;
       padding: 0 1.25rem;
+      @include mobile {
+        padding: 0 2rem;
+      }
     }
 
     .page-title {
@@ -338,7 +342,9 @@ onUnmounted(() => {
         font-size: 2rem;
       }
       @include mobile {
-        font-size: 2rem;
+        font-size: 1.75rem;
+        text-align: left;
+        margin-bottom: 0.75rem;
       }
     }
     .page-subtitle {
@@ -356,6 +362,9 @@ onUnmounted(() => {
       }
       @include mobile {
         font-size: 1rem;
+        text-align: left;
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.04rem;
       }
     }
 
@@ -400,11 +409,14 @@ onUnmounted(() => {
             font-weight: 400;
             letter-spacing: -0.02em;
             position: absolute;
-            bottom: -2rem;
+            bottom: -2.5rem;
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
             text-align: center;
+            @include mobile {
+              font-size: 1rem;
+            }
           }
           &.active {
             opacity: 1;
@@ -419,7 +431,7 @@ onUnmounted(() => {
         margin-bottom: 3.75rem;
       }
       @include mobile {
-        margin-bottom: 3.75rem;
+        margin-bottom: 2.5rem;
       }
 
       .section-title {
@@ -436,7 +448,9 @@ onUnmounted(() => {
           font-size: 2rem;
         }
         @include mobile {
-          font-size: 2rem;
+          font-size: 1.75rem;
+          text-align: left;
+          margin-bottom: 0.75rem;
         }
       }
       .section-subtitle {
@@ -452,6 +466,8 @@ onUnmounted(() => {
         }
         @include mobile {
           font-size: 1rem;
+          text-align: left;
+          margin-bottom: 1.5rem;
         }
       }
 
@@ -461,6 +477,9 @@ onUnmounted(() => {
         line-height: 1.8;
         margin-bottom: 1.25rem;
         color: #fff;
+        @include mobile {
+          font-size: 1rem;
+        }
       }
 
       .scope-list,
@@ -494,7 +513,8 @@ onUnmounted(() => {
         margin-bottom: 1.875rem;
       }
       @include mobile {
-        margin-bottom: 1.875rem;
+        padding-left: 1.25rem;
+        margin-bottom: 1.5rem;
       }
       &::before {
         content: '';
@@ -513,7 +533,7 @@ onUnmounted(() => {
           margin-bottom: 2.5rem;
         }
         @include mobile {
-          margin-bottom: 2.5rem;
+          margin-bottom: 2rem;
         }
         &:last-child {
           margin-bottom: 0;
@@ -534,7 +554,7 @@ onUnmounted(() => {
             height: 0.5rem;
           }
           @include mobile {
-            left: -2.055rem;
+            left: -1.455rem;
             width: 0.5rem;
             height: 0.5rem;
           }
@@ -582,7 +602,10 @@ onUnmounted(() => {
     font-size: 1rem;
   }
   @include mobile {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    text-align: left;
+    margin-bottom: 1rem;
   }
   .highlight {
     color: v.$main-color;
@@ -825,33 +848,19 @@ onUnmounted(() => {
   }
 
   @include mobile {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.5rem;
-
-    .tmi-icon {
-      font-size: 2rem;
-      margin-bottom: 0;
-    }
+    padding: 1.25rem;
+    text-align: left;
 
     h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0;
+      margin-bottom: 1rem;
     }
 
     .tmi-list {
-      flex: 1;
-
       li {
+        text-align: left;
         font-size: 0.9rem;
-        margin-bottom: 0.25rem;
-        padding-left: 1rem;
-
-        &:last-child {
-          margin-bottom: 0;
-        }
+        line-height: 1.5;
+        margin-bottom: 0.5rem;
       }
     }
   }
@@ -1019,15 +1028,11 @@ onUnmounted(() => {
   }
 
   @include mobile {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.5rem;
+    padding: 1.25rem;
+    text-align: left;
 
     .philosophy-header {
-      margin-bottom: 0;
-      min-width: 100px;
+      margin-bottom: 1rem;
     }
 
     .philosophy-icon {
@@ -1039,8 +1044,9 @@ onUnmounted(() => {
     }
 
     p {
+      text-align: left;
       font-size: 0.9rem;
-      flex: 1;
+      line-height: 1.5;
     }
   }
 }

@@ -59,18 +59,17 @@
 
     <!-- Project Categories -->
     <section class="categories-section">
-      <div class="container">
-        <div class="category-filters">
-          <button 
-            v-for="category in categories" 
-            :key="category"
-            class="category-btn"
-            :class="{ active: selectedCategory === category }"
-            @click="handleCategoryChange(category)"
-          >
-            {{ category }}
-          </button>
-        </div>
+      <div class="category-filters">
+        <button
+          v-for="(category, idx) in categories"
+          :key="category"
+          class="category-btn"
+          :class="{ active: selectedCategory === category }"
+          @click="handleCategoryChange(category, idx)"
+          :ref="el => categoryBtnRefs[idx] = el as Element"
+        >
+          {{ category }}
+        </button>
       </div>
     </section>
 
@@ -123,6 +122,8 @@ const categories = [
 const selectedCategory = ref('전체');
 const isLoading = ref(false);
 
+const categoryBtnRefs = ref<(Element | null)[]>([]);
+
 const projects = [
   {
     id: '1',
@@ -151,18 +152,24 @@ const filteredProjects = computed(() => {
   return projects.filter(project => project.category === selectedCategory.value);
 });
 
-const handleCategoryChange = (category: string) => {
+const handleCategoryChange = (category: string, idx: number) => {
   isLoading.value = true;
   selectedCategory.value = category;
-  // 실제 API 호출이 있다면 여기서 처리
   setTimeout(() => {
     isLoading.value = false;
-  }, 800); // 스켈레톤 UI 표시 시간
+  }, 800);
+
+  // 스크롤 중앙 이동
+  const btn = categoryBtnRefs.value[idx];
+  if (btn instanceof HTMLElement && typeof btn.scrollIntoView === 'function') {
+    btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }
 };
 
 // Loading 컴포넌트의 애니메이션 완료 이벤트를 처리하는 함수
 const startTextAnimation = () => {
-  console.log("실행되니?");
+  if ((startTextAnimation as any).started) return;
+  (startTextAnimation as any).started = true;
   nextTick(() => {
     const tl = gsap.timeline({
       defaults: {
@@ -191,6 +198,13 @@ const startTextAnimation = () => {
 // 컴포넌트 마운트 시 이벤트 리스너 등록
 onMounted(() => {
   window.addEventListener('loading-complete', startTextAnimation);
+
+  // 로딩 이벤트가 오지 않을 경우 대비: 1.5초 후 강제 실행
+  setTimeout(() => {
+    if (!(startTextAnimation as any).started) {
+      startTextAnimation();
+    }
+  }, 1500);
 });
 
 // 컴포넌트 언마운트 시 이벤트 리스너 제거
@@ -199,9 +213,12 @@ onUnmounted(() => {
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@use '@/assets/scss/common/_var' as v;
+@use '@/assets/scss/common/_mixins' as *;
 .portfolio-page {
   min-height: 100vh;
+  background: #111;
 }
 
 .hero-section {
@@ -247,6 +264,14 @@ onUnmounted(() => {
   padding: 0 20px;
   position: relative;
   z-index: 1;
+  @include tablet {
+    max-width: 100%;
+    padding: 0;
+  }
+  @include mobile {
+    max-width: 100%;
+    padding: 0;
+  }
 }
 
 .hero-title {
@@ -266,12 +291,12 @@ onUnmounted(() => {
 }
 
 .categories-section {
-  padding: 1.4rem 0;
-  background-color: #fff;
+  padding: 1.4rem 0 0;
+  background-color: #181818;
   position: sticky;
   top: 4rem;
   z-index: 100;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   transition: all 0.3s ease;
 }
 
@@ -282,18 +307,35 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   height: 100%;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(24,24,24,0.8);
   z-index: -1;
 }
 
 .category-filters {
   display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 62.5rem;
-  margin: 0 auto;
+  justify-content: center;  
+  width: 100%;
   position: relative;
+  padding-bottom: 1rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #444 #181818;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+    background: #181818;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 3px;
+  }
+  @include tablet {
+    justify-content: flex-start;  
+  }
+  @include mobile {
+    justify-content: flex-start;  
+  }
 }
 
 .category-btn {
@@ -302,11 +344,14 @@ onUnmounted(() => {
   border: none;
   background: none;
   font-size: 0.9rem;
-  color: #666;
+  color: #bbb;
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 400;
   letter-spacing: 0.02em;
+  min-width: 6rem;
+  text-align: center;
+  margin-right: 0.5rem;
 }
 
 .category-btn::after {
@@ -316,14 +361,14 @@ onUnmounted(() => {
   left: 0;
   width: 100%;
   height: 0.125rem;
-  background-color: #000;
+  background-color: #fff;
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.3s ease;
 }
 
 .category-btn:hover {
-  color: #000;
+  color: #fff;
 }
 
 .category-btn:hover::after {
@@ -332,7 +377,7 @@ onUnmounted(() => {
 }
 
 .category-btn.active {
-  color: #000;
+  color: #fff;
   font-weight: 500;
 }
 
@@ -342,8 +387,14 @@ onUnmounted(() => {
 
 .projects-section {
   padding: 2.5rem 0;
-  background-color: #fff;
+  background-color: #181818;
   position: relative;
+  @include tablet {
+    padding: 1.5rem 0;
+  }
+  @include mobile {
+    padding: 1.5rem 0;
+  }
 }
 
 .projects-grid {
@@ -353,16 +404,16 @@ onUnmounted(() => {
   padding: 1.25rem 0;
 }
 
-.no-projects {
-  text-align: center;
-  padding: 3rem 0;
-  color: #666;
-  font-size: 1.1rem;
-  letter-spacing: 0.02em;
+.project-card, .skeleton-card {
+  background: #222;
+  color: #fff;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.12);
 }
 
 .skeleton-card {
-  background: #fff;
+  background: #222;
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
@@ -371,7 +422,7 @@ onUnmounted(() => {
 .skeleton-image {
   width: 100%;
   padding-top: 75%;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
@@ -382,7 +433,7 @@ onUnmounted(() => {
 
 .skeleton-title {
   height: 1.5rem;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 0.25rem;
@@ -392,10 +443,18 @@ onUnmounted(() => {
 .skeleton-category {
   height: 1rem;
   width: 40%;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 0.25rem;
+}
+
+.no-projects {
+  text-align: center;
+  padding: 3rem 0;
+  color: #bbb;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
 }
 
 @keyframes shimmer {
@@ -413,16 +472,24 @@ onUnmounted(() => {
   }
 
   .categories-section {
-    padding: 1.25rem 0;
+    padding-top: 1.25rem;
   }
 
   .category-filters {
-    gap: 1.25rem;
-    padding: 0 1.25rem;
+    gap: inherit;
+    margin-right:0.5rem;
+    .category-btn {
+      margin-right: 0.5rem;
+    }
+    
   }
 
   .category-btn {
     font-size: 0.85rem;
   }
+}
+
+.project-card .project-title {
+  color: #fff;
 }
 </style> 

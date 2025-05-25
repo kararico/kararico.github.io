@@ -202,16 +202,16 @@ onMounted(() => {
 
         @include tablet {
           flex: 1;
-          padding: 4rem;
+          padding: 2rem;
 
           &:first-child {
             border: none;
           }
         }
 
-		@include mobile {
-			border:0;	
-		}
+        @include mobile {
+          border:0;	
+        }
         img {
           transition: all 0.5s cubic-bezier(1, 0, 0, 1);
           width: 2.5rem;
@@ -293,7 +293,7 @@ onMounted(() => {
       font-size: 1.4rem;
       font-family: v.$font-kn1;
       color: rgba(255, 255, 255, 0.5);
-	  opacity: .4;
+	    opacity: .4;
       @include mobile {
         font-size: 1.2rem;
       }

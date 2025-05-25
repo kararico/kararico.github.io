@@ -94,6 +94,13 @@ onMounted(async () => {
     // DOM이 완전히 렌더링될 때까지 대기
     await nextTick()
 
+    // 로딩 이벤트가 발생하지 않았을 경우를 대비해 직접 애니메이션 시작
+    setTimeout(() => {
+        if (!isAnimationStarted.value) {
+            startTextAnimation()
+        }
+    }, 1500)
+
     // 비주얼 섹션 스크롤 애니메이션
     if (heroRef.value) {
         const visualAni = gsap.timeline({

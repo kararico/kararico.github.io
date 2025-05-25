@@ -37,12 +37,12 @@
                             >
                         </div>
                         <div class="contact__form-group">
-                            <label for="subject">제목</label>
+                            <label for="title">제목</label>
                             <input 
-                                ref="subjectRef"
+                                ref="titleRef"
                                 type="text" 
-                                id="subject" 
-                                v-model="formData.subject" 
+                                id="title" 
+                                v-model="formData.title" 
                                 placeholder="제목을 입력해주세요"
                                 required
                                 aria-required="true"
@@ -88,7 +88,7 @@ const emailjs = ref<any>(null)
 const formData = ref({
     name: '',
     email: '',
-    subject: '',
+    title: '',
     message: ''
 })
 
@@ -99,7 +99,7 @@ const statusType = ref<'success'|'error'|''>('')
 // 폼 요소 참조
 const nameRef = ref<HTMLInputElement | null>(null)
 const emailRef = ref<HTMLInputElement | null>(null)
-const subjectRef = ref<HTMLInputElement | null>(null)
+const titleRef = ref<HTMLInputElement | null>(null)
 const messageRef = ref<HTMLTextAreaElement | null>(null)
 
 // 팝업 상태 관리
@@ -163,9 +163,9 @@ const validateForm = () => {
         showPopup('올바른 이메일 형식을 입력해주세요.', emailRef);
         return false;
     }
-    if (!formData.value.subject.trim()) {
+    if (!formData.value.title.trim()) {
         statusMsg.value = '제목을 입력해주세요.';
-        showPopup('제목을 입력해주세요.', subjectRef);
+        showPopup('제목을 입력해주세요.', titleRef);
         return false;
     }
     if (!formData.value.message.trim()) {
@@ -192,13 +192,13 @@ const handleSubmit = async () => {
                 to_name: '정원',
                 to_email: 'ixkfo86@gmail.com',
                 reply_to: formData.value.email,
-                subject: formData.value.subject,
+                title: formData.value.title,
                 message: formData.value.message
             }
         )
         statusMsg.value = '메시지가 성공적으로 전송되었습니다!'
         statusType.value = 'success'
-        formData.value = { name: '', email: '', subject: '', message: '' }
+        formData.value = { name: '', email: '', title: '', message: '' }
         showPopup('메시지가 성공적으로 전송되었습니다!')
     } catch (e) {
         statusMsg.value = '메시지 전송에 실패했습니다. 다시 시도해주세요.'

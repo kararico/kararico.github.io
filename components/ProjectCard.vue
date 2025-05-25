@@ -65,12 +65,12 @@ const navigateToProject = () => {
   font-size: 1.2rem;
   font-weight: 600;
   margin: 0 0 8px 0;
-  color: #333;
+  color: #fff;
 }
 
 .project-category {
   font-size: 0.9rem;
-  color: #666;
+  color: #fff;
   margin: 0;
 }
 </style> 
