@@ -1,36 +1,31 @@
 <template>
 	<footer class="footer" id="contact" role="contentinfo">
-		<div class="footer__top-area">
-			<div class="footer__txt-box">
-				<h2 class="footer__tit">
-					<a href="mailto:ixkfo86@gmail.com" class="footer__link-mail" aria-label="이메일로 연락하기">Let's talk!</a>
-				</h2>
-			</div>
-			<nav class="footer__link-area" aria-label="소셜 미디어 링크">
-				<div class="footer__box">
-					<a class="footer__link-mail" href="mailto:ixkfo86@gmail.com" aria-label="이메일 보내기">
+		<div class="footer__container">
+			<div class="footer__content">
+				<div class="footer__contact">
+					<h2 class="footer__title">Contact us</h2>
+					<p class="footer__email">
+						<a href="mailto:ixkfo86@gmail.com" aria-label="이메일로 연락하기">ixkfo86@gmail.com</a>
+					</p>
+				</div>
+				<nav class="footer__social" aria-label="소셜 미디어 링크">
+					<a class="footer__social-link" href="mailto:ixkfo86@gmail.com" aria-label="이메일 보내기">
 						<img src="@/assets/images/layout/footer/email_white.png" alt="이메일 아이콘" width="24" height="24">
 					</a>
-				</div>
-				<div class="footer__box">
-					<a class="footer__link-phone" href="tel:01091819744" aria-label="전화하기">
+					<a class="footer__social-link" href="tel:01091819744" aria-label="전화하기">
 						<img src="@/assets/images/layout/footer/call_white.png" alt="전화 아이콘" width="24" height="24">
 					</a>
-				</div>
-				<div class="footer__box">
-					<a target="_blank" href="https://www.instagram.com/heojeongweon2087?igsh=dXRpNHh6dmkzb2cx" class="footer__link-velog" aria-label="인스타그램 방문하기" rel="noopener noreferrer">
+					<a class="footer__social-link" target="_blank" href="https://www.instagram.com/heojeongweon2087?igsh=dXRpNHh6dmkzb2cx" aria-label="인스타그램 방문하기" rel="noopener noreferrer">
 						<img src="@/assets/images/layout/footer/instar_white.png" alt="인스타그램 아이콘" width="24" height="24">
 					</a>
-				</div>
-				<div class="footer__box">
-					<a target="_blank" href="https://github.com/kararico" class="footer__link-github" aria-label="깃허브 방문하기" rel="noopener noreferrer">
+					<a class="footer__social-link" target="_blank" href="https://github.com/kararico" aria-label="깃허브 방문하기" rel="noopener noreferrer">
 						<img src="@/assets/images/layout/footer/github_white.png" alt="깃허브 아이콘" width="24" height="24">
 					</a>
-				</div>
-			</nav>
-		</div>
-		<div class="footer__bottom-area">
-			<small class="footer__copy">©2025 All rights reserved.</small>
+				</nav>
+			</div>
+			<div class="footer__bottom">
+				<small class="footer__copyright">©2025 All rights reserved.</small>
+			</div>
 		</div>
 	</footer>
 </template>
@@ -70,233 +65,126 @@ onMounted(() => {
 @use '@/assets/scss/common/_var' as v;
 @use '@/assets/scss/common/_mixins' as *;
 
-// 푸터 기본 스타일
 .footer {
-  position: relative;
-  z-index: 10;
   background-color: #111;
+  padding: 2rem 0 2rem;
+  color: #fff;
+  position: relative;
 
-  // 푸터 상단 영역
-  .footer__top-area {
+  @include mobile {
+    padding: 3rem 0 1.5rem;
+  }
+
+  .footer__content {
     display: flex;
     justify-content: space-between;
-    border: solid rgba(255, 255, 255, 0.3);
-    border-width: 1px 0;
+    align-items: center;
+    padding: 0 3rem 3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
     @include tablet {
       flex-direction: column;
+      gap: 2rem;
+      text-align: center;
     }
+    
     @include mobile {
       flex-direction: column;
-	  border:0;
+      gap: 2rem;
+      text-align: center;
     }
+  }
 
-    // 푸터 텍스트 박스
-    .footer__txt-box {
-      flex: 1;
-      position: relative;
-
-      // 푸터 제목
-      .footer__tit {
-        text-align: center;
-        font-size: 5rem;
-        font-family: v.$font-en5;
-        padding: 4rem;
-        transition: 0.5s cubic-bezier(1, 0, 0, 1);
-
-        @include mobile {
-          padding: 1.2rem;
-          font-size: 1.5rem;
-        }
-
-        a {
-          text-decoration: none;
-          color: inherit;
-
-          &:focus-visible {
-            outline: 2px solid v.$main-color;
-            outline-offset: 2px;
-          }
-        }
-      }
-
-      // 호버 효과를 위한 가상 요소
-      &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        height: 0;
-        width: 100%;
-        background-color: v.$main-color;
-        left: 0;
-        transition: all 0.5s cubic-bezier(1, 0, 0, 1);
-        z-index: -1;
-      }
-
-      // 데스크톱 호버 효과
-      @media (hover: hover) {
-        &:hover {
-          &::after {
-            height: 100%;
-          }
-
-          .footer__tit {
-            color: #fff;
-            z-index: 10;
-          }
-        }
-      }
-      // 모바일에서 호버 효과 제거
-      @media (hover: none) and (pointer: coarse) {
-        &:hover {
-          &::after {
-            height: 0 !important;
-          }
-          .footer__tit {
-            color: inherit !important;
-            z-index: auto !important;
-          }
-        }
-      }
-    }
-
-    // 푸터 링크 영역
-    .footer__link-area {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      @include tablet {
-        border-top: 1px solid rgba(255, 255, 255, 0.3);
-      }
+  .footer__contact {
+    .footer__title {
+      font-size: 2.5rem;
+      font-family: v.$font-en5;
+      margin-bottom: 1rem;
+      font-weight: 600;
 
       @include mobile {
-        justify-content: center;
-        gap: 1rem;
+        font-size: 2rem;
       }
+    }
+
+    .footer__email {
+      font-size: 1.1rem;
+      opacity: 0.8;
 
       a {
-        display: block;
-        padding: 3.5rem;
-        text-decoration: none;
         color: inherit;
+        text-decoration: none;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+          opacity: 1;
+        }
 
         &:focus-visible {
           outline: 2px solid v.$main-color;
           outline-offset: 2px;
         }
-
-        @include mobile {
-          padding: .5rem;
-        }
-      }
-
-      // 각 링크 박스
-      .footer__box {
-        border-left: 1px solid rgba(255, 255, 255, 0.3);
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-
-        @include tablet {
-          flex: 1;
-          padding: 2rem;
-
-          &:first-child {
-            border: none;
-          }
-        }
-
-        @include mobile {
-          border:0;	
-        }
-        img {
-          transition: all 0.5s cubic-bezier(1, 0, 0, 1);
-          width: 2.5rem;
-          height: auto;
-
-          @include mobile {
-            width: 1.5rem;
-          }
-        }
-
-        // 호버 효과를 위한 가상 요소
-        &::after {
-          content: "";
-          position: absolute;
-          top: 0;
-          height: 0;
-          width: 100%;
-          background-color: v.$main-color;
-          left: 0;
-          transition: all 0.5s cubic-bezier(1, 0, 0, 1);
-          z-index: -1;
-        }
-
-        // 데스크톱 호버 효과
-        @media (hover: hover) {
-          &:hover {
-            &::after {
-              height: 100%;
-            }
-          }
-        }
-        // 모바일에서 호버 효과 제거
-        @media (hover: none) and (pointer: coarse) {
-          &:hover {
-            &::after {
-              height: 0 !important;
-            }
-          }
-        }
-      }
-
-      // 이메일, 전화 링크 아이콘
-      .footer__link-mail,
-      .footer__link-phone {
-        img {
-          width: 2.5rem;
-
-          @include mobile {
-            width: 1.5rem;
-          }
-        }
-      }
-
-      // 인스타그램, 깃허브 링크 아이콘
-      .footer__link-velog,
-      .footer__link-github {
-        img {
-          width: 3.5rem;
-
-          @include mobile {
-            width: 1.5rem;
-          }
-        }
       }
     }
   }
 
-  // 푸터 하단 영역
-  .footer__bottom-area {
-    padding: 1rem 0 1rem 4rem;
-    text-align: center;
+  .footer__social {
+    display: flex;
+    gap: 1.5rem;
 
     @include mobile {
-      padding: 1.4rem;
+      gap: 1rem;
     }
 
-    // 저작권 텍스트
-    .footer__copy {
-      font-size: 1.4rem;
-      font-family: v.$font-kn1;
-      color: rgba(255, 255, 255, 0.5);
-	    opacity: .4;
+    .footer__social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+
       @include mobile {
-        font-size: 1.2rem;
+        width: 2.5rem;
+        height: 2.5rem;
       }
+
+      img { 
+        width: 1.5rem;
+        height: 1.5rem;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+
+        @include mobile {
+          width: 1.2rem;
+          height: 1.2rem;
+        }
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        img {
+          opacity: 1;
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid v.$main-color;
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  .footer__bottom {
+    text-align: center;
+    padding-top: 2rem;
+
+    .footer__copyright {
+      font-size: 0.9rem;
+      opacity: 0.5;
+      font-family: v.$font-kn1;
     }
   }
 }

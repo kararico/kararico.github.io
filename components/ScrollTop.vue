@@ -45,9 +45,12 @@ const handleScroll = () => {
   if (footer) {
     const footerRect = footer.getBoundingClientRect()
     const windowHeight = window.innerHeight
-    // 버튼 높이(56px) + 여유(16px)
-    const buttonHeight = 56 + 16
-    isFooterOverlap.value = footerRect.top < windowHeight - buttonHeight
+    const scrollTop = document.querySelector('.scroll-top')
+    const scrollTopHeight = scrollTop ? scrollTop.getBoundingClientRect().height : 0
+    const scrollTopHalfHeight = scrollTopHeight / 2
+    const gap = 16 // 1rem
+    const padding = 16 // 1rem
+    isFooterOverlap.value = footerRect.top < windowHeight - (scrollTopHalfHeight + gap + padding)
   } else {
     isFooterOverlap.value = false
   }
@@ -91,11 +94,12 @@ onUnmounted(() => {
     &.footer-overlap {
       position: absolute;
       bottom: 20rem;
+      margin-right:1rem;
       @include tablet {
         bottom: 34rem;
       }
       @include mobile {
-        bottom: 12rem;
+        bottom: 22rem;
       }
     }
   }

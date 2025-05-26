@@ -1,9 +1,11 @@
 <template>
     <header class="header" :class="{ 'header--scrolled': isScrolled, 'black': isBlack }" role="banner">
         <section class="header__container">
-            <NuxtLink to="/" class="header__logo" aria-label="JUGWON 홈으로 이동">
-                <span>H</span>
-            </NuxtLink>
+            <div class="header__left">
+                <NuxtLink to="/" class="header__logo" aria-label="JUGWON 홈으로 이동">
+                    <span>PRO-V</span>
+                </NuxtLink>
+            </div>
             <div class="header__gnb-wrap">
                 <button 
                     class="header__hamburger" 
@@ -66,7 +68,6 @@
 <script setup lang="ts">
     import { ref, onMounted, onUnmounted, watch } from 'vue'
     import { inject } from 'vue'
-    import gsap from 'gsap'
 
     // 메뉴 상태 관리
     const isMenuOpen = ref(false)
@@ -85,6 +86,7 @@
 
     // 스크롤 상태 관리
     const isScrolled = ref(false)
+    const isBlack = ref(false)
 
     // 스크롤 함수 실행행
     const scrollToSection = inject('scrollToSection') as (section: string) => void
@@ -253,28 +255,28 @@
         
         if (isMenuOpen.value) {
             // 메뉴 열릴 때
-            gsap.fromTo([menuItems, timeArea], 
-                {
-                    y: 50,
-                    opacity: 0
-                },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.8,
-                    stagger: 0.1,
-                    ease: "power3.out"
-                }
-            )
+            // gsap.fromTo([menuItems, timeArea], 
+            //     {
+            //         y: 50,
+            //         opacity: 0
+            //     },
+            //     {
+            //         y: 0,
+            //         opacity: 1,
+            //         duration: 0.8,
+            //         stagger: 0.1,
+            //         ease: "power3.out"
+            //     }
+            // )
         } else {
             // 메뉴 닫힐 때
-            gsap.to([menuItems, timeArea], {
-                y: -50,
-                opacity: 0,
-                duration: 0.5,
-                stagger: 0.05,
-                ease: "power3.in"
-            })
+            // gsap.to([menuItems, timeArea], {
+            //     y: -50,
+            //     opacity: 0,
+            //     duration: 0.5,
+            //     stagger: 0.05,
+            //     ease: "power3.in"
+            // })
         }
     }
 
@@ -285,7 +287,7 @@
 
     // 스크롤 이벤트 처리 함수
     const handleScroll = () => {
-        isScrolled.value = window.scrollY > 50
+        isScrolled.value = window.scrollY > 0
     }
 
     // 컴포넌트 마운트 시 실행
@@ -330,8 +332,9 @@
 
     // 스크롤 시 헤더 스타일
     &.header--scrolled {
-        background: rgb(0 0 0 / 10%);
-        backdrop-filter: blur(0.625rem);
+        background-color: #111;
+        // background: rgb(0 0 0 / 10%);
+        // backdrop-filter: blur(0.625rem);
     }
 
     // 검은색 배경 스타일
@@ -350,7 +353,7 @@
 .header__container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: end;
     padding: 1.25rem 3.125rem;
 }
 
@@ -361,13 +364,18 @@
     font-weight: bold;
     font-size: 1.5rem;
     font-family: v.$font-en5;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    width: 2.5rem;
-    height: 2.5rem;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+
+    span {
+        display: inline-block;
+        transition: all 0.3s ease;
+        
+        &:first-child {
+            margin-right: 0.5rem;
+        }
+    }
 }
 
 // 시간 영역 스타일
