@@ -76,7 +76,7 @@
     <!-- Projects Grid -->
     <section class="projects-section">
       <div class="container">
-        <div v-if="isLoading || filteredProjects.length <= 0" class="projects-grid">
+        <div v-if="isLoading" class="projects-grid">
           <div v-for="n in 6" :key="n" class="skeleton-card">
             <div class="skeleton-image"></div>
             <div class="skeleton-content">
@@ -153,7 +153,11 @@ const filteredProjects = computed(() => {
 });
 
 const handleCategoryChange = (category: string, idx: number) => {
-  isLoading.value = true;
+  // 선택한 카테고리에 해당하는 프로젝트가 있는지 확인
+  const hasProjects = category === '전체' || projects.some(project => project.category === category);
+  if (hasProjects) {
+    isLoading.value = true;
+  }
   selectedCategory.value = category;
   setTimeout(() => {
     isLoading.value = false;
