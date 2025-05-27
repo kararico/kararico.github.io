@@ -76,7 +76,7 @@
     <!-- Projects Grid -->
     <section class="projects-section">
       <div class="container">
-        <div v-if="isLoading" class="projects-grid">
+        <div v-if="isLoading || filteredProjects.length <= 0" class="projects-grid">
           <div v-for="n in 6" :key="n" class="skeleton-card">
             <div class="skeleton-image"></div>
             <div class="skeleton-content">
@@ -101,7 +101,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue';
 import gsap from 'gsap';
 
 const line1 = ref<HTMLElement | null>(null);
@@ -210,6 +210,12 @@ onMounted(() => {
 // 컴포넌트 언마운트 시 이벤트 리스너 제거
 onUnmounted(() => {
   window.removeEventListener('loading-complete', startTextAnimation);
+});
+
+watch(filteredProjects, (newVal) => {
+  if (newVal.length === 0) {
+    isLoading.value = false;
+  }
 });
 </script>
 

@@ -130,6 +130,7 @@ onBeforeUnmount(() => {
 
 .letter {
   display: inline-block;
+  opacity: 0;
 }
 
 .dots {
@@ -148,6 +149,7 @@ onBeforeUnmount(() => {
 .dot {
   display: inline-block;
   letter-spacing: 0.1em;
+  opacity: 0;
 
   @include tablet {
     letter-spacing: 0.05em;
