@@ -247,6 +247,15 @@
         </div>
       </div>
     </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+      <div class="contact-container">
+        <h2 class="contact-title">Contact</h2>
+        <p class="contact-desc">프로젝트 문의, 협업, 기타 궁금한 점이 있으시면 언제든 연락해 주세요.</p>
+        <Contact />
+      </div>
+    </section>
   </div>
 </template>
 
@@ -254,6 +263,7 @@
 import { computed, ref, watch, onMounted, nextTick, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';
 import { useProjectStore } from '@/stores/projects';
+import Contact from '@/components/Contact.vue';
 
 const route = useRoute();
 const projectStore = useProjectStore();
@@ -857,6 +867,50 @@ watch(() => route.params.id, () => {
   .links-section {
     .links-content {
       flex-direction: column;
+    }
+  }
+}
+
+.contact-section {
+  background: linear-gradient(135deg, #181818 60%, #232323 100%);
+  padding: 4rem 0;
+  margin-top: 4rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.12);
+  .contact-container {
+    max-width: 32rem;
+    margin: 0 auto;
+    padding: 2rem;
+    background: rgba(30,30,30,0.95);
+    border-radius: 1rem;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.10);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .contact-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #fff;
+    letter-spacing: 0.02em;
+  }
+  .contact-desc {
+    color: #bbb;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 48rem) {
+  .contact-section {
+    padding: 2rem 0;
+    .contact-container {
+      padding: 1rem;
+    }
+    .contact-title {
+      font-size: 1.5rem;
     }
   }
 }

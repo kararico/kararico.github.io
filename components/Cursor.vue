@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 
 // 커서 위치 상태 관리
 const cursorX = ref(0)
@@ -110,6 +110,15 @@ onUnmounted(() => {
   if (mouseoutHandler) document.removeEventListener('mouseout', mouseoutHandler)
   window.removeEventListener('mousemove', moveCursor)
 })
+
+// watch로 isMobile 값 변화 감지
+watch(isMobile, (val) => {
+  if (!val) {
+    isActive.value = true;
+  } else {
+    isActive.value = false;
+  }
+});
 
 defineExpose({
   activate
