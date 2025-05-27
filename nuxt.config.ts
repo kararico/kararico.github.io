@@ -61,5 +61,8 @@ export default defineNuxtConfig({
       emailjsTemplateId: 'template_svlyog9',
       emailjsPublicKey: '2mwZfZ5PDdllye2lc'
     }
-  }
+  },
+  modules: [
+    '@pinia/nuxt',
+  ],
 })

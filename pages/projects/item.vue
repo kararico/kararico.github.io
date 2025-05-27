@@ -103,6 +103,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue';
 import gsap from 'gsap';
+import { useProjectStore } from '@/stores/projects';
 
 const line1 = ref<HTMLElement | null>(null);
 const line2 = ref<HTMLElement | null>(null);
@@ -110,13 +111,10 @@ const line3 = ref<HTMLElement | null>(null);
 
 const categories = [
   '전체',
-  '기업브랜딩',
-  '비즈니스시스템',
-  '대고객서비스',
-  '글로벌서비스',
-  '온라인결제/쇼핑',
-  '서비스운영',
-  '어플리케이션'
+  'PC',
+  'MOBILE',
+  '반응형',
+  '이벤트',
 ];
 
 const selectedCategory = ref('전체');
@@ -124,44 +122,22 @@ const isLoading = ref(false);
 
 const categoryBtnRefs = ref<(Element | null)[]>([]);
 
-const projects = [
-  {
-    id: '1',
-    title: '기업 웹사이트 리뉴얼',
-    category: '기업브랜딩',
-    image: '/images/products/item01.jpg'
-  },
-  {
-    id: '2',
-    title: '업 웹사이트 리뉴얼',
-    category: '어플리케이션',
-    image: '/images/products/item01.jpg'
-  },
-  {
-    id: '3',
-    title: '온라인 쇼핑몰 구축',
-    category: '온라인결제/쇼핑',
-    image: '/images/products/item01.jpg'
-  },
-];
+const projectStore = useProjectStore();
 
 const filteredProjects = computed(() => {
-  if (selectedCategory.value === '전체') {
-    return projects;
-  }
-  return projects.filter(project => project.category === selectedCategory.value);
+  return projectStore.getProjectsByCategory(selectedCategory.value);
 });
 
 const handleCategoryChange = (category: string, idx: number) => {
   // 선택한 카테고리에 해당하는 프로젝트가 있는지 확인
-  const hasProjects = category === '전체' || projects.some(project => project.category === category);
+  const hasProjects = category === '전체' || projectStore.projects.some(project => project.category === category);
   if (hasProjects) {
     isLoading.value = true;
   }
   selectedCategory.value = category;
   setTimeout(() => {
     isLoading.value = false;
-  }, 800);
+  }, 1000);
 
   // 스크롤 중앙 이동
   const btn = categoryBtnRefs.value[idx];

@@ -11,6 +11,8 @@
 </template>
 
 <script setup lang="ts">
+import { navigateTo } from 'nuxt/app';
+
 interface Project {
   id: string;
   title: string;
@@ -23,7 +25,7 @@ const props = defineProps<{
 }>();
 
 const navigateToProject = () => {
-  // Add navigation logic here
+  navigateTo(`/projects/${props.project.id}`);
 };
 </script>
 
