@@ -247,15 +247,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Contact Section -->
-    <section class="contact-section">
-      <div class="contact-container">
-        <h2 class="contact-title">Contact</h2>
-        <p class="contact-desc">프로젝트 문의, 협업, 기타 궁금한 점이 있으시면 언제든 연락해 주세요.</p>
-        <Contact />
-      </div>
-    </section>
   </div>
 </template>
 
@@ -263,7 +254,6 @@
 import { computed, ref, watch, onMounted, nextTick, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';
 import { useProjectStore } from '@/stores/projects';
-import Contact from '@/components/Contact.vue';
 
 const route = useRoute();
 const projectStore = useProjectStore();
