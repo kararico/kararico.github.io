@@ -5,8 +5,8 @@
 
       </div>
       <div class="container">
-        <h1 class="page-title">About Me </h1>
-        <em class="page-subtitle">“안녕하세요 😊 저는 ISTJ 성향의 웹 퍼블리셔 허정원입니다.</em>
+        <h1 class="section-title">About Me </h1>
+        <p class="section-subtitle">“안녕하세요 😊 저는 ISTJ 성향의 웹 퍼블리셔 허정원입니다.</p>
         <div class="main-visual">
           <div class="image-container">
             <img 
@@ -17,14 +17,14 @@
               class="profile-image"
               :class="{ 'active': currentImageIndex === index }"
             >
-            <p class="profile-image-text">가족과의 여행 중, 웹 얘기만 하던 날 📷</p>
+            <p class="profile-image-text text-muted">가족과의 여행 중, 웹 얘기만 하던 날 📷</p>
           </div>
         </div>
 
         <div class="about-content">
           <div class="about-section">
             <h2 class="section-title sr-only">About Me</h2>
-            <p class="about-description">
+            <p class="about-description text-primary">
               체계적이고 꼼꼼한 성격 덕분에, 주어진 작업을 효율적으로 정리하고 안정적으로 구현해내는 데 자신이 있어요.<br />
               퍼블리셔는 디자인과 개발 사이의 '다리 역할'을 하는 직업이라고 생각합니다.<br />
               사용자의 시선 흐름을 고려해 마크업 구조를 설계하고, <br />
@@ -35,7 +35,7 @@
 
           <div class="about-section">
             <h2 class="section-title">Skills</h2>
-            <em class="section-subtitle">제가 보유한 기술 스택입니다.</em>
+            <p class="section-subtitle">제가 보유한 기술 스택입니다.</p>
             <div class="skills-grid">
               <div class="skill-card">
                 <div class="skill-header">
@@ -90,7 +90,7 @@
 
           <div class="about-section">
             <h2 class="section-title">History</h2>
-            <em class="section-subtitle">다양한 환경 속에서 퍼블리셔로 성장해온 여정입니다.</em>
+            <p class="section-subtitle">다양한 환경 속에서 퍼블리셔로 성장해온 여정입니다.</p>
             <div class="history-timeline">
               <div class="timeline-item">
                 <div class="year">2022.10 ~ 재직중</div>
@@ -144,7 +144,7 @@
           </div>
           <div class="about-section">
             <h2 class="section-title">What I Value</h2>
-            <em class="section-subtitle">퍼블리셔로서 일할 때 제가 가장 중요하게 생각하는 가치들입니다.</em>
+            <p class="section-subtitle">퍼블리셔로서 일할 때 제가 가장 중요하게 생각하는 가치들입니다.</p>
             <div class="philosophy-grid">
               <div class="philosophy-card">
                 <div class="philosophy-header">
@@ -180,7 +180,7 @@
           </div>
           <div class="about-section">
             <h2 class="section-title">TMI</h2>
-            <em class="section-subtitle">저에 대한 조금 더 자세한 이야기입니다.</em>
+            <p class="section-subtitle">저에 대한 조금 더 자세한 이야기입니다.</p>
             <div class="tmi-grid">
               <div class="tmi-card">
                 <h3>Personality</h3>
@@ -221,7 +221,7 @@
 
           <div class="about-section">
             <h2 class="section-title">Resume</h2>
-            <em class="section-subtitle">전체 이력이 담긴 PDF 이력서를 다운로드하실 수 있어요.</em>
+            <p class="section-subtitle">전체 이력이 담긴 PDF 이력서를 다운로드하실 수 있어요.</p>
             <div class="resume-download">
               <a href="/profile.pdf" class="download-button" download>
                 <span class="download-icon">📄</span>
@@ -271,6 +271,7 @@ onUnmounted(() => {
 <style lang="scss" scoped>
   @use '@/assets/scss/common/_var' as v;
   @use '@/assets/scss/common/_mixins' as *;
+  @use '@/assets/scss/common/_common' as *;
 .about-page {
   min-height: 100vh;
   display: flex;
@@ -328,46 +329,6 @@ onUnmounted(() => {
       }
     }
 
-    .page-title {
-      font-size: 2.5rem;
-      font-weight: 400;
-      letter-spacing: 0.2em;
-      margin-bottom: 1rem;
-      font-family: v.$font-en5;
-      text-transform: uppercase;
-      font-weight: bold;
-      font-weight: 800;
-      color: #fff;
-      @include tablet {
-        font-size: 2rem;
-      }
-      @include mobile {
-        font-size: 1.75rem;
-        text-align: left;
-        margin-bottom: 0.75rem;
-      }
-    }
-    .page-subtitle {
-      display: block;
-      font-size: 1.2rem;
-      font-weight: 400;
-      letter-spacing: 0.2em;
-      margin-bottom: 2rem;
-      font-family: v.$font-kn2;
-      color: #fff;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      @include tablet {
-        font-size: 1rem;
-      }
-      @include mobile {
-        font-size: 1rem;
-        text-align: left;
-        margin-bottom: 1.5rem;
-        letter-spacing: -0.04rem;
-      }
-    }
-
     .main-visual {
       margin-bottom: 5rem;
       @include tablet {
@@ -376,10 +337,6 @@ onUnmounted(() => {
       @include mobile {
         margin-bottom: 3.75rem;
       }
-
-      // .image-container {
-      //   aspect-ratio: 4/3;
-      // }
       .image-container {
         position: relative;
         width: 100%;
@@ -403,7 +360,6 @@ onUnmounted(() => {
           left: 0;
           opacity: 0;
           &-text {
-            color: #fff;
             font-size: 1.2rem;
             font-family: v.$font-kn2;
             font-weight: 400;
@@ -433,50 +389,12 @@ onUnmounted(() => {
       @include mobile {
         margin-bottom: 2.5rem;
       }
-
-      .section-title {
-        font-size: 2.5rem;
-        font-weight: 400;
-        letter-spacing: 0.2em;
-        margin-bottom: 1rem;
-        font-family: v.$font-en5;
-        text-transform: uppercase;
-        font-weight: bold;
-        font-weight: 800;
-        color: #fff;
-        @include tablet {
-          font-size: 2rem;
-        }
-        @include mobile {
-          font-size: 1.75rem;
-          text-align: left;
-          margin-bottom: 0.75rem;
-        }
-      }
-      .section-subtitle {
-        display: block;
-        font-size: 1.2rem;
-        font-weight: 400;
-        letter-spacing: 0.2em;
-        margin-bottom: 2rem;
-        color: #fff;
-        letter-spacing: 0.1em;
-        @include tablet {
-          font-size: 1rem;
-        }
-        @include mobile {
-          font-size: 1rem;
-          text-align: left;
-          margin-bottom: 1.5rem;
-        }
-      }
-
       .about-description,
       .detail-description {
+        @extend .text-primary;
         font-size: 1.1rem;
         line-height: 1.8;
         margin-bottom: 1.25rem;
-        color: #fff;
         @include mobile {
           font-size: 1rem;
         }

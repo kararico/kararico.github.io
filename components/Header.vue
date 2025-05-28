@@ -401,7 +401,7 @@
 
         // 날짜 스타일
         .header__date {
-            font-family: monospace;
+            font-family: v.$font-en1;
             font-size: 1.2em;
         }
 

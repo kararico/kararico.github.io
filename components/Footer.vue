@@ -1,7 +1,7 @@
 <template>
 	<footer class="footer" id="contact" role="contentinfo">
 		<div class="footer__container">
-			<div class="footer__content">
+			<div class="footer__content" v-if="false">
 				<div class="footer__contact">
 					<h2 class="footer__title">Contact us</h2>
 					<p class="footer__email">

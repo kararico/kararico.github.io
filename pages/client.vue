@@ -3,8 +3,8 @@
     <main class="main-content">
       <div class="hero-background"></div>
       <div class="container">
-        <h1 class="page-title">Client Page</h1>
-        <em class="page-subtitle">제가 지금까지 작업해 온 클라이언트들이에요 :)</em>
+        <h1 class="section-title">Client Page</h1>
+        <p class="section-subtitle">제가 지금까지 작업해 온 클라이언트들이에요 :)</p>
 
         <div class="client-list-section">
           <div class="client-list-grid">
@@ -105,6 +105,7 @@ onUnmounted(() => {
 <style lang="scss" scoped>
   @use '@/assets/scss/common/_var' as v;
   @use '@/assets/scss/common/_mixins' as *;
+  @use '@/assets/scss/common/_common' as *;
 // ... Copy the entire style section from about.vue here ...
 .client-page {
   min-height: 100vh;
@@ -113,47 +114,6 @@ onUnmounted(() => {
   color: #000;
   position: relative;
   overflow: hidden;
-}
-
-.client-page .page-title {
-  font-size: 2.5rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  margin-bottom: 1rem;
-  font-family: v.$font-en5;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-weight: 800;
-  color: #fff;
-  @include tablet {
-    font-size: 2rem;
-  }
-  @include mobile {
-    font-size: 1.75rem;
-    text-align: left;
-    margin-bottom: 0.75rem;
-  }
-}
-
-.client-page .page-subtitle {
-  display: block;
-  font-size: 1.2rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  margin-bottom: 2rem;
-  font-family: v.$font-kn2;
-  color: #fff;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  @include tablet {
-    font-size: 1rem;
-  }
-  @include mobile {
-    font-size: 1rem;
-    text-align: left;
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.04rem;
-  }
 }
 
 .client-page .main-content {

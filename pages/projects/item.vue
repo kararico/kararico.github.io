@@ -202,9 +202,11 @@ watch(filteredProjects, (newVal) => {
 <style lang="scss" scoped>
 @use '@/assets/scss/common/_var' as v;
 @use '@/assets/scss/common/_mixins' as *;
+@use '@/assets/scss/common/_common' as *;
+
 .portfolio-page {
   min-height: 100vh;
-  background: #111;
+  background: v.$bg-color;
 }
 
 .hero-section {
@@ -244,28 +246,20 @@ watch(filteredProjects, (newVal) => {
   stroke-width: 1;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  position: relative;
-  z-index: 1;
-  @include tablet {
-    max-width: 100%;
-    padding: 0;
-  }
-  @include mobile {
-    max-width: 100%;
-    padding: 0;
-  }
-}
-
 .hero-title {
   font-size: 4rem;
   font-weight: 700;
   line-height: 1.2;
   color: #fff;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+  @include tablet {
+    font-size: 3rem;
+  }
+
+  @include mobile {
+    font-size: 2.5rem;
+  }
 }
 
 .title-line {
@@ -278,49 +272,41 @@ watch(filteredProjects, (newVal) => {
 
 .categories-section {
   padding: 1.4rem 0 0;
-  background-color: #181818;
+  background-color: rgba(24, 24, 24, 0.8);
+  backdrop-filter: blur(10px);
   position: sticky;
   top: 4rem;
   z-index: 100;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.3s ease;
-}
-
-.categories-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  background: rgba(24,24,24,0.8);
-  z-index: -1;
 }
 
 .category-filters {
   display: flex;
-  justify-content: center;  
+  justify-content: center;
   width: 100%;
   position: relative;
   padding-bottom: 1rem;
-  -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
   scrollbar-width: thin;
   scrollbar-color: #444 #181818;
-  overflow-x: auto;
 
   &::-webkit-scrollbar {
     height: 6px;
     background: #181818;
   }
+
   &::-webkit-scrollbar-thumb {
     background: #444;
     border-radius: 3px;
   }
+
   @include tablet {
-    justify-content: flex-start;  
+    justify-content: flex-start;
   }
+
   @include mobile {
-    justify-content: flex-start;  
+    justify-content: flex-start;
   }
 }
 
@@ -338,46 +324,52 @@ watch(filteredProjects, (newVal) => {
   min-width: 6rem;
   text-align: center;
   margin-right: 0.5rem;
-}
 
-.category-btn::after {
-  content: '';
-  position: absolute;
-  bottom: -0.125rem;
-  left: 0;
-  width: 100%;
-  height: 0.125rem;
-  background-color: #fff;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.3s ease;
-}
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -0.125rem;
+    left: 0;
+    width: 100%;
+    height: 0.125rem;
+    background-color: #fff;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
 
-.category-btn:hover {
-  color: #fff;
-}
+  &:hover {
+    color: #fff;
+  }
 
-.category-btn:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
+  &:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
 
-.category-btn.active {
-  color: #fff;
-  font-weight: 500;
-}
+  &.active {
+    color: #fff;
+    font-weight: 500;
 
-.category-btn.active::after {
-  transform: scaleX(1);
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+
+  @include mobile {
+    font-size: 0.85rem;
+  }
 }
 
 .projects-section {
   padding: 2.5rem 0;
   background-color: #181818;
   position: relative;
+
   @include tablet {
     padding: 1.5rem 0;
   }
+
   @include mobile {
     padding: 1.5rem 0;
   }
@@ -388,14 +380,6 @@ watch(filteredProjects, (newVal) => {
   grid-template-columns: repeat(auto-fill, minmax(18.75rem, 1fr));
   gap: 1.875rem;
   padding: 1.25rem 0;
-}
-
-.project-card, .skeleton-card {
-  background: #222;
-  color: #fff;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.12);
 }
 
 .skeleton-card {
@@ -450,32 +434,5 @@ watch(filteredProjects, (newVal) => {
   100% {
     background-position: -200% 0;
   }
-}
-
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.5rem;
-  }
-
-  .categories-section {
-    padding-top: 1.25rem;
-  }
-
-  .category-filters {
-    gap: inherit;
-    margin-right:0.5rem;
-    .category-btn {
-      margin-right: 0.5rem;
-    }
-    
-  }
-
-  .category-btn {
-    font-size: 0.85rem;
-  }
-}
-
-.project-card .project-title {
-  color: #fff;
 }
 </style> 

@@ -7,7 +7,7 @@
             <div class="contact__area">
                 <div class="contact__content">
                     <h3 class="contact__title">
-                        <span class="contact__title-text">메시지를 보내주세요</span>
+                        <!-- <span class="contact__title-text">메시지를 보내주세요</span> -->
                     </h3>
                     <form class="contact__form" @submit.prevent="handleSubmit" aria-labelledby="contact-heading" novalidate>
                         <div class="contact__form-group">
@@ -70,9 +70,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="popup.visible" class="contact__toast-message">
-            <span class="contact__toast-text">{{ popup.message }}</span>
-        </div>
+        <div v-if="popup.visible" class="toast">{{ popup.message }}</div>
     </div>
 </template>
 
@@ -409,7 +407,7 @@ onMounted(async () => {
 }
 
 // 토스트 메시지 스타일
-.contact__toast-message {
+.toast {
     position: fixed;
     left: 50%;
     bottom: 3em;

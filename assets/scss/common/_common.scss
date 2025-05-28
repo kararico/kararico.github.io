@@ -1,0 +1,210 @@
+@use '@/assets/scss/common/_mixins' as *;
+@use '@/assets/scss/common/_var' as v;
+// 공통 섹션 스타일
+.section {
+  padding: 4rem 0;
+  border-bottom: 0.0625rem solid rgba(255,255,255,0.1);
+
+  @include mobile {
+    padding: 2rem 0;
+  }
+}
+
+// 공통 타이틀 스타일
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  font-family: v.$font-en5;
+  color: #fff;
+
+  @include mobile {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.section-subtitle {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  margin-bottom: 2rem;
+  color: #fff;
+
+  @include mobile {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+// 공통 그리드 레이아웃
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.grid-auto-fit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+// 공통 카드 스타일
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.3);
+
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+
+  @include mobile {
+    padding: 1.25rem;
+  }
+}
+
+// 공통 애니메이션
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// 공통 스켈레톤 스타일
+.skeleton {
+  background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.25rem;
+}
+
+// 공통 버튼 스타일
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 2rem;
+  color: #fff;
+  text-decoration: none;
+  font-family: v.$font-kn2;
+  font-size: 1rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+
+  @include mobile {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+// 공통 컨테이너 스타일
+.container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+
+  @include mobile {
+    padding: 0 1rem;
+  }
+}
+
+// 공통 텍스트 스타일
+.text-primary {
+  color: #fff;
+}
+
+.text-secondary {
+  color: #bbb;
+}
+
+.text-muted {
+  color: #888;
+}
+
+// 공통 여백 스타일
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+.mb-5 { margin-bottom: 2.5rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+.mt-5 { margin-top: 2.5rem; } 

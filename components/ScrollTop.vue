@@ -93,13 +93,13 @@ onUnmounted(() => {
 
     &.footer-overlap {
       position: absolute;
-      bottom: 20rem;
+      bottom: 10rem;
       margin-right:1rem;
       @include tablet {
-        bottom: 34rem;
+        bottom: 8rem;
       }
       @include mobile {
-        bottom: 22rem;
+        bottom: 8rem;
       }
     }
   }
