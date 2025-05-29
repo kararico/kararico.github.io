@@ -179,8 +179,6 @@ onMounted(() => {
 
   .footer__bottom {
     text-align: center;
-    padding-top: 2rem;
-
     .footer__copyright {
       font-size: 0.9rem;
       opacity: 0.5;

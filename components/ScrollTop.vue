@@ -87,8 +87,8 @@ onUnmounted(() => {
     z-index: 100;
 
     @include tablet {
-      bottom: 1.5rem;
-      right: 1.5rem;
+      // bottom: 1.5rem;
+      // right: 1.5rem;
     }
 
     &.footer-overlap {
@@ -97,8 +97,10 @@ onUnmounted(() => {
       margin-right:1rem;
       @include tablet {
         bottom: 8rem;
+        margin-right: 0;
       }
       @include mobile {
+        margin-right:0;
         bottom: 8rem;
       }
     }
@@ -108,9 +110,10 @@ onUnmounted(() => {
     width: 3.5rem;
     height: 3.5rem;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(30, 30, 30, 0.92);
+    border: 2px solid #fff;
     color: #fff;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -161,9 +164,10 @@ onUnmounted(() => {
     width: 3.5rem;
     height: 3.5rem;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(30, 30, 30, 0.92);
+    border: 2px solid #fff;
     color: #fff;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
     cursor: pointer;
     display: flex;
     align-items: center;

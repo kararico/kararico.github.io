@@ -324,9 +324,6 @@ onUnmounted(() => {
       max-width: 75rem;
       margin: 0 auto;
       padding: 0 1.25rem;
-      @include mobile {
-        padding: 0 2rem;
-      }
     }
 
     .main-visual {

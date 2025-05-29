@@ -6,6 +6,7 @@
     <div class="project-info">
       <h3 class="project-title">{{ project.title }}</h3>
       <p class="project-category">{{ project.category }}</p>
+      <p class="project-period">제작기간: {{ project.period }}</p>
     </div>
   </div>
 </template>
@@ -18,6 +19,7 @@ interface Project {
   title: string;
   category: string;
   image: string;
+  period: string;
 }
 
 const props = defineProps<{
@@ -33,7 +35,6 @@ const navigateToProject = () => {
 .project-card {
   cursor: pointer;
   transition: transform 0.3s ease;
-  background: #fff;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -55,10 +56,6 @@ const navigateToProject = () => {
   object-fit: cover;
 }
 
-/* .project-card:hover .project-image img {
-  transform: scale(1.05);
-} */
-
 .project-info {
   padding: 20px;
 }
@@ -74,5 +71,11 @@ const navigateToProject = () => {
   font-size: 0.9rem;
   color: #fff;
   margin: 0;
+}
+
+.project-period {
+  font-size: 0.85rem;
+  color: #bbb;
+  margin: 0.3em 0 0 0;
 }
 </style> 

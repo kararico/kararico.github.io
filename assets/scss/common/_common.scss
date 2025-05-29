@@ -5,6 +5,10 @@
   padding: 4rem 0;
   border-bottom: 0.0625rem solid rgba(255,255,255,0.1);
 
+  @include tablet {
+    padding: 3rem 0;
+  }
+
   @include mobile {
     padding: 2rem 0;
   }
@@ -12,14 +16,18 @@
 
 // 공통 타이틀 스타일
 .section-title {
-  font-size: 2rem;
+  font-size: 4rem;
   font-weight: 700;
   margin-bottom: 2rem;
   font-family: v.$font-en5;
   color: #fff;
 
+  @include tablet {
+    font-size: 3rem;
+  }
+
   @include mobile {
-    font-size: 1.75rem;
+    font-size: 2rem;
     margin-bottom: 1.5rem;
   }
 }
@@ -28,9 +36,13 @@
   display: block;
   font-size: 1.2rem;
   font-weight: 400;
-  letter-spacing: 0.1em;
+  letter-spacing: -0.05rem;
   margin-bottom: 2rem;
   color: #fff;
+
+  @include tablet {
+    font-size: 1.5rem;
+  }
 
   @include mobile {
     font-size: 1rem;
@@ -91,7 +103,7 @@
 
   @media (hover: hover) {
     &:hover {
-      transform: translateY(-8px);
+      // transform: translateY(-8px);
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
       border-color: rgba(255, 255, 255, 0.3);
 
@@ -156,7 +168,7 @@
 
   @media (hover: hover) {
     &:hover {
-      transform: translateY(-4px);
+      // transform: translateY(-4px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
       border-color: rgba(255, 255, 255, 0.3);
 
@@ -194,6 +206,11 @@
 
 .text-muted {
   color: #888;
+  &.point {
+    color: v.$white-color;
+    margin-right: 2rem;
+    font-weight: bold;
+  }
 }
 
 // 공통 여백 스타일

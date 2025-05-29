@@ -95,15 +95,15 @@
         <h2 class="section-title">프로젝트 개요</h2>
         <div class="grid-2">
           <div class="card">
-            <span class="text-muted">프로젝트 기간</span>
+            <span class="text-muted point">프로젝트 기간</span>
             <span class="text-primary">{{ project.overview.duration }}</span>
           </div>
           <div class="card">
-            <span class="text-muted">팀 구성</span>
+            <span class="text-muted point">팀 구성</span>
             <span class="text-primary">{{ project.overview.team }}</span>
           </div>
           <div class="card">
-            <span class="text-muted">담당 역할</span>
+            <span class="text-muted point">담당 역할</span>
             <span class="text-primary">{{ project.overview.role }}</span>
           </div>
           <div class="card">
@@ -148,26 +148,21 @@
       <section class="section">
         <h2 class="section-title">프로젝트 링크</h2>
         <div class="grid-auto-fit">
-          <a v-if="project.links.website" 
-             :href="project.links.website" 
-             target="_blank" 
-             class="btn">
+          <a 
+            class="btn"
+            :href="project.links.website || '#'"
+            @click.prevent="handleProjectLink(project.links.website)"
+          >
             <span class="link-icon">🌐</span>
             <span class="link-text">웹사이트</span>
           </a>
-          <a v-if="project.links.github" 
-             :href="project.links.github" 
-             target="_blank" 
-             class="btn">
+          <a 
+            class="btn"
+            :href="project.links.github || '#'"
+            @click.prevent="handleProjectLink(project.links.github)"
+          >
             <span class="link-icon">📦</span>
             <span class="link-text">GitHub</span>
-          </a>
-          <a v-if="project.links.demo" 
-             :href="project.links.demo" 
-             target="_blank" 
-             class="btn">
-            <span class="link-icon">🎥</span>
-            <span class="link-text">데모 영상</span>
           </a>
         </div>
       </section>
@@ -189,7 +184,8 @@
             <span class="text-muted">이전 프로젝트</span>
             <span class="text-primary">{{ prevProject.title }}</span>
           </NuxtLink>
-          <div v-else class="btn disabled">
+          <div v-else class="btn disabled" @click="
+          ">
             <span class="text-muted">이전 프로젝트</span>
             <span class="text-primary">없음</span>
           </div>
@@ -203,7 +199,7 @@
             <span class="text-muted">다음 프로젝트</span>
             <span class="text-primary">{{ nextProject.title }}</span>
           </NuxtLink>
-          <div v-else class="btn disabled">
+          <div v-else class="btn disabled" @click="alertPrivateProject">
             <span class="text-muted">다음 프로젝트</span>
             <span class="text-primary">없음</span>
           </div>
@@ -321,6 +317,18 @@ watch(() => route.params.id, () => {
     isLoading.value = false;
   }, 1000);
 }, { immediate: true });
+
+const alertPrivateProject = () => {
+  alert('비공개 프로젝트입니다.');
+};
+
+const handleProjectLink = (url: string | undefined) => {
+  if (!url) {
+    alert('비공개 프로젝트입니다.');
+    return;
+  }
+  window.open(url, '_blank');
+};
 </script>
 
 <style lang="scss" scoped>
@@ -330,8 +338,10 @@ watch(() => route.params.id, () => {
 
 .project-detail {
   min-height: 100vh;
+  min-height: 100dvh;
   background: v.$bg-color;
   color: #fff;
+  padding: 5rem 0 2rem;
 }
 
 .project-header {
@@ -371,7 +381,7 @@ watch(() => route.params.id, () => {
 
 .swiper-container {
   width: 100%;
-  padding: 2rem 0;
+  // padding: 2rem 0;
 
   .swiper-slide {
     aspect-ratio: 1;
@@ -384,9 +394,9 @@ watch(() => route.params.id, () => {
       object-fit: cover;
       transition: transform 0.3s ease;
 
-      &:hover {
-        transform: scale(1.05);
-      }
+      // &:hover {
+      //   transform: scale(1.05);
+      // }
     }
   }
 
@@ -402,9 +412,9 @@ watch(() => route.params.id, () => {
       font-size: 1.2rem;
     }
 
-    &:hover {
-      background: rgba(0, 0, 0, 0.8);
-    }
+    // &:hover {
+    //   background: rgba(0, 0, 0, 0.8);
+    // }
   }
 
   :deep(.swiper-pagination) {
@@ -485,7 +495,6 @@ watch(() => route.params.id, () => {
 @media (max-width: 48rem) {
   .project-header {
     .project-meta {
-      flex-direction: column;
       gap: 0.5rem;
     }
   }
