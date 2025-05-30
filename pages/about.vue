@@ -242,10 +242,9 @@ import profile1 from '@/assets/images/layout/about/profile_01.png'
 import profile2 from '@/assets/images/layout/about/profile_02.png'
 import profile3 from '@/assets/images/layout/about/profile_03.png'
 import ScrollTop from '@/components/ScrollTop.vue'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-gsap.registerPlugin(ScrollTrigger)
+let gsap: any = null
+let ScrollTrigger: any = null
 
 const emit = defineEmits(['animationComplete'])
 const currentImageIndex = ref(0)
@@ -261,8 +260,15 @@ const rotateImages = () => {
   currentImageIndex.value = (currentImageIndex.value + 1) % images.length
 }
 
-const initAnimations = () => {
+const initAnimations = async () => {
   if (typeof window === 'undefined') return;
+
+  // Dynamically import GSAP and ScrollTrigger
+  const gsapModule = await import('gsap')
+  const scrollTriggerModule = await import('gsap/ScrollTrigger')
+  gsap = gsapModule.default
+  ScrollTrigger = scrollTriggerModule.default
+  gsap.registerPlugin(ScrollTrigger)
 
   // Hero section animation
   gsap.from('.section-title', {
@@ -400,12 +406,11 @@ const initAnimations = () => {
   })
 }
 
-onMounted(() => {
+onMounted(async () => {
   emit('animationComplete')
   intervalId = window.setInterval(rotateImages, 5000)
-  nextTick(() => {
-    initAnimations()
-  })
+  await nextTick()
+  await initAnimations()
 })
 
 onUnmounted(() => {
@@ -413,7 +418,9 @@ onUnmounted(() => {
     clearInterval(intervalId)
   }
   // Clean up ScrollTrigger
-  ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+  if (ScrollTrigger) {
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+  }
 })
 </script>
 
