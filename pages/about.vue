@@ -237,11 +237,16 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import profile1 from '@/assets/images/layout/about/profile_01.png'
 import profile2 from '@/assets/images/layout/about/profile_02.png'
 import profile3 from '@/assets/images/layout/about/profile_03.png'
 import ScrollTop from '@/components/ScrollTop.vue'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
 const emit = defineEmits(['animationComplete'])
 const currentImageIndex = ref(0)
 const images = [
@@ -256,15 +261,155 @@ const rotateImages = () => {
   currentImageIndex.value = (currentImageIndex.value + 1) % images.length
 }
 
+const initAnimations = () => {
+  // Hero section animation
+  gsap.from('.section-title', {
+    y: 50,
+    opacity: 0,
+    duration: 1,
+    ease: 'power3.out'
+  })
+
+  gsap.from('.section-subtitle', {
+    y: 30,
+    opacity: 0,
+    duration: 1,
+    delay: 0.3,
+    ease: 'power3.out'
+  })
+
+  // Profile image animation
+  const profileImages = document.querySelectorAll('.profile-image')
+  profileImages.forEach((image) => {
+    gsap.set(image, {
+      opacity: 0,
+      scale: 0.8
+    })
+  })
+
+  // Initial active image animation
+  const activeImage = document.querySelector('.profile-image.active')
+  if (activeImage) {
+    gsap.to(activeImage, {
+      opacity: 1,
+      scale: 1,
+      duration: 1.2,
+      delay: 0.6,
+      ease: 'power3.out'
+    })
+  }
+
+  // Watch for image changes
+  watch(currentImageIndex, (newIndex) => {
+    const images = document.querySelectorAll('.profile-image')
+    images.forEach((image, index) => {
+      if (index === newIndex) {
+        gsap.to(image, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          ease: 'Expo.Inout'
+        })
+      } else {
+        gsap.to(image, {
+          opacity: 0,
+          scale: 0.8,
+          duration: 0.8,
+          ease: 'power3.out'
+        })
+      }
+    })
+  })
+
+  // Skills section animation
+  const skillCards = document.querySelectorAll('.skill-card')
+  skillCards.forEach((card, index) => {
+    gsap.from(card, {
+      scrollTrigger: {
+        trigger: card,
+        start: 'top bottom-=100',
+        toggleActions: 'play none none reverse'
+      },
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      delay: index * 0.2,
+      ease: 'power3.out'
+    })
+  })
+
+  // History timeline animation
+  gsap.from('.timeline-item', {
+    scrollTrigger: {
+      trigger: '.history-timeline',
+      start: 'top 80%',
+    },
+    x: -50,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.2,
+    ease: 'power3.out'
+  })
+
+  // Philosophy cards animation
+  const philosophyCards = document.querySelectorAll('.philosophy-card')
+  philosophyCards.forEach((card, index) => {
+    gsap.from(card, {
+      scrollTrigger: {
+        trigger: card,
+        start: 'top bottom-=100',
+        toggleActions: 'play none none reverse'
+      },
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      delay: index * 0.2,
+      ease: 'power3.out'
+    })
+  })
+
+  // TMI cards animation
+  const tmiCards = document.querySelectorAll('.tmi-card')
+  tmiCards.forEach((card, index) => {
+    gsap.from(card, {
+      scrollTrigger: {
+        trigger: card,
+        start: 'top bottom-=100',
+        toggleActions: 'play none none reverse'
+      },
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      delay: index * 0.2,
+      ease: 'power3.out'
+    })
+  })
+
+  // Resume download button animation
+  gsap.from('.download-button', {
+    scrollTrigger: {
+      trigger: '.resume-download',
+      start: 'top 80%',
+    },
+    y: 30,
+    opacity: 0,
+    duration: 0.8,
+    ease: 'power3.out'
+  })
+}
+
 onMounted(() => {
   emit('animationComplete')
   intervalId = window.setInterval(rotateImages, 5000)
+  initAnimations()
 })
 
 onUnmounted(() => {
   if (intervalId) {
     clearInterval(intervalId)
   }
+  // Clean up ScrollTrigger
+  ScrollTrigger.getAll().forEach(trigger => trigger.kill())
 })
 </script>
 
@@ -569,20 +714,11 @@ onUnmounted(() => {
 
   @media (hover: hover) {
     &:hover {
-      transform: translateY(-8px);
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
       border-color: rgba(255, 255, 255, 0.3);
 
       &::before {
         opacity: 1;
-      }
-
-      .skill-icon {
-        transform: scale(1.1);
-      }
-
-      .skill-list li {
-        transform: translateX(5px);
       }
     }
   }

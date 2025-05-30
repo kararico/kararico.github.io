@@ -21,7 +21,8 @@
   margin-bottom: 2rem;
   font-family: v.$font-en5;
   color: #fff;
-
+  line-height: 1.2;
+  text-align: center;
   @include tablet {
     font-size: 3rem;
   }
@@ -39,6 +40,9 @@
   letter-spacing: -0.05rem;
   margin-bottom: 2rem;
   color: #fff;
+  font-family: v.$font-kn2; 
+  line-height: 1.2;
+  text-align: center;
 
   @include tablet {
     font-size: 1.5rem;
@@ -173,7 +177,7 @@
       border-color: rgba(255, 255, 255, 0.3);
 
       &::before {
-        opacity: 1;
+      opacity: 1;
       }
     }
   }
@@ -225,3 +229,15 @@
 .mt-3 { margin-top: 1.5rem; }
 .mt-4 { margin-top: 2rem; }
 .mt-5 { margin-top: 2.5rem; } 
+
+//공통 여백
+.inner{
+  padding: 0 1.25rem;
+
+  @include tablet {
+    padding: 0 1rem;
+  } 
+  @include mobile {
+    padding: 0 0.5rem;
+  }
+}

@@ -1,102 +1,104 @@
 <template>
   <div class="portfolio-page">
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="hero-background">
-        <svg class="background-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:0.5">
-                <animate attributeName="offset" values="0;1;0" dur="10s" repeatCount="indefinite" />
-              </stop>
-              <stop offset="100%" style="stop-color:#4ECDC4;stop-opacity:0.5">
-                <animate attributeName="offset" values="1;0;1" dur="10s" repeatCount="indefinite" />
-              </stop>
-            </linearGradient>
-            <linearGradient id="gradient2" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style="stop-color:#FFE66D;stop-opacity:0.5">
-                <animate attributeName="offset" values="0;1;0" dur="8s" repeatCount="indefinite" />
-              </stop>
-              <stop offset="100%" style="stop-color:#6B66FF;stop-opacity:0.5">
-                <animate attributeName="offset" values="1;0;1" dur="8s" repeatCount="indefinite" />
-              </stop>
-            </linearGradient>
-          </defs>
-          <circle class="floating-circle" cx="20" cy="20" r="15" fill="url(#gradient1)">
-            <animate attributeName="cx" values="20;80;20" dur="20s" repeatCount="indefinite" />
-            <animate attributeName="cy" values="20;80;20" dur="20s" repeatCount="indefinite" />
-          </circle>
-          <circle class="floating-circle" cx="80" cy="80" r="12" fill="url(#gradient2)">
-            <animate attributeName="cx" values="80;20;80" dur="15s" repeatCount="indefinite" />
-            <animate attributeName="cy" values="80;20;80" dur="15s" repeatCount="indefinite" />
-          </circle>
-          <path class="floating-path" d="M10,50 Q50,10 90,50 T90,50" fill="none" stroke="url(#gradient1)" stroke-width="0.5">
-            <animate attributeName="d" 
-              values="M10,50 Q50,10 90,50 T90,50;
-                      M10,50 Q50,90 90,50 T90,50;
-                      M10,50 Q50,10 90,50 T90,50"
-              dur="8s" 
-              repeatCount="indefinite" />
-          </path>
-          <path class="floating-path" d="M10,30 Q50,70 90,30 T90,30" fill="none" stroke="url(#gradient2)" stroke-width="0.5">
-            <animate attributeName="d" 
-              values="M10,30 Q50,70 90,30 T90,30;
-                      M10,30 Q50,-10 90,30 T90,30;
-                      M10,30 Q50,70 90,30 T90,30"
-              dur="6s" 
-              repeatCount="indefinite" />
-          </path>
-        </svg>
-      </div>
-      <div class="container">
-        <h1 class="hero-title">
-          <span class="title-line" ref="line1">사용자 경험의 기준을</span><br> 
-          <span class="title-line" ref="line2">새로운 수준으로</span><br>
-          <span class="title-line" ref="line3">끌어올리다</span>
-        </h1>
-      </div>
-    </section>
+    <main class="main-content">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-background">
+          <svg class="background-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:0.5">
+                  <animate attributeName="offset" values="0;1;0" dur="10s" repeatCount="indefinite" />
+                </stop>
+                <stop offset="100%" style="stop-color:#4ECDC4;stop-opacity:0.5">
+                  <animate attributeName="offset" values="1;0;1" dur="10s" repeatCount="indefinite" />
+                </stop>
+              </linearGradient>
+              <linearGradient id="gradient2" x1="100%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#FFE66D;stop-opacity:0.5">
+                  <animate attributeName="offset" values="0;1;0" dur="8s" repeatCount="indefinite" />
+                </stop>
+                <stop offset="100%" style="stop-color:#6B66FF;stop-opacity:0.5">
+                  <animate attributeName="offset" values="1;0;1" dur="8s" repeatCount="indefinite" />
+                </stop>
+              </linearGradient>
+            </defs>
+            <circle class="floating-circle" cx="20" cy="20" r="15" fill="url(#gradient1)">
+              <animate attributeName="cx" values="20;80;20" dur="20s" repeatCount="indefinite" />
+              <animate attributeName="cy" values="20;80;20" dur="20s" repeatCount="indefinite" />
+            </circle>
+            <circle class="floating-circle" cx="80" cy="80" r="12" fill="url(#gradient2)">
+              <animate attributeName="cx" values="80;20;80" dur="15s" repeatCount="indefinite" />
+              <animate attributeName="cy" values="80;20;80" dur="15s" repeatCount="indefinite" />
+            </circle>
+            <path class="floating-path" d="M10,50 Q50,10 90,50 T90,50" fill="none" stroke="url(#gradient1)" stroke-width="0.5">
+              <animate attributeName="d" 
+                values="M10,50 Q50,10 90,50 T90,50;
+                        M10,50 Q50,90 90,50 T90,50;
+                        M10,50 Q50,10 90,50 T90,50"
+                dur="8s" 
+                repeatCount="indefinite" />
+            </path>
+            <path class="floating-path" d="M10,30 Q50,70 90,30 T90,30" fill="none" stroke="url(#gradient2)" stroke-width="0.5">
+              <animate attributeName="d" 
+                values="M10,30 Q50,70 90,30 T90,30;
+                        M10,30 Q50,-10 90,30 T90,30;
+                        M10,30 Q50,70 90,30 T90,30"
+                dur="6s" 
+                repeatCount="indefinite" />
+            </path>
+          </svg>
+        </div>
+        <div class="container">
+          <h1 class="hero-title">
+            <span class="title-line" ref="line1">사용자 경험의 기준을</span><br> 
+            <span class="title-line" ref="line2">새로운 수준으로</span><br>
+            <span class="title-line" ref="line3">끌어올리다</span>
+          </h1>
+        </div>
+      </section>
 
-    <!-- Project Categories -->
-    <section class="categories-section">
-      <div class="category-filters">
-        <button
-          v-for="(category, idx) in categories"
-          :key="category"
-          class="category-btn"
-          :class="{ active: selectedCategory === category }"
-          @click="handleCategoryChange(category, idx)"
-          :ref="el => categoryBtnRefs[idx] = el as Element"
-        >
-          {{ category }}
-        </button>
-      </div>
-    </section>
+      <!-- Project Categories -->
+      <section class="categories-section">
+        <div class="category-filters">
+          <button
+            v-for="(category, idx) in categories"
+            :key="category"
+            class="category-btn"
+            :class="{ active: selectedCategory === category }"
+            @click="handleCategoryChange(category, idx)"
+            :ref="el => categoryBtnRefs[idx] = el as Element"
+          >
+            {{ category }}
+          </button>
+        </div>
+      </section>
 
-    <!-- Projects Grid -->
-    <section class="projects-section">
-      <div class="container">
-        <div v-if="isLoading" class="projects-grid">
-          <div v-for="n in 6" :key="n" class="skeleton-card">
-            <div class="skeleton-image"></div>
-            <div class="skeleton-content">
-              <div class="skeleton-title"></div>
-              <div class="skeleton-category"></div>
+      <!-- Projects Grid -->
+      <section class="projects-section">
+        <div class="container">
+          <div v-if="isLoading" class="projects-grid">
+            <div v-for="n in 6" :key="n" class="skeleton-card">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-content">
+                <div class="skeleton-title"></div>
+                <div class="skeleton-category"></div>
+              </div>
             </div>
           </div>
+          <div v-else-if="filteredProjects.length > 0" class="projects-grid">
+            <ProjectCard
+              v-for="project in filteredProjects"
+              :key="project.id"
+              :project="project"
+            />
+          </div>
+          <div v-else class="no-projects">
+            <p>해당 카테고리의 프로젝트가 없습니다.</p>
+          </div>
         </div>
-        <div v-else-if="filteredProjects.length > 0" class="projects-grid">
-          <ProjectCard
-            v-for="project in filteredProjects"
-            :key="project.id"
-            :project="project"
-          />
-        </div>
-        <div v-else class="no-projects">
-          <p>해당 카테고리의 프로젝트가 없습니다.</p>
-        </div>
-      </div>
-    </section>
+      </section>
+    </main>
   </div>
 </template>
 

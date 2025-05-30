@@ -1,6 +1,6 @@
 <template>
     <div class="contact-page">
-      <div class="container">
+      <main class="container">
         <h1 class="section-title">Contact</h1>
         <p class="section-subtitle">
           프로젝트 문의나 협업 제안을 기다리고 있습니다.<br />
@@ -41,7 +41,7 @@
             </form>
           </div>
         </div>
-      </div>
+      </main>
       <div v-if="popup.visible" class="popup-layer" @click.self="closePopup">
         <div class="popup-content">
           <span class="popup-message">{{ popup.message }}</span>

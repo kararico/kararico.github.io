@@ -100,7 +100,7 @@ export const useProjectStore = defineStore('projects', {
             title: '주요 기능 2',
             description: '기능 2에 대한 설명'
           }
-        ],
+      ],
         links: {
           website: '',
           github: ''
