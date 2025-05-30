@@ -237,7 +237,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch, nextTick } from 'vue'
 import profile1 from '@/assets/images/layout/about/profile_01.png'
 import profile2 from '@/assets/images/layout/about/profile_02.png'
 import profile3 from '@/assets/images/layout/about/profile_03.png'
@@ -262,6 +262,8 @@ const rotateImages = () => {
 }
 
 const initAnimations = () => {
+  if (typeof window === 'undefined') return;
+
   // Hero section animation
   gsap.from('.section-title', {
     y: 50,
@@ -315,7 +317,7 @@ const initAnimations = () => {
           opacity: 0,
           scale: 0.8,
           duration: 0.8,
-          ease: 'power3.out'
+          ease: 'Expo.Inout'
         })
       }
     })
@@ -401,7 +403,9 @@ const initAnimations = () => {
 onMounted(() => {
   emit('animationComplete')
   intervalId = window.setInterval(rotateImages, 5000)
-  initAnimations()
+  nextTick(() => {
+    initAnimations()
+  })
 })
 
 onUnmounted(() => {
