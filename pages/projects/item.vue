@@ -60,17 +60,19 @@
 
       <!-- Project Categories -->
       <section class="categories-section">
-        <div class="category-filters">
-          <button
-            v-for="(category, idx) in categories"
-            :key="category"
-            class="category-btn"
-            :class="{ active: selectedCategory === category }"
-            @click="handleCategoryChange(category, idx)"
-            :ref="el => categoryBtnRefs[idx] = el as Element"
-          >
-            {{ category }}
-          </button>
+        <div class="container">
+          <div class="category-filters">
+            <button
+              v-for="(category, idx) in categories"
+              :key="category"
+              class="category-btn"
+              :class="{ active: selectedCategory === category }"
+              @click="handleCategoryChange(category, idx)"
+              :ref="el => categoryBtnRefs[idx] = el as Element"
+            >
+              {{ category }}
+            </button>
+          </div>
         </div>
       </section>
 

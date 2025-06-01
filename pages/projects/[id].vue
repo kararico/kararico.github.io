@@ -40,16 +40,17 @@
       </section>
     </div>
 
-    <div v-else-if="project" class="container">
+    <div v-else-if="project" class="container project">
       <!-- Hero Section -->
       <section class="section">
-        <div class="project-header">
-          <h1 class="section-title">{{ project.title }}</h1>
-          <div class="project-info">
-            <p class="text-secondary">{{ project.category }}</p>
-            <div class="project-meta">
-              <span class="text-muted">{{ project.period }}</span>
-              <span class="text-muted">{{ project.location }}</span>
+        <div class="inner">
+          <div class="project-header">
+            <h1 class="section-title">{{ project.title }}</h1>
+            <div class="project-info">
+              <p class="text-secondary">{{ project.category }}</p>
+              <div class="project-meta">
+                <span class="text-muted">{{ project.period }}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -57,76 +58,75 @@
 
       <!-- Description Section -->
       <section class="section">
-        <p class="text-secondary">{{ project.description }}</p>
+        <div class="inner">
+          <div class="text-secondary" v-html="formatDescription(project.description)"></div> 
+        </div>
       </section>
 
       <!-- Gallery Section -->
       <section class="section">
-        <div v-if="project.swiperUi" class="swiper-container">
-          <div class="swiper-wrapper">
-            <div v-for="(image, index) in project.images" :key="index" class="swiper-slide">
-              <img :src="image.url" :alt="image.alt">
+        <div class="inner">
+          <div class="swiper-container-wrapper">
+            <div v-if="project.swiperUi" class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div v-for="(image, index) in project.images" :key="index" class="swiper-slide">
+                    <img :src="image.url" :alt="image.alt">
+                  </div>
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
             </div>
-          </div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-          <div class="swiper-pagination"></div>
-        </div>
-        <div v-else class="grid-auto-fit">
-          <div v-for="(image, index) in project.images" :key="index" class="gallery-item">
-            <img :src="image.url" :alt="image.alt">
-          </div>
-        </div>
-      </section>
-
-      <!-- Details Section -->
-      <section class="section">
-        <div class="card">
-          <div v-for="(detail, index) in project.details" :key="index" class="detail-row">
-            <span class="text-muted">{{ detail.size }}</span>
-            <span class="text-primary">{{ detail.material }}</span>
-            <span class="text-primary">{{ detail.year }}</span>
+            <div v-else class="grid-auto-fit">
+            <div v-for="(image, index) in project.images" :key="index" class="gallery-item">
+              <img :src="image.url" :alt="image.alt">
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Project Overview Section -->
       <section class="section">
-        <h2 class="section-title">프로젝트 개요</h2>
-        <div class="grid-2">
-          <div class="card">
-            <span class="text-muted point">프로젝트 기간</span>
-            <span class="text-primary">{{ project.overview.duration }}</span>
-          </div>
-          <div class="card">
-            <span class="text-muted point">팀 구성</span>
-            <span class="text-primary">{{ project.overview.team }}</span>
-          </div>
-          <div class="card">
-            <span class="text-muted point">담당 역할</span>
-            <span class="text-primary">{{ project.overview.role }}</span>
-          </div>
-          <div class="card">
-            <span class="text-muted">프로젝트 목표</span>
-            <ul class="goals-list">
-              <li v-for="(goal, index) in project.overview.goals" :key="index" class="text-primary">
-                {{ goal }}
-              </li>
-            </ul>
+        <div class="inner">
+          <h2 class="section-title left">프로젝트 개요</h2>
+          <div class="grid-2">
+            <div class="card">
+              <span class="text-muted point">프로젝트 기간</span>
+              <span class="text-primary">{{ project.overview.duration }}</span>
+            </div>
+            <div class="card">
+              <span class="text-muted point">팀 구성</span>
+              <span class="text-primary">{{ project.overview.team }}</span>
+            </div>
+            <div class="card">
+              <span class="text-muted point">담당 역할</span>
+              <span class="text-primary">{{ project.overview.role }}</span>
+            </div>
+            <div class="card">
+              <span class="text-muted">프로젝트 목표</span>
+              <ul class="goals-list">
+                <li v-for="(goal, index) in project.overview.goals" :key="index" class="text-primary">
+                  {{ goal }}
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Tech Stack Section -->
       <section class="section">
-        <h2 class="section-title">기술 스택</h2>
-        <div class="grid-2">
-          <div class="card" v-for="(techs, category) in project.techStack" :key="category">
-            <h3 class="text-primary">{{ category }}</h3>
-            <div class="tech-tags">
-              <span v-for="tech in techs" :key="tech" class="tech-tag text-primary">
-                {{ tech }}
-              </span>
+        <div class="inner">
+          <h2 class="section-title left">기술 스택</h2>
+          <div class="grid-2">
+            <div class="card" v-for="(techs, category) in project.techStack" :key="category">
+              <h3 class="text-primary">{{ category }}</h3>
+              <div class="tech-tags">
+                <span v-for="tech in techs" :key="tech" class="tech-tag text-primary">
+                  {{ tech }}
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -134,37 +134,43 @@
 
       <!-- Features Section -->
       <section class="section">
-        <h2 class="section-title">주요 기능</h2>
-        <div class="grid-auto-fit">
-          <div v-for="(feature, index) in project.features" :key="index" class="card">
-            <h3 class="text-primary">{{ feature.title }}</h3>
-            <p class="text-secondary">{{ feature.description }}</p>
-            <img v-if="feature.image" :src="feature.image" :alt="feature.title" class="feature-image">
+        <div class="inner">
+          <h2 class="section-title left">주요 기능</h2>
+          <div class="grid-auto-fit">
+            <div v-for="(feature, index) in project.features" :key="index" class="card">
+              <h3 class="text-primary">{{ feature.title }}</h3>
+              <p class="text-secondary">{{ feature.description }}</p>
+              <img v-if="feature.image" :src="feature.image" :alt="feature.title" class="feature-image">
+            </div>
           </div>
         </div>
+
       </section>
 
       <!-- Project Links Section -->
       <section class="section">
-        <h2 class="section-title">프로젝트 링크</h2>
-        <div class="grid-auto-fit">
-          <a 
-            class="btn"
-            :href="project.links.website || '#'"
-            @click.prevent="handleProjectLink(project.links.website)"
-          >
-            <span class="link-icon">🌐</span>
-            <span class="link-text">웹사이트</span>
-          </a>
-          <a 
-            class="btn"
-            :href="project.links.github || '#'"
-            @click.prevent="handleProjectLink(project.links.github)"
-          >
-            <span class="link-icon">📦</span>
-            <span class="link-text">GitHub</span>
-          </a>
+        <div class="inner">
+          <h2 class="section-title left">프로젝트 링크</h2>
+            <div class="grid-auto-fit">
+              <a 
+                class="btn"
+                :href="project.links.website || '#'"
+                @click.prevent="handleProjectLink(project.links.website)"
+              >
+                <span class="link-icon">🌐</span>
+                <span class="link-text">웹사이트</span>
+              </a>
+              <a 
+                class="btn"
+                :href="project.links.github || '#'"
+                @click.prevent="handleProjectLink(project.links.github)"
+              >
+                <span class="link-icon">📦</span>
+                <span class="link-text">GitHub</span>
+              </a>
+            </div>
         </div>
+
       </section>
     </div>
     <div v-else class="error-message text-secondary">
@@ -174,34 +180,37 @@
     <!-- Navigation Section -->
     <section class="section">
       <div class="container">
-        <div class="grid-2">
+        <div class="grid-2 project-nav-arrows">
           <NuxtLink 
             v-if="prevProject" 
             :to="`/projects/${prevProject.id}`" 
-            class="btn"
+            class="btn nav-arrow-btn prev"
             @click="handleNavigation"
           >
-            <span class="text-muted">이전 프로젝트</span>
-            <span class="text-primary">{{ prevProject.title }}</span>
+            <span class="arrow">&lt;</span>
+            <span>이전 프로젝트</span>
+            <span class="project-title">{{ prevProject.title }}</span>
           </NuxtLink>
-          <div v-else class="btn disabled" @click="
-          ">
-            <span class="text-muted">이전 프로젝트</span>
-            <span class="text-primary">없음</span>
+          <div v-else class="btn nav-arrow-btn prev disabled">
+            <span class="arrow">&lt;</span>
+            <span>이전 프로젝트</span>
+            <span class="project-title">없음</span>
           </div>
 
           <NuxtLink 
             v-if="nextProject" 
             :to="`/projects/${nextProject.id}`" 
-            class="btn"
+            class="btn nav-arrow-btn next"
             @click="handleNavigation"
           >
-            <span class="text-muted">다음 프로젝트</span>
-            <span class="text-primary">{{ nextProject.title }}</span>
+            <span>다음 프로젝트</span>
+            <span class="project-title">{{ nextProject.title }}</span>
+            <span class="arrow">&gt;</span>
           </NuxtLink>
-          <div v-else class="btn disabled" @click="alertPrivateProject">
-            <span class="text-muted">다음 프로젝트</span>
-            <span class="text-primary">없음</span>
+          <div v-else class="btn nav-arrow-btn next disabled">
+            <span>다음 프로젝트</span>
+            <span class="project-title">없음</span>
+            <span class="arrow">&gt;</span>
           </div>
         </div>
       </div>
@@ -220,6 +229,13 @@ const route = useRoute();
 const projectStore = useProjectStore();
 const isLoading = ref(true);
 const swiperInstance = ref<any>(null);
+
+
+function formatDescription(text: string) {
+  // \n 또는 \r\n을 <br />로 변환
+  return text.replace(/(?:\r\n|\r|\n)/g, '<br />');
+}
+
 
 // 현재 프로젝트 정보를 가져오는 computed 속성
 const project = computed(() => {
@@ -336,6 +352,24 @@ const handleProjectLink = (url: string | undefined) => {
 @use '@/assets/scss/common/_mixins' as *;
 @use '@/assets/scss/common/_common' as *;
 
+.container{
+  &.project{
+    max-width: none;
+    .section{
+      width: 100%;
+      padding: 2rem 0;
+      .inner{
+        max-width: 75rem;
+        margin: 0 auto;
+        .swiper-container-wrapper{
+          position: relative;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
 .project-detail {
   min-height: 100vh;
   min-height: 100dvh;
@@ -353,12 +387,14 @@ const handleProjectLink = (url: string | undefined) => {
   .project-info {
     display: flex;
     justify-content: space-between;
+    font-size: 1.4rem;
   }
 
   .project-meta {
     display: flex;
     justify-content: flex-start;
     gap: 2rem;
+    font-size: 1.2rem;
   }
 }
 
@@ -381,8 +417,6 @@ const handleProjectLink = (url: string | undefined) => {
 
 .swiper-container {
   width: 100%;
-  // padding: 2rem 0;
-
   .swiper-slide {
     aspect-ratio: 1;
     overflow: hidden;
@@ -507,5 +541,54 @@ const handleProjectLink = (url: string | undefined) => {
   :deep(.swiper-pagination) {
     bottom: 2.5rem;
   }
+}
+
+.project-nav-arrows {
+  .nav-arrow-btn {
+    border-radius: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    min-width: 0;
+    background: none;
+    border: none;
+    transform: none;
+    border-radius: 0;
+    transition: none;
+    box-shadow: none;
+    &:hover, &:active, &:focus {
+      background: none !important;
+      box-shadow: none !important;
+      border: none !important;
+      color: inherit;
+    }
+    .arrow {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin: 0 0.5em;
+    }
+    .project-title {
+      font-weight: bold;
+      margin-left: 0.5em;
+      margin-right: 0.5em;
+      color: #fff;
+    }
+    &.prev {
+      justify-content: flex-start;
+    }
+    &.next {
+      justify-content: flex-end;
+      text-align: right;
+    }
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.btn.nav-arrow-btn {
+  border-radius: 0;
 }
 </style>

@@ -50,7 +50,8 @@
                                    autoplay 
                                    muted 
                                    playsinline 
-                                   class="project__video">
+                                   class="project__video"
+                                   :poster="project.poster">
                                 <source :src="project.videoUrl" type="video/mp4">
                             </video>
                         </template>
@@ -103,7 +104,8 @@ const projects = ref([
         siteUrl: '',
         mediaType: 'video',
         videoUrl: 'https://img.ezwelfare.net/welfare_corp/css/user/front/renew/images/main_visual01.mp4',
-        skills: ['Nuxt.js', 'TypeScript', 'HTML5', 'SCSS', 'STORYBOOK' ]
+        skills: ['Nuxt.js', 'TypeScript', 'HTML5', 'SCSS', 'STORYBOOK' ],
+        poster: '/images/products/project_1-poster.jpg'
     },
     {
         category: 'Project',
@@ -112,7 +114,8 @@ const projects = ref([
         siteUrl: '',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/28043968/12290715_2560_1440_24fps.mp4',
-        skills: ['HTML5', 'JavaScript','Jquery', 'SCSS']
+        skills: ['HTML5', 'JavaScript','Jquery', 'SCSS'],
+        poster: '/images/products/project_2-poster.jpg'
     },
     {
         category: 'Operation',
@@ -121,7 +124,8 @@ const projects = ref([
         siteUrl: 'https://www.mlb-korea.com/',
         mediaType: 'video',
         videoUrl: 'https://cdn.prod.website-files.com/646a4e539ffa024a48651555/649070038794a919744c0b8f_background-video-1280x720-30fps-transcode.mp4',
-        skills: ['HTML', 'JavaScript', 'SCSS']
+        skills: ['HTML', 'JavaScript', 'SCSS'],
+        poster: '/images/products/project_3-poster.jpg'
     },
     {
         category: 'Operation',
@@ -130,7 +134,8 @@ const projects = ref([
         siteUrl: 'https://www.discovery-expedition.com',
         mediaType: 'video',
         videoUrl: 'https://homepage-static.fnf.co.kr/pcVideo_67db5edf809283.56040568.mp4',
-        skills: ['HTML', 'JavaScript', 'SCSS']
+        skills: ['HTML', 'JavaScript', 'SCSS'],
+        poster: '/images/products/project_4-poster.jpg'
     },
     {
         category: 'Project',
@@ -139,7 +144,8 @@ const projects = ref([
         siteUrl: 'https://casamia.co.kr/home',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/32013494/13644778_2560_1440_25fps.mp4',
-        skills: ['HTML', 'JavaScript', 'SCSS']
+        skills: ['HTML', 'JavaScript', 'SCSS'],
+        poster: '/images/products/project_5-poster.jpg'
     },
     {
         category: 'Project',
@@ -148,7 +154,8 @@ const projects = ref([
         siteUrl: 'https://guud.com',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/31646575/13482899_2560_1440_60fps.mp4',
-        skills: ['HTML', 'JavaScript', 'SCSS']
+        skills: ['HTML', 'JavaScript', 'SCSS'],
+        poster: '/images/products/project_6-poster.jpg'
     },
     {
         category: 'Project',
@@ -157,7 +164,8 @@ const projects = ref([
         siteUrl: 'https://bullsone.com/',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/29792714/12800431_1920_1080_60fps.mp4',
-        skills: ['HTML', 'JavaScript', 'SCSS']
+        skills: ['HTML', 'JavaScript', 'SCSS'],
+        poster: '/images/products/project_7-poster.jpg'
     },
     {
         category: 'Project',
@@ -166,7 +174,8 @@ const projects = ref([
         siteUrl: 'https://www.lg.com/global/',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/30975000/13241693_2160_1440_24fps.mp4',
-        skills: ['HTML', 'JavaScript', 'SCSS']
+        skills: ['HTML', 'JavaScript', 'SCSS'],
+        poster: '/images/products/project_8-poster.jpg'
     },
     {
         category: 'Project',
@@ -175,10 +184,9 @@ const projects = ref([
         siteUrl: 'http://www.funbeerking.com/index.php',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/10741100/10741100-hd_2560_1440_30fps.mp4',
-        skills: ['HTML', 'JavaScript', 'SCSS']
+        skills: ['HTML', 'JavaScript', 'SCSS'],
+        poster: '/images/products/project_9-poster.jpg'
     },
-    
-    
 ])
 
 
