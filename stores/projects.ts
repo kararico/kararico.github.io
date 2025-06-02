@@ -127,7 +127,7 @@ export const useProjectStore = defineStore('projects', {
       {
         id: '2',
         title: '스타벅스 임직원 하이브리드앱 프로젝트',
-        category: 'mobile',
+        category: 'MOBILE',
         image: '/images/products/project3.png',
         description: '스타벅스 임직원 하이브리드앱 프로젝트에 웹 퍼블리셔로 참여하였습니다.',
         period: '2024.01 - 2024.03',
@@ -173,7 +173,7 @@ export const useProjectStore = defineStore('projects', {
       {
         id: '3',
         title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
+        category: 'PC',
         image: '/images/products/project2.png',
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
         period: '2024.01 - 2024.03',
