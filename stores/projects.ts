@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 interface Project {
   id: string;
   title: string;
-  category: string[];
+  category: string;
   image: string;
   description: string;
   period: string;
@@ -173,7 +173,7 @@ export const useProjectStore = defineStore('projects', {
       {
         id: '3',
         title: '패션 이커머스 부분 개편 및 운영',
-        category: 'PC', 'MOBILE',
+        category: 'PC',
         image: '/images/products/project2.png',
         description: 'MLB KOREA 패션 이커머스 부분 개편 및 운영 프로젝트에 웹 퍼블리셔로 참여하였습니다.',
         period: '2023.12 - 2024.03',
@@ -217,7 +217,7 @@ export const useProjectStore = defineStore('projects', {
         ],
         links: {
           website: 'https://www.mlb-korea.com/',
-          github: ''
+          github: 'https://github.com/example'
         }
       },
   
