@@ -274,15 +274,15 @@ const initAnimations = async () => {
   gsap.from('.section-title', {
     y: 50,
     opacity: 0,
-    duration: 1,
+    duration: 0.6,
     ease: 'power3.out'
   })
 
   gsap.from('.section-subtitle', {
     y: 30,
     opacity: 0,
-    duration: 1,
-    delay: 0.3,
+    duration: 0.6,
+    delay: 0.2,
     ease: 'power3.out'
   })
 
@@ -301,8 +301,8 @@ const initAnimations = async () => {
     gsap.to(activeImage, {
       opacity: 1,
       scale: 1,
-      duration: 1.2,
-      delay: 0.6,
+      duration: 0.8,
+      delay: 0.3,
       ease: 'power3.out'
     })
   }
@@ -315,14 +315,14 @@ const initAnimations = async () => {
         gsap.to(image, {
           opacity: 1,
           scale: 1,
-          duration: 0.8,
+          duration: 0.5,
           ease: 'Expo.Inout'
         })
       } else {
         gsap.to(image, {
           opacity: 0,
           scale: 0.8,
-          duration: 0.8,
+          duration: 0.5,
           ease: 'Expo.Inout'
         })
       }
@@ -336,12 +336,12 @@ const initAnimations = async () => {
       scrollTrigger: {
         trigger: card,
         start: 'top bottom-=100',
-        toggleActions: 'play none none reverse'
+        toggleActions: 'play none none none'
       },
       y: 50,
       opacity: 0,
-      duration: 0.8,
-      delay: index * 0.2,
+      duration: 0.5,
+      delay: index * 0.1,
       ease: 'power3.out'
     })
   })
@@ -351,11 +351,12 @@ const initAnimations = async () => {
     scrollTrigger: {
       trigger: '.history-timeline',
       start: 'top 80%',
+      toggleActions: 'play none none none'
     },
     x: -50,
     opacity: 0,
-    duration: 0.8,
-    stagger: 0.2,
+    duration: 0.5,
+    stagger: 0.1,
     ease: 'power3.out'
   })
 
@@ -366,12 +367,12 @@ const initAnimations = async () => {
       scrollTrigger: {
         trigger: card,
         start: 'top bottom-=100',
-        toggleActions: 'play none none reverse'
+        toggleActions: 'play none none none'
       },
       y: 50,
       opacity: 0,
-      duration: 0.8,
-      delay: index * 0.2,
+      duration: 0.5,
+      delay: index * 0.1,
       ease: 'power3.out'
     })
   })
@@ -383,12 +384,12 @@ const initAnimations = async () => {
       scrollTrigger: {
         trigger: card,
         start: 'top bottom-=100',
-        toggleActions: 'play none none reverse'
+        toggleActions: 'play none none none'
       },
       y: 50,
       opacity: 0,
-      duration: 0.8,
-      delay: index * 0.2,
+      duration: 0.5,
+      delay: index * 0.1,
       ease: 'power3.out'
     })
   })
@@ -398,10 +399,11 @@ const initAnimations = async () => {
     scrollTrigger: {
       trigger: '.resume-download',
       start: 'top 80%',
+      toggleActions: 'play none none none'
     },
     y: 30,
     opacity: 0,
-    duration: 0.8,
+    duration: 0.5,
     ease: 'power3.out'
   })
 }
