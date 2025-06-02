@@ -1,44 +1,46 @@
 <template>
     <div class="contact-page">
-      <main class="container">
-        <h1 class="section-title">Contact</h1>
-        <p class="section-subtitle">
-          프로젝트 문의나 협업 제안을 기다리고 있습니다.<br />
-          아래 연락처로 언제든지 연락주세요.
-        </p>
-        
-        <div class="contact-grid"> 
-          <div class="contact-form-section">
-            <form @submit.prevent="handleSubmit" class="contact-form" aria-label="Contact form" novalidate>
-              <div class="form-group">
-                <label for="name">이름</label>
-                <input type="text" id="name" v-model="form.name" required autocomplete="name" aria-required="true" ref="nameRef">
-              </div>
-  
-              <div class="form-group">
-                <label for="email">이메일</label>
-                <input type="email" id="email" v-model="form.email" required autocomplete="email" aria-required="true" ref="emailRef">
-              </div>
-  
-              <div class="form-group">
-                <label for="subject">제목</label>
-                <input type="text" id="subject" v-model="form.subject" required aria-required="true" ref="subjectRef">
-              </div>
-  
-              <div class="form-group">
-                <label for="message">메시지</label>
-                <textarea id="message" v-model="form.message" rows="5" required aria-required="true" ref="messageRef"></textarea>
-              </div>
-  
-              <div aria-live="polite" class="sr-only" v-if="statusMsg">
-                {{ statusMsg }}
-              </div>
-  
-              <button type="submit" class="btn" :aria-busy="statusType === 'success' ? 'false' : statusType === 'error' ? 'false' : 'true'">
-                전송하기
-                <i class="fas fa-paper-plane"></i>
-              </button>
-            </form>
+      <main class="main-content">
+        <div class="container">
+          <h1 class="section-title">Contact</h1>
+          <p class="section-subtitle">
+            프로젝트 문의나 협업 제안을 기다리고 있습니다.<br />
+            아래 연락처로 언제든지 연락주세요.
+          </p>
+          
+          <div class="contact-grid"> 
+            <div class="contact-form-section">
+              <form @submit.prevent="handleSubmit" class="contact-form" aria-label="Contact form" novalidate>
+                <div class="form-group">
+                  <label for="name">이름</label>
+                  <input type="text" id="name" v-model="form.name" required autocomplete="name" aria-required="true" ref="nameRef">
+                </div>
+    
+                <div class="form-group">
+                  <label for="email">이메일</label>
+                  <input type="email" id="email" v-model="form.email" required autocomplete="email" aria-required="true" ref="emailRef">
+                </div>
+    
+                <div class="form-group">
+                  <label for="subject">제목</label>
+                  <input type="text" id="subject" v-model="form.subject" required aria-required="true" ref="subjectRef">
+                </div>
+    
+                <div class="form-group">
+                  <label for="message">메시지</label>
+                  <textarea id="message" v-model="form.message" rows="5" required aria-required="true" ref="messageRef"></textarea>
+                </div>
+    
+                <div aria-live="polite" class="sr-only" v-if="statusMsg">
+                  {{ statusMsg }}
+                </div>
+    
+                <button type="submit" class="btn" :aria-busy="statusType === 'success' ? 'false' : statusType === 'error' ? 'false' : 'true'">
+                  전송하기
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </main>
