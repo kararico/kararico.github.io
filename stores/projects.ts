@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 interface Project {
   id: string;
   title: string;
-  category: string;
+  category: string[];
   image: string;
   description: string;
   period: string;
@@ -55,7 +55,7 @@ export const useProjectStore = defineStore('projects', {
       {
         id: '1',
         title: '복지몰 웹사이트 리뉴얼',
-        category: 'e-commerce',
+        category: ['PC', 'MOBILE'],
         image: '/images/products/project1.png',
         description: `복지몰 사이트 리뉴얼 구축 프로젝트에 웹 퍼블리셔로 참여하였습니다.
 
@@ -127,7 +127,7 @@ export const useProjectStore = defineStore('projects', {
       {
         id: '2',
         title: '스타벅스 임직원 하이브리드앱 프로젝트',
-        category: 'MOBILE',
+        category: ['MOBILE'],
         image: '/images/products/project3.png',
         description: '스타벅스 임직원 하이브리드앱 프로젝트에 웹 퍼블리셔로 참여하였습니다.',
         period: '2024.01 - 2024.03',
@@ -161,7 +161,7 @@ export const useProjectStore = defineStore('projects', {
         },
         features: [
           {
-            title: '주요 기능 1',
+            title: '주요 기능',
             description: '모바일 환경에 최적화된 레이아웃 구현'
           },
         ],
@@ -172,17 +172,17 @@ export const useProjectStore = defineStore('projects', {
       },
       {
         id: '3',
-        title: '기업 웹사이트 리뉴얼',
-        category: 'PC',
+        title: '패션 이커머스 부분 개편 및 운영',
+        category: ['PC', 'MOBILE'],
         image: '/images/products/project2.png',
-        description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        period: '2024.01 - 2024.03',
+        description: 'MLB KOREA 패션 이커머스 부분 개편 및 운영 프로젝트에 웹 퍼블리셔로 참여하였습니다.',
+        period: '2023.12 - 2024.03',
         swiperUi: false,
         details: [
           {
             size: '1920 x 1080',
-            material: 'HTML, CSS, JavaScript',
-            year: '2024'
+            material: 'HTML, CSS, JavaScript, jQuery',
+            year: '2023 ~ 2024'
           }
         ],
         images: [
@@ -197,36 +197,34 @@ export const useProjectStore = defineStore('projects', {
         ],
         overview: {
           duration: '2개월',
-          team: '팀 크기',
-          role: '프론트엔드 개발자',
-          goals: ['브랜드 아이덴티티 강화', '사용자 경험 개선']
+          team: '총 2명',
+          role: '웹퍼블리셔',
+          goals: ['브랜드 아이덴티티 강화', '사용자 경험 개선', '웹 표준 준수']
         },
         techStack: {
-          frontend: ['HTML', 'CSS', 'JavaScript'],
-          backend: ['Node.js'],
-          database: ['MongoDB'],
+          frontend: ['HTML', 'CSS', 'JavaScript', 'jQuery'],
           tools: ['VS Code', 'Git']
         },
         features: [
           {
             title: '주요 기능 1',
-            description: '기능 1에 대한 설명'
+            description: '사용자 UI 개선'
           },
           {
             title: '주요 기능 2',
-            description: '기능 2에 대한 설명'
+            description: '모바일 환경에 최적화된 레이아웃 구현'
           }
         ],
         links: {
-          website: 'http://example.com',
-          github: 'https://github.com/example'
+          website: 'https://www.mlb-korea.com/',
+          github: ''
         }
       },
   
       {
         id: '4',
         title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
+        category: ['PC', 'MOBILE'],
         image: '/images/products/project4.png',
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
         period: '2024.01 - 2024.03',
@@ -278,7 +276,7 @@ export const useProjectStore = defineStore('projects', {
       {
         id: '5',
         title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
+        category: ['PC', 'MOBILE'],
         image: '/images/products/project5.png',
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
         period: '2024.01 - 2024.03',
@@ -330,7 +328,7 @@ export const useProjectStore = defineStore('projects', {
       {
         id: '6',
         title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
+        category: ['PC', 'MOBILE'],
         image: '/images/products/project6.png',
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
         period: '2024.01 - 2024.03',
@@ -382,7 +380,7 @@ export const useProjectStore = defineStore('projects', {
       {
         id: '7',
         title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
+        category: ['PC', 'MOBILE'],
         image: '/images/products/project7.png',
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
         period: '2024.01 - 2024.03',
@@ -434,7 +432,7 @@ export const useProjectStore = defineStore('projects', {
       {
         id: '8',
         title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
+        category: ['PC', 'MOBILE'],
         image: '/images/products/project8.png',
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
         period: '2024.01 - 2024.03',
@@ -486,7 +484,7 @@ export const useProjectStore = defineStore('projects', {
       {
         id: '9',
         title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
+        category: ['PC', 'MOBILE'],
         image: '/images/products/project9.png',
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
         period: '2024.01 - 2024.03',
@@ -538,7 +536,7 @@ export const useProjectStore = defineStore('projects', {
       {
         id: '10',
         title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
+        category: ['PC', 'MOBILE'],
         image: '/images/products/project10.png',
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
         period: '2024.01 - 2024.03',
@@ -590,7 +588,7 @@ export const useProjectStore = defineStore('projects', {
       {
         id: '11',
         title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
+        category: ['PC', 'MOBILE'],
         image: '/images/products/project11.png',
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
         period: '2024.01 - 2024.03',
