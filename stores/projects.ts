@@ -99,24 +99,24 @@ export const useProjectStore = defineStore('projects', {
           duration: '12개월',
           team: '총 10명',
           role: '웹퍼블리셔',
-          goals: ['복지몰 사용자들의 접근성과 편의성 향상을 위한 모듈화된 UI 컴포넌트 제작,', '디자인 시스템 기반의 일관된 화면 구현', '다양한 사용자 디바이스 대응을 위한 반응형 및 적응형 구조 설계' ]
+          goals: ['복지몰 사용자들의 접근성과 편의성 향상을 위한 모듈화된 UI 컴포넌트 제작,', '디자인 시스템 기반의 일관된 화면 구현', '다양한 사용자 디바이스 환경에 대응하기 위한 PC/Mobile 구분형 레이아웃 구조 설계' ]
         },
         techStack: {
-          frontend: ['HTML', 'CSS', 'JavaScript'],
-          tools: ['VS Code', 'Git']
+          frontend: ['HTML', 'CSS', 'JavaScript', 'Nuxt.js', 'TypeScript'],
+          tools: ['VS Code', 'Git', 'Figma', 'Storybook']
         },
         features: [
           {
             title: '모듈화된 UI 컴포넌트 제작',
-            description: '-디자인 시스템 기반의 일관된 화면 구현'
+            description: '컴포넌트 구조화로 재사용성 높이고, 디자인 시스템 기반의 일관된 화면 구현'
           },
           {
             title: '디자인 시스템 기반의 일관된 화면 구현',
-            description: '-디자인 시스템 기반의 일관된 화면 구현'
+            description: '피그마 디자인 시스템을 기반으로 일관된 디자인 구현'
           },
           {
             title: '다양한 사용자 디바이스 대응을 위한 반응형 및 적응형 구조 설계',
-            description: '-다양한 사용자 디바이스 대응을 위한 반응형 및 적응형 구조 설계'
+            description: 'PC/MOBILE 공통 요소를 유연하게 분리·재사용할 수 있도록 체계적인 구조로 퍼블리싱을 진행 중입니다.'
           }
       ],
         links: {
@@ -126,6 +126,52 @@ export const useProjectStore = defineStore('projects', {
       },
       {
         id: '2',
+        title: '스타벅스 임직원 하이브리드앱 프로젝트',
+        category: 'mobile',
+        image: '/images/products/project3.png',
+        description: '스타벅스 임직원 하이브리드앱 프로젝트에 웹 퍼블리셔로 참여하였습니다.',
+        period: '2024.01 - 2024.03',
+        swiperUi: true,
+        details: [
+          {
+            size: '720 x 1280',
+            material: 'HTML, CSS, JavaScript, jQuery ',
+            year: '2024'
+          }
+        ],
+        images: [
+          {
+            url: '/images/products/item01.jpg',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/item01.jpg',
+            alt: '서브 페이지'
+          }
+        ],
+        overview: {
+          duration: '3개월',
+          team: '총 2명',
+          role: '웹 퍼블리셔',
+          goals: ['브랜드 아이덴티티 강화', '사용자 경험 개선']
+        },
+        techStack: {
+          frontend: ['HTML', 'CSS', 'JavaScript', 'jQuery'],
+          tools: ['VS Code', 'Git']
+        },
+        features: [
+          {
+            title: '주요 기능 1',
+            description: '모바일 환경에 최적화된 레이아웃 구현'
+          },
+        ],
+        links: {
+          website: '',
+          github: ''
+        }
+      },
+      {
+        id: '3',
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project2.png',
@@ -176,58 +222,7 @@ export const useProjectStore = defineStore('projects', {
           github: 'https://github.com/example'
         }
       },
-      {
-        id: '3',
-        title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
-        image: '/images/products/project3.png',
-        description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        period: '2024.01 - 2024.03',
-        swiperUi: true,
-        details: [
-          {
-            size: '1920 x 1080',
-            material: 'HTML, CSS, JavaScript',
-            year: '2024'
-          }
-        ],
-        images: [
-          {
-            url: '/images/products/item01.jpg',
-            alt: '메인 페이지'
-          },
-          {
-            url: '/images/products/item01.jpg',
-            alt: '서브 페이지'
-          }
-        ],
-        overview: {
-          duration: '2개월',
-          team: '팀 크기',
-          role: '프론트엔드 개발자',
-          goals: ['브랜드 아이덴티티 강화', '사용자 경험 개선']
-        },
-        techStack: {
-          frontend: ['HTML', 'CSS', 'JavaScript'],
-          backend: ['Node.js'],
-          database: ['MongoDB'],
-          tools: ['VS Code', 'Git']
-        },
-        features: [
-          {
-            title: '주요 기능 1',
-            description: '기능 1에 대한 설명'
-          },
-          {
-            title: '주요 기능 2',
-            description: '기능 2에 대한 설명'
-          }
-        ],
-        links: {
-          website: 'http://example.com',
-          github: 'https://github.com/example'
-        }
-      },
+  
       {
         id: '4',
         title: '기업 웹사이트 리뉴얼',
