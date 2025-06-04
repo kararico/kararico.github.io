@@ -45,7 +45,7 @@
       <section class="section">
         <div class="inner">
           <div class="project-header">
-            <h1 class="section-title">{{ project.title }}</h1>
+            <h1 class="section-title left">{{ project.title }}</h1>
             <div class="project-info">
               <p class="text-secondary">{{ project.category }}</p>
               <div class="project-meta">

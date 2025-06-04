@@ -220,7 +220,7 @@
       display: flex;
       gap: 3rem;
       width: 100%;
-      justify-content: center;
+      justify-content: space-between;
       align-items: flex-start;
       margin-top: 1rem;
       @media (max-width: 768px) {
