@@ -181,14 +181,83 @@
         }
     }
 
+    // 날씨 정보 가져오기 함수
+    const getWeatherInfo = async (lat: number, lon: number) => {
+        try {
+            const API_KEY = '048b40e147a9bf3ad8ee6763b548a0a3';
+            const response = await fetch(
+                `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
+            )
+            const data = await response.json()
+            
+            if (data.main && data.weather && data.weather[0]) {
+                const newWeatherInfo = {
+                    temp: data.main.temp,
+                    description: data.weather[0].description,
+                    icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+                }
+
+                // 캐시된 날씨 정보와 비교
+                const cachedWeather = localStorage.getItem('weatherInfo')
+                if (cachedWeather) {
+                    const oldWeather = JSON.parse(cachedWeather)
+                    // 온도 차이가 5도 이상이거나 날씨 설명이 변경된 경우
+                    if (Math.abs(oldWeather.temp - newWeatherInfo.temp) > 5 || 
+                        oldWeather.description !== newWeatherInfo.description) {
+                        // 위치 정보 캐시 삭제
+                        localStorage.removeItem('userLocation')
+                        localStorage.removeItem('locationTimestamp')
+                        // 새로운 위치 정보 가져오기
+                        getUserLocation()
+                        return
+                    }
+                }
+
+                // 날씨 정보 캐시
+                localStorage.setItem('weatherInfo', JSON.stringify(newWeatherInfo))
+                localStorage.setItem('weatherTimestamp', new Date().getTime().toString())
+                
+                weatherInfo.value = newWeatherInfo
+            }
+        } catch (error) {
+            console.error('날씨 정보를 가져오는데 실패했습니다:', error)
+        }
+    }
+
     // 사용자 위치 정보 가져오기 함수
     const getUserLocation = async () => {
         try {
+            // 로컬 스토리지에서 저장된 위치 정보 확인
+            const cachedLocation = localStorage.getItem('userLocation')
+            const cachedTime = localStorage.getItem('locationTimestamp')
+            const currentTime = new Date().getTime()
+            
+            // 캐시된 정보가 있고 1시간이 지나지 않았다면 캐시된 정보 사용
+            if (cachedLocation && cachedTime && (currentTime - parseInt(cachedTime)) < 60 * 60 * 1000) {
+                const data = JSON.parse(cachedLocation)
+                userCity.value = data.city
+                userTimezone.value = data.timezone
+                if (data.latitude && data.longitude) {
+                    getWeatherInfo(data.latitude, data.longitude)
+                }
+                updateDate()
+                return
+            }
+
             // IP 기반 위치 정보 가져오기
             const response = await fetch('https://ipapi.co/json/')
             const data = await response.json()
             
             if (data) {
+                // 위치 정보를 로컬 스토리지에 저장
+                localStorage.setItem('userLocation', JSON.stringify({
+                    city: data.city,
+                    timezone: data.timezone,
+                    latitude: data.latitude,
+                    longitude: data.longitude
+                }))
+                localStorage.setItem('locationTimestamp', currentTime.toString())
+                
                 userCity.value = data.city
                 userTimezone.value = data.timezone
                 // 위치 정보를 가져온 후 날씨 정보도 가져오기
@@ -206,27 +275,6 @@
             userCity.value = 'Unknown'
             userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone
             updateDate()
-        }
-    }
-
-    // 날씨 정보 가져오기 함수
-    const getWeatherInfo = async (lat: number, lon: number) => {
-        try {
-            const API_KEY = '048b40e147a9bf3ad8ee6763b548a0a3';
-            const response = await fetch(
-                `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
-            )
-            const data = await response.json()
-            
-            if (data.main && data.weather && data.weather[0]) {
-                weatherInfo.value = {
-                    temp: data.main.temp,
-                    description: data.weather[0].description,
-                    icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
-                }
-            }
-        } catch (error) {
-            console.error('날씨 정보를 가져오는데 실패했습니다:', error)
         }
     }
 
