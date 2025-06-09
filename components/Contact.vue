@@ -1,7 +1,7 @@
 <template>
     <div class="contact">
         <div class="contact__container">
-            <div class="contact__msg-area">
+            <div class="contact__msg-area" v-if="showMessageArea">
                 <h2 class="contact__msg">CONTACT ME</h2>
             </div>
             <div class="contact__area">
@@ -78,6 +78,13 @@
 import { ref, onMounted, nextTick } from 'vue'
 import gsap from 'gsap'
 import { useRuntimeConfig } from '#imports'
+
+const props = defineProps({
+    showMessageArea: {
+        type: Boolean,
+        default: false
+    }
+})
 
 const config = useRuntimeConfig()
 const emailjs = ref<any>(null)

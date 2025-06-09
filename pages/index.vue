@@ -4,7 +4,7 @@
     <section ref="aboutRef"><About /></section>
     <section ref="clientRef"><Client /></section>
     <section ref="projectRef"><Project /></section>
-    <section ref="contactRef"><Contact /></section>
+    <section ref="contactRef"><Contact :showMessageArea="true" /></section>
   </main>
   <ScrollTop />
 </template>

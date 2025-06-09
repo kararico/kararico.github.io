@@ -91,20 +91,20 @@
         <div class="inner">
           <h2 class="section-title left">프로젝트 개요</h2>
           <div class="grid-2">
-            <div class="card">
+            <div class="card row">
               <span class="text-muted point">프로젝트 기간</span>
               <span class="text-primary">{{ project.overview.duration }}</span>
             </div>
-            <div class="card">
+            <div class="card row">
               <span class="text-muted point">팀 구성</span>
               <span class="text-primary">{{ project.overview.team }}</span>
             </div>
-            <div class="card">
+            <div class="card row">
               <span class="text-muted point">담당 역할</span>
               <span class="text-primary">{{ project.overview.role }}</span>
             </div>
-            <div class="card">
-              <span class="text-muted">프로젝트 목표</span>
+            <div class="card goals-list">
+              <span class="text-muted point">프로젝트 목표</span>
               <ul class="goals-list">
                 <li v-for="(goal, index) in project.overview.goals" :key="index" class="text-primary">
                   {{ goal }}
@@ -187,12 +187,10 @@
             class="btn nav-arrow-btn prev"
             @click="handleNavigation"
           >
-            <span class="arrow">&lt;</span>
             <span>이전 프로젝트</span>
             <span class="project-title">{{ prevProject.title }}</span>
           </NuxtLink>
           <div v-else class="btn nav-arrow-btn prev disabled">
-            <span class="arrow">&lt;</span>
             <span>이전 프로젝트</span>
             <span class="project-title">없음</span>
           </div>
@@ -205,12 +203,10 @@
           >
             <span>다음 프로젝트</span>
             <span class="project-title">{{ nextProject.title }}</span>
-            <span class="arrow">&gt;</span>
           </NuxtLink>
           <div v-else class="btn nav-arrow-btn next disabled">
             <span>다음 프로젝트</span>
             <span class="project-title">없음</span>
-            <span class="arrow">&gt;</span>
           </div>
         </div>
       </div>
@@ -563,16 +559,20 @@ const handleProjectLink = (url: string | undefined) => {
       border: none !important;
       color: inherit;
     }
-    .arrow {
-      font-size: 1.5em;
-      font-weight: bold;
-      margin: 0 0.5em;
-    }
     .project-title {
       font-weight: bold;
       margin-left: 0.5em;
       margin-right: 0.5em;
       color: #fff;
+      max-width: 20rem;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      @include mobile {
+        max-width: 16rem;
+      }
     }
     &.prev {
       justify-content: flex-start;
@@ -580,6 +580,15 @@ const handleProjectLink = (url: string | undefined) => {
     &.next {
       justify-content: flex-end;
       text-align: right;
+
+      @include tablet {
+        justify-content: flex-start;
+        text-align: left;
+      }
+      @include mobile {
+        justify-content: flex-start;
+        text-align: left;
+      }
     }
     &.disabled {
       opacity: 0.5;
@@ -590,5 +599,22 @@ const handleProjectLink = (url: string | undefined) => {
 
 .btn.nav-arrow-btn {
   border-radius: 0;
+}
+
+.card {
+  &.row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+    &.goals-list{
+      @include mobile{
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
+      }
+    }
 }
 </style>

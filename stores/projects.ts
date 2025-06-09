@@ -55,7 +55,7 @@ export const useProjectStore = defineStore('projects', {
       {
         id: '1',
         title: '복지몰 웹사이트 리뉴얼',
-        category: 'e-commerce',
+        category: 'PC',
         image: '/images/products/project1.png',
         description: `복지몰 사이트 리뉴얼 구축 프로젝트에 웹 퍼블리셔로 참여하였습니다.
 

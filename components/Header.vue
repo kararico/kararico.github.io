@@ -68,6 +68,7 @@
 <script setup lang="ts">
     import { ref, onMounted, onUnmounted, watch } from 'vue'
     import { inject } from 'vue'
+    import gsap from 'gsap'
 
     // 메뉴 상태 관리
     const isMenuOpen = ref(false)
@@ -244,37 +245,52 @@
                 return
             }
 
-            // IP 기반 위치 정보 가져오기
-            const response = await fetch('https://ipapi.co/json/')
-            const data = await response.json()
-            
-            if (data) {
-                // 위치 정보를 로컬 스토리지에 저장
-                localStorage.setItem('userLocation', JSON.stringify({
-                    city: data.city,
-                    timezone: data.timezone,
-                    latitude: data.latitude,
-                    longitude: data.longitude
-                }))
-                localStorage.setItem('locationTimestamp', currentTime.toString())
-                
-                userCity.value = data.city
-                userTimezone.value = data.timezone
-                // 위치 정보를 가져온 후 날씨 정보도 가져오기
-                if (data.latitude && data.longitude) {
-                    getWeatherInfo(data.latitude, data.longitude)
-                }
+            // GPS 위치 정보 가져오기
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const { latitude, longitude } = position.coords;
+                    
+                    // 위도/경도로 도시 정보 가져오기
+                    const response = await fetch(
+                        `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=048b40e147a9bf3ad8ee6763b548a0a3`
+                    );
+                    const locationData = await response.json();
+                    
+                    if (locationData && locationData[0]) {
+                        const cityData = locationData[0];
+                        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                        
+                        // 위치 정보를 로컬 스토리지에 저장
+                        localStorage.setItem('userLocation', JSON.stringify({
+                            city: cityData.name,
+                            timezone: timezone,
+                            latitude: latitude,
+                            longitude: longitude
+                        }));
+                        localStorage.setItem('locationTimestamp', currentTime.toString());
+                        
+                        userCity.value = cityData.name;
+                        userTimezone.value = timezone;
+                        getWeatherInfo(latitude, longitude);
+                        updateDate();
+                    }
+                }, (error) => {
+                    console.error('GPS 위치 정보를 가져오는데 실패했습니다:', error);
+                    userCity.value = 'Unknown';
+                    userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    updateDate();
+                });
             } else {
-                userCity.value = 'Unknown'
-                userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone
+                console.error('이 브라우저는 GPS 위치 정보를 지원하지 않습니다.');
+                userCity.value = 'Unknown';
+                userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                updateDate();
             }
-            
-            updateDate()
         } catch (error) {
-            console.error('위치 정보를 가져오는데 실패했습니다:', error)
-            userCity.value = 'Unknown'
-            userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone
-            updateDate()
+            console.error('위치 정보를 가져오는데 실패했습니다:', error);
+            userCity.value = 'Unknown';
+            userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            updateDate();
         }
     }
 
@@ -303,28 +319,23 @@
         
         if (isMenuOpen.value) {
             // 메뉴 열릴 때
-            // gsap.fromTo([menuItems, timeArea], 
-            //     {
-            //         y: 50,
-            //         opacity: 0
-            //     },
-            //     {
-            //         y: 0,
-            //         opacity: 1,
-            //         duration: 0.8,
-            //         stagger: 0.1,
-            //         ease: "power3.out"
-            //     }
-            // )
+            gsap.set([menuItems, timeArea], { y: 50, opacity: 0 })
+            gsap.to([menuItems, timeArea], {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power3.out"
+            })
         } else {
             // 메뉴 닫힐 때
-            // gsap.to([menuItems, timeArea], {
-            //     y: -50,
-            //     opacity: 0,
-            //     duration: 0.5,
-            //     stagger: 0.05,
-            //     ease: "power3.in"
-            // })
+            gsap.to([menuItems, timeArea], {
+                y: -50,
+                opacity: 0,
+                duration: 0.5,
+                stagger: 0.05,
+                ease: "power3.in"
+            })
         }
     }
 

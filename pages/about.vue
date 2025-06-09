@@ -23,10 +23,10 @@
         <div class="about-content">
           <div class="about-section">
             <h2 class="section-title sr-only">About Me</h2>
-            <p class="about-description text-primary">
+            <p class="about-description text-primary" ref="aboutDescription">
               체계적이고 꼼꼼한 성격 덕분에, 주어진 작업을 효율적으로 정리하고 안정적으로 구현해내는 데 자신이 있어요.<br />
               퍼블리셔는 디자인과 개발 사이의 '다리 역할'을 하는 직업이라고 생각합니다.<br />
-              사용자의 시선 흐름을 고려해 마크업 구조를 설계하고, <br />
+              사용자의 시선 흐름을 고려해 마크업 구조를 설계하고,<br />
               웹접근성과 웹표준을 준수하여 누구나 편하게 사용할 수 있는 UI를 만드는 데 집중하고 있어요.<br />
               완성도 높은 결과물을 위해, 오늘도 기술과 트렌드를 꾸준히 배우며 성장하고 있습니다.
             </p>
@@ -52,7 +52,9 @@
             <h2 class="section-title">History</h2>
             <p class="section-subtitle">다양한 환경 속에서 퍼블리셔로 성장해온 여정입니다.</p>
             <div class="history-timeline">
+              <div class="timeline-line" ref="timelineLine"></div>
               <div class="timeline-item" v-for="(history, index) in histories" :key="index" :ref="el => { if (el) timelineItems[index] = el as HTMLElement }">
+                <div class="timeline-dot" :ref="el => { if (el) timelineDots[index] = el as HTMLElement }"></div>
                 <div class="year">{{ history.year }}</div>
                 <div class="content">
                   <h3>{{ history.company }}</h3>
@@ -112,9 +114,8 @@ import profile1 from '@/assets/images/layout/about/profile_01.png'
 import profile2 from '@/assets/images/layout/about/profile_02.png'
 import profile3 from '@/assets/images/layout/about/profile_03.png'
 import ScrollTop from '@/components/ScrollTop.vue'
-
-let gsap: any = null
-let ScrollTrigger: any = null
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 
 const emit = defineEmits(['animationComplete'])
 const currentImageIndex = ref(0)
@@ -248,12 +249,15 @@ const tmis = [
 // Refs for DOM elements
 const sectionTitle = ref<HTMLElement | null>(null)
 const sectionSubtitle = ref<HTMLElement | null>(null)
+const aboutDescription = ref<HTMLElement | null>(null)
 const profileImages = ref<(HTMLElement | null)[]>([])
 const skillCards = ref<(HTMLElement | null)[]>([])
 const timelineItems = ref<(HTMLElement | null)[]>([])
+const timelineDots = ref<(HTMLElement | null)[]>([])
 const philosophyCards = ref<(HTMLElement | null)[]>([])
 const tmiCards = ref<(HTMLElement | null)[]>([])
 const downloadButton = ref<HTMLElement | null>(null)
+const timelineLine = ref<HTMLElement | null>(null)
 
 let intervalId: number | null = null
 
@@ -263,13 +267,6 @@ const rotateImages = () => {
 
 const initAnimations = async () => {
   if (typeof window === 'undefined') return;
-
-  // Dynamically import GSAP and ScrollTrigger
-  const gsapModule = await import('gsap')
-  const scrollTriggerModule = await import('gsap/ScrollTrigger')
-  gsap = gsapModule.default
-  ScrollTrigger = scrollTriggerModule.default
-  gsap.registerPlugin(ScrollTrigger)
 
   // Hero section animation
   if (sectionTitle.value) {
@@ -288,6 +285,22 @@ const initAnimations = async () => {
       duration: 0.6,
       delay: 0.2,
       ease: 'power3.out'
+    })
+  }
+
+  // About description animation
+  if (aboutDescription.value) {
+    gsap.from(aboutDescription.value, {
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      delay: 0.4,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: aboutDescription.value,
+        start: 'top bottom-=100',
+        toggleActions: 'play none none none'
+      }
     })
   }
 
@@ -354,24 +367,6 @@ const initAnimations = async () => {
     }
   })
 
-  // History timeline animation
-  timelineItems.value.forEach((item, index) => {
-    if (item) {
-      gsap.from(item, {
-        scrollTrigger: {
-          trigger: item,
-          start: 'top 80%',
-          toggleActions: 'play none none none'
-        },
-        x: -50,
-        opacity: 0,
-        duration: 0.5,
-        delay: index * 0.1,
-        ease: 'power3.out'
-      })
-    }
-  })
-
   // Philosophy cards animation
   philosophyCards.value.forEach((card, index) => {
     if (card) {
@@ -407,27 +402,87 @@ const initAnimations = async () => {
       })
     }
   })
+}
 
-  // Resume download button animation
-  if (downloadButton.value) {
-    gsap.from(downloadButton.value, {
-      scrollTrigger: {
-        trigger: downloadButton.value,
-        start: 'top 80%',
-        toggleActions: 'play none none none'
+// Timeline animation
+const initTimelineAnimation = () => {
+  if (!timelineItems.value.length || !timelineLine.value) return
+
+  // 타임라인 아이템 애니메이션
+  timelineItems.value.forEach((item, index) => {
+    if (!item) return
+    
+    // 각 아이템의 스크롤 트리거 설정
+    const trigger = ScrollTrigger.create({
+      trigger: item,
+      start: "top bottom-=100",
+      end: "top center",
+      onEnter: () => {
+        // 아이템이 등장할 때 라인 높이 증가
+        const progress = (index + 1) / timelineItems.value.length
+        gsap.to(timelineLine.value, {
+          height: `${progress * 100}%`,
+          duration: 0.5,
+          ease: "power2.out",
+          onComplete: () => {
+            // 애니메이션이 완료된 후 트리거 비활성화
+            trigger.kill()
+          }
+        })
       },
-      y: 30,
-      opacity: 0,
-      duration: 0.5,
-      ease: 'power3.out'
+      toggleActions: "play none none none" // 한 번만 실행되도록 설정
     })
-  }
+
+    // 아이템 페이드인 애니메이션
+    gsap.fromTo(item,
+      {
+        opacity: 0,
+        y: 50
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: item,
+          start: "top bottom-=100",
+          end: "top center",
+          toggleActions: "play none none none" // 한 번만 실행되도록 설정
+        }
+      }
+    )
+
+    // 타임라인 도트 애니메이션
+    if (timelineDots.value[index]) {
+      gsap.fromTo(timelineDots.value[index],
+        {
+          scale: 0,
+          opacity: 0
+        },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.5,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: item,
+            start: "top bottom-=100",
+            end: "top center",
+            toggleActions: "play none none none"
+          }
+        }
+      )
+    }
+  })
 }
 
 onMounted(async () => {
   emit('animationComplete')
   intervalId = window.setInterval(rotateImages, 5000)
   await nextTick()
+  gsap.registerPlugin(ScrollTrigger)
+  initTimelineAnimation()
   await initAnimations()
 })
 
@@ -436,9 +491,7 @@ onUnmounted(() => {
     clearInterval(intervalId)
   }
   // Clean up ScrollTrigger
-  if (ScrollTrigger) {
-    ScrollTrigger.getAll().forEach((trigger: any) => trigger.kill())
-  }
+  ScrollTrigger.getAll().forEach((trigger: any) => trigger.kill())
 })
 </script>
 
@@ -568,6 +621,7 @@ onUnmounted(() => {
         margin-bottom: 1.25rem;
         @include mobile {
           font-size: 1rem;
+          word-break: keep-all;
         }
       }
 
@@ -592,14 +646,15 @@ onUnmounted(() => {
         padding-left: 1.25rem;
         margin-bottom: 1.5rem;
       }
-      &::before {
-        content: '';
+
+      .timeline-line {
         position: absolute;
         left: 0;
         top: 0.8rem;
-        bottom: 0;
         width: 0.125rem;
+        height: 0;
         background: #fff;
+        transition: height 0.3s ease;
       }
 
       .timeline-item {
@@ -615,8 +670,7 @@ onUnmounted(() => {
           margin-bottom: 0;
         }
 
-        &::before {
-          content: '';
+        .timeline-dot {
           position: absolute;
           left: -2.125rem;
           top: 0.3125rem;
@@ -681,10 +735,6 @@ onUnmounted(() => {
     line-height: 1.7;
     text-align: left;
     margin-bottom: 1rem;
-  }
-  .highlight {
-    color: v.$main-color;
-    font-weight: 500;
   }
 }
 
