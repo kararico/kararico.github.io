@@ -64,8 +64,7 @@
                             {{ statusMsg }}
                         </div>
                         <button type="submit" class="contact__submit-btn" :aria-busy="statusType === 'success' ? 'false' : statusType === 'error' ? 'false' : 'true'">
-                            <span class="btn-text" v-if="!isLoading">보내기</span>
-                            <span class="loading-spinner" v-else></span>
+                            <span class="btn-text">보내기</span>
                         </button>
                     </form>
                 </div>
@@ -183,14 +182,11 @@ const validateForm = () => {
 }
 
 // 폼 제출 처리 함수
-const isLoading = ref(false)
-
 const handleSubmit = async () => {
     statusMsg.value = ''
     statusType.value = ''
     if (!validateForm()) return;
     
-    isLoading.value = true
     try {
         await emailjs.value.send(
             config.public.emailjsServiceId,
@@ -215,8 +211,6 @@ const handleSubmit = async () => {
         statusType.value = 'error'
         showPopup('메시지 전송에 실패했습니다. 다시 시도해주세요.')
         console.error('EmailJS error:', e)
-    } finally {
-        isLoading.value = false
     }
 }
 
@@ -256,19 +250,11 @@ onMounted(async () => {
             stagger: 0.1,
             ease: 'power3.out'
         }, '-=0.4')
-        .from('.contact__submit-btn', {
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            ease: 'power3.out',
-            onComplete: () => {
-                gsap.to('.contact__submit-btn', {
-                    scale: 1,
-                    duration: 0.5,
-                    ease: 'power1.inOut'
-                })
-            }
-        }, '-=0.4')
+        .fromTo('.contact__submit-btn',
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.2, ease: 'power3.out' },
+            '-=0.4'
+        )
     }
 
     contactAnimation()
@@ -405,6 +391,8 @@ onMounted(async () => {
                 overflow: hidden;
                 margin-top: 1em;
                 transition: all 0.3s ease;
+                opacity: 0;
+                display: flex;
 
                 &:hover:not(:disabled) {
                     background:v.$main-color;
@@ -420,16 +408,6 @@ onMounted(async () => {
                 .btn-text {
                     position: relative;
                     z-index: 1;
-                }
-
-                .loading-spinner {
-                    width: 20px;
-                    height: 20px;
-                    border: 2px solid #ffffff;
-                    border-bottom-color: transparent;
-                    border-radius: 50%;
-                    display: inline-block;
-                    animation: rotation 1s linear infinite;
                 }
             }
         }
@@ -463,14 +441,5 @@ onMounted(async () => {
 @keyframes toast-fadeout {
     from { opacity: 1; }
     to   { opacity: 0; }
-}
-
-@keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
 }
 </style>

@@ -298,7 +298,17 @@
     const updateDate = () => {
         const now = new Date()
         
-        const localDate = new Date(now.toLocaleString('en-US', { timeZone: userTimezone.value }))
+        function isValidTimezone(tz: string) {
+            try {
+                if (!tz || typeof tz !== 'string' || tz.trim() === '') return false;
+                Intl.DateTimeFormat(undefined, { timeZone: tz });
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+        const timezone = isValidTimezone(userTimezone.value) ? userTimezone.value : 'UTC';
+        const localDate = new Date(now.toLocaleString('en-US', { timeZone: timezone }))
             .toLocaleDateString('ko-KR', {
                 year: 'numeric',
                 month: '2-digit',

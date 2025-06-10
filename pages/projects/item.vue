@@ -51,9 +51,9 @@
         </div>
         <div class="container">
           <h1 class="hero-title">
-            <span class="title-line" ref="line1">사용자 경험의 기준을</span><br> 
-            <span class="title-line" ref="line2">새로운 수준으로</span><br>
-            <span class="title-line" ref="line3">끌어올리다</span>
+            <span class="title-line" ref="line1">새로운 경험을</span><br>
+            <span class="title-line" ref="line2">당신에게</span><br>
+            <span class="title-line" ref="line3">전달합니다</span>
           </h1>
         </div>
       </section>

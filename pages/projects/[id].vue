@@ -90,7 +90,7 @@
       <section class="section">
         <div class="inner">
           <h2 class="section-title left">프로젝트 개요</h2>
-          <div class="grid-2">
+          <div class="grid-3">
             <div class="card row">
               <span class="text-muted point">프로젝트 기간</span>
               <span class="text-primary">{{ project.overview.duration }}</span>
@@ -99,7 +99,7 @@
               <span class="text-muted point">팀 구성</span>
               <span class="text-primary">{{ project.overview.team }}</span>
             </div>
-            <div class="card row">
+            <div class="card row block">
               <span class="text-muted point">담당 역할</span>
               <span class="text-primary">{{ project.overview.role }}</span>
             </div>
@@ -136,7 +136,7 @@
       <section class="section">
         <div class="inner">
           <h2 class="section-title left">주요 기능</h2>
-          <div class="grid-auto-fit">
+          <div class="grid-1">
             <div v-for="(feature, index) in project.features" :key="index" class="card">
               <h3 class="text-primary">{{ feature.title }}</h3>
               <p class="text-secondary">{{ feature.description }}</p>
@@ -361,6 +361,12 @@ const handleProjectLink = (url: string | undefined) => {
           position: relative;
           width: 100%;
           height: 100%;
+          @include tablet{
+            overflow: hidden;
+          }
+          @include mobile{
+            overflow: hidden;
+          }
         }
       }
     }
