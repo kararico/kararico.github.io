@@ -64,7 +64,8 @@
                             {{ statusMsg }}
                         </div>
                         <button type="submit" class="contact__submit-btn" :aria-busy="statusType === 'success' ? 'false' : statusType === 'error' ? 'false' : 'true'">
-                            <span class="btn-text">보내기</span>
+                            <span class="btn-text" v-if="!isLoading">보내기</span>
+                            <span class="loading-spinner" v-else></span>
                         </button>
                     </form>
                 </div>
@@ -182,10 +183,14 @@ const validateForm = () => {
 }
 
 // 폼 제출 처리 함수
+const isLoading = ref(false)
+
 const handleSubmit = async () => {
     statusMsg.value = ''
     statusType.value = ''
     if (!validateForm()) return;
+    
+    isLoading.value = true
     try {
         await emailjs.value.send(
             config.public.emailjsServiceId,
@@ -210,6 +215,8 @@ const handleSubmit = async () => {
         statusType.value = 'error'
         showPopup('메시지 전송에 실패했습니다. 다시 시도해주세요.')
         console.error('EmailJS error:', e)
+    } finally {
+        isLoading.value = false
     }
 }
 
@@ -397,16 +404,32 @@ onMounted(async () => {
                 position: relative;
                 overflow: hidden;
                 margin-top: 1em;
+                transition: all 0.3s ease;
 
-                &:hover {
+                &:hover:not(:disabled) {
                     background:v.$main-color;
                     color: #fff;
                     box-shadow: 0 6px 32px 0 rgba(0,0,0,0.22);
                 }
 
+                &:disabled {
+                    cursor: not-allowed;
+                    opacity: 0.7;
+                }
+
                 .btn-text {
                     position: relative;
                     z-index: 1;
+                }
+
+                .loading-spinner {
+                    width: 20px;
+                    height: 20px;
+                    border: 2px solid #ffffff;
+                    border-bottom-color: transparent;
+                    border-radius: 50%;
+                    display: inline-block;
+                    animation: rotation 1s linear infinite;
                 }
             }
         }
@@ -440,5 +463,14 @@ onMounted(async () => {
 @keyframes toast-fadeout {
     from { opacity: 1; }
     to   { opacity: 0; }
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 </style>
