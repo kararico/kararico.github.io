@@ -1,5 +1,4 @@
 <template>
-  <div>
     <section class="brand-hero" ref="heroRef">
       <div class="dimd" ref="dimdRef"></div>
       <div class="brand-title-hero" ref="titleHeroRef">PURITO</div>
@@ -35,57 +34,58 @@
         </div>
       </div>
       <div class="brand-main-image">
-        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="퓨리토 서울 메인 이미지" />
+        <img src="/public/images/products/test-img01.jpg" alt="퓨리토 서울 메인 이미지" />
+        <!-- <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="퓨리토 서울 메인 이미지" /> -->
       </div>
       <div class="brand-description">
-        <h2>프로젝트 소개</h2>
-        <p>
-          퓨리토 서울은 한국의 자연을 담은 천연 스킨케어 브랜드로, 자연과의 일체감을 동시대 서울의 감각으로 재해석한 새로운 개념의 스킨케어를 제안합니다.<br>
-          브랜드 룩을 잘 보여줄 수 있도록 서울의 감각적인 라이프스타일을 컨템포러리한 무드로 사이트에 녹여내는데 중점을 두어 작업을 하였습니다.<br>
-          자유롭고 유려한 디자인과 탐험하는 듯한 스크롤 인터랙션을 통해 더욱 몰입도를 느낄 수 있습니다.
-        </p>
+        <div class="inner">
+          <h2>프로젝트 소개</h2>
+          <p>
+            퓨리토 서울은 한국의 자연을 담은 천연 스킨케어 브랜드로, 자연과의 일체감을 동시대 서울의 감각으로 재해석한 새로운 개념의 스킨케어를 제안합니다.<br>
+            브랜드 룩을 잘 보여줄 수 있도록 서울의 감각적인 라이프스타일을 컨템포러리한 무드로 사이트에 녹여내는데 중점을 두어 작업을 하였습니다.<br>
+            자유롭고 유려한 디자인과 탐험하는 듯한 스크롤 인터랙션을 통해 더욱 몰입도를 느낄 수 있습니다.
+          </p>
+          <button class="site-link-btn" @click="goToSite">
+            사이트 바로가기
+          </button>
+        </div>
       </div>
-      <div class="brand-actions">
-        <button class="like-btn">♥ 17,177</button>
-        <button class="share-btn">공유하기</button>
-        <a class="visit-btn" href="#" target="_blank">사이트 바로가기</a>
-      </div>
-      <div class="brand-team">
-        <h2>만든사람들</h2>
-        <div class="team-list">
-          <div class="team-group">
-            <strong>기획</strong>
-            <ul>
-              <li>양승오 (PL)</li>
-              <li>정유하 (PA)</li>
-            </ul>
+      <div class="brand-overview">
+        <div class="inner">
+          <h2>프로젝트 개요</h2>
+          <div class="overview-row">
+            <div class="overview-card">
+              <span class="overview-label">팀 역할</span>
+              <span class="overview-value">퍼블리셔 PL</span>
+            </div>
+            <div class="overview-card">
+              <span class="overview-label">팀 구성</span>
+              <span class="overview-value">총 10명</span>
+            </div>
           </div>
-          <div class="team-group">
-            <strong>디자인</strong>
-            <ul>
-              <li>정다운 (Director)</li>
-              <li>이지수 (PL)</li>
-              <li>정유진 (PA)</li>
-            </ul>
-          </div>
-          <div class="team-group">
-            <strong>프론트</strong>
-            <ul>
-              <li>김채희 (PL)</li>
-              <li>김민서 (PA)</li>
-            </ul>
-          </div>
-          <div class="team-group">
-            <strong>백엔드</strong>
-            <ul>
-              <li>고경원 (PL)</li>
-              <li>이영일 (PA)</li>
-            </ul>
+          <div class="overview-grid">
+            <div class="overview-card">
+              <span class="overview-label">기술 스택</span>
+              <div class="tech-tags">
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">SCSS</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Vue.js</span>
+              </div>
+            </div>
+            <div class="overview-card">
+              <span class="overview-label">프로젝트 목표</span>
+              <ul class="goals-list">
+                <li>웹 표준 및 접근성 준수</li>
+                <li>반응형 웹 구현</li>
+                <li>효율적인 마크업 구조 설계</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </section>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -131,6 +131,10 @@ function scrollToDetail() {
   }
 }
 
+function goToSite() {
+  window.open('https://your-site-url.com', '_blank');
+}
+
 onMounted(() => {
   setHeroAndDetailHeight();
   window.addEventListener('resize', setHeroAndDetailHeight);
@@ -145,9 +149,9 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped lang="scss">
-@use '@/assets/scss/common/_var' as v;
-@use '@/assets/scss/common/_mixins' as *;
-@use '@/assets/scss/common/_common' as *;
+  @use '@/assets/scss/common/_var' as v;
+  @use '@/assets/scss/common/_mixins' as *;
+  @use '@/assets/scss/common/_common' as *;
 .brand-hero {
   position: sticky;
   top: 0;
@@ -212,17 +216,34 @@ onBeforeUnmount(() => {
   z-index: 2;
   background: #fff;
   color: #222;
+  padding-bottom: .3rem;
 
   .brand-header {
     .inner {
       padding: 0 2rem;
       text-align: center;
-      margin-bottom: 2.5rem;
-			.brand-title {
+      margin:0 auto 2.5rem;
+      max-width: 61.25rem;
+      @include tablet {
+        padding: 0 1.5rem;
+      }
+      @include mobile {
+        padding: 0 1.2rem;
+      }
+      .brand-title {
 				padding:3rem 0;
 				font-size: 2.5rem;
 				font-weight: 700;
 				margin-bottom: 0.5rem;
+        text-align: left;
+        @include tablet {
+          font-size: 2rem;
+          padding:2rem 0;
+        }
+        @include mobile {
+          font-size: 1.5rem;
+          padding:1.5rem 0;
+        }
 			}
 			.brand-meta {
 				display: grid;
@@ -238,22 +259,36 @@ onBeforeUnmount(() => {
 					min-width: 0;
 				}
 				.meta-title {
-					font-size: 1.15rem;
+					font-size: 1.3rem;
 					font-weight: 700;
 					letter-spacing: 0.02em;
 					margin-bottom: 0.7em;
+					@include tablet {
+						font-size: 1.2rem;
+            margin-bottom: 0.5em;
+					} 
+          @include mobile {
+            font-size: 1.2rem;
+            margin-bottom: 0;
+          }
 				}
 				.meta-underline {
 					width: 100%;
-					height: 3px;
-					background: #111;
-					margin-bottom: 1em;
+					height: 0.03rem;
+					background: #222;
+					margin-bottom: 0.8em;
 				}
 				.meta-value {
-					font-size: 1.1rem;
+					font-size: 2.5rem;
 					color: #444;
 					font-weight: 400;
 					word-break: keep-all;
+          @include tablet {
+            font-size: 2rem;
+          }
+          @include mobile {
+            font-size: 1.1rem;
+          }
 				}
 			}
     	.brand-tags {
@@ -275,71 +310,42 @@ onBeforeUnmount(() => {
     margin-bottom: 2rem;
     img {
       width: 100%;
-      border-radius: 1.2rem;
-      box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08);
-      object-fit: cover;
-      max-height: 340px;
     }
   }
   .brand-description {
+    .inner {
+      padding: 0 2rem;
+      margin:0 auto 2.5rem;
+      max-width: 61.25rem;
+      @include tablet {
+        padding: 0 1.5rem;
+      }
+      @include mobile {
+        padding: 0 1.2rem;
+      }
+    }
     margin-bottom: 2.5rem;
     h2 {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       font-weight: 600;
       margin-bottom: 0.7rem;
+      @include tablet {
+        font-size: 1.5rem;
+      }
+      @include mobile {
+        font-size: 1.5rem;
+      }
     }
     p {
       font-size: 1.08rem;
-      line-height: 1.8;
+      line-height: 1.3;
       color: #333;
-    }
-  }
-  .brand-actions {
-    display: flex;
-    justify-content: center;
-    gap: 1.2rem;
-    margin-bottom: 2.5rem;
-    .like-btn, .share-btn, .visit-btn {
-      background: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 2em;
-      padding: 0.7em 1.6em;
-      font-size: 1.05em;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-      &:hover {
-        background: #222;
-        color: #fff;
+      word-break: keep-all;
+      @include tablet {
+        font-size: 1.1rem;
       }
-      text-decoration: none;
-      color: #222;
-      display: inline-block;
-    }
-  }
-  .brand-team {
-    margin-top: 2.5rem;
-    h2 {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-    }
-    .team-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: center;
-      .team-group {
-        min-width: 140px;
-        ul {
-          margin: 0.5em 0 0 0;
-          padding: 0;
-          list-style: none;
-          li {
-            font-size: 1em;
-            color: #444;
-            margin-bottom: 0.2em;
-          }
-        }
+      @include mobile {
+        font-size: 1.1rem;
       }
     }
   }
@@ -348,21 +354,178 @@ onBeforeUnmount(() => {
     .brand-header .brand-title {
       font-size: 2rem;
     }
-    .brand-main-image img {
-      max-height: 200px;
+    .brand-header .brand-meta {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 1.5rem;
     }
-    .brand-team .team-list {
-      flex-direction: column;
-      gap: 1.2rem;
+    .brand-header .brand-meta .meta-item {
+      width: 100%;
       align-items: flex-start;
     }
-    .brand-meta {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-      .meta-item {
-        align-items: flex-start;
+    .brand-header .brand-meta .meta-underline {
+      width: 100%;
+      height: 1px;
+      background: #e0e0e0;
+      margin: 0.5em 0 1em 0;
+    }
+  }
+}
+
+.brand-overview {
+  margin: 2.5rem auto 0 auto;
+  max-width: 61.25rem;
+  .inner{
+      padding: 0 2rem;
+      margin:0 auto 2.5rem;
+      max-width: 61.25rem;
+      @include tablet {
+        padding: 0 1.5rem;
+        max-width: 100%;
+      }
+      @include mobile {
+        padding: 0 1.2rem;
+        max-width: 100%;
+      }
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      text-align: left;
+      @include tablet {
+        font-size: 2rem;
+      }
+      @include mobile {
+        font-size: 1.5rem;
       }
     }
+
+    .overview-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      @include tablet {
+        flex-direction: row;
+      }
+      @include mobile {
+        margin-bottom: 2rem;
+      }
+      .overview-card {
+        display: flex;
+        justify-content: space-between;
+        min-width: 16rem;
+        width: 100%;
+        max-width: 100%;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 1rem;
+        align-items: flex-start;
+        @include tablet {
+          padding-bottom: 1rem;
+        }
+        @include mobile {
+          padding-bottom: 0.5rem;
+        }
+      }
+    }
+
+    .overview-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      flex-direction: column;
+    }
+
+    .overview-label {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 0.5rem;
+      @include tablet {
+        font-size: 1.2rem;
+      }
+      @include mobile {
+        font-size: 1rem;
+      }
+    }
+
+    .overview-value {
+      font-size: 1.1rem;
+      color: #444;
+      font-weight: 400;
+      @include tablet {
+        padding-right: 1rem;
+        font-size: 1rem;
+      }
+      @include mobile {
+        padding-right: 1rem;
+        font-size: 1rem;
+      }
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.2rem;
+      .tech-tag {
+        background: #e0e0e0;
+        color: #333;
+        border-radius: 1em;
+        padding: 0.3em 1em;
+        font-size: 0.95em;
+        margin: 0 0.2em 0.2em 0;
+        display: inline-block;
+      }
+    }
+
+    .goals-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      list-style: disc;
+      padding-left: 1.2em;
+      margin-top: .7rem;
+      li {
+        font-size: 1em;
+        color: #444;
+      }
+    }
+  }
+  
+  // @media (max-width: 700px) {
+  //   .overview-row {
+  //     flex-direction: column;
+  //     gap: 1rem;
+  //     .overview-card {
+  //       min-width: 0;
+  //     }
+  //   }
+  // }
+}
+
+.site-link-btn {
+  display: inline-block;
+  margin: 2.5rem auto 0 auto;
+  padding: 0.9em 2.2em;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: .5rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+  text-align: center;
+ 
+  @include mobile {
+    width: 100%;
+  }
+  &:hover, &:focus {
+    background: #444;
+    color: #fff;
+    box-shadow: 0 4px 16px 0 rgba(0,0,0,0.12);
   }
 }
 </style> 
