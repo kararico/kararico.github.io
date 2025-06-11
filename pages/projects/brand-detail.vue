@@ -85,7 +85,33 @@
           </div>
         </div>
       </div>
+
+      <div class="project-nav">
+        <div class="project-nav-item prev"
+          @mouseenter="isDesktop && (isPrevHover = true)"
+          @mouseleave="isDesktop && (isPrevHover = false)"
+          @click="goToPrevProject">
+          <div class="nav-bg" :style="{ backgroundImage: 'url(/images/products/project_1-poster.jpg)' }"></div>
+          <div class="nav-content">
+            <span class="nav-arrow">&#8592;</span>
+            <span class="nav-label">PREV PROJECT</span>
+            <span class="nav-title" v-if="isDesktop && isPrevHover">UNIST 모바일웹</span>
+          </div>
+        </div>
+        <div class="project-nav-item next"
+          @mouseenter="isDesktop && (isNextHover = true)"
+          @mouseleave="isDesktop && (isNextHover = false)"
+          @click="goToNextProject">
+          <div class="nav-bg" :style="{ backgroundImage: 'url(/images/products/project_2-poster.jpg)' }"></div>
+          <div class="nav-content">
+            <span class="nav-label">NEXT PROJECT</span>
+            <span class="nav-arrow">&#8594;</span>
+            <span class="nav-title" v-if="isDesktop && isNextHover">예시 프로젝트명</span>
+          </div>
+        </div>
+      </div>
     </section>
+ 
 </template>
 
 <script setup lang="ts">
@@ -95,6 +121,9 @@ const heroRef = ref<HTMLElement | null>(null);
 const detailRef = ref<HTMLElement | null>(null);
 const dimdRef = ref<HTMLElement | null>(null);
 const titleHeroRef = ref<HTMLElement | null>(null);
+const isPrevHover = ref(false);
+const isNextHover = ref(false);
+const isDesktop = ref(true);
 
 function setHeroAndDetailHeight() {
   if (heroRef.value && detailRef.value) {
@@ -135,16 +164,35 @@ function goToSite() {
   window.open('https://your-site-url.com', '_blank');
 }
 
+function goToPrevProject() {
+  window.location.href = '/projects/prev-id'; // 실제 이전 프로젝트 경로로 변경
+}
+
+function goToNextProject() {
+  window.location.href = '/projects/next-id'; // 실제 다음 프로젝트 경로로 변경
+}
+
+function handleResize() {
+  isDesktop.value = window.innerWidth > 1024;
+  if (!isDesktop.value) {
+    isPrevHover.value = false;
+    isNextHover.value = false;
+  }
+}
+
 onMounted(() => {
   setHeroAndDetailHeight();
   window.addEventListener('resize', setHeroAndDetailHeight);
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
+  handleResize();
+  window.addEventListener('resize', handleResize);
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener('resize', setHeroAndDetailHeight);
   window.removeEventListener('scroll', handleScroll);
+  window.removeEventListener('resize', handleResize);
 });
 </script>
 
@@ -216,7 +264,6 @@ onBeforeUnmount(() => {
   z-index: 2;
   background: #fff;
   color: #222;
-  padding-bottom: .3rem;
 
   .brand-header {
     .inner {
@@ -526,5 +573,116 @@ onBeforeUnmount(() => {
     color: #fff;
     box-shadow: 0 4px 16px 0 rgba(0,0,0,0.12);
   }
+}
+
+.project-nav {
+  display: flex;
+  width: 100%;
+  margin: 3rem auto 0 auto;
+  min-height: 14rem;
+  position: relative;
+  .project-nav-item {
+    width: 50%;
+    flex: 0 0 50%;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .nav-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.5);
+      z-index: 1;
+      transition: filter 0.2s;
+    }
+    .nav-content {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+    &:hover .nav-bg {
+      filter: brightness(0.7);
+    }
+    .nav-label.strike {
+      text-decoration: line-through;
+      color: #fff;
+      opacity: 0.7;
+    }
+    .nav-title {
+      display: block;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-top: 1rem;
+      color: #fff;
+    }
+    .nav-arrow {
+      display: block;
+      font-size: 2rem;
+      color: #ffe600;
+      margin-top: 1rem;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .project-nav {
+    background: none;
+    min-height: auto;
+    max-width: 100%;
+    padding: 0 1rem;
+    .project-nav-item {
+      background: none !important;
+      width: auto;
+      flex: 1 1 0;
+      min-width: 0;
+      padding:2rem 0;
+    
+      .nav-bg { display: none !important; }
+      .nav-content {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        min-height: unset;
+        display: flex;
+        .nav-label, .nav-title, .nav-arrow {
+          color: #111 !important;
+          font-size: 0.9rem !important;
+          font-weight: 700;
+          text-decoration: none !important;
+          opacity: 1 !important;
+          margin: 0 0.2em;
+        }
+      }
+
+        &.prev{
+        justify-content: flex-start;
+        .nav-label{
+          @include mobile { 
+            margin-left: 0.5em;
+            font-size: 1rem;
+          }
+        }
+      }
+      &.next{
+        justify-content: flex-end;
+        .nav-label{
+          @include mobile { 
+            margin-right: 0.5em;
+            font-size: 1rem;
+          }
+        }
+      }
+
+    }
+  }
+  .project-nav-center { display: none !important; }
 }
 </style> 
