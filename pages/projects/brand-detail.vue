@@ -324,7 +324,6 @@ onBeforeUnmount(() => {
         padding: 0 1.2rem;
       }
     }
-    margin-bottom: 2.5rem;
     h2 {
       font-size: 1.5rem;
       font-weight: 600;
