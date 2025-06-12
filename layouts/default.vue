@@ -43,7 +43,7 @@
 
   // 리사이즈 이벤트 핸들러
   const handleResize = () => {
-    window.location.reload()
+    // window.location.reload()
   }
 
   onMounted(() => {
