@@ -139,7 +139,7 @@ const isDesktop = ref(true);
 
 function setHeroAndDetailHeight() {
   if (heroRef.value && detailRef.value) {
-    const heroHeight = window.innerHeight;
+    const heroHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
     heroRef.value.style.height = heroHeight + 'px';
     detailRef.value.style.marginTop = heroHeight + 'px';
   }
@@ -194,7 +194,12 @@ function handleResize() {
 
 onMounted(() => {
   setHeroAndDetailHeight();
-  window.addEventListener('resize', setHeroAndDetailHeight);
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', setHeroAndDetailHeight);
+    window.visualViewport.addEventListener('scroll', setHeroAndDetailHeight);
+  } else {
+    window.addEventListener('resize', setHeroAndDetailHeight);
+  }
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
   handleResize();
@@ -202,7 +207,12 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener('resize', setHeroAndDetailHeight);
+  if (window.visualViewport) {
+    window.visualViewport.removeEventListener('resize', setHeroAndDetailHeight);
+    window.visualViewport.removeEventListener('scroll', setHeroAndDetailHeight);
+  } else {
+    window.removeEventListener('resize', setHeroAndDetailHeight);
+  }
   window.removeEventListener('scroll', handleScroll);
   window.removeEventListener('resize', handleResize);
 });
@@ -311,11 +321,20 @@ onBeforeUnmount(() => {
 				margin: 2.5rem 0 2rem 0;
 				text-align: left;
 
+				@include mobile {
+					display: flex;
+					flex-direction: column;
+					gap: 1.5rem;
+				}
+
 				.meta-item {
 					display: flex;
 					flex-direction: column;
 					align-items: flex-start;
 					min-width: 0;
+					@include mobile {
+						width: 100%;
+					}
 				}
 				.meta-title {
 					font-size: 1.3rem;
@@ -336,6 +355,12 @@ onBeforeUnmount(() => {
 					height: 0.03rem;
 					background: #222;
 					margin-bottom: 0.8em;
+					@include mobile {
+						width: 100%;
+						height: 1px;
+						background: #e0e0e0;
+						margin: 0.5em 0 1em 0;
+					}
 				}
 				.meta-value {
 					font-size: 2.5rem;
@@ -593,6 +618,14 @@ onBeforeUnmount(() => {
   margin: 3rem auto 0 auto;
   min-height: 14rem;
   position: relative;
+
+  @include laptop {
+    background: none;
+    min-height: auto;
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
   .project-nav-item {
     width: 50%;
     flex: 0 0 50%;
@@ -602,6 +635,15 @@ onBeforeUnmount(() => {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @include laptop {
+      background: none !important;
+      width: auto;
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 2rem 0;
+    }
+
     .nav-bg {
       position: absolute;
       inset: 0;
@@ -610,7 +652,12 @@ onBeforeUnmount(() => {
       filter: brightness(0.5);
       z-index: 1;
       transition: filter 0.2s;
+
+      @include laptop {
+        display: none !important;
+      }
     }
+
     .nav-content {
       position: relative;
       z-index: 2;
@@ -619,27 +666,47 @@ onBeforeUnmount(() => {
       font-weight: 700;
       text-align: center;
       letter-spacing: 0.05em;
+
+      @include laptop {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        min-height: unset;
+        display: flex;
+
+        .nav-label, .nav-title, .nav-arrow {
+          color: #111 !important;
+          font-size: 0.9rem !important;
+          font-weight: 700;
+          text-decoration: none !important;
+          opacity: 1 !important;
+          margin: 0 0.2em;
+        }
+      }
     }
-    &:hover .nav-bg {
-      filter: brightness(0.7);
+
+    &.prev {
+      @include laptop {
+        justify-content: flex-start;
+        .nav-label {
+          @include mobile {
+            margin-left: 0.5em;
+            font-size: 1rem;
+          }
+        }
+      }
     }
-    .nav-label.strike {
-      text-decoration: line-through;
-      color: #fff;
-      opacity: 0.7;
-    }
-    .nav-title {
-      display: block;
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin-top: 1rem;
-      color: #fff;
-    }
-    .nav-arrow {
-      display: block;
-      font-size: 2rem;
-      color: #ffe600;
-      margin-top: 1rem;
+
+    &.next {
+      @include laptop {
+        justify-content: flex-end;
+        .nav-label {
+          @include mobile {
+            margin-right: 0.5em;
+            font-size: 1rem;
+          }
+        }
+      }
     }
   }
 }
