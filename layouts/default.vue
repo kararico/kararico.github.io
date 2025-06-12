@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="layout" ref="layoutRef">
     <Header />
     <main>
       <slot />
@@ -24,6 +24,7 @@
   const visualRef = inject<Ref<InstanceType<typeof Visual> | null>>('visualRef', ref(null))
 
   const isLoading = ref(true)
+  const layoutRef = ref<HTMLElement | null>(null)
 
   const handleLoadingComplete = () => {
     isLoading.value = false
@@ -43,10 +44,13 @@
 
   // 리사이즈 이벤트 핸들러
   const handleResize = () => {
-    // window.location.reload()
+    if (layoutRef.value) {
+      layoutRef.value.style.minHeight = `${window.innerHeight}px`
+    }
   }
 
   onMounted(() => {
+    handleResize() // 초기 높이 설정
     window.addEventListener('resize', handleResize)
   })
 
@@ -58,7 +62,5 @@
 <style lang="scss" scoped>
 .layout {
   position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
 }
 </style>
