@@ -55,6 +55,10 @@
           <h2>프로젝트 개요</h2>
           <div class="overview-row">
             <div class="overview-card">
+              <span class="overview-label">프로젝트 기간</span>
+              <span class="overview-value">12개월</span>
+            </div>
+            <div class="overview-card">
               <span class="overview-label">팀 역할</span>
               <span class="overview-value">퍼블리셔 PL</span>
             </div>
@@ -72,6 +76,15 @@
                 <span class="tech-tag">SCSS</span>
                 <span class="tech-tag">JavaScript</span>
                 <span class="tech-tag">Vue.js</span>
+              </div>
+            </div>
+            <div class="overview-card">
+              <span class="overview-label">프로그램 Tools</span>
+              <div class="tech-tags">
+                <span class="tech-tag">vs code</span>
+                <span class="tech-tag">git</span>
+                <span class="tech-tag">Figma</span>
+                <span class="tech-tag">storybook</span>
               </div>
             </div>
             <div class="overview-card">
@@ -111,7 +124,6 @@
         </div>
       </div>
     </section>
- 
 </template>
 
 <script setup lang="ts">

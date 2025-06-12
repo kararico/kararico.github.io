@@ -16,7 +16,7 @@
   import Loading from '@/components/Loading.vue'
   import Cursor from '@/components/Cursor.vue'
   import Visual from '@/components/Visual.vue'
-  import { provide, ref, inject, type Ref } from 'vue'
+  import { provide, ref, inject, type Ref, onMounted, onUnmounted } from 'vue'
   import { useRoute } from 'vue-router'
 
   const route = useRoute()
@@ -40,6 +40,19 @@
     window.dispatchEvent(new CustomEvent('scroll-to-section', { detail: section }))
   }
   provide('scrollToSection', scrollToSection)
+
+  // 리사이즈 이벤트 핸들러
+  const handleResize = () => {
+    window.location.reload()
+  }
+
+  onMounted(() => {
+    window.addEventListener('resize', handleResize)
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('resize', handleResize)
+  })
 </script>
 
 <style lang="scss" scoped>
