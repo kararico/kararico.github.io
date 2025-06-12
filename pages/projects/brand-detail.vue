@@ -316,17 +316,18 @@ onBeforeUnmount(() => {
         padding: 0 1.2rem;
       }
       .brand-title {
-				padding:3rem 0;
+				padding:3rem 0 2rem;
 				font-size: 2.5rem;
 				font-weight: 700;
 				margin-bottom: 0.5rem;
         text-align: left;
+        font-family: v.$font-kn1;
         @include tablet {
           font-size: 2rem;
           padding:2rem 0;
         }
         @include mobile {
-          font-size: 1.5rem;
+          font-size: 2rem;
           padding:1.5rem 0;
         }
 			}
@@ -395,19 +396,26 @@ onBeforeUnmount(() => {
      	 margin-top: 0.5rem;
       .tag {
         display: inline-block;
-        background: #f2f2f2;
-        color: #333;
+        background: #111;
+        color: #fff;
         border-radius: 1em;
         padding: 0.3em 1em;
         font-size: 0.95em;
         margin: 0 0.3em 0.3em 0;
+        font-family: v.$font-kn2;
         }
       }
     }
   }
   .brand-main-image {
     width: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
+    @include tablet {
+      margin-bottom: 2rem;
+    }
+    @include mobile {
+      margin-bottom: 1rem;
+    } 
     img {
       width: 100%;
     }
@@ -425,7 +433,7 @@ onBeforeUnmount(() => {
       }
     }
     h2 {
-      font-size: 1.5rem;
+      font-size: 2.5rem;
       font-weight: 600;
       margin-bottom: 0.7rem;
       @include tablet {
@@ -436,37 +444,18 @@ onBeforeUnmount(() => {
       }
     }
     p {
-      font-size: 1.08rem;
-      line-height: 1.3;
+      font-size: 1.5rem;
+      line-height: 1.5;
       color: #333;
-      word-break: keep-all;
+      font-family: v.$font-kn2;
       @include tablet {
+        line-height: 1.3;
         font-size: 1.1rem;
       }
       @include mobile {
+        line-height: 1.3;
         font-size: 1.1rem;
       }
-    }
-  }
-
-  @media (max-width: 700px) {
-    .brand-header .brand-title {
-      font-size: 2rem;
-    }
-    .brand-header .brand-meta {
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 1.5rem;
-    }
-    .brand-header .brand-meta .meta-item {
-      width: 100%;
-      align-items: flex-start;
-    }
-    .brand-header .brand-meta .meta-underline {
-      width: 100%;
-      height: 1px;
-      background: #e0e0e0;
-      margin: 0.5em 0 1em 0;
     }
   }
 }
@@ -489,13 +478,15 @@ onBeforeUnmount(() => {
     h2 {
       font-size: 2.5rem;
       font-weight: 600;
-      margin-bottom: 1.2rem;
+      margin-bottom: 2rem;
       text-align: left;
       @include tablet {
         font-size: 2rem;
+        margin-bottom: 1.2rem;
       }
       @include mobile {
         font-size: 1.5rem;
+        margin-bottom: 1.2rem;
       }
     }
 
@@ -503,9 +494,10 @@ onBeforeUnmount(() => {
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      margin-bottom: 1rem;
+      margin-bottom: 2.5rem;
       @include tablet {
         flex-direction: row;
+        margin-bottom: 2rem;
       }
       @include mobile {
         margin-bottom: 2rem;
@@ -523,7 +515,7 @@ onBeforeUnmount(() => {
           padding-bottom: 1rem;
         }
         @include mobile {
-          padding-bottom: 0.5rem;
+          padding-bottom: 0.4rem;
         }
       }
     }
@@ -536,7 +528,7 @@ onBeforeUnmount(() => {
     }
 
     .overview-label {
-      font-size: 1.05rem;
+      font-size: 1.5rem;
       font-weight: 700;
       color: #222;
       margin-bottom: 0.5rem;
@@ -544,21 +536,21 @@ onBeforeUnmount(() => {
         font-size: 1.2rem;
       }
       @include mobile {
-        font-size: 1rem;
+        font-size: 1.2rem;
       }
     }
 
     .overview-value {
-      font-size: 1.1rem;
+      font-size: 1.5rem;
       color: #444;
       font-weight: 400;
       @include tablet {
         padding-right: 1rem;
-        font-size: 1rem;
+        font-size: 1.1rem;
       }
       @include mobile {
         padding-right: 1rem;
-        font-size: 1rem;
+        font-size: 1.1rem;
       }
     }
 
@@ -568,13 +560,21 @@ onBeforeUnmount(() => {
       gap: 0.5rem;
       margin-top: 1.2rem;
       .tech-tag {
-        background: #e0e0e0;
-        color: #333;
-        border-radius: 1em;
-        padding: 0.3em 1em;
-        font-size: 0.95em;
-        margin: 0 0.2em 0.2em 0;
+        background: #111;
+        color: #fff;
+        border-radius: 1rem;
+        padding: 0.75rem 1.4rem;
+        font-size: 1.2rem;
+        margin: 0 0.2rem 0.2rem 0;
         display: inline-block;
+        font-family: v.$font-en1;
+        @include tablet {
+          font-size: 1rem;
+        }
+        @include mobile {
+          padding: 0.5rem 1rem;
+          font-size: 1rem;
+        }
       }
     }
 
@@ -585,39 +585,39 @@ onBeforeUnmount(() => {
       list-style: disc;
       padding-left: 1.2em;
       margin-top: .7rem;
+      font-family: v.$font-kn2;
       li {
         font-size: 1em;
         color: #444;
+        @include tablet {
+          font-size: 1.2rem;
+        }
+        @include mobile {
+          font-size: 1rem;
+        }
       }
     }
   }
-  
-  // @media (max-width: 700px) {
-  //   .overview-row {
-  //     flex-direction: column;
-  //     gap: 1rem;
-  //     .overview-card {
-  //       min-width: 0;
-  //     }
-  //   }
-  // }
 }
 
 .site-link-btn {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
   margin: 2.5rem auto 0 auto;
   padding: 0.9em 2.2em;
   background: #222;
   color: #fff;
   border: none;
-  border-radius: .5rem;
+  border-radius: 1rem;
   font-size: 1.15rem;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
   text-align: center;
- 
+  @include tablet {
+    width: 100%;
+  }
   @include mobile {
     width: 100%;
   }
@@ -635,11 +635,17 @@ onBeforeUnmount(() => {
   min-height: 14rem;
   position: relative;
 
-  @include laptop {
+  @include tablet {
     background: none;
     min-height: auto;
     max-width: 100%;
-    padding: 0 1rem;
+    padding: 0;
+  }
+  @include mobile {
+    background: none;
+    min-height: 5rem;
+    max-width: 100%;
+    padding: 0;
   }
 
   .project-nav-item {
@@ -652,7 +658,7 @@ onBeforeUnmount(() => {
     align-items: center;
     justify-content: center;
 
-    @include laptop {
+    @include tablet {
       background: none !important;
       width: auto;
       flex: 1 1 0;
@@ -669,7 +675,10 @@ onBeforeUnmount(() => {
       z-index: 1;
       transition: filter 0.2s;
 
-      @include laptop {
+      @include tablet {
+        display: none !important;
+      }
+      @include mobile {
         display: none !important;
       }
     }
@@ -683,7 +692,23 @@ onBeforeUnmount(() => {
       text-align: center;
       letter-spacing: 0.05em;
 
-      @include laptop {
+      @include tablet {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        min-height: unset;
+        display: flex;
+
+        .nav-label, .nav-title, .nav-arrow {
+          color: #111 !important;
+          font-size: 0.9rem !important;
+          font-weight: 700;
+          text-decoration: none !important;
+          opacity: 1 !important;
+          margin: 0 0.2em;
+        }
+      }
+      @include mobile {
         flex-direction: row;
         align-items: center;
         justify-content: center;
@@ -702,7 +727,7 @@ onBeforeUnmount(() => {
     }
 
     &.prev {
-      @include laptop {
+      @include tablet {
         justify-content: flex-start;
         .nav-label {
           @include mobile {
@@ -714,7 +739,7 @@ onBeforeUnmount(() => {
     }
 
     &.next {
-      @include laptop {
+      @include tablet {
         justify-content: flex-end;
         .nav-label {
           @include mobile {
@@ -727,57 +752,5 @@ onBeforeUnmount(() => {
   }
 }
 
-@media (max-width: 1024px) {
-  .project-nav {
-    background: none;
-    min-height: auto;
-    max-width: 100%;
-    padding: 0 1rem;
-    .project-nav-item {
-      background: none !important;
-      width: auto;
-      flex: 1 1 0;
-      min-width: 0;
-      padding:2rem 0;
-    
-      .nav-bg { display: none !important; }
-      .nav-content {
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        min-height: unset;
-        display: flex;
-        .nav-label, .nav-title, .nav-arrow {
-          color: #111 !important;
-          font-size: 0.9rem !important;
-          font-weight: 700;
-          text-decoration: none !important;
-          opacity: 1 !important;
-          margin: 0 0.2em;
-        }
-      }
 
-        &.prev{
-        justify-content: flex-start;
-        .nav-label{
-          @include mobile { 
-            margin-left: 0.5em;
-            font-size: 1rem;
-          }
-        }
-      }
-      &.next{
-        justify-content: flex-end;
-        .nav-label{
-          @include mobile { 
-            margin-right: 0.5em;
-            font-size: 1rem;
-          }
-        }
-      }
-
-    }
-  }
-  .project-nav-center { display: none !important; }
-}
 </style> 
