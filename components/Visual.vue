@@ -173,24 +173,24 @@ defineExpose({
     &__title {
         display: flex;
         flex-direction: column;
-        padding: 0 10rem;
+        padding: 0 rem(160);
         font-family: v.$font-en5;
         position: relative;
         z-index: 100;
-        text-shadow: 0 2px 16px rgba(0,0,0,0.2);
+        text-shadow: 0 rem(2) rem(16) rgba(0,0,0,0.2);
     }
 
     &__title-line {
         display: flex;
-        font-size: 9.8rem;
+        font-size: rem(156.8);
         width: 100%;
         line-height: 1;
         justify-content: center;
         font-family: v.$font-en5;
-        gap: 1rem;
+        gap: rem(16);
 
         @include tablet {
-            font-size: 5rem;
+            font-size: rem(80);
         }
     }
 
@@ -229,15 +229,15 @@ defineExpose({
 @include mobile {
     .hero {
         &__title {
-            padding: 0 2rem;
+            padding: 0 rem(32);
             text-align: center;
         }
 
         &__title-line {
-            font-size: 4rem;
+            font-size: rem(64);
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            gap: rem(8);
         }
     }
 }

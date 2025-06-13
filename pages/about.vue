@@ -520,7 +520,7 @@ onUnmounted(() => {
   .background-svg {
     width: 100%;
     height: 100%;
-    filter: blur(40px);
+    filter: blur(rem(40));
     transform: scale(1.5);
   }
 
@@ -539,38 +539,38 @@ onUnmounted(() => {
     position: relative;
     z-index: 1;
     flex: 1;
-    padding: 10rem 0 3.75rem;
+    padding: rem(140, 0, 52.5, 0);
     text-align: left;
     @include tablet {
-    padding: 6.25rem 0 2.5rem;
+      padding: rem(87.5, 0, 35, 0);
     }
     @include mobile {
-      padding: 5rem 0 2rem;
+      padding: rem(70, 0, 28, 0);
     }
     .container {
-      max-width: 75rem;
+      max-width: rem(1200);
       margin: 0 auto;
-      padding: 0 1.25rem;
+      padding: 0 rem(20);
     }
 
     .main-visual {
-      margin-bottom: 5rem;
+      margin-bottom: rem(70);
       @include tablet {
-        margin-bottom: 3.75rem;
+        margin-bottom: rem(52.5);
       }
       @include mobile {
-        margin-bottom: 3.75rem;
+        margin-bottom: rem(52.5);
       }
       .image-container {
         position: relative;
         width: 100%;
         margin: 0 auto;
-        max-width: 100rem;
+        max-width: rem(1600);
         aspect-ratio: 16/9;
         background-color: #f5f5f5;
-        margin-bottom: 1.25rem;
-        font-size:0;
-        padding:0;
+        margin-bottom: rem(17.5);
+        font-size: 0;
+        padding: 0;
         @include mobile {
           aspect-ratio: 4/3;
         }
@@ -584,18 +584,18 @@ onUnmounted(() => {
           left: 0;
           opacity: 0;
           &-text {
-            font-size: 1.2rem;
+            font-size: rem(16.8);
             font-family: v.$font-kn2;
             font-weight: 400;
             letter-spacing: -0.02em;
             position: absolute;
-            bottom: -2.5rem;
+            bottom: rem(-35);
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
             text-align: center;
             @include mobile {
-              font-size: 1rem;
+              font-size: rem(14);
             }
           }
           &.active {
@@ -606,21 +606,21 @@ onUnmounted(() => {
     }
 
     .about-section {
-      margin-bottom: 3.75rem;
+      margin-bottom: rem(52.5);
       @include tablet {
-        margin-bottom: 3.75rem;
+        margin-bottom: rem(52.5);
       }
       @include mobile {
-        margin-bottom: 2.5rem;
+        margin-bottom: rem(35);
       }
       .about-description,
       .detail-description {
         @extend .text-primary;
-        font-size: 1.1rem;
+        font-size: rem(15.4);
         line-height: 1.8;
-        margin-bottom: 1.25rem;
+        margin-bottom: rem(17.5);
         @include mobile {
-          font-size: 1rem;
+          font-size: rem(14);
           word-break: keep-all;
         }
       }
@@ -629,8 +629,8 @@ onUnmounted(() => {
       .awards-list {
         .scope-item,
         .award-item {
-          font-size: 1.1rem;
-          margin-bottom: 0.625rem;
+          font-size: rem(15.4);
+          margin-bottom: rem(8.75);
           line-height: 1.6;
         }
       }
@@ -638,20 +638,20 @@ onUnmounted(() => {
 
     .history-timeline {
       position: relative;
-      padding-left: 1.875rem;
+      padding-left: rem(26.25);
       @include tablet {
-        margin-bottom: 1.875rem;
+        margin-bottom: rem(26.25);
       }
       @include mobile {
-        padding-left: 1.25rem;
-        margin-bottom: 1.5rem;
+        padding-left: rem(17.5);
+        margin-bottom: rem(21);
       }
 
       .timeline-line {
         position: absolute;
         left: 0;
-        top: 0.8rem;
-        width: 0.125rem;
+        top: rem(11.2);
+        width: rem(1.75);
         height: 0;
         background: #fff;
         transition: height 0.3s ease;
@@ -659,12 +659,12 @@ onUnmounted(() => {
 
       .timeline-item {
         position: relative;
-        margin-bottom: 2.5rem;
+        margin-bottom: rem(35);
         @include tablet {
-          margin-bottom: 2.5rem;
+          margin-bottom: rem(35);
         }
         @include mobile {
-          margin-bottom: 2rem;
+          margin-bottom: rem(28);
         }
         &:last-child {
           margin-bottom: 0;
@@ -672,44 +672,44 @@ onUnmounted(() => {
 
         .timeline-dot {
           position: absolute;
-          left: -2.125rem;
-          top: 0.3125rem;
-          width: 0.625rem;
-          height: 0.625rem;
+          left: rem(-29.75);
+          top: rem(4.375);
+          width: rem(8.75);
+          height: rem(8.75);
           border-radius: 50%;
           background: #fff;
           @include tablet {
-            left: -2.055rem;
-            width: 0.5rem;
-            height: 0.5rem;
+            left: rem(-28.77);
+            width: rem(7);
+            height: rem(7);
           }
           @include mobile {
-            left: -1.455rem;
-            width: 0.5rem;
-            height: 0.5rem;
+            left: rem(-20.37);
+            width: rem(7);
+            height: rem(7);
           }
         }
 
         .year {
-          font-size: 1.2rem;
+          font-size: rem(16.8);
           font-weight: 700;
-          margin-bottom: 0.625rem;
+          margin-bottom: rem(8.75);
           color: #fff;
         }
 
         .content {
           h3 {
-            font-size: 1.1rem;
+            font-size: rem(15.4);
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: rem(7);
             color: #fff;
           }
 
           p {
-            font-size: 1rem;
+            font-size: rem(14);
             line-height: 1.6;
             color: #fff;
-            margin-bottom: 0.3125rem;
+            margin-bottom: rem(4.375);
 
             &:last-child {
               margin-bottom: 0;
@@ -722,44 +722,44 @@ onUnmounted(() => {
 }
  
 .about-description {
-  font-size: 1.1rem;
+  font-size: rem(15.4);
   line-height: 1.8;
-  margin-bottom: 1.25rem;
+  margin-bottom: rem(17.5);
   color: #fff;
   font-family: v.$font-kn2;
   @include tablet {
-    font-size: 1rem;
+    font-size: rem(14);
   }
   @include mobile {
-    font-size: 0.95rem;
+    font-size: rem(13.3);
     line-height: 1.7;
     text-align: left;
-    margin-bottom: 1rem;
+    margin-bottom: rem(14);
   }
 }
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(rem(250), 1fr));
+  gap: rem(28);
+  margin-bottom: rem(42);
 
   @include tablet {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: rem(21);
   }
 
   @include mobile {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: rem(14);
   }
 }
 
 .skill-card {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 1rem;
-  padding: 2rem;
+  backdrop-filter: blur(rem(10));
+  border-radius: rem(14);
+  padding: rem(28);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   position: relative;
@@ -779,7 +779,7 @@ onUnmounted(() => {
 
   @media (hover: hover) {
     &:hover {
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 rem(15) rem(30) rgba(0, 0, 0, 0.3);
       border-color: rgba(255, 255, 255, 0.3);
 
       &::before {
@@ -791,8 +791,8 @@ onUnmounted(() => {
   .skill-header {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: rem(14);
+    margin-bottom: rem(14);
     @include tablet {
       flex-direction: column;
     }
@@ -802,12 +802,12 @@ onUnmounted(() => {
   }
 
   .skill-icon {
-    font-size: 2.5rem;
+    font-size: rem(35);
     transition: transform 0.4s ease;
   }
 
   h3 {
-    font-size: 1.5rem;
+    font-size: rem(21);
     font-weight: 600;
     color: #fff;
     font-family: v.$font-en5;
@@ -821,9 +821,9 @@ onUnmounted(() => {
 
     li {
       color: #fff;
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-      padding-left: 1.5rem;
+      font-size: rem(15.4);
+      margin-bottom: rem(7);
+      padding-left: rem(21);
       position: relative;
       font-family: v.$font-kn2;
       transition: transform 0.4s ease;
@@ -844,29 +844,29 @@ onUnmounted(() => {
   @include mobile {
     display: flex;
     align-items: flex-start;
-    gap: 1.5rem;
-    padding: 1.5rem;
+    gap: rem(21);
+    padding: rem(21);
 
     .skill-header {
       margin-bottom: 0;
-      min-width: 100px;
+      min-width: rem(140);
     }
 
     .skill-icon {
-      font-size: 2rem;
+      font-size: rem(28);
     }
 
     h3 {
-      font-size: 1.2rem;
+      font-size: rem(16.8);
     }
 
     .skill-list {
       flex: 1;
 
       li {
-        font-size: 0.9rem;
-        margin-bottom: 0.25rem;
-        padding-left: 1rem;
+        font-size: rem(12.6);
+        margin-bottom: rem(3.5);
+        padding-left: rem(14);
 
         &:last-child {
           margin-bottom: 0;
@@ -878,26 +878,26 @@ onUnmounted(() => {
 
 .tmi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(rem(250), 1fr));
+  gap: rem(28);
+  margin-bottom: rem(42);
 
   @include tablet {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: rem(21);
   }
 
   @include mobile {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: rem(14);
   }
 }
 
 .tmi-card {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 1rem;
-  padding: 2rem;
+  backdrop-filter: blur(rem(10));
+  border-radius: rem(14);
+  padding: rem(28);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   position: relative;
@@ -917,21 +917,20 @@ onUnmounted(() => {
 
   @media (hover: hover) {
     &:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      transform: translateY(rem(-8));
+      box-shadow: 0 rem(15) rem(30) rgba(0, 0, 0, 0.3);
       border-color: rgba(255, 255, 255, 0.3);
 
       &::before {
         opacity: 1;
       }
-
     }
   }
 
   h3 {
-    font-size: 1.5rem;
+    font-size: rem(21);
     font-weight: 800;
-    margin-bottom: 1rem;
+    margin-bottom: rem(14);
     color: #fff;
     font-family: v.$font-en5;
   }
@@ -943,9 +942,9 @@ onUnmounted(() => {
 
     li {
       color: #fff;
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-      padding-left: 1.5rem;
+      font-size: rem(15.4);
+      margin-bottom: rem(7);
+      padding-left: rem(21);
       position: relative;
       font-family: v.$font-kn2;
       transition: transform 0.4s ease;
@@ -964,19 +963,19 @@ onUnmounted(() => {
   }
 
   @include mobile {
-    padding: 1.25rem;
+    padding: rem(17.5);
     text-align: left;
 
     h3 {
-      margin-bottom: 1rem;
+      margin-bottom: rem(14);
     }
 
     .tmi-list {
       li {
         text-align: left;
-        font-size: 0.9rem;
+        font-size: rem(12.6);
         line-height: 1.5;
-        margin-bottom: 0.5rem;
+        margin-bottom: rem(7);
       }
     }
   }
@@ -985,21 +984,21 @@ onUnmounted(() => {
 .resume-download {
   display: flex;
   justify-content: center;
-  margin: 2rem 0;
+  margin: rem(28) 0;
 
   .download-button {
     display: inline-flex;
     align-items: center;
-    gap: 1rem;
+    gap: rem(14);
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(rem(10));
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 2rem;
-    padding: 1rem 2rem;
+    border-radius: rem(28);
+    padding: rem(14) rem(28);
     color: #fff;
     text-decoration: none;
     font-family: v.$font-kn2;
-    font-size: 1.1rem;
+    font-size: rem(15.4);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -1018,8 +1017,8 @@ onUnmounted(() => {
 
     @media (hover: hover) {
       &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transform: translateY(rem(-4));
+        box-shadow: 0 rem(10) rem(20) rgba(0, 0, 0, 0.2);
         border-color: rgba(255, 255, 255, 0.3);
 
         &::before {
@@ -1029,12 +1028,11 @@ onUnmounted(() => {
         .download-icon {
           transform: scale(1.1);
         }
-      
       }
     }
 
     .download-icon {
-      font-size: 1.5rem;
+      font-size: rem(21);
       transition: transform 0.4s ease;
     }
 
@@ -1045,11 +1043,11 @@ onUnmounted(() => {
 
   @include mobile {
     .download-button {
-      padding: 0.875rem 1.75rem;
-      font-size: 1rem;
+      padding: rem(12.25) rem(24.5);
+      font-size: rem(14);
 
       .download-icon {
-        font-size: 1.25rem;
+        font-size: rem(17.5);
       }
     }
   }
@@ -1057,26 +1055,26 @@ onUnmounted(() => {
 
 .philosophy-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(rem(250), 1fr));
+  gap: rem(28);
+  margin-bottom: rem(42);
 
   @include tablet {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: rem(21);
   }
 
   @include mobile {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: rem(14);
   }
 }
 
 .philosophy-card {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 1rem;
-  padding: 2rem;
+  backdrop-filter: blur(rem(10));
+  border-radius: rem(14);
+  padding: rem(28);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   position: relative;
@@ -1096,8 +1094,8 @@ onUnmounted(() => {
 
   @media (hover: hover) {
     &:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      transform: translateY(rem(-8));
+      box-shadow: 0 rem(15) rem(30) rgba(0, 0, 0, 0.3);
       border-color: rgba(255, 255, 255, 0.3);
 
       &::before {
@@ -1109,7 +1107,7 @@ onUnmounted(() => {
       }
 
       p {
-        transform: translateX(5px);
+        transform: translateX(rem(5));
       }
     }
   }
@@ -1117,17 +1115,17 @@ onUnmounted(() => {
   .philosophy-header {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: rem(14);
+    margin-bottom: rem(14);
   }
 
   .philosophy-icon {
-    font-size: 2.5rem;
+    font-size: rem(35);
     transition: transform 0.4s ease;
   }
 
   h3 {
-    font-size: 1.3rem;
+    font-size: rem(18.2);
     font-weight: 600;
     color: #fff;
     font-family: v.$font-en5;
@@ -1136,7 +1134,7 @@ onUnmounted(() => {
 
   p {
     color: #fff;
-    font-size: 1.1rem;
+    font-size: rem(15.4);
     line-height: 1.6;
     margin: 0;
     font-family: v.$font-kn2;
@@ -1144,24 +1142,24 @@ onUnmounted(() => {
   }
 
   @include mobile {
-    padding: 1.25rem;
+    padding: rem(17.5);
     text-align: left;
 
     .philosophy-header {
-      margin-bottom: 1rem;
+      margin-bottom: rem(14);
     }
 
     .philosophy-icon {
-      font-size: 2rem;
+      font-size: rem(28);
     }
 
     h3 {
-      font-size: 1.2rem;
+      font-size: rem(16.8);
     }
 
     p {
       text-align: left;
-      font-size: 0.9rem;
+      font-size: rem(12.6);
       line-height: 1.5;
     }
   }

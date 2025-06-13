@@ -250,16 +250,15 @@ onUnmounted(() => {
         margin: 0 auto;
         width: 80%;
         text-align: center;
-        border-bottom: 1px solid rgba(255,255,255,.2);
-        padding-bottom: 1.5em;
+        border-bottom: rem(1) solid rgba(255,255,255,.2);
+        padding-bottom: rem(24);
         letter-spacing: 0.02em;
         font-weight: 300;
         line-height: 1.75;
-        margin-bottom: 3em;
+        margin-bottom: rem(48);
 
         @include mobile {
-            // font-size: 3.6em;
-            margin-bottom: 2em;
+            margin-bottom: rem(32);
         }
     }
 
@@ -295,7 +294,7 @@ onUnmounted(() => {
 
     &__content {
         display: flex;
-        gap: 1.5em;
+        gap: rem(24);
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -306,7 +305,7 @@ onUnmounted(() => {
         height: 100vh;
 
         @include mobile {
-            gap: 4em;
+            gap: rem(64);
         }
     }
 
@@ -314,16 +313,16 @@ onUnmounted(() => {
         h3 {
             letter-spacing: -.02em;
             margin: 0;
-            font-size: 5em;
+            font-size: rem(80);
             font-weight: 400;
             line-height: .9;
             text-transform: uppercase;
             font-family: v.$font-en1;
             @include tablet {
-                font-size: 3em;
+                font-size: rem(48);
             }
             @include mobile {
-                font-size: 4em;
+                font-size: rem(64);
             }
             .font-small {
                 font-size: 0.75em;
@@ -332,15 +331,15 @@ onUnmounted(() => {
             }
         }
         h4 {
-            font-size: 5em;
+            font-size: rem(80);
             font-weight: 400;
             line-height: 1.2;
             font-family: v.$font-en1;
             @include tablet {
-                font-size: 3em;
+                font-size: rem(48);
             }
             @include mobile {
-                font-size: 2.8em;
+                font-size: rem(45);
                 word-break: keep-all;
                 white-space: pre-line;
             }
@@ -352,12 +351,12 @@ onUnmounted(() => {
         white-space: pre-wrap;
         font-family: 'Playfair Display', serif;
         font-size: 0.5em;
-        margin-bottom: 0.5em;
+        margin-bottom: rem(8);
         text-transform: initial;
 
         @include mobile {
            font-size: 0.5em;
-           margin-bottom: 0.6em;
+           margin-bottom: rem(10);
         }
     }
 
@@ -369,14 +368,14 @@ onUnmounted(() => {
 
     &__links {
         display: flex;
-        gap: 0.5em;
-        width: 52em;
+        gap: rem(8);
+        width: rem(832);
         justify-content: center;
         position: relative;
-        margin-top: 2em;
+        margin-top: rem(32);
         @include mobile {
             width: 100%;
-            gap: 0.6em;
+            gap: rem(10);
         }
 
         li {
@@ -396,39 +395,39 @@ onUnmounted(() => {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 0.2em;
-        border-radius: 0.7em;
-        padding: 1em 4em;
-        backdrop-filter: blur(20px);
+        gap: rem(3);
+        border-radius: rem(11);
+        padding: rem(16) rem(64);
+        backdrop-filter: blur(rem(20));
         background-color: rgba(16,18,20,.25);
-        border: 1px solid rgba(255,255,255,.1);
+        border: rem(1) solid rgba(255,255,255,.1);
         transition: 0.3s ease-in-out;
 
-        @include laptop {
-            padding: 0.6em 1.4em;
+        @include pc {
+            padding: rem(10) rem(22);
         }
 
         @include tablet {
-            padding: 0.6em 1.4em;
+            padding: rem(10) rem(22);
         }
 
         @include mobile {
-            margin-top: 1em;
-            border-radius: 2.5em;
-            padding: 0.5em 3em;
+            margin-top: rem(16);
+            border-radius: rem(40);
+            padding: rem(8) rem(48);
         }
 
         span {
             letter-spacing: .02em;
-            font-size: 1em;
+            font-size: rem(16);
             font-weight: 300;
             line-height: 1.75;
 
             @include tablet {
-                font-size: 1.1em;
+                font-size: rem(18);
             }
             @include mobile {
-                font-size: 1.2em;
+                font-size: rem(19);
             }
         }
 
@@ -439,33 +438,33 @@ onUnmounted(() => {
     }
 
     &__icon {
-        width: 1.1em;
-        height: 1.1em;
+        width: rem(18);
+        height: rem(18);
         display: flex;
         justify-content: center;
         align-items: center;
 
         @include mobile {
-            width: 1.2em;
-            height: 1.2em;
+            width: rem(19);
+            height: rem(19);
         }
     }
 
     &__tags {
         display: flex;
-        gap: 1em;
+        gap: rem(16);
         align-items: center;
         justify-content: center;
         color: #747474;
         text-transform: uppercase;
-        font-size: 1.4em;
+        font-size: rem(22);
 
         @include tablet {
-            font-size: 1.2em;
+            font-size: rem(19);
         }
         @include mobile {
-            font-size: 1.2em;
-            margin-top: 1em;
+            font-size: rem(19);
+            margin-top: rem(16);
             flex-wrap: wrap;
             row-gap: 0;
         }
@@ -485,8 +484,8 @@ onUnmounted(() => {
         font-weight: 400;
         letter-spacing: -0.025em;
         color: #bbbbbb;
-        margin-top: .5em;
-        font-size: 1.4em;
+        margin-top: rem(8);
+        font-size: rem(22);
         line-height: 1.5;
         :deep(.highlight){
             color: v.$main-color; 
@@ -496,13 +495,13 @@ onUnmounted(() => {
         }
 
         @include tablet {
-            font-size: 1.3em;
+            font-size: rem(21);
         }
         @include mobile {
-            font-size: 1.2em;
+            font-size: rem(19);
             line-height: 1.4;
             width: 100%;
-            margin-top: 0.8em;
+            margin-top: rem(13);
         }
     }
 
@@ -534,7 +533,7 @@ onUnmounted(() => {
     }
     &__label {
         letter-spacing: .02em;
-        font-size: 1em;
+        font-size: rem(16);
         font-weight: 300;
         line-height: 1.75;
 
@@ -547,7 +546,7 @@ onUnmounted(() => {
 
             @include mobile {
                 display: block;
-                font-size: 3.6em;
+                font-size: rem(58);
             }
         }
     }

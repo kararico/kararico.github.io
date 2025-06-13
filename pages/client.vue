@@ -198,6 +198,7 @@ defineExpose({
 // ... Copy the entire style section from about.vue here ...
 .client-page {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   color: #000;
@@ -209,56 +210,56 @@ defineExpose({
   position: relative;
   z-index: 1;
   flex: 1;
-  padding: 10rem 0 3.75rem;
+  padding: rem(140, 0, 52.5, 0);
   text-align: left;
   @include tablet {
-    padding: 6.25rem 0 2.5rem;
+    padding: rem(87.5, 0, 35, 0);
   }
   @include mobile {
-    padding: 5rem 0 2rem;
+    padding: rem(70, 0, 28, 0);
   }
   .container {
-    max-width: 75rem;
+    max-width: rem(1200);
     margin: 0 auto;
-    padding: 0 1.25rem;
+    padding: 0 rem(20);
     @include mobile {
-      padding: 0 2rem;
+      padding: 0 rem(32);
     }
   }
 }
 
 .client-list-section {
-  margin-top: 4rem;
+  margin-top: rem(56);
   @include tablet {
-    margin-top: 3rem;
+    margin-top: rem(42);
   }
   @include mobile {
-    margin-top: 2rem;
+    margin-top: rem(28);
   }
   .client-list-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 2rem;
+    gap: rem(28);
     @include tablet {
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
+      gap: rem(21);
     }
     @include mobile {
       grid-template-columns: repeat(1, 1fr);
-      gap: 1rem;
+      gap: rem(14);
     }
   }
   .client-logo {
     background: #fff;
-    border-radius: 1rem;
+    border-radius: rem(14);
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    min-height: rem(140);
+    box-shadow: 0 rem(2) rem(12) rgba(0,0,0,0.04);
     img {
-      max-width: 207px;
-      max-height: 110px;
+      max-width: rem(207);
+      max-height: rem(110);
       object-fit: contain;
       margin: 0 auto;
       display: block;

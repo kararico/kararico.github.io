@@ -108,7 +108,7 @@ onBeforeUnmount(() => {
 
 .loading-text {
   font-family: v.$font-en1;
-  font-size: 4rem;
+  font-size: rem(64);
   font-weight: bold;
   color: #fff;
   letter-spacing: 0.5em;
@@ -118,12 +118,12 @@ onBeforeUnmount(() => {
   align-items: center;
 
   @include tablet {
-    font-size: 3rem;
+    font-size: rem(48);
     letter-spacing: 0.3em;
   }
 
   @include mobile {
-    font-size: 2rem;
+    font-size: rem(32);
     letter-spacing: 0.2em;
   }
 }

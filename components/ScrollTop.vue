@@ -79,11 +79,11 @@ onUnmounted(() => {
   @use '@/assets/scss/common/_mixins' as *;
   .floating-buttons {
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: rem(32);
+    right: rem(32);
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: rem(16);
     z-index: 100;
 
     @include tablet {
@@ -93,33 +93,33 @@ onUnmounted(() => {
 
     &.footer-overlap {
       position: absolute;
-      bottom: 10rem;
-      margin-right:1rem;
+      bottom: rem(160);
+      margin-right: rem(16);
       @include tablet {
-        bottom: 8rem;
+        bottom: rem(128);
         margin-right: 0;
       }
       @include mobile {
-        margin-right:0;
-        bottom: 8rem;
+        margin-right: 0;
+        bottom: rem(128);
       }
     }
   }
 
   .resume-download {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: rem(56);
+    height: rem(56);
     border-radius: 50%;
     background: rgba(30, 30, 30, 0.92);
-    border: 2px solid #fff;
+    border: rem(2) solid #fff;
     color: #fff;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    box-shadow: 0 rem(4) rem(16) rgba(0,0,0,0.18);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(rem(10));
     text-decoration: none;
     position: relative;
     transform: translateY(100%);
@@ -128,17 +128,17 @@ onUnmounted(() => {
 
     span {
       position: absolute;
-      right: 4rem;
+      right: rem(64);
       white-space: nowrap;
       opacity: 0;
       transition: opacity 0.3s ease;
-      font-size: 0.9rem;
+      font-size: rem(14);
       font-weight: 500;
     }
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-3px);
+      transform: translateY(rem(-3));
 
       span {
         opacity: 1;
@@ -152,8 +152,8 @@ onUnmounted(() => {
     }
 
     @include tablet {
-      width: 3rem;
-      height: 3rem;
+      width: rem(48);
+      height: rem(48);
       span {
         display: none;
       }
@@ -161,13 +161,13 @@ onUnmounted(() => {
   }
 
   .scroll-top {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: rem(56);
+    height: rem(56);
     border-radius: 50%;
     background: rgba(30, 30, 30, 0.92);
-    border: 2px solid #fff;
+    border: rem(2) solid #fff;
     color: #fff;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    box-shadow: 0 rem(4) rem(16) rgba(0,0,0,0.18);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -175,11 +175,11 @@ onUnmounted(() => {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(rem(10));
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-3px);
+      transform: translateY(rem(-3));
     }
 
     &.is-visible {
@@ -188,8 +188,8 @@ onUnmounted(() => {
     }
 
     @include tablet {
-      width: 3rem;
-      height: 3rem;
+      width: rem(48);
+      height: rem(48);
     }
   }
 </style> 

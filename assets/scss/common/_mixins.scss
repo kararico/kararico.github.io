@@ -5,6 +5,19 @@ $laptop: 1023px;
 $tablet: 768px;
 $mobile: 767px; 
 
+// px to rem 변환 함수
+@function rem($values...) {
+    $result: ();
+    @each $value in $values {
+        @if type-of($value) == number {
+            $result: append($result, math.div($value, 14) + rem);
+        } @else {
+            $result: append($result, $value);
+        }
+    }
+    @return $result;
+}
+
 @mixin ellip($line-height: 15px, $lines: 1) {
     text-overflow: ellipsis;
     overflow: hidden;
@@ -39,20 +52,23 @@ $mobile: 767px;
     transition: background-color 0.8s, border 0.8s , color 0.8s;
 }
 
-@mixin laptop {
-    @media (max-width:$laptop){
+// PC (1024px 이상)
+@mixin pc {
+    @media (min-width: $tablet) {
         @content;
     }
 }
 
+// 태블릿 (768px ~ 1023px)
 @mixin tablet {
-    @media (min-width:$tablet) and (max-width:$laptop){
+    @media (min-width: $tablet) and (max-width: $laptop) {
         @content;
     }
 }
 
+// 모바일 (767px 이하)
 @mixin mobile {
-    @media (max-width:$mobile){
+    @media (max-width: $mobile) {
         @content;
     }
 }

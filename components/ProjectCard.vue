@@ -35,9 +35,9 @@ const navigateToProject = () => {
 .project-card {
   cursor: pointer;
   transition: transform 0.3s ease;
-  border-radius: 8px;
+  border-radius: rem(8);
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 rem(2) rem(8) rgba(0, 0, 0, 0.1);
 }
 
 /* .project-card:hover {
@@ -46,7 +46,7 @@ const navigateToProject = () => {
 
 .project-image {
   width: 100%;
-  height: 250px;
+  height: rem(250);
   overflow: hidden;
 }
 
@@ -57,25 +57,25 @@ const navigateToProject = () => {
 }
 
 .project-info {
-  padding: 20px;
+  padding: rem(20);
 }
 
 .project-title {
-  font-size: 1.2rem;
+  font-size: rem(19);
   font-weight: 600;
-  margin: 0 0 8px 0;
+  margin: 0 0 rem(8) 0;
   color: #fff;
 }
 
 .project-category {
-  font-size: 0.9rem;
+  font-size: rem(14);
   color: #fff;
   margin: 0;
 }
 
 .project-period {
-  font-size: 0.85rem;
+  font-size: rem(14);
   color: #bbb;
-  margin: 0.3em 0 0 0;
+  margin: rem(5) 0 0 0;
 }
 </style> 

@@ -353,9 +353,9 @@ const handleProjectLink = (url: string | undefined) => {
     max-width: none;
     .section{
       width: 100%;
-      padding: 2rem 0;
+      padding: rem(32, 0);
       .inner{
-        max-width: 75rem;
+        max-width: rem(1200);
         margin: 0 auto;
         .swiper-container-wrapper{
           position: relative;
@@ -377,33 +377,33 @@ const handleProjectLink = (url: string | undefined) => {
   min-height: 100dvh;
   background: v.$bg-color;
   color: #fff;
-  padding: 5rem 0 2rem;
+  padding: rem(80, 0, 32, 0);
 }
 
 .project-header {
   text-align: left;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: rem(16);
 
   .project-info {
     display: flex;
     justify-content: space-between;
-    font-size: 1.4rem;
+    font-size: rem(22.4);
   }
 
   .project-meta {
     display: flex;
     justify-content: flex-start;
-    gap: 2rem;
-    font-size: 1.2rem;
+    gap: rem(32);
+    font-size: rem(19.2);
   }
 }
 
 .gallery-item {
   aspect-ratio: 1;
   overflow: hidden;
-  border-radius: 0.5rem;
+  border-radius: rem(8);
 
   img {
     width: 100%;
@@ -422,17 +422,13 @@ const handleProjectLink = (url: string | undefined) => {
   .swiper-slide {
     aspect-ratio: 1;
     overflow: hidden;
-    border-radius: 0.5rem;
+    border-radius: rem(8);
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.3s ease;
-
-      // &:hover {
-      //   transform: scale(1.05);
-      // }
     }
   }
 
@@ -440,24 +436,20 @@ const handleProjectLink = (url: string | undefined) => {
   .swiper-button-prev {
     color: #fff;
     background: rgba(0, 0, 0, 0.5);
-    width: 3rem;
-    height: 3rem;
+    width: rem(48);
+    height: rem(48);
     border-radius: 50%;
     
     &:after {
-      font-size: 1.2rem;
+      font-size: rem(19.2);
     }
-
-    // &:hover {
-    //   background: rgba(0, 0, 0, 0.8);
-    // }
   }
 
   :deep(.swiper-pagination) {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0.5rem;
+    bottom: rem(8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -465,18 +457,18 @@ const handleProjectLink = (url: string | undefined) => {
 
     .swiper-pagination-bullet {
       background: #fff;
-      border: 2px solid #000;
+      border: rem(2) solid #000;
       opacity: 1;
-      width: 0.75rem;
-      height: 0.75rem;
-      margin: 0 0.25rem !important;
+      width: rem(12);
+      height: rem(12);
+      margin: 0 rem(4) !important;
       border-radius: 50%;
       transition: background 0.2s, border 0.2s;
       box-sizing: border-box;
     }
     .swiper-pagination-bullet-active {
       background: #fff;
-      border: 2px solid #fff;
+      border: rem(2) solid #fff;
     }
   }
 }
@@ -484,8 +476,8 @@ const handleProjectLink = (url: string | undefined) => {
 .detail-row {
   display: flex;
   justify-content: space-between;
-  padding: 1rem 0;
-  border-bottom: 0.0625rem solid rgba(255,255,255,0.1);
+  padding: rem(16, 0);
+  border-bottom: rem(1) solid rgba(255,255,255,0.1);
 
   &:last-child {
     border-bottom: none;
@@ -494,44 +486,44 @@ const handleProjectLink = (url: string | undefined) => {
 
 .goals-list {
   list-style: disc;
-  padding-left: 1.5rem;
-  margin-top: 0.5rem;
+  padding-left: rem(24);
+  margin-top: rem(8);
 
   li {
-    margin-bottom: 0.5rem;
+    margin-bottom: rem(8);
   }
 }
 
 .tech-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 1rem;
+  gap: rem(8);
+  margin-top: rem(16);
 
   .tech-tag {
-    padding: 0.5rem 1rem;
+    padding: rem(8, 16);
     background-color: #222;
-    border-radius: 2rem;
-    font-size: 0.9rem;
+    border-radius: rem(32);
+    font-size: rem(14.4);
   }
 }
 
 .feature-image {
   width: 100%;
-  border-radius: 0.5rem;
-  margin-top: 1.5rem;
+  border-radius: rem(8);
+  margin-top: rem(24);
 }
 
 .error-message {
   text-align: center;
-  padding: 3rem;
-  font-size: 1.1rem;
+  padding: rem(48);
+  font-size: rem(17.6);
 }
 
 @media (max-width: 48rem) {
   .project-header {
     .project-meta {
-      gap: 0.5rem;
+      gap: rem(8);
     }
   }
 
@@ -541,17 +533,17 @@ const handleProjectLink = (url: string | undefined) => {
   }
 
   :deep(.swiper-pagination) {
-    bottom: 2.5rem;
+    bottom: rem(40);
   }
 }
 
 .project-nav-arrows {
   .nav-arrow-btn {
     border-radius: 0;
-    font-size: 1.1rem;
+    font-size: rem(17.6);
     font-weight: 500;
     justify-content: flex-start;
-    gap: 0.5rem;
+    gap: rem(8);
     min-width: 0;
     background: none;
     border: none;
@@ -567,17 +559,17 @@ const handleProjectLink = (url: string | undefined) => {
     }
     .project-title {
       font-weight: bold;
-      margin-left: 0.5em;
-      margin-right: 0.5em;
+      margin-left: rem(8);
+      margin-right: rem(8);
       color: #fff;
-      max-width: 20rem;
+      max-width: rem(320);
       text-align: center;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
 
       @include mobile {
-        max-width: 16rem;
+        max-width: rem(256);
       }
     }
     &.prev {
@@ -612,7 +604,7 @@ const handleProjectLink = (url: string | undefined) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
+    gap: rem(16);
   }
   
     &.goals-list{

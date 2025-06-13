@@ -135,8 +135,8 @@ defineExpose({
     top: 0;
     left: 0;
     z-index: 10000;
-    width: 20px;
-    height: 20px;
+    width: rem(20);
+    height: rem(20);
     background-color: v.$main-color;
     border-radius: 50%;
     transform: translate(-50%, -50%);
@@ -155,14 +155,14 @@ defineExpose({
     
     // 호버 상태 스타일
     &.cursor-over {
-        width: 10px;
-        height: 10px;
+        width: rem(10);
+        height: rem(10);
     }
     
     // 이미지 호버 상태 스타일
     &.img-over {
-        width: 120px;
-        height: 120px;
+        width: rem(120);
+        height: rem(120);
         mix-blend-mode:normal;
         span {
             display: inline-block;
@@ -172,8 +172,8 @@ defineExpose({
     
     // 축소 상태 스타일
     &.cursor-shrink {
-        width: 8px !important;
-        height: 8px !important;
+        width: rem(8) !important;
+        height: rem(8) !important;
         transition: width 0.2s, height 0.2s;
     }
     
@@ -196,8 +196,8 @@ defineExpose({
 // 커서 내부 점 스타일
 .cursor-dot {
   position: fixed;
-  width: 8px;
-  height: 8px;
+  width: rem(8);
+  height: rem(8);
   background: #fff;
   border-radius: 50%;
   transform: translate(-50%, -50%);
@@ -207,9 +207,9 @@ defineExpose({
 // 커서 외곽선 스타일
 .cursor-outline {
   position: fixed;
-  width: 40px;
-  height: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  width: rem(40);
+  height: rem(40);
+  border: rem(1) solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   transition: all 0.2s ease;

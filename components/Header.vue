@@ -423,7 +423,7 @@
     display: flex;
     justify-content: space-between;
     align-items: end;
-    padding: 1.25rem 3.125rem;
+    padding: rem(20) rem(50);
 }
 
 // 로고 스타일
@@ -431,7 +431,7 @@
     text-decoration: none;
     color: #fff;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: rem(24);
     font-family: v.$font-en5;
     display: flex;
     align-items: center;
@@ -442,7 +442,7 @@
         transition: all 0.3s ease;
         
         &:first-child {
-            margin-right: 0.5rem;
+            margin-right: rem(8);
         }
     }
 }
@@ -450,21 +450,21 @@
 // 시간 영역 스타일
 .header__time-area {
     display: flex;
-    gap: 1rem;
+    gap: rem(16);
     justify-content: center;
-    margin-top: 1em;
+    margin-top: rem(16);
     
     // 시간 영역 내부 스타일
     .header__time-inner {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: rem(8);
         
         // 도시명 스타일
         em {
             font-style: normal;
             font-weight: bold;
-            min-width: 3.5rem;
+            min-width: rem(56);
             font-size: 1.2em;
         }
 
@@ -478,12 +478,12 @@
         .header__weather {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: rem(8);
             
             // 날씨 아이콘 스타일
             .header__weather-icon {
-                width: 2rem;
-                height: 2rem;
+                width: rem(32);
+                height: rem(32);
             }
             
             // 온도 스타일
@@ -502,8 +502,8 @@
 
 // 햄버거 버튼 스타일
 .header__hamburger {
-    width: 1.875rem;
-    height: 1.25rem;
+    width: rem(30);
+    height: rem(20);
     position: relative;
     background: none;
     border: none;
@@ -514,7 +514,7 @@
     .header__hamburger-line {
         display: block;
         width: 100%;
-        height: 0.125rem;
+        height: rem(2);
         background-color: #fff;
         position: absolute;
         left: 0;
@@ -532,11 +532,11 @@
     &.header__hamburger--active {
         .header__hamburger-line {
             &:nth-child(1) {
-                transform: translateY(0.5625rem) rotate(45deg);
+                transform: translateY(rem(9)) rotate(45deg);
             }
             &:nth-child(2) { opacity: 0; }
             &:nth-child(3) {
-                transform: translateY(-0.5625rem) rotate(-45deg);
+                transform: translateY(rem(-9)) rotate(-45deg);
             }
         }
     }
@@ -598,15 +598,15 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 2em;
-        @include mobile { gap: 1em; }
+        gap: rem(32);
+        @include mobile { gap: rem(16); }
         
         // 메뉴 아이템 스타일
         .header__menu-item {
             button {
                 color: #fff;
                 text-decoration: none;
-                font-size: 5em;
+                font-size: rem(80);
                 display: flex;
                 align-items: center;
                 
@@ -624,7 +624,7 @@
                     color: v.$main-color;
                 }
                 
-                @include mobile { font-size: 3.5em; }
+                @include mobile { font-size: rem(56); }
             }
         }
     }
@@ -633,11 +633,11 @@
 // 모바일 반응형 스타일
 @media (max-width: 48rem) {
     .header__container {
-        padding: 1.25rem;
+        padding: rem(20);
     }
     
     .header__logo {
-        font-size: 1.25rem;
+        font-size: rem(20);
     }
     
     .header__time-area {

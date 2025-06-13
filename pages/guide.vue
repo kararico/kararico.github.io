@@ -78,30 +78,30 @@
 }
 
 .container {
-  max-width: 900px;
+  max-width: rem(900);
   margin: 0 auto;
-  padding: 2rem 1.5rem;
+  padding: rem(32) rem(24);
 }
 
 .section-title {
-  margin-bottom: 0.5rem;
-  font-size: 2.2rem;
+  margin-bottom: rem(8);
+  font-size: rem(35);
   font-weight: 800;
   color: v.$main-color;
 }
 .section-subtitle {
-  margin-bottom: 2.5rem;
+  margin-bottom: rem(40);
   color: v.$txt-sub-color;
-  font-size: 1.1rem;
+  font-size: rem(18);
 }
 
 .guide-section {
   background: #23262b;
-  border-radius: 1.25rem;
-  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.06);
-  padding: 2.5rem 2rem 2rem 2rem;
-  margin-bottom: 2.5rem;
-  border: 1px solid #222;
+  border-radius: rem(20);
+  box-shadow: 0 rem(2) rem(16) 0 rgba(0,0,0,0.06);
+  padding: rem(40) rem(32) rem(32) rem(32);
+  margin-bottom: rem(40);
+  border: rem(1) solid #222;
   position: relative;
   transition: box-shadow 0.2s;
   color: #fff;
@@ -110,19 +110,19 @@
     content: '';
     display: block;
     position: absolute;
-    left: 2rem;
-    right: 2rem;
-    bottom: -1.25rem;
-    height: 1px;
+    left: rem(32);
+    right: rem(32);
+    bottom: rem(-20);
+    height: rem(1);
     background: linear-gradient(90deg, #23262b 0%, #181a1e 100%);
     opacity: 0.7;
   }
 }
 
 .guide-title {
-  font-size: 1.3rem;
+  font-size: rem(21);
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: rem(24);
   color: v.$main-color;
   letter-spacing: -0.01em;
 }
@@ -142,29 +142,29 @@
 
 .color-palette {
   display: flex;
-  gap: 2rem;
-  margin-bottom: 1rem;
+  gap: rem(32);
+  margin-bottom: rem(16);
 }
 .color-sample {
-  width: 80px;
-  height: 80px;
+  width: rem(80);
+  height: rem(80);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 0.8rem;
+  font-size: rem(13);
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  border: 2px solid #fff;
+  box-shadow: 0 rem(2) rem(8) rgba(0,0,0,0.08);
+  border: rem(2) solid #fff;
 }
 
 .ui-samples {
   display: flex;
   align-items: flex-end;
-  gap: 1.5rem;
+  gap: rem(24);
   flex-wrap: wrap;
-  margin-bottom: 1.5rem;
+  margin-bottom: rem(24);
 }
 .btn {
   @extend .btn;
@@ -173,39 +173,39 @@
   color: #2F70C6;
   text-decoration: underline;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: rem(16);
 }
 .input {
-  padding: 0.5rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  font-size: 1rem;
+  padding: rem(8) rem(16);
+  border: rem(1) solid #ccc;
+  border-radius: rem(8);
+  font-size: rem(16);
   outline: none;
-  min-width: 120px;
+  min-width: rem(120);
 }
 .card {
   background: #181a1e;
-  border-radius: 1rem;
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.06);
-  padding: 1.5rem 1.25rem;
-  min-width: 168px;
-  max-width: 240px;
+  border-radius: rem(16);
+  box-shadow: 0 rem(2) rem(8) 0 rgba(0,0,0,0.06);
+  padding: rem(24) rem(20);
+  min-width: rem(168);
+  max-width: rem(240);
   .card-title {
-    font-size: 1.1rem;
+    font-size: rem(18);
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    margin-bottom: rem(8);
   }
   .card-desc {
-    font-size: 0.95rem;
+    font-size: rem(15);
     color: v.$text-muted;
-    margin-bottom: 0.75rem;
+    margin-bottom: rem(12);
   }
   .card-content {
     background: #f5f5f5;
-    border-radius: 0.5rem;
-    min-height: 48px;
-    padding: 0.5rem;
-    font-size: 0.95rem;
+    border-radius: rem(8);
+    min-height: rem(48);
+    padding: rem(8);
+    font-size: rem(15);
     color: #333;
   }
 }
@@ -213,8 +213,8 @@
 .layout-samples {
   .row {
     display: flex;
-    gap: 24px;
-    margin-bottom: 24px;
+    gap: rem(24);
+    margin-bottom: rem(24);
   }
   .col {
     flex: 1;
@@ -222,28 +222,28 @@
   }
   .box {
     background: #f5f5f5;
-    border-radius: 0.75rem;
-    border: 1px solid #e0e0e0;
-    height: 72px;
+    border-radius: rem(12);
+    border: rem(1) solid #e0e0e0;
+    height: rem(72);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: rem(16);
     color: #333;
     font-weight: 500;
   }
-  .mt-3 { margin-top: 24px; }
+  .mt-3 { margin-top: rem(24); }
 }
 
 @media (max-width: 900px) {
   .container {
-    padding: 1rem 0.5rem;
+    padding: rem(16) rem(8);
   }
   .guide-section {
-    padding: 1.5rem 1rem 1rem 1rem;
+    padding: rem(24) rem(16) rem(16) rem(16);
   }
   .color-palette {
-    gap: 1rem;
+    gap: rem(16);
   }
 }
 @media (max-width: 600px) {
