@@ -65,7 +65,7 @@ const logos = [
         z-index: 1;
         padding-bottom: 0.25em;
         letter-spacing: 0.025em;
-        font-family: v.$font-en5;
+        font-family: v.$font-en3;
         @include tablet { font-size: 2em; margin-bottom:.5rem;}
         @include mobile { font-size: 2.2em; margin-bottom: 0; }
     }

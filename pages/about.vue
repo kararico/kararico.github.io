@@ -810,7 +810,7 @@ onUnmounted(() => {
     font-size: rem(21);
     font-weight: 600;
     color: #fff;
-    font-family: v.$font-en5;
+    font-family: v.$font-en2;
     margin: 0;
   }
 
@@ -932,7 +932,7 @@ onUnmounted(() => {
     font-weight: 800;
     margin-bottom: rem(14);
     color: #fff;
-    font-family: v.$font-en5;
+    font-family: v.$font-en2;
   }
 
   .tmi-list {
@@ -1128,7 +1128,7 @@ onUnmounted(() => {
     font-size: rem(18.2);
     font-weight: 600;
     color: #fff;
-    font-family: v.$font-en5;
+    font-family: v.$font-en2;
     margin: 0;
   }
 

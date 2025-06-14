@@ -1,6 +1,6 @@
 <template>
   <div class="floating-buttons" :class="{ 'footer-overlap': isFooterOverlap }">
-    <a 
+    <!-- <a 
       v-if="route.name !== 'about' && route.path !== '/about'"
       href="/profile.pdf" 
       class="resume-download"
@@ -14,7 +14,7 @@
         <path d="M8 14H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
       <span>Profile</span>
-    </a>
+    </a> -->
     <button 
       class="scroll-top" 
       :class="{ 'is-visible': isVisible }"

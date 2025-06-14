@@ -150,7 +150,7 @@ defineExpose({
         @include position-Center;
         display: none;
         white-space: nowrap;
-        font-family: v.$font-en4;
+        font-family: v.$font-en2;
     }
     
     // 호버 상태 스타일

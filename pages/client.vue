@@ -195,75 +195,76 @@ defineExpose({
   @use '@/assets/scss/common/_var' as v;
   @use '@/assets/scss/common/_mixins' as *;
   @use '@/assets/scss/common/_common' as *;
-// ... Copy the entire style section from about.vue here ...
-.client-page {
-  min-height: 100vh;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  color: #000;
-  position: relative;
-  overflow: hidden;
-}
 
-.client-page .main-content {
-  position: relative;
-  z-index: 1;
-  flex: 1;
-  padding: rem(140, 0, 52.5, 0);
-  text-align: left;
-  @include tablet {
-    padding: rem(87.5, 0, 35, 0);
-  }
-  @include mobile {
-    padding: rem(70, 0, 28, 0);
-  }
-  .container {
-    max-width: rem(1200);
-    margin: 0 auto;
-    padding: 0 rem(20);
-    @include mobile {
-      padding: 0 rem(32);
-    }
-  }
-}
-
-.client-list-section {
-  margin-top: rem(56);
-  @include tablet {
-    margin-top: rem(42);
-  }
-  @include mobile {
-    margin-top: rem(28);
-  }
-  .client-list-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: rem(28);
-    @include tablet {
-      grid-template-columns: repeat(2, 1fr);
-      gap: rem(21);
-    }
-    @include mobile {
-      grid-template-columns: repeat(1, 1fr);
-      gap: rem(14);
-    }
-  }
-  .client-logo {
-    background: #fff;
-    border-radius: rem(14);
+  /* Copy the entire style section from about.vue here */
+  .client-page {
+    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: rem(140);
-    box-shadow: 0 rem(2) rem(12) rgba(0,0,0,0.04);
-    img {
-      max-width: rem(207);
-      max-height: rem(110);
-      object-fit: contain;
+    flex-direction: column;
+    color: #000;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .client-page .main-content {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    padding: rem(140, 0, 52.5, 0);
+    text-align: left;
+    @include tablet {
+      padding: rem(87.5, 0, 35, 0);
+    }
+    @include mobile {
+      padding: rem(70, 0, 28, 0);
+    }
+    .container {
+      max-width: rem(1200);
       margin: 0 auto;
-      display: block;
+      padding: 0 rem(20);
+      @include mobile {
+        padding: 0 rem(32);
+      }
     }
   }
-}
+
+  .client-list-section {
+    margin-top: rem(56);
+    @include tablet {
+      margin-top: rem(42);
+    }
+    @include mobile {
+      margin-top: rem(28);
+    }
+    .client-list-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: rem(28);
+      @include tablet {
+        grid-template-columns: repeat(2, 1fr);
+        gap: rem(21);
+      }
+      @include mobile {
+        grid-template-columns: repeat(1, 1fr);
+        gap: rem(14);
+      }
+    }
+    .client-logo {
+      background: #fff;
+      border-radius: rem(14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: rem(140);
+      box-shadow: 0 rem(2) rem(12) rgba(0,0,0,0.04);
+      img {
+        max-width: rem(207);
+        max-height: rem(110);
+        object-fit: contain;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  }
 </style>

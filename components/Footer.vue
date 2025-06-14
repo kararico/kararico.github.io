@@ -98,7 +98,7 @@ onMounted(() => {
   .footer__contact {
     .footer__title {
       font-size: 2.5rem;
-      font-family: v.$font-en5;
+      font-family: v.$font-en2;
       margin-bottom: 1rem;
       font-weight: 600;
 

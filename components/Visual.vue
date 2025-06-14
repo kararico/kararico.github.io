@@ -2,20 +2,26 @@
     <section ref="heroRef" class="hero" role="banner" aria-label="메인 비주얼" :style="{ height: `${windowHeight}px` }">
         <h2 ref="titleRef" class="hero__title">
             <div class="hero__title-line">
-                <span class="hero__text" style="opacity: 0">PORTFOLIO</span>
+                <span class="hero__text ">PORTFOLIO</span>
             </div>
             <div class="hero__title-line">
-                <span class="hero__text" style="opacity: 0">WEB</span>
-                <span class="hero__text" style="opacity: 0">PUBLISHER</span>
+                <span class="hero__text etc" >WEB</span>
+                <span class="hero__text etc" >PUBLISHER</span>
             </div>
         </h2>
         <div class="hero__background">
             <div class="hero__background-inner">
                 <video
+                    ref="videoRef"
                     loop
                     autoplay
                     muted
                     playsinline
+                    webkit-playsinline
+                    x5-playsinline
+                    x5-video-player-type="h5"
+                    x5-video-player-fullscreen="true"
+                    preload="auto"
                     aria-hidden="true"
                     data-object-fit="cover"
                     poster="@/assets/videos/poster.jpg">
@@ -37,6 +43,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 const windowHeight = ref(0)
 const heroRef = ref<HTMLElement | null>(null)
 const titleRef = ref<HTMLElement | null>(null)
+const videoRef = ref<HTMLVideoElement | null>(null)
 const isAnimationStarted = ref(false)
 
 // 윈도우 높이 업데이트 함수
@@ -84,6 +91,19 @@ const handleLoadingComplete = () => {
     }, 1000)
 }
 
+// 비디오 재생 함수
+const playVideo = async () => {
+    if (videoRef.value) {
+        try {
+            await videoRef.value.play()
+        } catch (error) {
+            console.error('Video playback failed:', error)
+            // 재생 실패 시 다시 시도
+            setTimeout(playVideo, 1000)
+        }
+    }
+}
+
 // 컴포넌트 마운트 시 실행
 onMounted(async () => {
     updateHeight()
@@ -93,6 +113,9 @@ onMounted(async () => {
 
     // DOM이 완전히 렌더링될 때까지 대기
     await nextTick()
+
+    // 비디오 재생 시도
+    playVideo()
 
     // 로딩 이벤트가 발생하지 않았을 경우를 대비해 직접 애니메이션 시작
     setTimeout(() => {
@@ -174,7 +197,7 @@ defineExpose({
         display: flex;
         flex-direction: column;
         padding: 0 rem(160);
-        font-family: v.$font-en5;
+        font-family: v.$font-en2;
         position: relative;
         z-index: 100;
         text-shadow: 0 rem(2) rem(16) rgba(0,0,0,0.2);
@@ -182,22 +205,32 @@ defineExpose({
 
     &__title-line {
         display: flex;
-        font-size: rem(156.8);
+        font-size: rem(130);
         width: 100%;
         line-height: 1;
         justify-content: center;
-        font-family: v.$font-en5;
+        font-family: v.$font-en2;
         gap: rem(16);
-
-        @include tablet {
-            font-size: rem(80);
-        }
+        @include tablet { font-size: rem(100) !important; }
+        @include mobile { font-size: rem(50) !important; }
     }
 
     &__text {
         display: inline-block;
         text-align: center;
         will-change: transform;
+        opacity: 0;
+        font-family: v.$font-en4;
+        font-weight: 900;
+        color: transparent;
+        -webkit-text-stroke: 2px #fff;
+        
+        @include mobile {
+            -webkit-text-stroke: 1px #fff;
+        }
+        &.etc {
+            color: #fff;
+        }
     }
 
     &__background {

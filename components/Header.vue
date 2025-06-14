@@ -432,7 +432,7 @@
     color: #fff;
     font-weight: bold;
     font-size: rem(24);
-    font-family: v.$font-en5;
+    font-family: v.$font-en3;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -615,7 +615,7 @@
                     line-height: 1.2;
                     position: relative;
                     overflow: hidden;
-                    font-family: v.$font-en5;
+                    font-family: v.$font-en2;
                     transition: color 0.3s ease;
                 }
 

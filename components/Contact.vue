@@ -299,7 +299,7 @@ onMounted(async () => {
             font-weight: 500;
             line-height: 1.2;
             letter-spacing: -0.02em;
-            font-family: v.$font-en5;
+            font-family: v.$font-en3;
 
             @include mobile {
                 font-size: 2.5em;
@@ -322,7 +322,7 @@ onMounted(async () => {
                 font-size: 2em;
                 font-weight: 400;
                 letter-spacing: -0.02em;
-                font-family: v.$font-en5;
+                font-family: v.$font-en2;
 
                 @include mobile {
                     font-size: 1.8em;

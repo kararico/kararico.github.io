@@ -1,18 +1,21 @@
 @use 'sass:math';
+@use 'sass:list';
+@use 'sass:meta';
 @use './_var' as v;
 
-$laptop: 1023px;
-$tablet: 768px;
-$mobile: 767px; 
+// Module configuration
+$pc: 1023px !default;
+$tablet: 961px !default;
+$mobile: 960px !default;
 
 // px to rem 변환 함수
 @function rem($values...) {
     $result: ();
     @each $value in $values {
-        @if type-of($value) == number {
-            $result: append($result, math.div($value, 14) + rem);
+        @if meta.type-of($value) == number {
+            $result: list.append($result, math.div($value, 14) + rem);
         } @else {
-            $result: append($result, $value);
+            $result: list.append($result, $value);
         }
     }
     @return $result;
@@ -54,14 +57,14 @@ $mobile: 767px;
 
 // PC (1024px 이상)
 @mixin pc {
-    @media (min-width: $tablet) {
+    @media (min-width: 1024px) {
         @content;
     }
 }
 
 // 태블릿 (768px ~ 1023px)
 @mixin tablet {
-    @media (min-width: $tablet) and (max-width: $laptop) {
+    @media (min-width: $tablet) and (max-width: $pc) {
         @content;
     }
 }
