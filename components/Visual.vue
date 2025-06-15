@@ -12,7 +12,7 @@
         <div class="hero__background">
             <div class="hero__background-inner">
                 <video
-                    ref="videoRef"
+                    ref="videoRef" 
                     loop
                     autoplay
                     muted
