@@ -553,7 +553,7 @@ const handleProjectLink = (url: string | undefined) => {
     box-shadow: none;
     &:hover, &:active, &:focus {
       background: none !important;
-      box-shadow: none !important;
+      box-shadow: none !important; 
       border: none !important;
       color: inherit;
     }
