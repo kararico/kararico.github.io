@@ -23,11 +23,10 @@
   "devDependencies": {
     "sass": "^1.87.0",
     "sass-embedded": "^1.87.0",
-    "@babel/parser": "^7.24.0"
+    "@babel/parser": "^7.24.0",
+    "@babel/core": "^7.24.0"
   },
-  "overrides": {
-    "oxc-parser": {
-      "@babel/parser": "^7.24.0"
-    }
+  "resolutions": {
+    "oxc-parser": "npm:@babel/parser@^7.24.0"
   }
 }
