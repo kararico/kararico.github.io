@@ -212,7 +212,7 @@ defineExpose({
         font-family: v.$font-en2;
         gap: rem(16);
         @include tablet { font-size: rem(100) !important; }
-        @include mobile { font-size: rem(50) !important; }
+        @include mobile { font-size: rem(50) !important; margin-top: rem(10); }
     }
 
     &__text {

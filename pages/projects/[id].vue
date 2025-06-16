@@ -215,6 +215,13 @@
 </template>
 
 <script setup lang="ts">
+import { useHead } from '#imports'
+useHead({
+  title: 'Project Detail | 정원 포트폴리오',
+  meta: [
+    { name: 'description', content: '정원의 프로젝트 상세 페이지입니다.' }
+  ]
+})
 // Vue와 관련된 필요한 컴포넌트들을 import
 import { computed, ref, watch, onMounted, nextTick, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';

@@ -615,7 +615,7 @@
                     line-height: 1.2;
                     position: relative;
                     overflow: hidden;
-                    font-family: v.$font-en2;
+                    font-family: v.$font-en3; 
                     transition: color 0.3s ease;
                 }
 

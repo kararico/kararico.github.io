@@ -20,6 +20,14 @@ import ScrollTop from '~/components/ScrollTop.vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
+import { useHead } from '#imports'
+
+useHead({
+  title: '정원 포트폴리오 | JUNGWON Portfolio',
+  meta: [
+    { name: 'description', content: '2025년 웹퍼블리셔 정원의 포트폴리오 사이트입니다.' }
+  ]
+})
 
 const visualRef = ref<InstanceType<typeof Visual> | null>(null)
 provide('visualRef', visualRef as Ref<InstanceType<typeof Visual> | null>)

@@ -33,6 +33,7 @@ import profile1 from '@/assets/images/layout/about/profile_01.png'
 import profile2 from '@/assets/images/layout/about/profile_02.png'
 import profile3 from '@/assets/images/layout/about/profile_03.png'
 import ScrollTop from '@/components/ScrollTop.vue'
+import { useHead } from '#imports'
 
 declare global {
   interface Window {
@@ -188,6 +189,13 @@ onUnmounted(() => {
 // Loading 컴포넌트의 이벤트를 받기 위해 defineExpose 사용
 defineExpose({
   handleLoadingComplete
+})
+
+useHead({
+  title: 'Client | 정원 포트폴리오',
+  meta: [
+    { name: 'description', content: '정원이 작업한 클라이언트 목록 페이지입니다.' }
+  ]
 })
 </script>
 

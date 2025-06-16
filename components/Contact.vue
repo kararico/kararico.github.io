@@ -2,7 +2,7 @@
     <div class="contact">
         <div class="contact__container">
             <div class="contact__msg-area" v-if="showMessageArea">
-                <h2 class="contact__msg">CONTACT ME</h2>
+                <h2 class="contact__msg">CONTACT</h2>
             </div>
             <div class="contact__area">
                 <div class="contact__content">
@@ -292,14 +292,13 @@ onMounted(async () => {
     // 메시지 영역 스타일
     .contact__msg-area {
         text-align: left;
-        margin-bottom: 4em;
+        margin-bottom: rem(30);
 
         .contact__msg {
             font-size: 3.5em;
             font-weight: 500;
             line-height: 1.2;
-            letter-spacing: -0.02em;
-            font-family: v.$font-en3;
+            font-family: v.$font-en4;
 
             @include mobile {
                 font-size: 2.5em;

@@ -109,13 +109,20 @@
 
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref, watch, nextTick } from 'vue'
-import { useRuntimeConfig } from '#imports'
+import { useRuntimeConfig, useHead } from '#imports'
 import profile1 from '@/assets/images/layout/about/profile_01.png'
 import profile2 from '@/assets/images/layout/about/profile_02.png'
 import profile3 from '@/assets/images/layout/about/profile_03.png'
 import ScrollTop from '@/components/ScrollTop.vue'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
+
+useHead({
+  title: 'About | 정원 포트폴리오',
+  meta: [
+    { name: 'description', content: '정원에 대한 소개 페이지입니다.' }
+  ]
+})
 
 const emit = defineEmits(['animationComplete'])
 const currentImageIndex = ref(0)

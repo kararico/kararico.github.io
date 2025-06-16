@@ -11,6 +11,22 @@
 </template>
 
 <script setup lang="ts">
+  import { useHead } from '#imports'
+
+  useHead({
+    link: [
+      { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css' },
+      { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard.css' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Zephyr:wght@400;500;600;700&display=swap' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Fahkwang:wght@400;500;600;700&display=swap' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap' },
+      { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff.css' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap' }
+    ]
+  })
+
+  
   import Header from '@/components/Header.vue'
   import Footer from '@/components/Footer.vue'
   import Loading from '@/components/Loading.vue'

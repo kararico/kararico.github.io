@@ -29,11 +29,9 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { useRoute } from 'vue-router'
 import gsap from 'gsap'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 
-const route = useRoute()
 const isVisible = ref(false)
 const isFooterOverlap = ref(false)
 const scrollThreshold = 300 // 스크롤 탑 버튼이 보이기 시작하는 스크롤 위치
@@ -87,13 +85,16 @@ onUnmounted(() => {
     z-index: 100;
 
     @include tablet {
-      // bottom: 1.5rem;
-      // right: 1.5rem;
+      right: rem(20);
     }
+    @include mobile {
+      right: rem(16);
+    }
+   
 
     &.footer-overlap {
       position: absolute;
-      bottom: rem(160);
+      bottom: rem(100);
       margin-right: rem(16);
       @include tablet {
         bottom: rem(128);
@@ -101,7 +102,8 @@ onUnmounted(() => {
       }
       @include mobile {
         margin-right: 0;
-        bottom: rem(128);
+        bottom: rem(92);
+        right: rem(16);
       }
     }
   }
@@ -176,6 +178,11 @@ onUnmounted(() => {
     visibility: hidden;
     transition: all 0.3s ease;
     backdrop-filter: blur(rem(10));
+
+    @include mobile {
+      width: rem(48);
+      height: rem(48);
+    }
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.2);

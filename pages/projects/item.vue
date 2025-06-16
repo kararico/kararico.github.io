@@ -67,6 +67,14 @@ import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue';
 import gsap from 'gsap';
 import { useProjectStore } from '@/stores/projects';
 import AnimatedBackground from '@/components/common/AnimatedBackground.vue'
+import { useHead } from '#imports'
+
+useHead({
+  title: 'Project Item | 정원 포트폴리오',
+  meta: [
+    { name: 'description', content: '정원의 프로젝트 아이템 상세 페이지입니다.' }
+  ]
+})
 
 const line1 = ref<HTMLElement | null>(null);
 const line2 = ref<HTMLElement | null>(null);

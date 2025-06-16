@@ -144,6 +144,14 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { useHead } from '#imports'
+
+useHead({
+  title: 'Brand Detail | 정원 포트폴리오',
+  meta: [
+    { name: 'description', content: '정원의 브랜드 상세 페이지입니다.' }
+  ]
+})
 
 const heroRef = ref<HTMLElement | null>(null);
 const detailRef = ref<HTMLElement | null>(null);

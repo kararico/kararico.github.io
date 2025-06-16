@@ -3,9 +3,16 @@
 </template>
   
   <script setup lang="ts">
-    // Vue와 관련된 필요한 컴포넌트들을 import
     import { ref } from 'vue';
     import ContactForm from '@/components/Contact.vue';
+    import { useHead } from '#imports'
+
+    useHead({
+      title: 'Contact | 정원 포트폴리오',
+      meta: [
+        { name: 'description', content: '정원에게 연락할 수 있는 페이지입니다.' }
+      ]
+    })
   </script>
   
   <style lang="scss" scoped>

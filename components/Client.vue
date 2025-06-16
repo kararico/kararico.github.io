@@ -65,9 +65,9 @@ const logos = [
         z-index: 1;
         padding-bottom: 0.25em;
         letter-spacing: 0.025em;
-        font-family: v.$font-en3;
-        @include tablet { font-size: 2em; margin-bottom:.5rem;}
-        @include mobile { font-size: 2.2em; margin-bottom: 0; }
+        font-family: v.$font-en4;
+        @include tablet { font-size: rem(32); margin-bottom:.5rem;}
+        @include mobile { font-size: rem(35);  margin-bottom: 0; }
     }
 
     .client__summary {
@@ -80,8 +80,8 @@ const logos = [
         z-index: 1;
         word-break:keep-all;
         .main-color { color: v.$main-color; font-weight: 700; }
-        @include tablet { font-size: 1.5em; margin-bottom:0;}
-        @include mobile { font-size: 1.5em; margin-bottom: 0; }
+        @include tablet { font-size: rem(24); margin-bottom:0;}
+        @include mobile { font-size: rem(16); margin-bottom: 0; }
     }
 
     .client__rolling-wrapper {

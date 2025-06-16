@@ -334,7 +334,7 @@ onUnmounted(() => {
             font-size: rem(80);
             font-weight: 400;
             line-height: 1.2;
-            font-family: v.$font-en1;
+            font-family: v.$font-en4;
             @include tablet {
                 font-size: rem(48);
             }
@@ -354,9 +354,13 @@ onUnmounted(() => {
         margin-bottom: rem(8);
         text-transform: initial;
 
-        @include mobile {
-           font-size: 0.5em;
+        @include tablet {
+           font-size: rem(34);
            margin-bottom: rem(10);
+        }
+
+        @include mobile {
+           font-size: rem(28);
         }
     }
 
@@ -376,6 +380,7 @@ onUnmounted(() => {
         @include mobile {
             width: 100%;
             gap: rem(10);
+            margin-top: rem(20);
         }
 
         li {
@@ -412,7 +417,6 @@ onUnmounted(() => {
         }
 
         @include mobile {
-            margin-top: rem(16);
             border-radius: rem(40);
             padding: rem(8) rem(48);
         }
@@ -427,7 +431,7 @@ onUnmounted(() => {
                 font-size: rem(18);
             }
             @include mobile {
-                font-size: rem(19);
+                font-size: rem(14);
             }
         }
 
@@ -463,7 +467,7 @@ onUnmounted(() => {
             font-size: rem(19);
         }
         @include mobile {
-            font-size: rem(19);
+            font-size: rem(12);
             margin-top: rem(16);
             flex-wrap: wrap;
             row-gap: 0;
@@ -498,10 +502,9 @@ onUnmounted(() => {
             font-size: rem(21);
         }
         @include mobile {
-            font-size: rem(19);
+            font-size: rem(14);
             line-height: 1.4;
             width: 100%;
-            margin-top: rem(13);
         }
     }
 

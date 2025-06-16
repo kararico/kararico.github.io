@@ -140,7 +140,7 @@ onMounted(() => {
     gap: rem(16);
 
     @include tablet { padding: rem(80) rem(40) rem(128); }
-    @include mobile { gap: rem(40); padding: rem(64) rem(19.2); }
+    @include mobile { gap: rem(40); padding: rem(40) rem(14); }
 
     &__inner{
         max-width: rem(1440);
@@ -157,7 +157,7 @@ onMounted(() => {
         letter-spacing: rem(0.4);
         z-index: 1;
         letter-spacing: rem(0.4);
-        font-family: v.$font-en3;
+        font-family: v.$font-en4;
         @include tablet { font-size: rem(32); }
         @include mobile { font-size: rem(35);}
     }
@@ -170,10 +170,10 @@ onMounted(() => {
         text-shadow: 0 rem(2) rem(16) rgba(76,222,128,0.15);
         line-height: 1.3;
         z-index: 1;
-        word-break:keep-all;
+        font-family: v.$font-kn3;
         .main-color { color: v.$main-color; font-weight: 700; }
         @include tablet { font-size: rem(24); }
-        @include mobile { font-size: rem(24);  }
+        @include mobile { font-size: rem(16);  }
     }
 
     .card-style{
@@ -196,6 +196,7 @@ onMounted(() => {
         backdrop-filter: blur(rem(16));
         position: relative;
         @include tablet { padding: rem(16) rem(24); margin-top:rem(30); }
+        @include mobile { padding: rem(24) rem(16) ; margin-top:rem(20);   border-radius: rem(16); }
         &::before {
             content: '';
             position: absolute;
@@ -218,7 +219,7 @@ onMounted(() => {
         strong { color: v.$main-color; font-weight: 700;  padding: 0 rem(3.2); }
         span[aria-label] { font-size: rem(19.2); vertical-align: middle; }
         &:last-child { margin-bottom: 0; }
-        @include mobile { font-size: rem(17.6); line-height: 1.3; margin-bottom: rem(16); }
+        @include mobile { font-size: rem(14); line-height: 1.3; margin-bottom: rem(16); }
     }
 
     // 프로필 플로팅 이미지 스타일
