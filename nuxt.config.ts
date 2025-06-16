@@ -1,12 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  experimental: {
-    parser: {
-      parser: '@babel/parser'
-    }
-  },
   app: {
     head: {
       title: '정원 포트폴리오 | JUNGWON Portfolio',
