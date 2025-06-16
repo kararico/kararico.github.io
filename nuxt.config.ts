@@ -1,7 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   app: {
+    baseURL: '/',
     head: {
       title: '정원 포트폴리오 | JUNGWON Portfolio',
       meta: [
@@ -41,7 +42,7 @@ export default defineNuxtConfig({
         },
         {
           rel: 'stylesheet',
-          href: 'https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff'
+          href: 'https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff.css'
         },
         {
           rel: 'stylesheet',
@@ -72,4 +73,12 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
   ],
+  build: {
+    transpile: ['gsap']
+  },
+  ssr: true,
+  target: 'static',
+  generate: {
+    fallback: true
+  }
 })

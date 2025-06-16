@@ -118,26 +118,6 @@ onMounted(() => {
             toggleActions: 'play none none reverse'
         }
     });
-    // 배경 원 스크롤 연동 모션 - 첫 번째 원
-    gsap.to('.circle1', {
-        y: 200, scale: 1.25, opacity: 0.4,
-        scrollTrigger: {
-            trigger: '.about',
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1
-        }
-    });
-    // 배경 원 스크롤 연동 모션 - 두 번째 원
-    gsap.to('.circle2', {
-        x: -160, scale: 1.25, opacity: 0.32,
-        scrollTrigger: {
-            trigger: '.about',
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.2
-        }
-    });
 })
 </script>
 

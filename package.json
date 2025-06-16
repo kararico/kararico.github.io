@@ -6,7 +6,7 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "postgenerate": "echo > dist/.nojekyll",
+    "postgenerate": "echo > .output/public/.nojekyll",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
@@ -14,21 +14,14 @@
     "@emailjs/browser": "^4.4.1",
     "@pinia/nuxt": "^0.5.1",
     "gsap": "^3.13.0",
-    "nuxt": "3.7.4",
+    "nuxt": "3.6.5",
     "pinia": "^2.1.7",
     "swiper": "^11.2.6",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
-    "sass": "^1.87.0",
-    "sass-embedded": "^1.87.0",
-    "@babel/parser": "^7.24.0",
-    "@babel/core": "^7.24.0"
-  },
-  "overrides": {
-    "oxc-parser": {
-      "@babel/parser": "^7.24.0"
-    }
+    "sass": "1.63.6",
+    "sass-loader": "13.3.2"
   }
 }
