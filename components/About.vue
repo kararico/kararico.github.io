@@ -69,6 +69,10 @@
                     </NuxtLink>
                 </div> -->
             </div>
+            <router-link to="/about" class="about__detail-button">
+                <span class="detail-icon">👋</span>
+                <span class="detail-text">자세히 보기</span>
+            </router-link>
         </div>
     </div>
 </template>
@@ -157,7 +161,7 @@ onMounted(() => {
         letter-spacing: rem(0.4);
         z-index: 1;
         letter-spacing: rem(0.4);
-        font-family: v.$font-en4;
+        font-family: v.$font-en3;
         @include tablet { font-size: rem(32); }
         @include mobile { font-size: rem(35);}
     }
@@ -301,7 +305,6 @@ onMounted(() => {
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
-
         &::before {
             content: '';
             position: absolute;

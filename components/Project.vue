@@ -31,11 +31,6 @@
                                            rel="noopener noreferrer"
                                            @click.prevent="handleSiteClick(project.siteUrl)">
                                             <span>GO SITE</span>
-                                            <div class="project__icon">
-                                                <svg width="32" height="32" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M8.15472 2.81673L13.8293 2.82734L13.8399 8.5019L12.758 8.5019L12.8004 4.66229L3.10242 14.3603L2.29631 13.5542L11.9943 3.85618L8.15472 3.89861L8.15472 2.81673Z" fill="currentColor"/>
-                                                </svg>
-                                            </div>
                                         </a>
                                     </li>
                                 </ul>
@@ -349,18 +344,17 @@ onUnmounted(() => {
     &__category {
         display: block;
         white-space: pre-wrap;
-        font-family: 'Playfair Display', serif;
-        font-size: 0.5em;
+        font-family: v.$font-kn2;
+        font-size: rem(16);
         margin-bottom: rem(8);
-        text-transform: initial;
-
+        text-transform: uppercase;
         @include tablet {
            font-size: rem(34);
            margin-bottom: rem(10);
         }
 
         @include mobile {
-           font-size: rem(28);
+           font-size: rem(20);
         }
     }
 
@@ -388,8 +382,8 @@ onUnmounted(() => {
                 border-color: v.$main-color;
                 &:hover {
                     color: #ffffff;
-                    background-color: v.$main-color;
-                    border-color: #1c8946;
+                    background-color: transparent;
+                    border-color: v.$main-color;
                 }
             }
         }
@@ -441,18 +435,18 @@ onUnmounted(() => {
         }
     }
 
-    &__icon {
-        width: rem(18);
-        height: rem(18);
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    // &__icon {
+    //     width: rem(18);
+    //     height: rem(18);
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
 
-        @include mobile {
-            width: rem(19);
-            height: rem(19);
-        }
-    }
+    //     @include mobile {
+    //         width: rem(19);
+    //         height: rem(19);
+    //     }
+    // }
 
     &__tags {
         display: flex;

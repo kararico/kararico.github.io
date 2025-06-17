@@ -2,7 +2,7 @@
     <div class="contact">
         <div class="contact__container">
             <div class="contact__msg-area" v-if="showMessageArea">
-                <h2 class="contact__msg">CONTACT</h2>
+                <h2 class="contact__msg">CONTACT ME</h2>
             </div>
             <div class="contact__area">
                 <div class="contact__content">
@@ -298,7 +298,7 @@ onMounted(async () => {
             font-size: 3.5em;
             font-weight: 500;
             line-height: 1.2;
-            font-family: v.$font-en4;
+            font-family: v.$font-en3;
 
             @include mobile {
                 font-size: 2.5em;
