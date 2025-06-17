@@ -1,5 +1,5 @@
 <template>
-    <div class="about" aria-labelledby="about-title">
+    <div class="about" ref="aboutSection" aria-labelledby="about-title">
         <AnimatedBackground 
             type="aboutContent"
             :opacity="0.18"
@@ -61,74 +61,105 @@
                     배우는 게 재밌고, 만드는 게 즐거운 이 마음이  
                     제가 계속 성장하게 만드는 원동력입니다.
                 </p>
-
-                <!-- <div class="about__detail-button">
-                    <NuxtLink to="/about" class="detail-button">
-                        <span class="detail-icon">👋</span>
-                        <span class="detail-text">자세히 보기</span>
-                    </NuxtLink>
-                </div> -->
             </div>
-            <router-link to="/about" class="about__detail-button">
-                <span class="detail-icon">👋</span>
-                <span class="detail-text">자세히 보기</span>
-            </router-link>
+            <div class="about__detail-button-wrap">
+                <NuxtLink to="/about" class="about__detail-button">
+                    <span class="detail-icon">👋</span>
+                    <span class="detail-text">자세히 보기</span>
+                </NuxtLink>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, onBeforeUnmount, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import AnimatedBackground from '@/components/common/AnimatedBackground.vue'
 
-// 컴포넌트 마운트 시 실행
-onMounted(() => {
+const aboutSection = ref<HTMLElement | null>(null)
+let observer: IntersectionObserver | null = null
+let hasAnimated = false
+
+function runAboutAnimations() {
+    if (hasAnimated) return
     gsap.registerPlugin(ScrollTrigger)
-    // 제목 애니메이션
-    gsap.from('.about__title', {
-        y: 60, opacity: 0, duration: 1,
+    gsap.set('.about__title', { y: 60, opacity: 0 })
+    gsap.set('.about__summary', { y: 60, opacity: 0 })
+    gsap.set('.about__content', { y: 80, opacity: 0 })
+    gsap.set('.about__paragraph', { y: 40, opacity: 0 })
+    gsap.set('.about__detail-button', { y: 40, opacity: 0 })
+
+    gsap.to('.about__title', {
+        y: 0, opacity: 1, duration: 1,
         scrollTrigger: {
             trigger: '.about__title',
             start: 'top 90%',
             toggleActions: 'play none none reverse'
         }
-    });
-    // 요약 텍스트 애니메이션
-    gsap.from('.about__summary', {
-        y: 60, opacity: 0, duration: 1, delay: 0.15,
+    })
+    gsap.to('.about__summary', {
+        y: 0, opacity: 1, duration: 1, delay: 0.15,
         scrollTrigger: {
             trigger: '.about__summary',
             start: 'top 90%',
             toggleActions: 'play none none reverse'
         }
-    });
-    // 콘텐츠 영역 애니메이션
-    gsap.from('.about__content', {
-        y: 80, opacity: 0, duration: 1.1, delay: 0.3,
+    })
+    gsap.to('.about__content', {
+        y: 0, opacity: 1, duration: 1.1, delay: 0.3,
         scrollTrigger: {
             trigger: '.about__content',
             start: 'top 90%',
             toggleActions: 'play none none reverse'
         }
-    });
-    // 문단 순차적 등장 애니메이션
-    gsap.from('.about__paragraph', {
-        y: 40, opacity: 0, duration: 0.8, stagger: 0.12,
+    })
+    gsap.to('.about__paragraph', {
+        y: 0, opacity: 1, duration: 0.8, stagger: 0.12,
         scrollTrigger: {
             trigger: '.about__content',
             start: 'top 90%',
             toggleActions: 'play none none reverse'
         }
-    });
+    })
+    gsap.to('.about__detail-button', {
+        y: 0, opacity: 1, duration: 0.9, delay: 0.5, ease: 'power2.out',
+        scrollTrigger: {
+            trigger: '.about__detail-button',
+            start: 'top 90%',
+            toggleActions: 'play none none reverse'
+        }
+    })
+    hasAnimated = true
+}
+
+onMounted(() => {
+    observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasAnimated) {
+                runAboutAnimations()
+            }
+        })
+    }, { threshold: 0.2 })
+    if (aboutSection.value) observer.observe(aboutSection.value)
+})
+
+onBeforeUnmount(() => {
+    if (observer && aboutSection.value) observer.unobserve(aboutSection.value)
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+    gsap.killTweensOf([
+        '.about__title',
+        '.about__summary',
+        '.about__content',
+        '.about__paragraph'
+    ])
 })
 </script>
 
 <style lang="scss" scoped>
 @use '@/assets/scss/common/_var' as v;
 @use '@/assets/scss/common/_mixins' as *;
-
 // About 섹션 기본 스타일
 .about {
     position: relative;
@@ -283,76 +314,64 @@ onMounted(() => {
     }
 }
 
-// 자세히보기 버튼 스타일
-.about__detail-button {
+.about__detail-button-wrap{
     display: flex;
+    align-items: center;
     justify-content: center;
     margin-top: rem(32);
+    @include tablet { margin-top: rem(24); }
+    @include mobile { margin-top: rem(24); }
+}
 
-    .detail-button {
-        display: inline-flex;
-        align-items: center;
-        gap: rem(12.8);
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(rem(10));
-        border: rem(1) solid rgba(255, 255, 255, 0.2);
-        border-radius: rem(32);
-        padding: rem(12.8) rem(28.8);
-        color: #fff;
-        text-decoration: none;
+// 자세히보기 버튼 스타일
+.about__detail-button {
+    display: inline-flex;
+    align-items: center;
+    gap: rem(8);
+    border-radius: 999px;
+    padding: rem(12) rem(38) rem(12) rem(22);
+    background:  transparent;
+    color: #fff;
+    border: rem(2) solid #bebebe;
+    box-shadow: 0 rem(4) rem(12) rgba(0,0,0,0.12);
+    transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+    text-decoration: none;
+    cursor: pointer;
+    transform-origin: 70% 70%;
+
+    @include tablet { padding: rem(12) rem(22) rem(12) rem(16); }
+    @include mobile { padding: rem(10) rem(22) rem(10) rem(16); }
+    &:hover {
+        background: #fff;
+        color: #000;
+        box-shadow: 0 rem(8) rem(24) rgba(0,0,0,0.18);
+    }
+    .detail-icon {
+        display: inline-block;
+        animation: waving-hand 2s infinite;
+        transform-origin: 70% 70%;
+        font-size: rem(22);
+        @include tablet { font-size: rem(18); }
+        @include mobile { font-size: rem(16); }
+    }
+    .detail-text{
+        font-size: rem(20);
         font-family: v.$font-kn2;
-        font-size: rem(17.6);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        @media (hover: hover) {
-            &:hover {
-                transform: translateY(rem(-4));
-                box-shadow: 0 rem(10) rem(20) rgba(0, 0, 0, 0.2);
-                border-color: rgba(255, 255, 255, 0.3);
-
-                &::before {
-                    opacity: 1;
-                }
-
-                .detail-icon {
-                    transform: scale(1.1);
-                }
-            }
-        }
-
-        .detail-icon {
-            font-size: rem(20.8);
-            transition: transform 0.4s ease;
-        }
-
-        .detail-text {
-            font-weight: 500;
-        }
+        font-weight: 400;
+        @include tablet { font-size: rem(18); }
+        @include mobile { font-size: rem(14); }
     }
+}
 
-    @include mobile {
-        .detail-button {
-            padding: rem(11.2) rem(24);
-            font-size: rem(16);
-
-            .detail-icon {
-                font-size: rem(19.2);
-            }
-        }
-    }
+@keyframes waving-hand {
+  0% { transform: rotate(0deg) translateX(0); }
+  10% { transform: rotate(14deg) translateX(4px); }
+  20% { transform: rotate(-8deg) translateX(-4px); }
+  30% { transform: rotate(14deg) translateX(4px); }
+  40% { transform: rotate(-4deg) translateX(-2px); }
+  50% { transform: rotate(10deg) translateX(2px); }
+  60% { transform: rotate(0deg) translateX(0); }
+  100% { transform: rotate(0deg) translateX(0); }
 }
 </style>  
 
