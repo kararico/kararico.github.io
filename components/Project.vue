@@ -17,7 +17,7 @@
                             </h4>
                             <div class="project__details">
                                 <ul class="project__tags">
-                                    <li><span>skill</span></li>
+                                    <!-- <li><span>skill</span></li> -->
                                     <li v-for="skill in project.skills" :key="skill">
                                         <span>#{{ skill }}</span>
                                     </li>
@@ -95,7 +95,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'EZWEL',
-        description: '<em class="highlight">EZWEL</em> 프로젝트를 진행중에 있습니다.',
+        description: '<em class="highlight">EZWEL</em> 차세대 프로젝트 진행중입니다.',
         siteUrl: '',
         mediaType: 'video',
         videoUrl: 'https://img.ezwelfare.net/welfare_corp/css/user/front/renew/images/main_visual01.mp4',
@@ -344,17 +344,18 @@ onUnmounted(() => {
     &__category {
         display: block;
         white-space: pre-wrap;
-        font-family: v.$font-kn2;
+        font-family: v.$font-kn1;
         font-size: rem(16);
         margin-bottom: rem(8);
         text-transform: uppercase;
+        letter-spacing: rem(0.02);
         @include tablet {
            font-size: rem(34);
            margin-bottom: rem(10);
         }
 
         @include mobile {
-           font-size: rem(20);
+           font-size: rem(14);
         }
     }
 
@@ -379,11 +380,11 @@ onUnmounted(() => {
 
         li {
             &:first-child a {
-                border-color: v.$main-color;
+                border-color: #ffffff;
                 &:hover {
                     color: #ffffff;
                     background-color: transparent;
-                    border-color: v.$main-color;
+                    border-color: #ffffff;
                 }
             }
         }
@@ -401,7 +402,7 @@ onUnmounted(() => {
         background-color: rgba(16,18,20,.25);
         border: rem(1) solid rgba(255,255,255,.1);
         transition: 0.3s ease-in-out;
-
+        font-family: v.$font-en1;
         @include pc {
             padding: rem(10) rem(22);
         }
@@ -412,7 +413,7 @@ onUnmounted(() => {
 
         @include mobile {
             border-radius: rem(40);
-            padding: rem(8) rem(48);
+            padding: rem(8) rem(30);
         }
 
         span {
@@ -471,9 +472,7 @@ onUnmounted(() => {
             font-family: 'Pretendard', sans-serif;
             font-weight: 400;
             line-height: 1.92;
-            &:first-child {
-                color: #d3d3d3;
-            }
+            color: #d3d3d3;
         }
     }
 
@@ -481,12 +480,12 @@ onUnmounted(() => {
         font-family: 'Pretendard', sans-serif;
         font-weight: 400;
         letter-spacing: -0.025em;
-        color: #bbbbbb;
+        color: #ffffff;
         margin-top: rem(8);
         font-size: rem(22);
         line-height: 1.5;
         :deep(.highlight){
-            color: v.$main-color; 
+            // color: v.$main-color; 
         }
         span {
             color: #ffffff;

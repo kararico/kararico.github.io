@@ -85,12 +85,21 @@ let hasAnimated = false
 function runAboutAnimations() {
     if (hasAnimated) return
     gsap.registerPlugin(ScrollTrigger)
+    gsap.set('.about__inner', { y: 60, opacity: 0 })
     gsap.set('.about__title', { y: 60, opacity: 0 })
     gsap.set('.about__summary', { y: 60, opacity: 0 })
     gsap.set('.about__content', { y: 80, opacity: 0 })
     gsap.set('.about__paragraph', { y: 40, opacity: 0 })
     gsap.set('.about__detail-button', { y: 40, opacity: 0 })
 
+    gsap.to('.about__inner', {
+        y: 0, opacity: 1, duration: 1, ease: 'power2.out',
+        scrollTrigger: {
+            trigger: '.about__inner',
+            start: 'top 90%',
+            toggleActions: 'play none none reverse'
+        }
+    })
     gsap.to('.about__title', {
         y: 0, opacity: 1, duration: 1,
         scrollTrigger: {
@@ -181,6 +190,8 @@ onBeforeUnmount(() => {
         max-width: rem(1440);
         margin:0 auto;
         @include tablet { max-width: 100%; }
+        opacity: 0;
+        transform: translateY(60px);
     }
     // 제목 스타일
     &__title {
@@ -195,6 +206,8 @@ onBeforeUnmount(() => {
         font-family: v.$font-en3;
         @include tablet { font-size: rem(32); }
         @include mobile { font-size: rem(35);}
+        opacity: 0;
+        transform: translateY(60px);
     }
 
     // 요약 텍스트 스타일
@@ -209,6 +222,8 @@ onBeforeUnmount(() => {
         .main-color { color: v.$main-color; font-weight: 700; }
         @include tablet { font-size: rem(24); }
         @include mobile { font-size: rem(16);  }
+        opacity: 0;
+        transform: translateY(60px);
     }
 
     .card-style{
@@ -241,6 +256,8 @@ onBeforeUnmount(() => {
             z-index: 0;
             pointer-events: none;
         }
+        opacity: 0;
+        transform: translateY(80px);
     }
 
     // 문단 스타일
@@ -255,6 +272,8 @@ onBeforeUnmount(() => {
         span[aria-label] { font-size: rem(19.2); vertical-align: middle; }
         &:last-child { margin-bottom: 0; }
         @include mobile { font-size: rem(14); line-height: 1.3; margin-bottom: rem(16); }
+        opacity: 0;
+        transform: translateY(40px);
     }
 
     // 프로필 플로팅 이미지 스타일
@@ -338,6 +357,8 @@ onBeforeUnmount(() => {
     text-decoration: none;
     cursor: pointer;
     transform-origin: 70% 70%;
+    opacity: 0;
+    transform: translateY(40px);
 
     @include tablet { padding: rem(12) rem(22) rem(12) rem(16); }
     @include mobile { padding: rem(10) rem(22) rem(10) rem(16); }
