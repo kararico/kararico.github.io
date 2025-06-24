@@ -189,9 +189,9 @@ onBeforeUnmount(() => {
     &__inner{
         max-width: rem(1440);
         margin:0 auto;
-        @include tablet { max-width: 100%; }
         opacity: 0;
         transform: translateY(60px);
+        @include tablet { max-width: 100%; }
     }
     // 제목 스타일
     &__title {
@@ -204,9 +204,9 @@ onBeforeUnmount(() => {
         z-index: 1;
         letter-spacing: rem(0.4);
         font-family: v.$font-en3;
+        opacity: 0;
         @include tablet { font-size: rem(32); }
         @include mobile { font-size: rem(35);}
-        opacity: 0;
         transform: translateY(60px);
     }
 
@@ -221,7 +221,7 @@ onBeforeUnmount(() => {
         font-family: v.$font-kn3;
         .main-color { color: v.$main-color; font-weight: 700; }
         @include tablet { font-size: rem(24); }
-        @include mobile { font-size: rem(16);  }
+        @include mobile { font-size: rem(16);  } 
         opacity: 0;
         transform: translateY(60px);
     }

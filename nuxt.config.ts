@@ -10,6 +10,22 @@ export default defineNuxtConfig({
           // additionalData: '@use "@/assets/scss/abstracts/_var" as *;'
         }
       }
+    },
+    define: {
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: false
+    },
+    // Sass 레거시 API 경고 제거
+    optimizeDeps: {
+      include: ['sass']
+    },
+    // Sass 설정
+    plugins: []
+  },
+  // Sass 레거시 API 경고 해결
+  nitro: {
+    experimental: {
+      wasm: true
     }
   },
   runtimeConfig: {
@@ -25,9 +41,5 @@ export default defineNuxtConfig({
   build: {
     transpile: ['gsap']
   },
-  ssr: false,
-  target: 'static',
-  generate: {
-    fallback: true
-  }
+  ssr: false
 })
