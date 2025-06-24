@@ -6,7 +6,7 @@ interface Project {
   category: string;
   image: string;
   description: string;
-  period: string;
+  companyDescription: string;
   swiperUi: boolean;
   details: {
     size: string;
@@ -43,6 +43,7 @@ interface Project {
     github?: string;
     demo?: string;
   };
+  tags: string[];
 }
 
 interface ProjectState {
@@ -57,6 +58,7 @@ export const useProjectStore = defineStore('projects', {
         title: '복지몰 웹사이트 리뉴얼',
         category: 'PC',
         image: '/images/products/project1.png',
+        tags: ['UX/UI', 'Website', 'Admin System'],
         description: `복지몰 사이트 리뉴얼 구축 프로젝트에 웹 퍼블리셔로 참여하였습니다.
 
           기존 사이트의 UI 구조를 재정비하고, 사용자 중심의 경험을 제공하기 위해 마크업과 인터랙션 구현을 담당하고 있습니다. 프로젝트는 Nuxt.js 기반으로 구축되었으며, TypeScript를 적용하여 정적 타입의 안정성과 유지보수성을 확보했습니다.
@@ -76,7 +78,7 @@ export const useProjectStore = defineStore('projects', {
 
           SCSS 변수와 믹스인을 활용하여 디자인 가이드를 템플릿화하고,
           PC/MOBILE 공통 요소를 유연하게 분리·재사용할 수 있도록 체계적인 구조로 퍼블리싱을 진행 중입니다.`,
-        period: '2024.11 - NOW',
+        companyDescription: '국내 최고의 복지 서비스를 제공하는 기업으로, 직원들의 만족도를 최우선으로 하는 혁신적인 복지몰 플랫폼을 구축했습니다.',
         swiperUi: true,
         details: [
           {
@@ -118,7 +120,7 @@ export const useProjectStore = defineStore('projects', {
             title: '다양한 사용자 디바이스 대응을 위한 반응형 및 적응형 구조 설계',
             description: 'PC/MOBILE 공통 요소를 유연하게 분리·재사용할 수 있도록 체계적인 구조로 퍼블리싱을 진행 중입니다.'
           }
-      ],
+        ],
         links: {
           website: '',
           github: ''
@@ -129,8 +131,9 @@ export const useProjectStore = defineStore('projects', {
         title: '스타벅스 임직원 하이브리드앱 프로젝트',
         category: 'MOBILE',
         image: '/images/products/project3.png',
+        tags: ['Hybrid App', 'Mobile', 'UX/UI'],
         description: '스타벅스 임직원 하이브리드앱 프로젝트에 웹 퍼블리셔로 참여하였습니다.',
-        period: '2024.01 - 2024.03',
+        companyDescription: '글로벌 커피 브랜드 스타벅스와 함께 임직원들의 업무 효율성을 극대화하는 하이브리드 앱을 개발했습니다.',
         swiperUi: true,
         details: [
           {
@@ -175,8 +178,9 @@ export const useProjectStore = defineStore('projects', {
         title: '패션 이커머스 부분 개편 및 운영',
         category: 'PC',
         image: '/images/products/project2.png',
+        tags: ['E-commerce', 'Fashion', 'UI 개선'],
         description: 'MLB KOREA 패션 이커머스 부분 개편 및 운영 프로젝트에 웹 퍼블리셔로 참여하였습니다.',
-        period: '2023.12 - 2024.03',
+        companyDescription: 'MLB KOREA와 협업하여 패션 이커머스 플랫폼의 사용자 경험을 혁신적으로 개선했습니다.',
         swiperUi: false,
         details: [
           {
@@ -226,8 +230,9 @@ export const useProjectStore = defineStore('projects', {
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project4.png',
+        tags: ['Branding', 'Website', 'Renewal'],
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        period: '2024.01 - 2024.03',
+        companyDescription: '혁신적인 디지털 솔루션으로 기업의 브랜드 가치를 극대화하는 웹사이트 리뉴얼을 완료했습니다.',
         swiperUi: true,
         details: [
           {
@@ -278,8 +283,9 @@ export const useProjectStore = defineStore('projects', {
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project5.png',
+        tags: ['Branding', 'Website', 'Renewal'],
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        period: '2024.01 - 2024.03',
+        companyDescription: '최신 웹 기술을 활용하여 기업의 디지털 프레즌스를 혁신적으로 업그레이드했습니다.',
         swiperUi: true,
         details: [
           {
@@ -330,8 +336,9 @@ export const useProjectStore = defineStore('projects', {
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project6.png',
+        tags: ['Branding', 'Website', 'Renewal'],
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        period: '2024.01 - 2024.03',
+        companyDescription: '사용자 중심의 디자인으로 기업의 온라인 브랜딩을 완전히 새롭게 재정의했습니다.',
         swiperUi: true,
         details: [
           {
@@ -382,8 +389,9 @@ export const useProjectStore = defineStore('projects', {
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project7.png',
+        tags: ['Branding', 'Website', 'Renewal'],
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        period: '2024.01 - 2024.03',
+        companyDescription: '모던한 웹 디자인과 최적화된 사용자 경험으로 기업의 디지털 전환을 성공적으로 이끌었습니다.',
         swiperUi: true,
         details: [
           {
@@ -434,8 +442,9 @@ export const useProjectStore = defineStore('projects', {
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project8.png',
+        tags: ['Branding', 'Website', 'Renewal'],
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        period: '2024.01 - 2024.03',
+        companyDescription: '반응형 웹 디자인과 인터랙티브 요소를 통해 기업의 온라인 존재감을 대폭 향상시켰습니다.',
         swiperUi: true,
         details: [
           {
@@ -486,8 +495,9 @@ export const useProjectStore = defineStore('projects', {
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project9.png',
+        tags: ['Branding', 'Website', 'Renewal'],
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        period: '2024.01 - 2024.03',
+        companyDescription: '크리에이티브한 디자인과 기술적 혁신으로 기업의 디지털 아이덴티티를 완전히 새롭게 구축했습니다.',
         swiperUi: true,
         details: [
           {
@@ -538,8 +548,9 @@ export const useProjectStore = defineStore('projects', {
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project10.png',
+        tags: ['Branding', 'Website', 'Renewal'],
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        period: '2024.01 - 2024.03',
+        companyDescription: '최첨단 웹 기술과 창의적인 디자인으로 기업의 온라인 브랜드 가치를 극대화했습니다.',
         swiperUi: true,
         details: [
           {
@@ -590,8 +601,9 @@ export const useProjectStore = defineStore('projects', {
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project11.png',
+        tags: ['Branding', 'Website', 'Renewal'],
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        period: '2024.01 - 2024.03',
+        companyDescription: '사용자 경험 중심의 디자인과 최적화된 성능으로 기업의 디지털 마케팅 효과를 대폭 증대시켰습니다.',
         swiperUi: true,
         details: [
           {
@@ -642,8 +654,9 @@ export const useProjectStore = defineStore('projects', {
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project12.png',
+        tags: ['Branding', 'Website', 'Renewal'],
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        period: '2024.01 - 2024.03',
+        companyDescription: '혁신적인 UI/UX 디자인과 최신 웹 표준을 적용하여 기업의 온라인 경쟁력을 크게 향상시켰습니다.',
         swiperUi: true,
         details: [
           {
@@ -694,8 +707,9 @@ export const useProjectStore = defineStore('projects', {
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project13.png',
+        tags: ['Branding', 'Website', 'Renewal'],
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        period: '2024.01 - 2024.03',
+        companyDescription: '전문적인 웹 개발 역량과 창의적인 디자인으로 기업의 디지털 브랜딩을 성공적으로 완성했습니다.',
         swiperUi: true,
         details: [
           {

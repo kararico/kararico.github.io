@@ -75,7 +75,6 @@ defineProps<{
   overflow: hidden;
   z-index: 1;
   pointer-events: none;
-
   &.hero {
     .background-svg {
       filter: blur(40px);

@@ -182,6 +182,7 @@ watch(filteredProjects, (newVal) => {
 
 .hero-section {
   height: 100vh;
+  height: 100dvh;
   display: flex;
   align-items: center;
   background-color: #000;

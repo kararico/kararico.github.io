@@ -8,13 +8,9 @@
         <div class="main-visual">
           <div class="image-container">
             <img 
-              v-for="(image, index) in images" 
-              :key="index"
-              :src="image"
-              :alt="'Profile Image ' + (index + 1)"
+              :src="images[0]"
+              alt="Profile Image"
               class="profile-image"
-              :class="{ 'active': currentImageIndex === index }"
-              :ref="el => { if (el) profileImages[index] = el as HTMLElement }"
             >
             <p class="profile-image-text text-muted">가족과의 여행 중, 웹 얘기만 하던 날 📷</p>
           </div>
@@ -110,8 +106,6 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref, watch, nextTick } from 'vue'
 import { useRuntimeConfig, useHead } from '#imports'
-import profile1 from '@/assets/images/layout/about/profile_01.png'
-import profile2 from '@/assets/images/layout/about/profile_02.png'
 import profile3 from '@/assets/images/layout/about/profile_03.png'
 import ScrollTop from '@/components/ScrollTop.vue'
 import gsap from 'gsap'
@@ -125,7 +119,6 @@ useHead({
 })
 
 const emit = defineEmits(['animationComplete'])
-const currentImageIndex = ref(0)
 const images = [
   // profile1,
   // profile2,
@@ -257,7 +250,6 @@ const tmis = [
 const sectionTitle = ref<HTMLElement | null>(null)
 const sectionSubtitle = ref<HTMLElement | null>(null)
 const aboutDescription = ref<HTMLElement | null>(null)
-const profileImages = ref<(HTMLElement | null)[]>([])
 const skillCards = ref<(HTMLElement | null)[]>([])
 const timelineItems = ref<(HTMLElement | null)[]>([])
 const timelineDots = ref<(HTMLElement | null)[]>([])
@@ -310,51 +302,6 @@ const initAnimations = async () => {
       }
     })
   }
-
-  // Profile image animation
-  profileImages.value.forEach((image) => {
-    if (image) {
-      gsap.set(image, {
-        opacity: 0,
-        scale: 0.8
-      })
-    }
-  })
-
-  // Initial active image animation
-  const activeImage = profileImages.value[currentImageIndex.value]
-  if (activeImage) {
-    gsap.to(activeImage, {
-      opacity: 1,
-      scale: 1,
-      duration: 0.8,
-      delay: 0.3,
-      ease: 'power3.out'
-    })
-  }
-
-  // Watch for image changes
-  watch(currentImageIndex, (newIndex) => {
-    profileImages.value.forEach((image, index) => {
-      if (image) {
-        if (index === newIndex) {
-          gsap.to(image, {
-            opacity: 1,
-            scale: 1,
-            duration: 0.5,
-            ease: 'Expo.Inout'
-          })
-        } else {
-          gsap.to(image, {
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.5,
-            ease: 'Expo.Inout'
-          })
-        }
-      }
-    })
-  })
 
   // Skills section animation
   skillCards.value.forEach((card, index) => {
@@ -486,7 +433,6 @@ const initTimelineAnimation = () => {
 
 onMounted(async () => {
   emit('animationComplete')
-  intervalId = window.setInterval(rotateImages, 5000)
   await nextTick()
   gsap.registerPlugin(ScrollTrigger)
   initTimelineAnimation()
@@ -494,9 +440,6 @@ onMounted(async () => {
 })
 
 onUnmounted(() => {
-  if (intervalId) {
-    clearInterval(intervalId)
-  }
   // Clean up ScrollTrigger
   ScrollTrigger.getAll().forEach((trigger: any) => trigger.kill())
 })
@@ -589,7 +532,7 @@ onUnmounted(() => {
           position: absolute;
           top: 0;
           left: 0;
-          opacity: 0;
+          opacity: 1;
           &-text {
             font-size: rem(16.8);
             font-family: v.$font-kn2;
@@ -939,7 +882,8 @@ onUnmounted(() => {
     font-weight: 800;
     margin-bottom: rem(14);
     color: #fff;
-    font-family: v.$font-en2;
+    font-family: v.$font-en3;
+    text-align: center;
   }
 
   .tmi-list {

@@ -33,6 +33,13 @@
                                             <span>GO SITE</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="#" 
+                                           class="project__link" 
+                                           @click.prevent="handleDetailClick(index)">
+                                            <span>VIEW DETAIL</span>
+                                        </a>
+                                    </li>
                                 </ul>
                         
                             </div>
@@ -69,6 +76,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed, onUnmounted, nextTick } from 'vue'
+import { navigateTo } from '#app'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -85,9 +93,16 @@ const getEmbedUrl = (url: string) => {
 const handleSiteClick = (url: string) => {
     if (!url) {
         alert('비공개 프로젝트입니다')
-    }else{
+    } else {
         window.open(url, '_blank')
     }
+}
+
+// 상세 페이지 이동 함수
+const handleDetailClick = (projectIndex: number) => {
+    // 프로젝트 상세 페이지로 이동
+    const projectId = projectIndex + 1 // 1부터 시작하는 ID
+    navigateTo(`/projects/${projectId}`)
 }
 
 // 프로젝트 데이터
@@ -95,7 +110,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'EZWEL',
-        description: '<em class="highlight">EZWEL</em> 차세대 프로젝트 진행중입니다.',
+        description: '복잡한 복지 시스템을 사용자 친화적으로 개선하여<br />더 나은 서비스 경험을 제공하는 차세대 프로젝트입니다.',
         siteUrl: '',
         mediaType: 'video',
         videoUrl: 'https://img.ezwelfare.net/welfare_corp/css/user/front/renew/images/main_visual01.mp4',
@@ -105,7 +120,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'STARBUCKS',
-        description: '<em class="highlight">스타벅스</em> 임직원 사내용 하이브리드 앱 프로젝트입니다.',
+        description: '스타벅스 임직원 사내용 하이브리드 앱 프로젝트입니다.<br />임직원들의 업무 효율성과 커뮤니케이션을 향상시키는 앱입니다.',
         siteUrl: '',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/28043968/12290715_2560_1440_24fps.mp4',
@@ -115,7 +130,7 @@ const projects = ref([
     {
         category: 'Operation',
         title: 'MLB KOREA',
-        description: '<em class="highlight">엠엘비 코리아</em> 홈페이지 부분 개편 운영 프로젝트입니다.',
+        description: '엠엘비 코리아 홈페이지 부분 개편 운영 프로젝트입니다.<br />트렌디한 패션몰을 위한 최적화된 쇼핑 경험을 제공합니다.',
         siteUrl: 'https://www.mlb-korea.com/',
         mediaType: 'video',
         videoUrl: 'https://cdn.prod.website-files.com/646a4e539ffa024a48651555/649070038794a919744c0b8f_background-video-1280x720-30fps-transcode.mp4',
@@ -125,7 +140,7 @@ const projects = ref([
     {
         category: 'Operation',
         title: 'DISCOVERY',
-        description: '<em class="highlight">디스커버리</em> 홈페이지 부분 개편 및 운영 프로젝트입니다.',
+        description: '디스커버리 홈페이지 부분 개편 및 운영 프로젝트입니다.<br />아웃도어 브랜드의 모던하고 역동적인 웹 경험을 구현합니다.',
         siteUrl: 'https://www.discovery-expedition.com',
         mediaType: 'video',
         videoUrl: 'https://homepage-static.fnf.co.kr/pcVideo_67db5edf809283.56040568.mp4',
@@ -135,7 +150,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'CASAMINA',
-        description: '<em class="highlight">까사미아</em> 홈페이지 개편 프로젝트입니다.',
+        description: '까사미아 홈페이지 개편 프로젝트입니다.<br />브랜드 아이덴티티를 강화하는 브랜드 알리사이트를 구현합니다.',
         siteUrl: 'https://casamia.co.kr/home',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/32013494/13644778_2560_1440_25fps.mp4',
@@ -145,7 +160,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'GUUD',
-        description: '<em class="highlight">굳닷컴</em> 개편 및 운영 프로젝트입니다.',
+        description: '굳닷컴 개편 및 운영 프로젝트입니다.<br />홈퍼니싱 이커머스 쇼핑몰의 최적화된 쇼핑 경험을 제공합니다.',
         siteUrl: 'https://guud.com',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/31646575/13482899_2560_1440_60fps.mp4',
@@ -155,7 +170,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'BULLSONE',
-        description: '<em class="highlight">불스원</em> 구축 프로젝트입니다.',
+        description: '불스원 구축 프로젝트입니다.<br />국영문 지원 브랜드사이트로 글로벌 브랜드 아이덴티티를 구현합니다.',
         siteUrl: 'https://bullsone.com/',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/29792714/12800431_1920_1080_60fps.mp4',
@@ -165,7 +180,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'LG SIGNATURE GLOBAL',
-        description: '<em class="highlight">LG시그니처 글로벌 사이트</em> 구축 프로젝트입니다.',
+        description: 'LG시그니처 글로벌 사이트 구축 프로젝트입니다.<br />영문 사이트로 특별한 애니메이션 효과를 구현한 프리미엄 브랜드사이트입니다.',
         siteUrl: 'https://www.lg.com/global/',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/30975000/13241693_2160_1440_24fps.mp4',
@@ -175,7 +190,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'Funbeerking',
-        description: '<em class="highlight">펀비어킹</em> 구축 프로젝트입니다.',
+        description: '펀비어킹 구축 프로젝트입니다.<br />반응형 프랜차이즈 사이트로 다양한 디바이스에서 최적화된 경험을 제공합니다.',
         siteUrl: 'http://www.funbeerking.com/index.php',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/10741100/10741100-hd_2560_1440_30fps.mp4',
@@ -367,24 +382,35 @@ onUnmounted(() => {
 
     &__links {
         display: flex;
-        gap: rem(8);
+        gap: rem(16);
         width: rem(832);
         justify-content: center;
         position: relative;
         margin-top: rem(32);
         @include mobile {
             width: 100%;
-            gap: rem(10);
+            gap: rem(12);
             margin-top: rem(20);
         }
 
         li {
             &:first-child a {
-                border-color: #ffffff;
+                border-color: rgba(255,255,255,.3);
+                background-color: rgba(255,255,255,.1);
                 &:hover {
-                    color: #ffffff;
-                    background-color: transparent;
-                    border-color: #ffffff;
+                    color: #101214;
+                    background-color: #fff;
+                    border-color: #fff;
+                }
+            }
+            
+            &:nth-child(2) a {
+                border-color: rgba(255,255,255,.3);
+                background-color: rgba(255,255,255,.1);
+                &:hover {
+                    color: #101214;
+                    background-color: #fff;
+                    border-color: #fff;
                 }
             }
         }
@@ -397,23 +423,28 @@ onUnmounted(() => {
         justify-content: center;
         gap: rem(3);
         border-radius: rem(11);
-        padding: rem(16) rem(64);
+        padding: rem(16) rem(48);
         backdrop-filter: blur(rem(20));
         background-color: rgba(16,18,20,.25);
         border: rem(1) solid rgba(255,255,255,.1);
         transition: 0.3s ease-in-out;
         font-family: v.$font-en1;
+        min-width: rem(140);
+        
         @include pc {
-            padding: rem(10) rem(22);
+            padding: rem(12) rem(32);
+            min-width: rem(120);
         }
 
         @include tablet {
-            padding: rem(10) rem(22);
+            padding: rem(12) rem(32);
+            min-width: rem(120);
         }
 
         @include mobile {
             border-radius: rem(40);
-            padding: rem(8) rem(30);
+            padding: rem(8) rem(24);
+            min-width: rem(100);
         }
 
         span {
@@ -456,10 +487,10 @@ onUnmounted(() => {
         justify-content: center;
         color: #747474;
         text-transform: uppercase;
-        font-size: rem(22);
+        font-size: rem(18);
 
         @include tablet {
-            font-size: rem(19);
+            font-size: rem(18);
         }
         @include mobile {
             font-size: rem(12);
@@ -482,17 +513,14 @@ onUnmounted(() => {
         letter-spacing: -0.025em;
         color: #ffffff;
         margin-top: rem(8);
-        font-size: rem(22);
+        font-size: rem(18);
         line-height: 1.5;
-        :deep(.highlight){
-            // color: v.$main-color; 
-        }
         span {
             color: #ffffff;
         }
 
         @include tablet {
-            font-size: rem(21);
+            font-size: rem(18);
         }
         @include mobile {
             font-size: rem(14);

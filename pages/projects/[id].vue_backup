@@ -49,7 +49,7 @@
             <div class="project-info">
               <p class="text-secondary">{{ project.category }}</p>
               <div class="project-meta">
-                <span class="text-muted">{{ project.companyDescription }}</span>
+                <span class="text-muted">{{ project.period }}</span>
               </div>
             </div>
           </div>
@@ -66,10 +66,20 @@
       <!-- Gallery Section -->
       <section class="section">
         <div class="inner">
-          <div class="gallery-container">
-            <div class="grid-auto-fit">
-              <div v-for="(image, index) in project.images" :key="index" class="gallery-item">
-                <img :src="image.url" :alt="image.alt">
+          <div class="swiper-container-wrapper">
+            <div v-if="project.swiperUi" class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div v-for="(image, index) in project.images" :key="index" class="swiper-slide">
+                    <img :src="image.url" :alt="image.alt">
+                  </div>
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <div v-else class="grid-auto-fit">
+            <div v-for="(image, index) in project.images" :key="index" class="gallery-item">
+              <img :src="image.url" :alt="image.alt">
               </div>
             </div>
           </div>
@@ -134,7 +144,8 @@
             </div>
           </div>
         </div>
-ㅂㅂ      </section>
+
+      </section>
 
       <!-- Project Links Section -->
       <section class="section">
@@ -159,6 +170,7 @@
               </a>
             </div>
         </div>
+
       </section>
     </div>
     <div v-else class="error-message text-secondary">
@@ -253,17 +265,54 @@ const handleNavigation = () => {
 
 // Swiper 초기화 함수
 const initSwiper = async () => {
-  // Swiper 기능을 비활성화하고 일반 갤러리로 대체
-  console.log('Swiper 기능이 비활성화되었습니다.');
+  if (typeof window === 'undefined') return;
+  await nextTick();
+  if (swiperInstance.value) {
+    swiperInstance.value.destroy(true, true);
+  }
+  // Swiper 관련 모듈들을 동적으로 import
+  const Swiper = (await import('swiper')).default;
+  const { Navigation, Pagination } = await import('swiper/modules');
+  await import('swiper/css');
+  await import('swiper/css/navigation');
+  await import('swiper/css/pagination');
+  // Swiper 인스턴스 생성 및 설정
+  swiperInstance.value = new Swiper('.swiper-container', {
+    modules: [Navigation, Pagination],
+    slidesPerView: 1,
+    spaceBetween: 20,
+    loop: true,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 1,
+      },
+      1024: {
+        slidesPerView: 1,
+      }
+    }
+  });
 };
 
 // 화면 크기 변경 시 Swiper 업데이트 처리
 const handleResize = () => {
-  // Swiper 관련 코드 제거
+  if (swiperInstance.value) {
+    swiperInstance.value.update();
+  }
 };
 
 // 컴포넌트 마운트 시 실행되는 훅
 onMounted(() => {
+  if (project.value?.swiperUi && !isLoading.value && project.value) {
+    initSwiper();
+  }
   window.addEventListener('resize', handleResize);
 });
 
@@ -274,7 +323,9 @@ onBeforeUnmount(() => {
 
 // 로딩 상태 변경 감시
 watch(() => isLoading.value, (newValue) => {
-  // Swiper 관련 코드 제거
+  if (project.value?.swiperUi && !newValue && project.value) {
+    initSwiper();
+  }
 });
 
 // 라우트 파라미터 변경 감시
@@ -313,10 +364,16 @@ const handleProjectLink = (url: string | undefined) => {
       .inner{
         max-width: rem(1200);
         margin: 0 auto;
-        .gallery-container{
+        .swiper-container-wrapper{
           position: relative;
           width: 100%;
           height: 100%;
+          @include tablet{
+            overflow: hidden;
+          }
+          @include mobile{
+            overflow: hidden;
+          }
         }
       }
     }
@@ -565,4 +622,4 @@ const handleProjectLink = (url: string | undefined) => {
       }
     }
 }
-</style> 
+</style>

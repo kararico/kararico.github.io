@@ -4,18 +4,21 @@
       <div class="hero-background"></div>
       <div class="container">
         <h1 class="section-title">Client</h1>
-        <p class="section-subtitle">제가 지금까지 작업해 온 클라이언트들이에요 :)</p>
+        <p class="section-description">다양한 브랜드와의 협업을 통해 쌓은 경험과 노하우로<br />각 프로젝트마다 최적화된 솔루션을 제공해왔습니다.</p>
 
         <div class="client-list-section">
           <div class="client-list-grid">
-            <div
+            <a
               v-for="(client, idx) in clientList"
               :key="client.name"
+              :href="client.link"
+              target="_blank"
+              rel="noopener noreferrer"
               class="client-logo"
               :ref="el => clientLogoRefs[idx] = el as Element"
             >
               <img :src="client.logo" :alt="client.name" />
-            </div>
+            </a>
           </div>
         </div>
 
@@ -29,8 +32,6 @@
 import { onMounted, onUnmounted, ref, nextTick } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import profile1 from '@/assets/images/layout/about/profile_01.png'
-import profile2 from '@/assets/images/layout/about/profile_02.png'
 import profile3 from '@/assets/images/layout/about/profile_03.png'
 import ScrollTop from '@/components/ScrollTop.vue'
 import { useHead } from '#imports'
@@ -52,60 +53,24 @@ const images = [
 ]
 
 const clientList = [
-  { name: '아모레퍼스픽', logo: '/images/clients/amorepacific.png' },
-  { name: '빙그레', logo: '/images/clients/bing.png' },
-  { name: '불스원', logo: '/images/clients/bullsone.png' },
-  { name: '까사미아아', logo: '/images/clients/casamia-logo.png' },
-  { name: '디스커버리', logo: '/images/clients/discovery.png' },
-  { name: '좋은사람들들', logo: '/images/clients/good-logo.png' },
-  { name: '호두잉글리시시', logo: '/images/clients/hodoo.png' },
-  { name: 'KT&G', logo: '/images/clients/ktng.png' },
-  { name: 'NCSOFT', logo: '/images/clients/laneige.png' },
-  { name: 'LG UPLUS', logo: '/images/clients/lgu.png' },
-  { name: '교보 라이프플래닛', logo: '/images/clients/lifeplanet.png' },
-  { name: '링티', logo: '/images/clients/lingtea2.png' },
-  { name: '마인드브릿지지', logo: '/images/clients/mb-logo.png' },
-  { name: '메가박스', logo: '/images/clients/megabox.png' },
-  { name: '엠엘비', logo: '/images/clients/mlb.png' },
-  { name: '삼성화재', logo: '/images/clients/samsung.png' },
-  { name: '시몬스', logo: '/images/clients/simmons.png' },
-  { name: '스타벅스', logo: '/images/clients/starbucks-logo.png' },
-  { name: '아모레퍼스픽', logo: '/images/clients/amorepacific.png' },
-  { name: '빙그레', logo: '/images/clients/bing.png' },
-  { name: '불스원', logo: '/images/clients/bullsone.png' },
-  { name: '까사미아아', logo: '/images/clients/casamia-logo.png' },
-  { name: '디스커버리', logo: '/images/clients/discovery.png' },
-  { name: '좋은사람들들', logo: '/images/clients/good-logo.png' },
-  { name: '호두잉글리시시', logo: '/images/clients/hodoo.png' },
-  { name: 'KT&G', logo: '/images/clients/ktng.png' },
-  { name: 'NCSOFT', logo: '/images/clients/laneige.png' },
-  { name: 'LG UPLUS', logo: '/images/clients/lgu.png' },
-  { name: '교보 라이프플래닛', logo: '/images/clients/lifeplanet.png' },
-  { name: '링티', logo: '/images/clients/lingtea2.png' },
-  { name: '마인드브릿지지', logo: '/images/clients/mb-logo.png' },
-  { name: '메가박스', logo: '/images/clients/megabox.png' },
-  { name: '엠엘비', logo: '/images/clients/mlb.png' },
-  { name: '삼성화재', logo: '/images/clients/samsung.png' },
-  { name: '시몬스', logo: '/images/clients/simmons.png' },
-  { name: '스타벅스', logo: '/images/clients/starbucks-logo.png' },
-  { name: '아모레퍼스픽', logo: '/images/clients/amorepacific.png' },
-  { name: '빙그레', logo: '/images/clients/bing.png' },
-  { name: '불스원', logo: '/images/clients/bullsone.png' },
-  { name: '까사미아아', logo: '/images/clients/casamia-logo.png' },
-  { name: '디스커버리', logo: '/images/clients/discovery.png' },
-  { name: '좋은사람들들', logo: '/images/clients/good-logo.png' },
-  { name: '호두잉글리시시', logo: '/images/clients/hodoo.png' },
-  { name: 'KT&G', logo: '/images/clients/ktng.png' },
-  { name: 'NCSOFT', logo: '/images/clients/laneige.png' },
-  { name: 'LG UPLUS', logo: '/images/clients/lgu.png' },
-  { name: '교보 라이프플래닛', logo: '/images/clients/lifeplanet.png' },
-  { name: '링티', logo: '/images/clients/lingtea2.png' },
-  { name: '마인드브릿지지', logo: '/images/clients/mb-logo.png' },
-  { name: '메가박스', logo: '/images/clients/megabox.png' },
-  { name: '엠엘비', logo: '/images/clients/mlb.png' },
-  { name: '삼성화재', logo: '/images/clients/samsung.png' },
-  { name: '시몬스', logo: '/images/clients/simmons.png' },
-  { name: '스타벅스', logo: '/images/clients/starbucks-logo.png' },
+  { name: '아모레퍼스픽', logo: '/images/clients/amorepacific.png', link: 'https://www.amorepacific.com' },
+  { name: '빙그레', logo: '/images/clients/bing.png', link: 'https://www.bing.co.kr' },
+  { name: '불스원', logo: '/images/clients/bullsone.png', link: 'https://bullsone.com' },
+  { name: '까사미아', logo: '/images/clients/casamia-logo.png', link: 'https://casamia.co.kr' },
+  { name: '디스커버리', logo: '/images/clients/discovery.png', link: 'https://www.discovery-expedition.com' },
+  { name: '좋은사람들', logo: '/images/clients/good-logo.png', link: 'https://www.goodpeople.co.kr/main.asp' },
+  { name: '호두잉글리시', logo: '/images/clients/hodoo.png', link: 'https://www.hodooenglish.com' },
+  { name: 'KT&G', logo: '/images/clients/ktng.png', link: 'https://www.ktng.com' },
+  { name: 'NCSOFT', logo: '/images/clients/laneige.png', link: 'https://www.ncsoft.com' },
+  { name: 'LG UPLUS', logo: '/images/clients/lgu.png', link: 'https://www.lguplus.co.kr' },
+  { name: '교보 라이프플래닛', logo: '/images/clients/lifeplanet.png', link: 'https://www.lifeplanet.co.kr' },
+  { name: '링티', logo: '/images/clients/lingtea2.png', link: 'https://www.lingtea.co.kr' },
+  { name: '마인드브릿지', logo: '/images/clients/mb-logo.png', link: 'https://www.mindbridge.co.kr' },
+  { name: '메가박스', logo: '/images/clients/megabox.png', link: 'https://www.megabox.co.kr' },
+  { name: '엠엘비', logo: '/images/clients/mlb.png', link: 'https://www.mlb-korea.com' },
+  { name: '삼성화재', logo: '/images/clients/samsung.png', link: 'https://www.samsungfire.com' },
+  { name: '시몬스', logo: '/images/clients/simmons.png', link: 'https://www.simmons.co.kr' },
+  { name: '스타벅스', logo: '/images/clients/starbucks-logo.png', link: 'https://www.starbucks.co.kr' },
 ]
 const clientLogoRefs = ref<(Element | null)[]>([])
 
@@ -117,9 +82,7 @@ const rotateImages = () => {
 
 // 로딩 애니메이션 완료 이벤트 처리 함수
 const handleLoadingComplete = () => {
-  console.log('handleLoadingComplete called')
   setTimeout(() => {
-    console.log('setTimeout callback')
     startAnimation()
   }, 1000)
 }
@@ -233,6 +196,21 @@ useHead({
       padding: 0 rem(20);
       @include mobile {
         padding: 0 rem(32);
+      }
+    }
+
+    .section-description {
+      font-size: rem(16);
+      line-height: 1.6;
+      color: #fff;
+      text-align: center;
+      font-family: v.$font-kn1;
+      @include tablet {
+        font-size: rem(15);
+      }
+      @include mobile {
+        font-size: rem(14);
+        line-height: 1.5;
       }
     }
   }
