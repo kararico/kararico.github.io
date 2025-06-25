@@ -28,6 +28,10 @@ jobs:
           echo > .output/public/.nojekyll
           cp public/404.html .output/public/404.html
 
+      - name: Fix file permissions
+        run: |
+          chmod -R 755 .output/public
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
