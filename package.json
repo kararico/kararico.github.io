@@ -6,7 +6,6 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "postgenerate": "echo > .output/public/.nojekyll && copy public\\404.html .output\\public\\404.html",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },

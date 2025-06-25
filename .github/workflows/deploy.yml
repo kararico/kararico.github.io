@@ -23,6 +23,11 @@ jobs:
       - name: Generate static site
         run: npm run generate
 
+      - name: Add .nojekyll and 404.html
+        run: |
+          echo > .output/public/.nojekyll
+          cp public/404.html .output/public/404.html
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
