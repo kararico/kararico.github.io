@@ -3,24 +3,6 @@
 <head>
     <meta charset="utf-8">
     <title>Redirecting...</title>
-    <script>
-        // 즉시 실행되는 리다이렉트
-        (function() {
-            const path = window.location.pathname;
-            const search = window.location.search;
-            const hash = window.location.hash;
-            
-            // 정적 파일이 아닌 경우 루트로 리다이렉트
-            if (path !== '/' && 
-                !path.includes('.') && 
-                !path.includes('_nuxt') &&
-                !path.includes('assets')) {
-                // 원래 경로를 쿼리 파라미터로 전달
-                const redirectUrl = '/' + (search ? search : '') + (hash ? hash : '') + '?redirect=' + encodeURIComponent(path);
-                window.location.replace(redirectUrl);
-            }
-        })();
-    </script>
 </head>
 <body>
     <p>Redirecting...</p>
