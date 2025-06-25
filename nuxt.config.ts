@@ -40,16 +40,10 @@ export default defineNuxtConfig({
   build: {
     transpile: ['gsap']
   },
-  // GitHub Pages를 위한 정적 사이트 생성 (SSR 비활성화)
+  // GitHub Pages를 위한 정적 사이트 생성
   ssr: false,
   // 정적 사이트 생성을 위한 설정
   nitro: {
-    preset: 'static',
-    prerender: {
-      routes: ['/']
-    },
-    experimental: {
-      wasm: true
-    }
+    preset: 'static'
   }
 })
