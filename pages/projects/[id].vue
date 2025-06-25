@@ -740,7 +740,7 @@ onBeforeUnmount(() => {
       font-weight: 700;
       text-align: center;
       letter-spacing: 0.05em;
-
+      pointer-events: none;
       @include tablet {
         flex-direction: row;
         align-items: center;
