@@ -27,12 +27,6 @@ export default defineNuxtConfig({
     // Sass 설정
     plugins: []
   },
-  // Sass 레거시 API 경고 해결
-  nitro: {
-    experimental: {
-      wasm: true
-    }
-  },
   runtimeConfig: {
     public: {
       emailjsServiceId: 'service_kcpb8c8',
@@ -46,6 +40,16 @@ export default defineNuxtConfig({
   build: {
     transpile: ['gsap']
   },
-  // SSR 활성화 (GitHub Pages에서 정적 사이트로 생성)
-  ssr: true
+  // GitHub Pages를 위한 정적 사이트 생성 (SSR 비활성화)
+  ssr: false,
+  // 정적 사이트 생성을 위한 설정
+  nitro: {
+    preset: 'static',
+    prerender: {
+      routes: ['/']
+    },
+    experimental: {
+      wasm: true
+    }
+  }
 })
