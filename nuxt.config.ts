@@ -1,5 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  // GitHub Pages 배포를 위한 설정
+  app: {
+    baseURL: process.env.NODE_ENV === 'production' ? '/kararico.github.io/' : '/',
+    buildAssetsDir: '/_nuxt/'
+  },
   css: [
     '@/assets/scss/imports.scss',
   ],
@@ -41,5 +46,6 @@ export default defineNuxtConfig({
   build: {
     transpile: ['gsap']
   },
-  ssr: false
+  // SSR 활성화 (GitHub Pages에서 정적 사이트로 생성)
+  ssr: true
 })
