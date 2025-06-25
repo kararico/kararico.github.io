@@ -124,7 +124,29 @@
 </template>
 
 <script setup lang="ts">
-// 가이드 페이지는 별도의 로직 없이 스타일 샘플만 제공합니다.
+import { onMounted, onUnmounted } from 'vue'
+import { useHead } from '#imports'
+import { usePageScroll } from '@/composables/usePageScroll'
+
+// 스크롤 위치 관리 훅 추가
+const { onPageEnter, onPageLeave } = usePageScroll()
+
+useHead({
+  title: 'Design System Guide | 정원 포트폴리오',
+  meta: [
+    { name: 'description', content: '정원 포트폴리오의 디자인 시스템 가이드입니다.' }
+  ]
+})
+
+onMounted(() => {
+  // 페이지 진입 시 스크롤 위치 복원
+  onPageEnter()
+})
+
+onUnmounted(() => {
+  // 페이지 이탈 시 스크롤 위치 저장
+  onPageLeave()
+})
 </script>
 
 <style lang="scss" scoped>

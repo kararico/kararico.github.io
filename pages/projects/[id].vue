@@ -49,8 +49,12 @@
         </div>
       </div>
       <div class="brand-main-image">
-        <img v-if="project?.images?.[0]" :src="project.images[0].url" :alt="project.images[0].alt" />
-        <img v-else src="/public/images/products/test-img01.jpg" alt="프로젝트 메인 이미지" />
+        <div v-if="project?.images?.[0]" class="image-container">
+          <img :src="project.images[0].url" :alt="project.images[0].alt" />
+        </div>
+        <div v-else class="no-image">
+          <p>프로젝트 메인 이미지가 없습니다.</p>
+        </div>
       </div>
       <div class="brand-description">
         <div class="inner">
@@ -133,13 +137,10 @@ import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import { useHead } from '#imports'
 import { useRoute } from 'vue-router';
 import { useProjectStore } from '@/stores/projects';
+import { usePageScroll } from '@/composables/usePageScroll'
 
-useHead({
-  title: 'Brand Detail | 정원 포트폴리오',
-  meta: [
-    { name: 'description', content: '정원의 브랜드 상세 페이지입니다.' }
-  ]
-})
+// 스크롤 위치 관리 훅 추가
+const { onPageEnter, onPageLeave } = usePageScroll()
 
 const route = useRoute();
 const projectStore = useProjectStore();
@@ -250,9 +251,15 @@ onMounted(() => {
   handleScroll();
   handleResize();
   window.addEventListener('resize', handleResize);
+  
+  // 페이지 진입 시 스크롤 위치 복원
+  onPageEnter()
 });
 
 onBeforeUnmount(() => {
+  // 페이지 이탈 시 스크롤 위치 저장
+  onPageLeave()
+  
   if (window.visualViewport) {
     window.visualViewport.removeEventListener('resize', setHeroAndDetailHeight);
     window.visualViewport.removeEventListener('scroll', setHeroAndDetailHeight);
@@ -316,24 +323,24 @@ onBeforeUnmount(() => {
  
   .brand-title-hero {
     color: #fff;
-    font-size: 4rem;
+    font-size: rem(64);
     font-weight: 700;
     letter-spacing: 0.25em;
     text-align: center;
-    text-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    text-shadow: 0 rem(4) rem(24) rgba(0,0,0,0.18);
     transition: opacity 0.2s;
     @include mobile {
-      font-size: 2.5rem;
+      font-size: rem(40);
     }
   }
   .scroll-down {
     position: absolute;
-    bottom: 40px;
+    bottom: rem(40);
     left: 0;
     right: 0;
     margin: 0 auto;
     text-align: center;
-    font-size: 2rem;
+    font-size: rem(32);
     color: #fff;
     opacity: 0.8;
     animation: scroll-bounce 1.2s infinite alternate;
@@ -354,43 +361,44 @@ onBeforeUnmount(() => {
 
   .brand-header {
     .inner {
-      padding: 0 2rem;
+      padding: 0 rem(32);
       text-align: center;
-      margin:0 auto 2.5rem;
-      max-width: 61.25rem;
+      margin:0 auto rem(40);
+      max-width: rem(980);
       @include tablet {
-        padding: 0 1.5rem;
+        padding: 0 rem(24);
       }
       @include mobile {
-        padding: 0 1.2rem;
+        padding: 0 rem(19.2);
+        text-align: left;
       }
       .brand-title {
-				padding:3rem 0 2rem;
-				font-size: 2.5rem;
+				padding:rem(48) 0 rem(32);
+				font-size: rem(40);
 				font-weight: 700;
-				margin-bottom: 0.5rem;
         text-align: left;
-        font-family: v.$font-kn1;
+        font-family: v.$font-kn2;
         @include tablet {
-          font-size: 2rem;
-          padding:2rem 0;
+          font-size: rem(32);
+          padding:rem(28) 0;
         }
         @include mobile {
-          font-size: 2rem;
-          padding:1.5rem 0;
+          font-size: rem(24);
+          padding:rem(14) 0;
         }
 			}
 			.brand-meta {
 				display: grid;
 				grid-template-columns: repeat(3, 1fr);
-				gap: 2rem;
-				margin: 2.5rem 0 2rem 0;
+				gap: rem(32);
+				margin: rem(40) 0 rem(32) 0;
 				text-align: left;
 
 				@include mobile {
 					display: flex;
 					flex-direction: column;
-					gap: 1.5rem;
+					gap: rem(24);
+				  margin: rem(10) 0 rem(16) 0;
 				}
 
 				.meta-item {
@@ -398,173 +406,206 @@ onBeforeUnmount(() => {
 					flex-direction: column;
 					align-items: flex-start;
 					min-width: 0;
+      
 					@include mobile {
 						width: 100%;
 					}
 				}
 				.meta-title {
-					font-size: 1.3rem;
+					font-size: rem(20.8);
 					font-weight: 700;
 					letter-spacing: 0.02em;
-					margin-bottom: 0.7em;
+					margin-bottom: rem(11.2);
+          font-family: v.$font-en1;
+          letter-spacing: rem(-0.04);
 					@include tablet {
-						font-size: 1.2rem;
-            margin-bottom: 0.5em;
+						font-size: rem(16);
+            margin-bottom: rem(8);
 					} 
           @include mobile {
-            font-size: 1.2rem;
+            font-size: rem(16);
             margin-bottom: 0;
           }
 				}
 				.meta-underline {
 					width: 100%;
-					height: 0.03rem;
+					height: rem(0.48);
 					background: #222;
-					margin-bottom: 0.8em;
+					margin-bottom: rem(12.8);
 					@include mobile {
 						width: 100%;
-						height: 1px;
+						height: rem(1);
 						background: #e0e0e0;
-						margin: 0.5em 0 1em 0;
+						margin: rem(8) 0 ;
 					}
 				}
 				.meta-value {
-					font-size: 2.5rem;
+					font-size: rem(40);
 					color: #444;
 					font-weight: 400;
 					word-break: keep-all;
+          font-family: v.$font-en1;
           @include tablet {
-            font-size: 2rem;
+            font-size: rem(24);
           }
           @include mobile {
-            font-size: 1.1rem;
+            font-size: rem(16);
           }
 				}
 			}
     	.brand-tags {
-     	 margin-top: 0.5rem;
-      .tag {
-        display: inline-block;
-        background: #111;
-        color: #fff;
-        border-radius: 1em;
-        padding: 0.3em 1em;
-        font-size: 0.95em;
-        margin: 0 0.3em 0.3em 0;
-        font-family: v.$font-kn2;
+        .tag {
+          display: inline-block;
+          background: #111;
+          color: #fff;
+          border-radius: rem(16);
+          padding: rem(4.8) rem(16);
+          font-size: rem(15.2);
+          margin: 0 rem(4.8) rem(4.8) 0;
+          font-family: v.$font-en1;
+          @include mobile {
+            font-size: rem(12);
+            margin: 0 rem(4) rem(4) 0;
+          }
         }
       }
     }
   }
   .brand-main-image {
     width: 100%;
-    margin-bottom: 4rem;
+    margin-bottom: rem(64);
     @include tablet {
-      margin-bottom: 2rem;
+      margin-bottom: rem(30);
     }
-    @include mobile {
-      margin-bottom: 1rem;
-    } 
-    img {
+    .image-container {
       width: 100%;
+      img {
+        width: 100%;
+      }
+    }
+    .no-image {
+      width: 100%;
+      text-align: center;
+      padding: rem(64) rem(32);
+      background: #f5f5f5;
+      border-radius: rem(8);
+      border: rem(2) dashed #ddd;
+      @include tablet {
+        padding: rem(48) rem(24);
+      }
+      @include mobile {
+        padding: rem(32) rem(16);
+      }
+      p {
+        font-size: rem(24);
+        color: #666;
+        font-family: v.$font-kn2;
+        margin: 0;
+        @include tablet {
+          font-size: rem(19.2);
+        }
+        @include mobile {
+          font-size: rem(16);
+        }
+      }
     }
   }
   .brand-description {
     .inner {
-      padding: 0 2rem;
-      margin:0 auto 2.5rem;
-      max-width: 61.25rem;
+      padding: 0 rem(32);
+      margin:0 auto rem(40);
+      max-width: rem(980);
       @include tablet {
-        padding: 0 1.5rem;
+        padding: 0 rem(24);
       }
       @include mobile {
-        padding: 0 1.2rem;
+        padding: 0 rem(19.2);
       }
     }
     h2 {
-      font-size: 2.5rem;
+      font-size: rem(40);
       font-weight: 600;
-      margin-bottom: 0.7rem;
+      margin-bottom: rem(11.2);
       @include tablet {
-        font-size: 1.5rem;
+        font-size: rem(24);
       }
       @include mobile {
-        font-size: 1.5rem;
+        font-size: rem(18);
       }
     }
     p {
-      font-size: 1.5rem;
+      font-size: rem(24);
       line-height: 1.5;
       color: #333;
       font-family: v.$font-kn2;
       @include tablet {
         line-height: 1.3;
-        font-size: 1.1rem;
+        font-size: rem(17.6);
       }
       @include mobile {
         line-height: 1.3;
-        font-size: 1.1rem;
+        font-size: rem(15);
       }
     }
   }
 }
 
 .brand-overview {
-  margin: 2.5rem auto 0 auto;
-  max-width: 61.25rem;
+  margin: rem(40) auto 0 auto;
+  max-width: rem(980);
   .inner{
-      padding: 0 2rem;
-      margin:0 auto 2.5rem;
-      max-width: 61.25rem;
+      padding: 0 rem(32);
+      margin:0 auto rem(40);
+      max-width: rem(980);
       @include tablet {
-        padding: 0 1.5rem;
+        padding: 0 rem(24);
         max-width: 100%;
       }
       @include mobile {
-        padding: 0 1.2rem;
+        padding: 0 rem(19.2);
         max-width: 100%;
       }
     h2 {
-      font-size: 2.5rem;
+      font-size: rem(40);
       font-weight: 600;
-      margin-bottom: 2rem;
+      margin-bottom: rem(32);
       text-align: left;
       @include tablet {
-        font-size: 2rem;
-        margin-bottom: 1.2rem;
+        font-size: rem(32);
+        margin-bottom: rem(19.2);
       }
       @include mobile {
-        font-size: 1.5rem;
-        margin-bottom: 1.2rem;
+        font-size: rem(24);
+        margin-bottom: rem(19.2);
       }
     }
 
     .overview-row {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
+      gap: rem(16);
+      margin-bottom: rem(40);
       @include tablet {
         flex-direction: row;
-        margin-bottom: 2rem;
+        margin-bottom: rem(32);
       }
       @include mobile {
-        margin-bottom: 2rem;
+        margin-bottom: rem(32);
       }
       .overview-card {
         display: flex;
         justify-content: space-between;
-        min-width: 16rem;
+        min-width: rem(256);
         width: 100%;
         max-width: 100%;
-        border-bottom: 1px solid #e0e0e0;
-        padding-bottom: 1rem;
+        border-bottom: rem(1) solid #e0e0e0;
+        padding-bottom: rem(16);
         align-items: flex-start;
         @include tablet {
-          padding-bottom: 1rem;
+          padding-bottom: rem(16);
         }
         @include mobile {
-          padding-bottom: 0.4rem;
+          padding-bottom: rem(6.4);
         }
       }
     }
@@ -572,57 +613,57 @@ onBeforeUnmount(() => {
     .overview-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 2rem;
+      gap: rem(32);
       flex-direction: column;
     }
 
     .overview-label {
-      font-size: 1.5rem;
+      font-size: rem(24);
       font-weight: 700;
       color: #222;
-      margin-bottom: 0.5rem;
+      margin-bottom: rem(8);
       @include tablet {
-        font-size: 1.2rem;
+        font-size: rem(19.2);
       }
       @include mobile {
-        font-size: 1.2rem;
+        font-size: rem(19.2);
       }
     }
 
     .overview-value {
-      font-size: 1.5rem;
+      font-size: rem(24);
       color: #444;
       font-weight: 400;
       @include tablet {
-        padding-right: 1rem;
-        font-size: 1.1rem;
+        padding-right: rem(16);
+        font-size: rem(17.6);
       }
       @include mobile {
-        padding-right: 1rem;
-        font-size: 1.1rem;
+        padding-right: rem(16);
+        font-size: rem(17.6);
       }
     }
 
     .tech-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1.2rem;
+      gap: rem(8);
+      margin-top: rem(19.2);
       .tech-tag {
         background: #111;
         color: #fff;
-        border-radius: 1rem;
-        padding: 0.75rem 1.4rem;
-        font-size: 1.2rem;
-        margin: 0 0.2rem 0.2rem 0;
+        border-radius: rem(16);
+        padding: rem(12) rem(22.4);
+        font-size: rem(19.2);
+        margin: 0 rem(3.2) rem(3.2) 0;
         display: inline-block;
         font-family: v.$font-en1;
         @include tablet {
-          font-size: 1rem;
+          font-size: rem(16);
         }
         @include mobile {
-          padding: 0.5rem 1rem;
-          font-size: 1rem;
+          padding: rem(8) rem(16);
+          font-size: rem(16);
         }
       }
     }
@@ -630,19 +671,19 @@ onBeforeUnmount(() => {
     .goals-list {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: rem(8);
       list-style: disc;
-      padding-left: 1.2em;
-      margin-top: .7rem;
+      padding-left: rem(19.2);
+      margin-top: rem(11.2);
       font-family: v.$font-kn2;
       li {
         font-size: 1em;
         color: #444;
         @include tablet {
-          font-size: 1.2rem;
+          font-size: rem(19.2);
         }
         @include mobile {
-          font-size: 1rem;
+          font-size: rem(16);
         }
       }
     }
@@ -652,17 +693,17 @@ onBeforeUnmount(() => {
 .site-link-btn {
   display: flex;
   justify-content: center;
-  margin: 2.5rem auto 0 auto;
-  padding: 0.9em 2.2em;
+  margin: rem(40) auto 0 auto;
+  padding: rem(14.4) rem(35.2);
   background: #222;
   color: #fff;
   border: none;
-  border-radius: 1rem;
-  font-size: 1.15rem;
+  border-radius: rem(16);
+  font-size: rem(18.4);
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+  box-shadow: 0 rem(2) rem(8) 0 rgba(0,0,0,0.08);
   text-align: center;
   @include tablet {
     width: 100%;
@@ -673,15 +714,15 @@ onBeforeUnmount(() => {
   &:hover, &:focus {
     background: #444;
     color: #fff;
-    box-shadow: 0 4px 16px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 rem(4) rem(16) 0 rgba(0,0,0,0.12);
   }
 }
 
 .project-nav {
   display: flex;
   width: 100%;
-  margin: 3rem auto 0 auto;
-  min-height: 14rem;
+  margin: rem(48) auto 0 auto;
+  min-height: rem(224);
   position: relative;
 
   @include tablet {
@@ -692,7 +733,7 @@ onBeforeUnmount(() => {
   }
   @include mobile {
     background: none;
-    min-height: 5rem;
+    min-height: rem(80);
     max-width: 100%;
     padding: 0;
   }
@@ -712,7 +753,7 @@ onBeforeUnmount(() => {
       width: auto;
       flex: 1 1 0;
       min-width: 0;
-      padding: 2rem 0;
+      padding: rem(32) 0;
     }
 
     .nav-bg {
@@ -736,7 +777,7 @@ onBeforeUnmount(() => {
       position: relative;
       z-index: 2;
       color: #fff;
-      font-size: 2rem;
+      font-size: rem(32);
       font-weight: 700;
       text-align: center;
       letter-spacing: 0.05em;
@@ -750,11 +791,11 @@ onBeforeUnmount(() => {
 
         .nav-label, .nav-title, .nav-arrow {
           color: #111 !important;
-          font-size: 0.9rem !important;
+          font-size: rem(14.4) !important;
           font-weight: 700;
           text-decoration: none !important;
           opacity: 1 !important;
-          margin: 0 0.2em;
+          margin: 0 rem(3.2);
         }
       }
       @include mobile {
@@ -766,11 +807,11 @@ onBeforeUnmount(() => {
 
         .nav-label, .nav-title, .nav-arrow {
           color: #111 !important;
-          font-size: 0.9rem !important;
+          font-size: rem(14.4) !important;
           font-weight: 700;
           text-decoration: none !important;
           opacity: 1 !important;
-          margin: 0 0.2em;
+          margin: 0 rem(3.2);
         }
       }
     }
@@ -780,8 +821,8 @@ onBeforeUnmount(() => {
         justify-content: flex-start;
         .nav-label {
           @include mobile {
-            margin-left: 0.5em;
-            font-size: 1rem;
+            margin-left: rem(8);
+            font-size: rem(16);
           }
         }
       }
@@ -792,8 +833,8 @@ onBeforeUnmount(() => {
         justify-content: flex-end;
         .nav-label {
           @include mobile {
-            margin-right: 0.5em;
-            font-size: 1rem;
+            margin-right: rem(8);
+            font-size: rem(16);
           }
         }
       }

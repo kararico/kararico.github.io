@@ -345,11 +345,12 @@ onUnmounted(() => {
             font-weight: 400;
             line-height: 1.2;
             font-family: v.$font-en4;
+            font-weight: 700;
             @include tablet {
                 font-size: rem(48);
             }
             @include mobile {
-                font-size: rem(45);
+                font-size: rem(50);
                 word-break: keep-all;
                 white-space: pre-line;
             }
@@ -504,6 +505,7 @@ onUnmounted(() => {
             font-weight: 400;
             line-height: 1.92;
             color: #d3d3d3;
+            opacity: .7;
         }
     }
 
@@ -526,6 +528,8 @@ onUnmounted(() => {
             font-size: rem(14);
             line-height: 1.4;
             width: 100%;
+            padding:0 rem(20);
+            word-break: keep-all;
         }
     }
 

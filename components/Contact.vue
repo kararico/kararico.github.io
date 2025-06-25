@@ -10,7 +10,7 @@
                         <!-- <span class="contact__title-text">메시지를 보내주세요</span> -->
                     </h3>
                     <form class="contact__form" @submit.prevent="handleSubmit" aria-labelledby="contact-heading" novalidate>
-                        <div class="contact__form-group">
+                        <div class="contact__form-group" :class="{ 'has-error': errors.name }">
                             <label for="name">이름</label>
                             <input 
                                 ref="nameRef"
@@ -21,9 +21,12 @@
                                 required
                                 autocomplete="name"
                                 aria-required="true"
+                                @blur="validateField('name')"
+                                @input="clearError('name')"
                             >
+                            <div v-if="errors.name" class="error-message">{{ errors.name }}</div>
                         </div>
-                        <div class="contact__form-group">
+                        <div class="contact__form-group" :class="{ 'has-error': errors.email }">
                             <label for="email">이메일</label>
                             <input 
                                 ref="emailRef"
@@ -34,9 +37,12 @@
                                 required
                                 autocomplete="email"
                                 aria-required="true"
+                                @blur="validateField('email')"
+                                @input="clearError('email')"
                             >
+                            <div v-if="errors.email" class="error-message">{{ errors.email }}</div>
                         </div>
-                        <div class="contact__form-group">
+                        <div class="contact__form-group" :class="{ 'has-error': errors.title }">
                             <label for="title">제목</label>
                             <input 
                                 ref="titleRef"
@@ -46,9 +52,12 @@
                                 placeholder="제목을 입력해주세요"
                                 required
                                 aria-required="true"
+                                @blur="validateField('title')"
+                                @input="clearError('title')"
                             >
+                            <div v-if="errors.title" class="error-message">{{ errors.title }}</div>
                         </div>
-                        <div class="contact__form-group">
+                        <div class="contact__form-group" :class="{ 'has-error': errors.message }">
                             <label for="message">메시지</label>
                             <textarea 
                                 ref="messageRef"
@@ -58,7 +67,10 @@
                                 required
                                 aria-required="true"
                                 rows="5"
+                                @blur="validateField('message')"
+                                @input="clearError('message')"
                             ></textarea>
+                            <div v-if="errors.message" class="error-message">{{ errors.message }}</div>
                         </div>
                         <div aria-live="polite" class="sr-only" v-if="statusMsg">
                             {{ statusMsg }}
@@ -97,6 +109,14 @@ const formData = ref({
     message: ''
 })
 
+// 에러 상태 관리
+const errors = ref({
+    name: '',
+    email: '',
+    title: '',
+    message: ''
+})
+
 // 폼 상태 메시지 관리
 const statusMsg = ref('')
 const statusType = ref<'success'|'error'|''>('')
@@ -108,84 +128,106 @@ const titleRef = ref<HTMLInputElement | null>(null)
 const messageRef = ref<HTMLTextAreaElement | null>(null)
 
 // 팝업 상태 관리
-const popup = ref<{ visible: boolean, message: string, refToFocus?: any }>({ visible: false, message: '' })
+const popup = ref<{ visible: boolean, message: string }>({ visible: false, message: '' })
 
-// 팝업 후 포커스 처리 함수
-function focusAfterPopup(el: any) {
-    if (!el) return;
-    requestAnimationFrame(() => {
-        if (typeof el.focus === 'function') {
-            el.focus();
-            console.log('focus on dom', el);
-        } else if (el.$el && typeof el.$el.focus === 'function') {
-            el.$el.focus();
-            console.log('focus on $el', el.$el);
-        } else {
-            console.log('no focusable element', el);
-        }
-    });
-}
-
-// 팝업 표시 함수
-function showPopup(msg: string, refToFocus?: any) {
+// 팝업 표시 함수 (포커스 이동 없이)
+function showPopup(msg: string) {
     popup.value.message = msg
     popup.value.visible = true
-    popup.value.refToFocus = refToFocus
-    const focusRef = refToFocus;
     setTimeout(() => {
         popup.value.visible = false
-        nextTick(() => {
-            focusAfterPopup(focusRef?.value);
-        });
-    }, 1500)
+    }, 3000)
 }
 
-// 팝업 닫기 함수
-function closePopup() {
-    popup.value.visible = false
-    const focusRef = popup.value.refToFocus;
-    nextTick(() => {
-        focusAfterPopup(focusRef?.value);
-    });
+// 개별 필드 유효성 검사
+const validateField = (fieldName: keyof typeof formData.value) => {
+    const value = formData.value[fieldName].trim()
+    
+    switch (fieldName) {
+        case 'name':
+            if (!value) {
+                errors.value.name = '이름을 입력해주세요.'
+                return false
+            }
+            break
+        case 'email':
+            if (!value) {
+                errors.value.email = '이메일을 입력해주세요.'
+                return false
+            }
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+            if (!emailPattern.test(value)) {
+                errors.value.email = '올바른 이메일 형식을 입력해주세요.'
+                return false
+            }
+            break
+        case 'title':
+            if (!value) {
+                errors.value.title = '제목을 입력해주세요.'
+                return false
+            }
+            break
+        case 'message':
+            if (!value) {
+                errors.value.message = '메시지를 입력해주세요.'
+                return false
+            }
+            break
+    }
+    
+    errors.value[fieldName] = ''
+    return true
 }
 
-// 폼 유효성 검사 함수
+// 에러 메시지 클리어
+const clearError = (fieldName: keyof typeof errors.value) => {
+    if (errors.value[fieldName]) {
+        errors.value[fieldName] = ''
+    }
+}
+
+// 전체 폼 유효성 검사
 const validateForm = () => {
-    if (!formData.value.name.trim()) {
-        statusMsg.value = '이름을 입력해주세요.';
-        showPopup('이름을 입력해주세요.', nameRef);
-        return false;
-    }
-    if (!formData.value.email.trim()) {
-        statusMsg.value = '이메일을 입력해주세요.';
-        showPopup('이메일을 입력해주세요.', emailRef);
-        return false;
-    }
-    // 이메일 형식 검사
-    const emailPattern = /^[^\s@]+@[^-\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(formData.value.email)) {
-        statusMsg.value = '올바른 이메일 형식을 입력해주세요.';
-        showPopup('올바른 이메일 형식을 입력해주세요.', emailRef);
-        return false;
-    }
-    if (!formData.value.title.trim()) {
-        statusMsg.value = '제목을 입력해주세요.';
-        showPopup('제목을 입력해주세요.', titleRef);
-        return false;
-    }
-    if (!formData.value.message.trim()) {
-        statusMsg.value = '메시지를 입력해주세요.';
-        showPopup('메시지를 입력해주세요.', messageRef);
-        return false;
-    }
-    return true;
+    const fields: (keyof typeof formData.value)[] = ['name', 'email', 'title', 'message']
+    let isValid = true
+    
+    fields.forEach(field => {
+        if (!validateField(field)) {
+            isValid = false
+        }
+    })
+    
+    return isValid
 }
 
 // 폼 제출 처리 함수
 const handleSubmit = async () => {
     statusMsg.value = ''
     statusType.value = ''
-    if (!validateForm()) return;
+    
+    if (!validateForm()) {
+        // 첫 번째 에러가 있는 필드로 자연스럽게 포커스
+        const fields: (keyof typeof formData.value)[] = ['name', 'email', 'title', 'message']
+        for (const field of fields) {
+            if (errors.value[field]) {
+                const refMap = {
+                    name: nameRef,
+                    email: emailRef,
+                    title: titleRef,
+                    message: messageRef
+                }
+                const targetRef = refMap[field]
+                if (targetRef.value) {
+                    // 약간의 지연을 두어 사용자가 에러 메시지를 볼 수 있도록 함
+                    setTimeout(() => {
+                        targetRef.value?.focus()
+                    }, 100)
+                }
+                break
+            }
+        }
+        return
+    }
     
     try {
         await emailjs.value.send(
@@ -205,6 +247,8 @@ const handleSubmit = async () => {
         statusMsg.value = '메시지가 성공적으로 전송되었습니다!'
         statusType.value = 'success'
         formData.value = { name: '', email: '', title: '', message: '' }
+        // 에러 상태도 초기화
+        errors.value = { name: '', email: '', title: '', message: '' }
         showPopup('메시지가 성공적으로 전송되었습니다!')
     } catch (e) {
         statusMsg.value = '메시지 전송에 실패했습니다. 다시 시도해주세요.'
@@ -333,6 +377,21 @@ onMounted(async () => {
         .contact__form {
             .contact__form-group {
                 margin-bottom: 2em;
+                position: relative;
+
+                &.has-error {
+                    margin-bottom: rem(10);
+                    
+                    input, textarea {
+                        border-color: v.$main-color;
+                        background: rgba(255, 68, 68, 0.05);
+                        
+                        &:focus {
+                            border-color: v.$main-color;
+                            background: rgba(255, 68, 68, 0.1);
+                        }
+                    }
+                }
 
                 label {
                     display: block;
@@ -365,6 +424,23 @@ onMounted(async () => {
                 textarea {
                     min-height: 150px;
                     resize: vertical;
+                }
+
+                .error-message {
+                    margin-top: 0.5em;
+                    padding: 0.5em 0.75em;
+                    background: rgba(255, 68, 68, 0.1);
+                    border: 1px solid rgba(255, 68, 68, 0.3);
+                    border-radius: 4px;
+                    color: v.$main-color;
+                    font-size: 0.9em;
+                    font-weight: 500;
+                    animation: error-fadein 0.3s ease;
+                    
+                    @include mobile {
+                        font-size: 0.85em;
+                        padding: 0.4em 0.6em;
+                    }
                 }
             }
 
@@ -440,5 +516,17 @@ onMounted(async () => {
 @keyframes toast-fadeout {
     from { opacity: 1; }
     to   { opacity: 0; }
+}
+
+// 에러 메시지 페이드인 애니메이션
+@keyframes error-fadein {
+    from { 
+        opacity: 0; 
+        transform: translateY(-10px);
+    }
+    to   { 
+        opacity: 1; 
+        transform: translateY(0);
+    }
 }
 </style>
