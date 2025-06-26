@@ -15,8 +15,8 @@
             routePath = currentPath.substring(baseURL.length - 1);
         }
         
-        // 메인 앱으로 리다이렉트하면서 라우트 정보를 hash로 전달
-        window.location.href = baseURL + '#' + routePath;
+        // 메인 앱으로 리다이렉트
+        window.location.href = baseURL + '?redirect=' + encodeURIComponent(routePath);
     </script>
 </head>
 <body>
