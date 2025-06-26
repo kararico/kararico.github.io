@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   // GitHub Pages 배포를 위한 설정
   app: {
     baseURL: '/kararico.github.io/',
-    buildAssetsDir: '_nuxt/',
+    buildAssetsDir: '/_nuxt/',
     cdnURL: ''
   },
   css: [
