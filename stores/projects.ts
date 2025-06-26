@@ -65,7 +65,7 @@ export const useProjectStore = defineStore('projects', {
         mediaType: 'video',
         tags: ['UX/UI', 'Website', 'Admin System'],
         description: `<section class="project">
-            <h2>복지몰 사이트 리뉴얼 구축 프로젝트</h2>
+            <h2 class="sr-only">복지몰 사이트 리뉴얼 구축 프로젝트</h2>
             <p>
               기존 사이트의 UI 구조를 재정비하고 사용자 중심의 경험을 제공하기 위해 마크업과 인터랙션 구현을 담당하였습니다.
             </p>

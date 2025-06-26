@@ -382,7 +382,7 @@ onBeforeUnmount(() => {
           padding:rem(28) 0;
         }
         @include mobile {
-          font-size: rem(24);
+          font-size: rem(20);
           padding:rem(14) 0;
         }
 			}
@@ -392,6 +392,13 @@ onBeforeUnmount(() => {
 				gap: rem(32);
 				margin: rem(40) 0 rem(32) 0;
 				text-align: left;
+
+				@include tablet {
+					display: flex;
+					flex-direction: column;
+					gap: rem(24);
+				  margin: rem(10) 0 rem(16) 0;
+				}
 
 				@include mobile {
 					display: flex;
@@ -406,23 +413,33 @@ onBeforeUnmount(() => {
 					align-items: flex-start;
 					min-width: 0;
       
+					@include tablet {
+            // flex-direction: row;
+            // justify-content: space-between;
+            // align-items: flex-end;
+            // position: relative;
+					}
+					
 					@include mobile {
-						width: 100%;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: relative;
+            padding-bottom: rem(10);
+            border-bottom: rem(1) solid #111;
 					}
 				}
 				.meta-title {
 					font-size: rem(20.8);
-					font-weight: 700;
-					letter-spacing: 0.02em;
+					font-weight: 500;
 					margin-bottom: rem(11.2);
-          font-family: v.$font-en1;
-          letter-spacing: rem(-0.04);
+          font-family: v.$font-kn2;
 					@include tablet {
 						font-size: rem(16);
             margin-bottom: rem(8);
 					} 
           @include mobile {
-            font-size: rem(16);
+            font-size: rem(14);
             margin-bottom: 0;
           }
 				}
@@ -431,11 +448,18 @@ onBeforeUnmount(() => {
 					height: rem(0.48);
 					background: #222;
 					margin-bottom: rem(12.8);
-					@include mobile {
+					@include tablet {
+						position: absolute;
+						bottom: 0;
+						left: 0;
+						right: 0;
 						width: 100%;
 						height: rem(1);
 						background: #e0e0e0;
-						margin: rem(8) 0 ;
+						margin: 0;
+					}
+					@include mobile {
+            display: none;
 					}
 				}
 				.meta-value {
@@ -446,6 +470,7 @@ onBeforeUnmount(() => {
           font-family: v.$font-en1;
           @include tablet {
             font-size: rem(24);
+            margin-bottom: rem(8);
           }
           @include mobile {
             font-size: rem(16);
@@ -846,7 +871,6 @@ onBeforeUnmount(() => {
   font-family: v.$font-kn2;
   line-height: 1.7;
   color: #333;
-  background-color: #f9f9f9;
   @include tablet {
     padding: rem(24) 0;
   }
@@ -871,16 +895,18 @@ onBeforeUnmount(() => {
   p {
     font-size: rem(24);
     margin-bottom: rem(19.2);
+    font-family: v.$font-kn2;
     @include tablet {
       font-size: rem(19.2);
     }
     @include mobile {
-      font-size: rem(14);
+      font-size: rem(12);
     }
   }
 
   article {
     margin-bottom: rem(32);
+    font-family: v.$font-kn2;
     @include tablet {
       margin-bottom: rem(19.2);
     }
