@@ -38,7 +38,7 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
   ],
-  build: {
+  build: { 
     transpile: ['gsap']
   },
   // GitHub Pages를 위한 정적 사이트 생성
