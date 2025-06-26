@@ -3,7 +3,8 @@ export default defineNuxtConfig({
   // GitHub Pages 배포를 위한 설정
   app: {
     baseURL: '/kararico.github.io/',
-    buildAssetsDir: '/_nuxt/'
+    buildAssetsDir: '/_nuxt/',
+    cdnURL: ''
   },
   css: [
     '@/assets/scss/imports.scss',
@@ -44,6 +45,9 @@ export default defineNuxtConfig({
   ssr: false,
   // 정적 사이트 생성을 위한 설정
   nitro: {
-    preset: 'static'
+    preset: 'static',
+    prerender: {
+      routes: ['/404.html']
+    }
   }
 })
