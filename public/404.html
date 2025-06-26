@@ -4,16 +4,10 @@
     <meta charset="utf-8">
     <title>Page Not Found</title>
     <script type="text/javascript">
-      // GitHub Pages에서 SPA 라우팅을 위한 리다이렉트
-      const pathSegmentsToKeep = 1;
-      const l = location;
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      );
+      // 정적 파일 요청은 리다이렉트하지 않음
+      if (!location.pathname.match(/\.[a-zA-Z0-9]+$/)) {
+        location.replace('/kararico.github.io/' + '#' + location.pathname + location.search + location.hash);
+      }
     </script>
   </head>
   <body>
