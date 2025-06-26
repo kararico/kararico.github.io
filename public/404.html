@@ -1,25 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8">
-    <title>Redirecting...</title>
-    <script>
-        // GitHub Pages SPA 라우팅을 위한 404.html
-        // 모든 404 요청을 메인 앱으로 리다이렉트
-        const baseURL = '/kararico.github.io/';
-        const currentPath = window.location.pathname + window.location.search + window.location.hash;
-        
-        // 현재 경로에서 baseURL을 제거하고 실제 라우트 경로만 추출
-        let routePath = currentPath;
-        if (currentPath.startsWith(baseURL)) {
-            routePath = currentPath.substring(baseURL.length - 1);
-        }
-        
-        // 메인 앱으로 리다이렉트
-        window.location.href = baseURL + '?redirect=' + encodeURIComponent(routePath);
+    <title>Page Not Found</title>
+    <script type="text/javascript">
+      // 정적 파일 요청은 리다이렉트하지 않음
+      if (!location.pathname.match(/\.[a-zA-Z0-9]+$/)) {
+        location.replace('/kararico.github.io/' + '#' + location.pathname + location.search + location.hash);
+      }
     </script>
-</head>
-<body>
-    <p>Redirecting to application...</p>
-</body>
-</html> 
+  </head>
+  <body>
+    <h1>Page Not Found</h1>
+  </body>
+</html>
