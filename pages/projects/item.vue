@@ -199,7 +199,7 @@ watch(filteredProjects, (newVal) => {
   line-height: 1.2;
   color: #fff;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-
+  text-align: center;
   @include tablet {
     font-size: 3rem;
   }

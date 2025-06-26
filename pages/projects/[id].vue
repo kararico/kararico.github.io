@@ -59,7 +59,7 @@
       <div class="brand-description">
         <div class="inner">
           <h2>프로젝트 소개</h2>
-          <p v-html="formatDescription(project?.description || '')"></p>
+          <div v-html="project?.description || ''"></div>
           <button class="site-link-btn" @click="goToSite">
             사이트 바로가기
           </button>
@@ -135,7 +135,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import { useHead } from '#imports'
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useProjectStore } from '@/stores/projects';
 import { usePageScroll } from '@/composables/usePageScroll'
 
@@ -143,6 +143,7 @@ import { usePageScroll } from '@/composables/usePageScroll'
 const { onPageEnter, onPageLeave } = usePageScroll()
 
 const route = useRoute();
+const router = useRouter();
 const projectStore = useProjectStore();
 
 const heroRef = ref<HTMLElement | null>(null);
@@ -171,10 +172,7 @@ const nextProject = computed(() => {
   return currentIndex < projectStore.projects.length - 1 ? projectStore.projects[currentIndex + 1] : null;
 });
 
-function formatDescription(text: string) {
-  // \n 또는 \r\n을 <br />로 변환
-  return text.replace(/(?:\r\n|\r|\n)/g, '<br />');
-}
+
 
 function setHeroAndDetailHeight() {
   if (heroRef.value && detailRef.value) {
@@ -221,13 +219,13 @@ function goToSite() {
 
 function goToPrevProject() {
   if (prevProject.value) {
-    window.location.href = `/projects/${prevProject.value.id}`;
+    router.push(`/projects/${prevProject.value.id}`);
   }
 }
 
 function goToNextProject() {
   if (nextProject.value) {
-    window.location.href = `/projects/${nextProject.value.id}`;
+    router.push(`/projects/${nextProject.value.id}`);
   }
 }
 
@@ -275,6 +273,7 @@ onBeforeUnmount(() => {
   @use '@/assets/scss/common/_var' as v;
   @use '@/assets/scss/common/_mixins' as *;
   @use '@/assets/scss/common/_common' as *;
+
 .brand-hero {
   position: sticky;
   top: 0;
@@ -525,7 +524,6 @@ onBeforeUnmount(() => {
     h2 {
       font-size: rem(40);
       font-weight: 600;
-      margin-bottom: rem(11.2);
       @include tablet {
         font-size: rem(24);
       }
@@ -842,5 +840,78 @@ onBeforeUnmount(() => {
   }
 }
 
+// v-html로 삽입된 프로젝트 설명 스타일 (글로벌 스타일)
+:deep(.project) {
+  padding: rem(40) 0;
+  font-family: v.$font-kn2;
+  line-height: 1.7;
+  color: #333;
+  background-color: #f9f9f9;
+  @include tablet {
+    padding: rem(24) 0;
+  }
+  @include mobile {
+    padding: rem(16) 0;
+  }
+  h2 {
+    font-size: rem(40);
+    margin-bottom: rem(32);
+    color: #222;
+    border-bottom: rem(2) solid #ddd;
+    padding-bottom: rem(16);
+    @include tablet {
+      font-size: rem(32);
+      margin-bottom: rem(12);
+    }
+    @include mobile {
+      font-size: rem(14);
+      margin-bottom: rem(10);
+    }
+  }
+  p {
+    font-size: rem(24);
+    margin-bottom: rem(19.2);
+    @include tablet {
+      font-size: rem(19.2);
+    }
+    @include mobile {
+      font-size: rem(14);
+    }
+  }
+
+  article {
+    margin-bottom: rem(32);
+    @include tablet {
+      margin-bottom: rem(19.2);
+    }
+    @include mobile {
+      margin-bottom: rem(19.2);
+    }
+  }
+
+  h3 {
+    font-size: rem(24);
+    margin-bottom: rem(10);
+    color: #444;
+    position: relative;
+    @include tablet {
+      font-size: rem(19.2);
+    }
+    @include mobile {
+      font-size: rem(14);
+    }
+   
+  }
+
+  ul {
+    padding-left: rem(19.2);
+    margin: 0;
+
+    li {
+      margin-bottom: rem(19.2);
+      list-style: disc;
+    }
+  }
+}
 
 </style> 

@@ -3,8 +3,8 @@
     <main class="main-content">
       <div class="hero-background"></div>
       <div class="container">
-        <h1 class="section-title" ref="sectionTitle">About Me </h1>
-        <p class="section-subtitle" ref="sectionSubtitle">"안녕하세요 😊 저는 ISTJ 성향의 웹 퍼블리셔 허정원입니다.</p>
+        <h1 class="section-title left" ref="sectionTitle">About Me </h1>
+        <p class="section-subtitle left" ref="sectionSubtitle">"안녕하세요 😊 저는 ISTJ 성향의 웹 퍼블리셔 허정원입니다.</p>
         <div class="main-visual">
           <div class="image-container">
             <img 
@@ -18,7 +18,7 @@
 
         <div class="about-content">
           <div class="about-section">
-            <h2 class="section-title sr-only">About Me</h2>
+            <h2 class="section-title sr-only ">About Me</h2>
             <p class="about-description text-primary" ref="aboutDescription">
               체계적이고 꼼꼼한 성격 덕분에, 주어진 작업을 효율적으로 정리하고 안정적으로 구현해내는 데 자신이 있어요.<br />
               퍼블리셔는 디자인과 개발 사이의 '다리 역할'을 하는 직업이라고 생각합니다.<br />
@@ -29,8 +29,8 @@
           </div>
 
           <div class="about-section">
-            <h2 class="section-title">Skills</h2>
-            <p class="section-subtitle">제가 보유한 기술 스택입니다.</p>
+            <h2 class="section-title left">Skills</h2>
+            <p class="section-subtitle left">제가 보유한 기술 스택입니다.</p>
             <div class="skills-grid">
               <div class="skill-card" v-for="(skill, index) in skills" :key="index" :ref="el => { if (el) skillCards[index] = el as HTMLElement }">
                 <div class="skill-header">
@@ -45,8 +45,8 @@
           </div>
 
           <div class="about-section">
-            <h2 class="section-title">History</h2>
-            <p class="section-subtitle">다양한 환경 속에서 퍼블리셔로 성장해온 여정입니다.</p>
+            <h2 class="section-title left">History</h2>
+            <p class="section-subtitle left">다양한 환경 속에서 퍼블리셔로 성장해온 여정입니다.</p>
             <div class="history-timeline">
               <div class="timeline-line" ref="timelineLine"></div>
               <div class="timeline-item" v-for="(history, index) in histories" :key="index" :ref="el => { if (el) timelineItems[index] = el as HTMLElement }">
@@ -61,8 +61,8 @@
             </div>
           </div>
           <div class="about-section">
-            <h2 class="section-title">What I Value</h2>
-            <p class="section-subtitle">퍼블리셔로서 일할 때 제가 가장 중요하게 생각하는 가치들입니다.</p>
+            <h2 class="section-title left">What I Value</h2>
+            <p class="section-subtitle left">퍼블리셔로서 일할 때 제가 가장 중요하게 생각하는 가치들입니다.</p>
             <div class="philosophy-grid">
               <div class="philosophy-card" v-for="(philosophy, index) in philosophies" :key="index" :ref="el => { if (el) philosophyCards[index] = el as HTMLElement }">
                 <div class="philosophy-header">
@@ -74,8 +74,8 @@
             </div>
           </div>
           <div class="about-section">
-            <h2 class="section-title">TMI</h2>
-            <p class="section-subtitle">저에 대한 조금 더 자세한 이야기입니다.</p>
+            <h2 class="section-title left">TMI</h2>
+            <p class="section-subtitle left">저에 대한 조금 더 자세한 이야기입니다.</p>
             <div class="tmi-grid">
               <div class="tmi-card" v-for="(tmi, index) in tmis" :key="index" :ref="el => { if (el) tmiCards[index] = el as HTMLElement }">
                 <h3>{{ tmi.title }}</h3>
@@ -773,7 +773,7 @@ onUnmounted(() => {
     font-size: rem(21);
     font-weight: 600;
     color: #fff;
-    font-family: v.$font-en2;
+    font-family: v.$font-en1;
     margin: 0;
   }
 
@@ -896,7 +896,7 @@ onUnmounted(() => {
     margin-bottom: rem(14);
     color: #fff;
     font-family: v.$font-en3;
-    text-align: center;
+    text-align: left;
   }
 
   .tmi-list {

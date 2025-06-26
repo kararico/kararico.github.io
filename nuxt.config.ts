@@ -71,7 +71,22 @@ export default defineNuxtConfig({
       include: ['sass']
     },
     // Sass 설정
-    plugins: []
+    plugins: [],
+    // HMR 설정 개선
+    server: {
+      hmr: {
+        overlay: true
+      }
+    }
+  },
+  // 개발 서버 설정
+  devServer: {
+    port: 3000,
+    host: 'localhost'
+  },
+  // HMR 설정
+  experimental: {
+    payloadExtraction: false
   },
   runtimeConfig: {
     public: {
