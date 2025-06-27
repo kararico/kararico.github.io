@@ -6,10 +6,6 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import ContactForm from '@/components/Contact.vue';
 import { useHead } from '#imports'
-import { usePageScroll } from '@/composables/usePageScroll'
-
-// 스크롤 위치 관리 훅 추가
-const { onPageEnter, onPageLeave } = usePageScroll()
 
 useHead({
   title: 'Contact | 정원 포트폴리오',
@@ -19,13 +15,11 @@ useHead({
 })
 
 onMounted(() => {
-  // 페이지 진입 시 스크롤 위치 복원
-  onPageEnter()
+  // 페이지 초기화 작업
 })
 
 onUnmounted(() => {
-  // 페이지 이탈 시 스크롤 위치 저장
-  onPageLeave()
+  // 페이지 정리 작업
 })
 </script>
   

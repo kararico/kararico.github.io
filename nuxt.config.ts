@@ -3,6 +3,11 @@ export default defineNuxtConfig({
   // GitHub Pages 배포를 위한 설정
   app: {
     baseURL: '/',
+    // 페이지 전환 설정 수정 - 화면이 안 나오는 문제 해결
+    pageTransition: {
+      name: 'page',
+      mode: 'default' // out-in에서 default로 변경
+    },
     head: {
       title: '정원 포트폴리오 | JUNGWON Portfolio',
       meta: [
@@ -49,6 +54,12 @@ export default defineNuxtConfig({
           href: 'https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap'
         }
       ]
+    }
+  },
+  // 라우터 설정 - 스크롤 동작 비활성화 및 오류 처리 개선
+  router: {
+    options: {
+      scrollBehaviorType: 'auto'
     }
   },
   css: [

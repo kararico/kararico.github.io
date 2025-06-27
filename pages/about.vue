@@ -110,10 +110,6 @@ import profile3 from '@/assets/images/layout/about/profile_03.png'
 import ScrollTop from '@/components/ScrollTop.vue'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
-import { usePageScroll } from '@/composables/usePageScroll'
-
-// 스크롤 위치 관리 훅 추가
-const { onPageEnter, onPageLeave } = usePageScroll()
 
 useHead({
   title: 'About | 정원 포트폴리오',
@@ -444,15 +440,9 @@ onMounted(async () => {
   gsap.registerPlugin(ScrollTrigger)
   initTimelineAnimation()
   await initAnimations()
-  
-  // 페이지 진입 시 스크롤 위치 복원
-  onPageEnter()
 })
 
 onUnmounted(() => {
-  // 페이지 이탈 시 스크롤 위치 저장
-  onPageLeave()
-  
   // Clean up ScrollTrigger
   ScrollTrigger.getAll().forEach((trigger: any) => trigger.kill())
 })

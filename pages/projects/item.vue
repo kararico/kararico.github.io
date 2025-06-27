@@ -68,10 +68,6 @@ import gsap from 'gsap';
 import { useProjectStore } from '@/stores/projects';
 import AnimatedBackground from '@/components/common/AnimatedBackground.vue'
 import { useHead } from '#imports'
-import { usePageScroll } from '@/composables/usePageScroll'
-
-// 스크롤 위치 관리 훅 추가
-const { onPageEnter, onPageLeave } = usePageScroll()
 
 const line1 = ref<HTMLElement | null>(null);
 const line2 = ref<HTMLElement | null>(null);
@@ -153,16 +149,10 @@ onMounted(() => {
       startTextAnimation();
     }
   }, 1500);
-  
-  // 페이지 진입 시 스크롤 위치 복원
-  onPageEnter()
 });
 
 // 컴포넌트 언마운트 시 이벤트 리스너 제거
 onUnmounted(() => {
-  // 페이지 이탈 시 스크롤 위치 저장
-  onPageLeave()
-  
   window.removeEventListener('loading-complete', startTextAnimation);
 });
 

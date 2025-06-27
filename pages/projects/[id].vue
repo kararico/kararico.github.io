@@ -137,10 +137,6 @@ import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import { useHead } from '#imports'
 import { useRoute, useRouter } from 'vue-router';
 import { useProjectStore } from '@/stores/projects';
-import { usePageScroll } from '@/composables/usePageScroll'
-
-// 스크롤 위치 관리 훅 추가
-const { onPageEnter, onPageLeave } = usePageScroll()
 
 const route = useRoute();
 const router = useRouter();
@@ -171,8 +167,6 @@ const nextProject = computed(() => {
   const currentIndex = projectStore.projects.findIndex(p => p.id === project.value?.id);
   return currentIndex < projectStore.projects.length - 1 ? projectStore.projects[currentIndex + 1] : null;
 });
-
-
 
 function setHeroAndDetailHeight() {
   if (heroRef.value && detailRef.value) {
@@ -249,15 +243,9 @@ onMounted(() => {
   handleScroll();
   handleResize();
   window.addEventListener('resize', handleResize);
-  
-  // 페이지 진입 시 스크롤 위치 복원
-  onPageEnter()
 });
 
 onBeforeUnmount(() => {
-  // 페이지 이탈 시 스크롤 위치 저장
-  onPageLeave()
-  
   if (window.visualViewport) {
     window.visualViewport.removeEventListener('resize', setHeroAndDetailHeight);
     window.visualViewport.removeEventListener('scroll', setHeroAndDetailHeight);

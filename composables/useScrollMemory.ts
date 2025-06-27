@@ -34,18 +34,23 @@ export const useScrollMemory = () => {
     }
   }
   
-  // 스크롤 위치 복원
+  // 스크롤 위치 복원 (헤더 높이 고려)
   const restoreScrollPosition = (route: string) => {
     if (process.client) {
       const savedPosition = scrollPositions.value[route]
       if (savedPosition !== undefined && savedPosition > 0) {
-        // 다음 tick에서 스크롤 위치 복원
-        nextTick(() => {
+        // DOM이 완전히 렌더링될 때까지 대기
+        setTimeout(() => {
+          // 헤더 높이를 고려하여 스크롤 위치 조정
+          const header = document.querySelector('.header') as HTMLElement
+          const headerHeight = header ? header.offsetHeight : 0
+          const adjustedPosition = Math.max(0, savedPosition - headerHeight)
+          
           window.scrollTo({
-            top: savedPosition,
+            top: adjustedPosition,
             behavior: 'instant'
           })
-        })
+        }, 50) // 짧은 지연으로 DOM 렌더링 완료 대기
       }
     }
   }

@@ -21,10 +21,6 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { useHead } from '#imports'
-import { usePageScroll } from '@/composables/usePageScroll'
-
-// 스크롤 위치 관리 훅 추가
-const { onPageEnter, onPageLeave } = usePageScroll()
 
 useHead({
   title: '정원 포트폴리오 | JUNGWON Portfolio',
@@ -66,15 +62,9 @@ onMounted(() => {
   window.addEventListener('scroll-to-section', (e) => {
     scrollToSection((e as CustomEvent).detail)
   })
-  
-  // 페이지 진입 시 스크롤 위치 복원
-  onPageEnter()
 })
 
 onUnmounted(() => {
-  // 페이지 이탈 시 스크롤 위치 저장
-  onPageLeave()
-  
   window.removeEventListener('scroll-to-section', (e) => {
     scrollToSection((e as CustomEvent).detail)
   })

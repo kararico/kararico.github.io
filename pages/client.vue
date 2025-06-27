@@ -31,11 +31,10 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref, nextTick } from 'vue'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 import profile3 from '@/assets/images/layout/about/profile_03.png'
 import ScrollTop from '@/components/ScrollTop.vue'
 import { useHead } from '#imports'
-import { usePageScroll } from '@/composables/usePageScroll'
 
 declare global {
   interface Window {
@@ -44,9 +43,11 @@ declare global {
 }
 
 const emit = defineEmits(['animationComplete'])
-const currentImageIndex = ref(0)
+
 const isLoading = ref(true)
 const isAnimationStarted = ref(false)
+const currentImageIndex = ref(0)
+
 const images = [
   // profile1,
   // profile2,
@@ -88,9 +89,6 @@ const handleLoadingComplete = () => {
   }, 1000)
 }
 
-// 스크롤 위치 관리 훅 추가
-const { onPageEnter, onPageLeave } = usePageScroll()
-
 onMounted(async () => {
   window.addEventListener('loading-complete', handleLoadingComplete)
   gsap.registerPlugin(ScrollTrigger)
@@ -104,9 +102,6 @@ onMounted(async () => {
       startAnimation()
     }
   }, 1500)
-  
-  // 페이지 진입 시 스크롤 위치 복원
-  onPageEnter()
 })
 
 const getGridCount = () => {
@@ -148,9 +143,6 @@ const startAnimation = async () => {
 }
 
 onUnmounted(() => {
-  // 페이지 이탈 시 스크롤 위치 저장
-  onPageLeave()
-  
   if (intervalId) {
     clearInterval(intervalId)
   }
