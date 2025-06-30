@@ -270,12 +270,13 @@ onBeforeUnmount(() => {
         line-height: 1.3;
         margin-bottom: rem(24);
         color: #f7f7f7;
+        opacity: 0;
+        transform: translateY(40px);
         strong { color: v.$main-color; font-weight: 700;  padding: 0 rem(3.2); }
         span[aria-label] { font-size: rem(19.2); vertical-align: middle; }
         &:last-child { margin-bottom: 0; }
         @include mobile { font-size: rem(14); line-height: 1.3; margin-bottom: rem(16); }
-        opacity: 0;
-        transform: translateY(40px);
+  
     }
 
     // 프로필 플로팅 이미지 스타일

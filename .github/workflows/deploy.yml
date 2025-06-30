@@ -48,7 +48,7 @@ jobs:
       - name: Add .nojekyll and 404.html
         run: |
           echo > .output/public/.nojekyll
-          cp public/404.html .output/public/404.html
+          cp .output/public/index.html .output/public/404.html
 
       - name: Fix file permissions
         run: |
