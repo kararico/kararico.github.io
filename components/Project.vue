@@ -121,7 +121,7 @@ const projects = ref([
         category: 'Project',
         title: 'STARBUCKS',
         description: '스타벅스 임직원 사내용 하이브리드 앱 프로젝트입니다.<br />임직원들의 업무 효율성과 커뮤니케이션을 향상시키는 앱입니다.',
-        siteUrl: '',
+        siteUrl: 'https://ricoplgrim.github.io/StarbucksSiren119/',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/28043968/12290715_2560_1440_24fps.mp4',
         skills: ['HTML5', 'JavaScript','Jquery', 'SCSS'],

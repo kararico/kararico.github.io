@@ -60,10 +60,8 @@
               <div class="meta-item">
                 <div class="meta-title">TECH STACK</div>
                 <div class="meta-underline"></div>
-                <div class="meta-value">
-                  <span v-for="tech in project?.techStack?.frontend" :key="tech" class="tech-tag">{{ tech }}</span>
+                  {{ project?.techStack?.tools?.join(', ') || 'Loading...' }}
                 </div>
-              </div>
             </div>
             <div class="brand-tags">
               <span v-for="tag in project?.tags" :key="tag" class="tag">#{{ tag }}</span>
@@ -384,8 +382,6 @@ onBeforeUnmount(() => {
 					align-items: flex-start;
 					min-width: 0;
 					padding-bottom: rem(8);
-          
-					margin-bottom: rem(10);
 				}
 				.meta-title {
           display: block;
@@ -395,6 +391,7 @@ onBeforeUnmount(() => {
           padding-bottom: rem(10);
 					margin-bottom: rem(10);
 					font-family: v.$font-kn2;
+          font-weight: 700;
           border-bottom: rem(1) solid #111;
 					@include tablet { font-size: rem(14); }
 					@include mobile { font-size: rem(12); }
@@ -403,7 +400,7 @@ onBeforeUnmount(() => {
 					width: 100%;
 					height: rem(0.48);
 					background: #222;
-					margin-bottom: rem(12.8);
+					margin-bottom: rem(12);
 					@include tablet {
 						position: absolute;
 						bottom: 0;
