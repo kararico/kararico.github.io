@@ -69,17 +69,32 @@
         </div>
       </div>
       <div class="brand-main-image">
-        <div v-if="project?.images?.length" class="image-container">
-          <img
-            v-for="(img, idx) in project.images"
-            :key="img.url + idx"
-            :src="img.url"
-            :alt="img.alt"
-          />
-        </div>
-        <div v-else class="no-image">
-          <p>프로젝트 메인 이미지가 없습니다.</p>
-        </div>
+        <template v-if="swiperMode">
+          <Swiper
+            :modules="[Navigation, Pagination]"
+            :slides-per-view="1"
+            navigation
+            pagination
+            class="image-container"
+          >
+            <SwiperSlide v-for="(img, idx) in project?.images" :key="img.url + idx">
+              <img :src="img.url" :alt="img.alt" />
+            </SwiperSlide>
+          </Swiper>
+        </template>
+        <template v-else>
+          <div v-if="project?.images?.length" class="image-container">
+            <img
+              v-for="(img, idx) in project.images"
+              :key="img.url + idx"
+              :src="img.url"
+              :alt="img.alt"
+            />
+          </div>
+          <div v-else class="no-image">
+            <p>프로젝트 메인 이미지가 없습니다.</p>
+          </div>
+        </template>
       </div>
       <div class="brand-description">
         <div class="inner">
@@ -124,11 +139,17 @@ import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import { useHead } from '#imports'
 import { useRoute, useRouter } from 'vue-router';
 import { useProjectStore } from '@/stores/projects';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Navigation, Pagination } from 'swiper/modules'; 
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const route = useRoute();
 const router = useRouter(); 
 const projectStore = useProjectStore();
 
+const swiperMode = computed(() => projectStore.getProjectById(route.params.id)?.swipermode === true);
 const heroRef = ref<HTMLElement | null>(null);
 const detailRef = ref<HTMLElement | null>(null);
 const dimdRef = ref<HTMLElement | null>(null);

@@ -46,6 +46,7 @@ interface Project {
     demo?: string;
   };
   tags: string[];
+  swipermode: boolean;
 }
 
 interface ProjectState {
@@ -57,6 +58,7 @@ export const useProjectStore = defineStore('projects', {
     projects: [
       {
         id: '1',
+        swipermode: false,
         title: '복지몰 웹사이트 리뉴얼',
         category: 'PC',
         image: '/images/products/project1.png',
@@ -150,9 +152,10 @@ export const useProjectStore = defineStore('projects', {
       },
       {
         id: '2',
+        swipermode: true,
         title: '스타벅스 임직원 하이브리드앱 프로젝트',
         category: 'MOBILE',
-        image: '/images/products/project1.png',
+        image: '/images/products/project3.png',
         bgMedia: 'https://videos.pexels.com/video-files/28043968/12290715_2560_1440_24fps.mp4',
         mediaType: 'video',
         tags: ['Hybrid App', 'Mobile', 'UX/UI'],
@@ -225,13 +228,55 @@ export const useProjectStore = defineStore('projects', {
       },
       {
         id: '3',
+        swipermode: false,
         title: '패션 이커머스 부분 개편 및 운영',
         category: 'PC',
         image: '/images/products/project2.png',
         bgMedia: 'https://cdn.prod.website-files.com/646a4e539ffa024a48651555/649070038794a919744c0b8f_background-video-1280x720-30fps-transcode.mp4',
         mediaType: 'video',
         tags: ['E-commerce', 'Fashion', 'UI 개선'],
-        description: 'MLB KOREA 패션 이커머스 부분 개편 및 운영 프로젝트에 웹 퍼블리셔로 참여하였습니다.',
+        description: `<section class="project">
+  <h2 class="sr-only">패션 이커머스 부분 개편 및 운영 프로젝트</h2>
+  <p>
+    MLB KOREA 패션 이커머스 플랫폼의 UI/UX를 개선하고, 사용자 중심의 기능을 강화한 프로젝트입니다.<br>
+    웹 퍼블리셔로 참여하여 프론트엔드 마크업, 스타일링, 그리고 다양한 인터랙션을 구현하였습니다.
+  </p>
+  <article class="project-details">
+    <h3>✅ 프로젝트 개요</h3>
+    <ul>
+      <li>기간: 2개월</li>
+      <li>팀 구성: 총 2명</li>
+      <li>역할: 웹퍼블리셔</li>
+      <li>목표: 브랜드 아이덴티티 강화, 사용자 경험 개선, 웹 표준 준수</li>
+    </ul>
+  </article>
+  <article class="tech-stack">
+    <h3>🛠️ 주요 기술 스택</h3>
+    <ul>
+      <li><strong>HTML5</strong> - 시맨틱 마크업 및 웹 표준 준수</li>
+      <li><strong>CSS3</strong> - 반응형 및 적응형 스타일링</li>
+      <li><strong>JavaScript</strong> - 동적 UI 및 사용자 인터랙션 구현</li>
+      <li><strong>jQuery</strong> - 레거시 코드 유지보수 및 인터랙션</li>
+      <li><strong>VS Code, Git</strong> - 협업 및 버전 관리</li>
+    </ul>
+  </article>
+  <article class="features">
+    <h3>✨ 주요 기능</h3>
+    <ul>
+      <li>메인/서브 페이지 UI 개선 및 접근성 강화</li>
+      <li>브랜드 아이덴티티를 반영한 디자인 적용</li>
+      <li>다양한 디바이스 환경 대응(PC/Mobile)</li>
+      <li>크로스 브라우징 및 웹 표준 준수</li>
+    </ul>
+  </article>
+  <article class="collaboration">
+    <h3>🤝 협업 경험</h3>
+    <ul>
+      <li>디자이너와의 긴밀한 협업을 통한 UI/UX 개선</li>
+      <li>Git을 활용한 효율적인 버전 관리 및 코드 리뷰</li>
+    </ul>
+  </article>
+</section>`,
         companyDescription: 'MLB KOREA와 협업하여 패션 이커머스 플랫폼의 사용자 경험을 혁신적으로 개선했습니다.',
         companyName: 'MLB KOREA',
         details: [
@@ -279,6 +324,7 @@ export const useProjectStore = defineStore('projects', {
   
       {
         id: '4',
+        swipermode: false,
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project4.png',
@@ -334,6 +380,7 @@ export const useProjectStore = defineStore('projects', {
       },
       {
         id: '5',
+        swipermode: false,
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project5.png',
@@ -389,6 +436,7 @@ export const useProjectStore = defineStore('projects', {
       },
       {
         id: '6',
+        swipermode: false,
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project6.png',
@@ -444,6 +492,7 @@ export const useProjectStore = defineStore('projects', {
       },
       {
         id: '7',
+        swipermode: false,
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project7.png',
@@ -500,6 +549,7 @@ export const useProjectStore = defineStore('projects', {
       },
       {
         id: '8',
+        swipermode: false,
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project8.png',
@@ -556,6 +606,7 @@ export const useProjectStore = defineStore('projects', {
       },
       {
         id: '9',
+        swipermode: false,
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project9.png',
@@ -612,6 +663,7 @@ export const useProjectStore = defineStore('projects', {
       },
       {
         id: '10',
+        swipermode: false,
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project10.png',
@@ -668,6 +720,7 @@ export const useProjectStore = defineStore('projects', {
       },
       {
         id: '11',
+        swipermode: false,
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project11.png',
@@ -724,6 +777,7 @@ export const useProjectStore = defineStore('projects', {
       },
       {
         id: '12',
+        swipermode: false,
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project12.png',
@@ -780,6 +834,7 @@ export const useProjectStore = defineStore('projects', {
       },
       {
         id: '13',
+        swipermode: false,
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project13.png',

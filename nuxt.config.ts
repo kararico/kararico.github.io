@@ -1,9 +1,6 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  // GitHub Pages 배포를 위한 설정
   app: {
-    baseURL: '/',
-    // 페이지 전환 설정 수정 - 화면이 안 나오는 문제 해결
+    baseURL: '/', 
     pageTransition: {
       name: 'page',
       mode: 'default' // out-in에서 default로 변경
