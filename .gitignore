@@ -1,7 +1,7 @@
 # Nuxt dev/build outputs
 #.github
-# .output
-.data
+.output
+.data 
 .nuxt
 .nitro
 .cache
