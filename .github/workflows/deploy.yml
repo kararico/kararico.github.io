@@ -54,6 +54,9 @@ jobs:
         run: |
           chmod -R 755 .output/public
 
+      - name: List files before deploy
+        run: ls -alR .output/public
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
