@@ -27,10 +27,15 @@ jobs:
           rm -f package-lock.json
 
       - name: Install dependencies
-        run: npm install --no-optional
+        run: npm install --omit=optional
+        env:
+          NODE_OPTIONS: "--max-old-space-size=4096"
+          npm_config_optional: false
 
       - name: Generate static site
         run: npm run generate
+        env:
+          NODE_OPTIONS: "--max-old-space-size=4096"
 
       - name: Add .nojekyll and 404.html
         run: |
