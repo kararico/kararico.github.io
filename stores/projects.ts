@@ -56,7 +56,7 @@ interface ProjectState {
 export const useProjectStore = defineStore('projects', {
   state: (): ProjectState => ({
     projects: [
-      {
+      { 
         id: '1',
         swipermode: false,
         title: '복지몰 웹사이트 리뉴얼',

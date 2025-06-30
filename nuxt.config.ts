@@ -2,7 +2,7 @@ export default defineNuxtConfig({
   app: {
     baseURL: '/kararico.github.io/',
     pageTransition: {
-      name: 'page',
+      name: 'page', 
       mode: 'default' // out-in에서 default로 변경
     },
     head: {
