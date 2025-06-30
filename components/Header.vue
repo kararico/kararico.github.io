@@ -69,6 +69,7 @@
     import { ref, onMounted, onUnmounted, watch } from 'vue'
     import { inject } from 'vue'
     import gsap from 'gsap'
+    import { useRouter } from 'vue-router'
 
     // 메뉴 상태 관리
     const isMenuOpen = ref(false)
@@ -97,12 +98,27 @@
         isBlack?: boolean
     }>()
 
+    const router = useRouter()
+
     // 메뉴 클릭 처리 함수
     const handleMenuClick = (menu: string) => {
-    if (scrollToSection) {
-        scrollToSection(menu)
         toggleMenu()
-    }
+        switch (menu) {
+            case 'about':
+                router.push('/about')
+                break
+            case 'client':
+                router.push('/client')
+                break
+            case 'project':
+                router.push('/projects/item/')
+                break
+            case 'contact':
+                router.push('/contact')
+                break
+            default:
+                router.push('/')
+        }
     }
 
     // 포커스 트랩 관련 변수
