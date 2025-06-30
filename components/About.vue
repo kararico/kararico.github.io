@@ -205,9 +205,9 @@ onBeforeUnmount(() => {
         letter-spacing: rem(0.4);
         font-family: v.$font-en3;
         opacity: 0;
+        transform: translateY(60px);
         @include tablet { font-size: rem(32); }
         @include mobile { font-size: rem(35);}
-        transform: translateY(60px);
     }
 
     // 요약 텍스트 스타일
@@ -219,11 +219,12 @@ onBeforeUnmount(() => {
         line-height: 1.3;
         z-index: 1;
         font-family: v.$font-kn3;
+        opacity: 0;
+        transform: translateY(60px);    
         .main-color { color: v.$main-color; font-weight: 700; }
         @include tablet { font-size: rem(24); }
         @include mobile { font-size: rem(16);  } 
-        opacity: 0;
-        transform: translateY(60px);
+      
     }
 
     .card-style{
@@ -245,6 +246,8 @@ onBeforeUnmount(() => {
         border: rem(1) solid rgba(255,255,255,0.18);
         backdrop-filter: blur(rem(16));
         position: relative;
+        opacity: 0;
+        transform: translateY(80px);
         @include tablet { padding: rem(16) rem(24); margin-top:rem(30); }
         @include mobile { padding: rem(24) rem(16) ; margin-top:rem(20);   border-radius: rem(16); }
         &::before {
@@ -256,8 +259,7 @@ onBeforeUnmount(() => {
             z-index: 0;
             pointer-events: none;
         }
-        opacity: 0;
-        transform: translateY(80px);
+  
     }
 
     // 문단 스타일

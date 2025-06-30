@@ -15,7 +15,6 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@pinia/nuxt": "^0.5.1",
-    "@rollup/rollup-win32-x64-msvc": "^4.44.1",
     "gsap": "^3.13.0",
     "nuxt": "3.7.0",
     "pinia": "^2.1.7",
@@ -27,5 +26,8 @@
     "cross-env": "^7.0.3",
     "sass": "^1.69.5",
     "sass-loader": "^14.1.0"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.44.1"
   }
 }

@@ -32,6 +32,9 @@ jobs:
           rm -rf node_modules
           rm -f yarn.lock
 
+      - name: Install Linux rollup package
+        run: yarn add @rollup/rollup-linux-x64-gnu
+
       - name: Install dependencies with Yarn
         run: yarn install --frozen-lockfile --ignore-optional
         env:
