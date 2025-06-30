@@ -42,6 +42,28 @@
                 <div class="meta-underline"></div>
                 <div class="meta-value">{{ project?.category || 'Loading...' }}</div>
               </div>
+              <div class="meta-item">
+                <div class="meta-title">PROJECT DURATION</div>
+                <div class="meta-underline"></div>
+                <div class="meta-value">{{ project?.overview?.duration || 'Loading...' }}</div>
+              </div>
+              <div class="meta-item">
+                <div class="meta-title">TEAM ROLE</div>
+                <div class="meta-underline"></div>
+                <div class="meta-value">{{ project?.overview?.role || 'Loading...' }}</div>
+              </div>
+              <div class="meta-item">
+                <div class="meta-title">TEAM COMPOSITION</div>
+                <div class="meta-underline"></div>
+                <div class="meta-value">{{ project?.overview?.team || 'Loading...' }}</div>
+              </div>
+              <div class="meta-item">
+                <div class="meta-title">TECH STACK</div>
+                <div class="meta-underline"></div>
+                <div class="meta-value">
+                  <span v-for="tech in project?.techStack?.frontend" :key="tech" class="tech-tag">{{ tech }}</span>
+                </div>
+              </div>
             </div>
             <div class="brand-tags">
               <span v-for="tag in project?.tags" :key="tag" class="tag">#{{ tag }}</span>
@@ -65,48 +87,9 @@
           </button>
         </div>
       </div>
-      <div class="brand-overview">
-        <div class="inner">
-          <h2>프로젝트 개요</h2>
-          <div class="overview-row">
-            <div class="overview-card">
-              <span class="overview-label">프로젝트 기간</span>
-              <span class="overview-value">{{ project?.overview?.duration || 'Loading...' }}</span>
-            </div>
-            <div class="overview-card">
-              <span class="overview-label">팀 역할</span>
-              <span class="overview-value">{{ project?.overview?.role || 'Loading...' }}</span>
-            </div>
-            <div class="overview-card">
-              <span class="overview-label">팀 구성</span>
-              <span class="overview-value">{{ project?.overview?.team || 'Loading...' }}</span>
-            </div>
-          </div>
-          <div class="overview-grid">
-            <div class="overview-card">
-              <span class="overview-label">기술 스택</span>
-              <div class="tech-tags">
-                <span v-for="tech in project?.techStack?.frontend" :key="tech" class="tech-tag">{{ tech }}</span>
-              </div>
-            </div>
-            <div class="overview-card">
-              <span class="overview-label">프로그램 Tools</span>
-              <div class="tech-tags">
-                <span v-for="tool in project?.techStack?.tools" :key="tool" class="tech-tag">{{ tool }}</span>
-              </div>
-            </div>
-            <div class="overview-card">
-              <span class="overview-label">프로젝트 목표</span>
-              <ul class="goals-list">
-                <li v-for="(goal, index) in project?.overview?.goals" :key="index">{{ goal }}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div class="project-nav">
         <div class="project-nav-item prev"
+          v-if="prevProject"
           @mouseenter="isDesktop && (isPrevHover = true)"
           @mouseleave="isDesktop && (isPrevHover = false)"
           @click="goToPrevProject">
@@ -118,6 +101,7 @@
           </div>
         </div>
         <div class="project-nav-item next"
+          v-if="nextProject"
           @mouseenter="isDesktop && (isNextHover = true)"
           @mouseleave="isDesktop && (isNextHover = false)"
           @click="goToNextProject">
@@ -139,7 +123,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { useProjectStore } from '@/stores/projects';
 
 const route = useRoute();
-const router = useRouter();
+const router = useRouter(); 
 const projectStore = useProjectStore();
 
 const heroRef = ref<HTMLElement | null>(null);
@@ -376,23 +360,22 @@ onBeforeUnmount(() => {
 			}
 			.brand-meta {
 				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: rem(32);
+				grid-template-columns: repeat(2, 1fr);
+				gap: rem(24);
 				margin: rem(40) 0 rem(32) 0;
 				text-align: left;
 
 				@include tablet {
 					display: flex;
 					flex-direction: column;
-					gap: rem(24);
-				  margin: rem(10) 0 rem(16) 0;
+					gap: rem(16);
+					margin: rem(10) 0 rem(16) 0;
 				}
-
 				@include mobile {
 					display: flex;
 					flex-direction: column;
-					gap: rem(24);
-				  margin: rem(10) 0 rem(16) 0;
+					gap: rem(12);
+					margin: rem(10) 0 rem(16) 0;
 				}
 
 				.meta-item {
@@ -400,36 +383,21 @@ onBeforeUnmount(() => {
 					flex-direction: column;
 					align-items: flex-start;
 					min-width: 0;
-      
-					@include tablet {
-            // flex-direction: row;
-            // justify-content: space-between;
-            // align-items: flex-end;
-            // position: relative;
-					}
-					
-					@include mobile {
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: flex-end;
-            position: relative;
-            padding-bottom: rem(10);
-            border-bottom: rem(1) solid #111;
-					}
+					padding-bottom: rem(8);
+          
+					margin-bottom: rem(10);
 				}
 				.meta-title {
-					font-size: rem(20.8);
+          display: block;
+          width: 100%;
+					font-size: rem(16);
 					font-weight: 500;
-					margin-bottom: rem(11.2);
-          font-family: v.$font-kn2;
-					@include tablet {
-						font-size: rem(16);
-            margin-bottom: rem(8);
-					} 
-          @include mobile {
-            font-size: rem(14);
-            margin-bottom: 0;
-          }
+          padding-bottom: rem(10);
+					margin-bottom: rem(10);
+					font-family: v.$font-kn2;
+          border-bottom: rem(1) solid #111;
+					@include tablet { font-size: rem(14); }
+					@include mobile { font-size: rem(12); }
 				}
 				.meta-underline {
 					width: 100%;
@@ -447,22 +415,22 @@ onBeforeUnmount(() => {
 						margin: 0;
 					}
 					@include mobile {
-            display: none;
+						display: none;
 					}
 				}
 				.meta-value {
-					font-size: rem(40);
+					font-size: rem(24);
 					color: #444;
 					font-weight: 400;
 					word-break: keep-all;
-          font-family: v.$font-en1;
-          @include tablet {
-            font-size: rem(24);
-            margin-bottom: rem(8);
-          }
-          @include mobile {
-            font-size: rem(16);
-          }
+					font-family: v.$font-en1;
+					@include tablet { font-size: rem(18); }
+					@include mobile { font-size: rem(15); }
+				}
+			}
+			.meta-item:last-child {
+				@media (min-width: 1025px) {
+					grid-column: 1 / -1;
 				}
 			}
     	.brand-tags {
@@ -704,13 +672,13 @@ onBeforeUnmount(() => {
 .site-link-btn {
   display: flex;
   justify-content: center;
-  margin: rem(40) auto 0 auto;
+  margin:0 auto;
   padding: rem(14.4) rem(35.2);
   background: #222;
   color: #fff;
   border: none;
-  border-radius: rem(16);
-  font-size: rem(18.4);
+  border-radius: rem(12);
+  font-size: rem(18);
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
@@ -721,6 +689,7 @@ onBeforeUnmount(() => {
   }
   @include mobile {
     width: 100%;
+    font-size: rem(14);
   }
   &:hover, &:focus {
     background: #444;
@@ -759,12 +728,23 @@ onBeforeUnmount(() => {
     align-items: center;
     justify-content: center;
 
+    // 이전 또는 다음 프로젝트 중 하나만 있을 때 100% 너비
+    &:only-child {
+      width: 100%;
+      flex: 0 0 100%;
+    }
+
     @include tablet {
       background: none !important;
       width: auto;
       flex: 1 1 0;
       min-width: 0;
       padding: rem(32) 0;
+      
+      &:only-child {
+        width: auto;
+        flex: 1 1 0;
+      }
     }
 
     .nav-bg {
@@ -922,7 +902,7 @@ onBeforeUnmount(() => {
     margin: 0;
 
     li {
-      margin-bottom: rem(19.2);
+      margin-bottom: rem(8);
       list-style: disc;
     }
   }
