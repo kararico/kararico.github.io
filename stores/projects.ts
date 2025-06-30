@@ -118,10 +118,6 @@ export const useProjectStore = defineStore('projects', {
             url: '/images/products/project-detail_img01.jpg',
             alt: '메인 페이지'
           },
-          {
-            url: '/images/products/item01.jpg',
-            alt: '서브 페이지'
-          }
         ],
         overview: {
           duration: '12개월',
@@ -156,33 +152,33 @@ export const useProjectStore = defineStore('projects', {
         id: '2',
         title: '스타벅스 임직원 하이브리드앱 프로젝트',
         category: 'MOBILE',
-        image: '/images/products/starbucks/main.png',
+        image: '/images/products/project1.png',
         bgMedia: 'https://videos.pexels.com/video-files/28043968/12290715_2560_1440_24fps.mp4',
         mediaType: 'video',
         tags: ['Hybrid App', 'Mobile', 'UX/UI'],
         description: `<section class="project">
-  <h2 class="sr-only">스타벅스 임직원 하이브리드 웹 프로젝트</h2>
-  <p>
-    스타벅스 임직원 전용 하이브리드 웹앱 구축 프로젝트입니다.<br>
-    HTML5, SCSS, jQuery만을 사용하여 모바일 환경에 최적화된 UI/UX를 구현하였습니다.
-  </p>
-  <article class="project-details">
-    <h3>✅ 주요 기술 스택</h3>
-    <ul>
-      <li><strong>HTML5</strong> - 시맨틱 마크업 및 웹 표준 준수</li>
-      <li><strong>SCSS</strong> - 컴포넌트 기반 스타일링 및 유지보수성 강화</li>
-      <li><strong>jQuery</strong> - 동적 UI 및 사용자 인터랙션 구현</li>
-    </ul>
-  </article>
-  <article class="optimization">
-    <h3>📱 모바일 웹 최적화</h3>
-    <ul>
-      <li>모바일 디바이스에 맞춘 반응형 레이아웃</li>
-      <li>터치 기반 인터페이스 및 빠른 로딩 속도 구현</li>
-      <li>임직원 업무 효율성을 위한 직관적인 UI 설계</li>
-    </ul>
-  </article>
-</section>`,
+        <h2 class="sr-only">스타벅스 임직원 하이브리드 웹 프로젝트</h2>
+        <p>
+          스타벅스 임직원 전용 하이브리드 웹앱 구축 프로젝트입니다.<br>
+          HTML5, SCSS, jQuery만을 사용하여 모바일 환경에 최적화된 UI/UX를 구현하였습니다.
+        </p>
+        <article class="project-details">
+          <h3>✅ 주요 기술 스택</h3>
+          <ul>
+            <li><strong>HTML5</strong> - 시맨틱 마크업 및 웹 표준 준수</li>
+            <li><strong>SCSS</strong> - 컴포넌트 기반 스타일링 및 유지보수성 강화</li>
+            <li><strong>jQuery</strong> - 동적 UI 및 사용자 인터랙션 구현</li>
+          </ul>
+        </article>
+        <article class="optimization">
+          <h3>📱 모바일 웹 최적화</h3>
+          <ul>
+            <li>모바일 디바이스에 맞춘 반응형 레이아웃</li>
+            <li>터치 기반 인터페이스 및 빠른 로딩 속도 구현</li>
+            <li>임직원 업무 효율성을 위한 직관적인 UI 설계</li>
+          </ul>
+        </article>
+      </section>`,
         companyDescription: '글로벌 커피 브랜드 스타벅스와 함께 임직원들의 업무 효율성을 극대화하는 하이브리드 앱을 개발했습니다.',
         companyName: '스타벅스',
         details: [
@@ -194,11 +190,15 @@ export const useProjectStore = defineStore('projects', {
         ],
         images: [
           {
-            url: '/images/products/item01.jpg',
+            url: '/images/products/starbucks/main.png',
             alt: '메인 페이지'
           },
           {
-            url: '/images/products/item01.jpg',
+            url: '/images/products/starbucks/main2.png',
+            alt: '서브 페이지'
+          },
+          {
+            url: '/images/products/starbucks/main3.png',
             alt: '서브 페이지'
           }
         ],

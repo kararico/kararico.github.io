@@ -69,8 +69,13 @@
         </div>
       </div>
       <div class="brand-main-image">
-        <div v-if="project?.images?.[0]" class="image-container">
-          <img :src="project.images[0].url" :alt="project.images[0].alt" />
+        <div v-if="project?.images?.length" class="image-container">
+          <img
+            v-for="(img, idx) in project.images"
+            :key="img.url + idx"
+            :src="img.url"
+            :alt="img.alt"
+          />
         </div>
         <div v-else class="no-image">
           <p>프로젝트 메인 이미지가 없습니다.</p>
@@ -392,9 +397,9 @@ onBeforeUnmount(() => {
 					margin-bottom: rem(10);
 					font-family: v.$font-kn2;
           font-weight: 700;
-          border-bottom: rem(1) solid #111;
-					@include tablet { font-size: rem(14); }
-					@include mobile { font-size: rem(12); }
+          border-bottom: 0;
+					@include tablet { font-size: rem(14);    border-bottom: rem(1) solid #111; }
+					@include mobile { font-size: rem(12);    border-bottom: rem(1) solid #111; }
 				}
 				.meta-underline {
 					width: 100%;
