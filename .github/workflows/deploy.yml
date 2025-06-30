@@ -16,24 +16,29 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'npm'
+          cache: 'yarn'
 
-      - name: Clear npm cache
-        run: npm cache clean --force
+      - name: Setup Yarn
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-      - name: Remove existing node_modules and package-lock.json
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Clear cache
         run: |
+          yarn cache clean
           rm -rf node_modules
-          rm -f package-lock.json
+          rm -f yarn.lock
 
-      - name: Install dependencies
-        run: npm install --omit=optional
+      - name: Install dependencies with Yarn
+        run: yarn install --frozen-lockfile --ignore-optional
         env:
           NODE_OPTIONS: "--max-old-space-size=4096"
-          npm_config_optional: false
 
       - name: Generate static site
-        run: npm run generate
+        run: yarn generate
         env:
           NODE_OPTIONS: "--max-old-space-size=4096"
 

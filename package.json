@@ -4,16 +4,18 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev", 
+    "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postgenerate": "cp .output/public/index.html .output/public/404.html || cp dist/index.html dist/404.html",
-    "clean": "rm -rf node_modules package-lock.json .nuxt .output dist && npm cache clean --force",
-    "clean-install": "npm run clean && npm install"
+    "clean": "rm -rf node_modules package-lock.json yarn.lock .nuxt .output dist && npm cache clean --force",
+    "clean-install": "npm run clean && npm install",
+    "yarn-install": "yarn install --ignore-optional"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@pinia/nuxt": "^0.5.1",
+    "@rollup/rollup-win32-x64-msvc": "^4.44.1",
     "gsap": "^3.13.0",
     "nuxt": "3.7.0",
     "pinia": "^2.1.7",
