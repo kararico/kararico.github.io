@@ -1,6 +1,6 @@
 # Nuxt dev/build outputs
 #.github
-.output
+# .output
 .data
 .nuxt
 .nitro
