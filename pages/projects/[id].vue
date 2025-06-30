@@ -73,13 +73,21 @@
           <Swiper
             :modules="[Navigation, Pagination]"
             :slides-per-view="1"
-            navigation
+            :navigation="isDesktop"
             pagination
             class="image-container"
           >
             <SwiperSlide v-for="(img, idx) in project?.images" :key="img.url + idx">
               <img :src="img.url" :alt="img.alt" />
             </SwiperSlide>
+            <template v-if="isDesktop">
+              <template #navigation-prev>
+                <div class="swiper-button-prev"></div>
+              </template>
+              <template #navigation-next>
+                <div class="swiper-button-next"></div>
+              </template>
+            </template>
           </Swiper>
         </template>
         <template v-else>
