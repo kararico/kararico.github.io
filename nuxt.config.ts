@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   // GitHub Pages 배포를 위한 설정
   app: {
-    baseURL: '/kararico.github.io/',
+    baseURL: '/',
     // 페이지 전환 설정 수정 - 화면이 안 나오는 문제 해결
     pageTransition: {
       name: 'page',
