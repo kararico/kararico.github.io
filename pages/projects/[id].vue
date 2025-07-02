@@ -2,9 +2,9 @@
     <section class="brand-hero" ref="heroRef">
       <!-- 배경 비디오 -->
       <video 
-        v-if="project?.mediaType === 'video'" 
+        v-if="project && project.mediaType === 'video'" 
         class="bg-video" 
-        :src="project?.bgMedia || '/videos/default.mp4'"
+        :src="project.bgMedia || '/videos/default.mp4'"
         autoplay 
         muted 
         loop 
@@ -13,9 +13,9 @@
       
       <!-- 배경 이미지 -->
       <div 
-        v-else 
+        v-else-if="project" 
         class="bg-image" 
-        :style="{ backgroundImage: `url(${project?.bgMedia || '/images/products/project1.png'})` }"
+        :style="{ backgroundImage: `url(${project.bgMedia || '/images/products/project1.png'})` }"
       ></div>
       
       <div class="dimd" ref="dimdRef"></div>
@@ -60,16 +60,16 @@
               <div class="meta-item">
                 <div class="meta-title">TECH STACK</div>
                 <div class="meta-underline"></div>
-                  {{ project?.techStack?.tools?.join(', ') || 'Loading...' }}
-                </div>
+                <div class="meta-value">{{ project?.techStack?.tools?.join(', ') || 'Loading...' }}</div>
+              </div>
             </div>
-            <div class="brand-tags">
-              <span v-for="tag in project?.tags" :key="tag" class="tag">#{{ tag }}</span>
+            <div class="brand-tags" v-if="project && project.tags && project.tags.length">
+              <span v-for="tag in project.tags" :key="tag" class="tag">#{{ tag }}</span>
             </div>
         </div>
       </div>
       <div class="brand-main-image">
-        <template v-if="swiperMode">
+        <div v-if="swiperMode && project && project.images && project.images.length" class="image-container">
           <Swiper
             :modules="[Navigation, Pagination]"
             :slides-per-view="1"
@@ -77,32 +77,28 @@
             pagination
             class="image-container"
           >
-            <SwiperSlide v-for="(img, idx) in project?.images" :key="img.url + idx">
+            <SwiperSlide v-for="(img, idx) in project.images" :key="`${img.url}-${idx}`">
               <img :src="img.url" :alt="img.alt" />
             </SwiperSlide>
-            <template v-if="isDesktop">
-              <template #navigation-prev>
-                <div class="swiper-button-prev"></div>
-              </template>
-              <template #navigation-next>
-                <div class="swiper-button-next"></div>
-              </template>
+            <template #navigation-prev v-if="isDesktop">
+              <div class="swiper-button-prev"></div>
+            </template>
+            <template #navigation-next v-if="isDesktop">
+              <div class="swiper-button-next"></div>
             </template>
           </Swiper>
-        </template>
-        <template v-else>
-          <div v-if="project?.images?.length" class="image-container">
-            <img
-              v-for="(img, idx) in project.images"
-              :key="img.url + idx"
-              :src="img.url"
-              :alt="img.alt"
-            />
-          </div>
-          <div v-else class="no-image">
-            <p>프로젝트 메인 이미지가 없습니다.</p>
-          </div>
-        </template>
+        </div>
+        <div v-else-if="project && project.images && project.images.length" class="image-container">
+          <img
+            v-for="(img, idx) in project.images"
+            :key="`${img.url}-${idx}`"
+            :src="img.url"
+            :alt="img.alt"
+          />
+        </div>
+        <div v-else class="no-image">
+          <p>프로젝트 메인 이미지가 없습니다.</p>
+        </div>
       </div>
       <div class="brand-description">
         <div class="inner">
@@ -114,28 +110,32 @@
         </div>
       </div>
       <div class="project-nav">
-        <div class="project-nav-item prev"
+        <div 
           v-if="prevProject"
+          class="project-nav-item prev"
           @mouseenter="isDesktop && (isPrevHover = true)"
           @mouseleave="isDesktop && (isPrevHover = false)"
-          @click="goToPrevProject">
-          <div class="nav-bg" :style="{ backgroundImage: `url(${prevProject?.image || '/images/products/project_1-poster.jpg'})` }"></div>
+          @click="goToPrevProject"
+        >
+          <div class="nav-bg" :style="{ backgroundImage: `url(${prevProject.image || '/images/products/project_1-poster.jpg'})` }"></div>
           <div class="nav-content">
             <span class="nav-arrow">&#8592;</span>
             <span class="nav-label">PREV PROJECT</span>
-            <span class="nav-title" v-if="isDesktop && isPrevHover">{{ prevProject?.title || '이전 프로젝트' }}</span>
+            <span v-if="isDesktop && isPrevHover" class="nav-title">{{ prevProject.title || '이전 프로젝트' }}</span>
           </div>
         </div>
-        <div class="project-nav-item next"
+        <div 
           v-if="nextProject"
+          class="project-nav-item next"
           @mouseenter="isDesktop && (isNextHover = true)"
           @mouseleave="isDesktop && (isNextHover = false)"
-          @click="goToNextProject">
-          <div class="nav-bg" :style="{ backgroundImage: `url(${nextProject?.image || '/images/products/project_2-poster.jpg'})` }"></div>
+          @click="goToNextProject"
+        >
+          <div class="nav-bg" :style="{ backgroundImage: `url(${nextProject.image || '/images/products/project_2-poster.jpg'})` }"></div>
           <div class="nav-content">
             <span class="nav-label">NEXT PROJECT</span>
             <span class="nav-arrow">&#8594;</span>
-            <span class="nav-title" v-if="isDesktop && isNextHover">{{ nextProject?.title || '다음 프로젝트' }}</span>
+            <span v-if="isDesktop && isNextHover" class="nav-title">{{ nextProject.title || '다음 프로젝트' }}</span>
           </div>
         </div>
       </div>
@@ -157,7 +157,10 @@ const route = useRoute();
 const router = useRouter(); 
 const projectStore = useProjectStore();
 
-const swiperMode = computed(() => projectStore.getProjectById(route.params.id)?.swipermode === true);
+const swiperMode = computed(() => {
+  const projectId = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id;
+  return projectStore.getProjectById(projectId)?.swipermode === true;
+});
 const heroRef = ref<HTMLElement | null>(null);
 const detailRef = ref<HTMLElement | null>(null);
 const dimdRef = ref<HTMLElement | null>(null);

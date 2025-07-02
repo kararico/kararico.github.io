@@ -49,6 +49,7 @@ const isAnimationStarted = ref(false)
 // GSAP 애니메이션 인스턴스 저장
 let visualAnimation: gsap.core.Timeline | null = null
 let textAnimation: gsap.core.Tween | null = null
+let scrollTriggerInstance: ScrollTrigger | null = null
 
 // 컴포넌트 초기화 함수
 const initializeComponent = () => {
@@ -64,6 +65,17 @@ const initializeComponent = () => {
         textAnimation.kill()
         textAnimation = null
     }
+    if (scrollTriggerInstance) {
+        scrollTriggerInstance.kill()
+        scrollTriggerInstance = null
+    }
+    
+    // 모든 ScrollTrigger 정리 (이 컴포넌트 관련)
+    ScrollTrigger.getAll().forEach(trigger => {
+        if (trigger.vars.trigger === heroRef.value) {
+            trigger.kill()
+        }
+    })
     
     // 텍스트 초기 상태로 리셋
     if (titleRef.value) {
@@ -136,31 +148,50 @@ const playVideo = async () => {
 
 // 스크롤 애니메이션 설정 함수
 const setupScrollAnimation = () => {
-    if (!heroRef.value) return
+    if (!heroRef.value) {
+        console.warn('heroRef not available for scroll animation')
+        return
+    }
 
-    // 기존 ScrollTrigger 정리
-    ScrollTrigger.getAll().forEach(trigger => {
-        if (trigger.vars.trigger === heroRef.value) {
-            trigger.kill()
+    try {
+        // 기존 ScrollTrigger 정리
+        ScrollTrigger.getAll().forEach(trigger => {
+            if (trigger.vars.trigger === heroRef.value) {
+                trigger.kill()
+            }
+        })
+
+        // DOM 요소 확인
+        const firstLine = heroRef.value.querySelector('.hero__title-line:first-child')
+        const lastLine = heroRef.value.querySelector('.hero__title-line:last-child')
+        const background = heroRef.value.querySelector('.hero__background-inner')
+
+        if (!firstLine || !lastLine || !background) {
+            console.warn('Required DOM elements not found for scroll animation')
+            return
         }
-    })
 
-    visualAnimation = gsap.timeline({
-        scrollTrigger: {
+        // ScrollTrigger 생성
+        scrollTriggerInstance = ScrollTrigger.create({
             trigger: heroRef.value,
             start: 'top top',
             end: 'bottom top',
             scrub: 1,
             pin: true,
-            anticipatePin: 1
-        }
-    })
+            anticipatePin: 1,
+            onRefresh: () => {
+                console.log('ScrollTrigger refreshed')
+            },
+            onRefreshInit: () => {
+                console.log('ScrollTrigger refresh init')
+            }
+        })
 
-    const firstLine = heroRef.value.querySelector('.hero__title-line:first-child')
-    const lastLine = heroRef.value.querySelector('.hero__title-line:last-child')
-    const background = heroRef.value.querySelector('.hero__background-inner')
+        // 타임라인 생성
+        visualAnimation = gsap.timeline({
+            scrollTrigger: scrollTriggerInstance
+        })
 
-    if (firstLine && lastLine && background) {
         visualAnimation
             .to(firstLine, { 
                 xPercent: -100,
@@ -179,7 +210,38 @@ const setupScrollAnimation = () => {
                 opacity: 0.3,
                 duration: 1
             }, "<")
+
+        console.log('Scroll animation setup completed')
+        
+        // ScrollTrigger 새로고침
+        ScrollTrigger.refresh()
+        
+    } catch (error) {
+        console.error('Error setting up scroll animation:', error)
+        // 에러 발생 시 재시도
+        setTimeout(() => {
+            if (heroRef.value) {
+                setupScrollAnimation()
+            }
+        }, 100)
     }
+}
+
+// 스크롤 애니메이션 재설정 함수
+const resetScrollAnimation = () => {
+    if (scrollTriggerInstance) {
+        scrollTriggerInstance.kill()
+        scrollTriggerInstance = null
+    }
+    if (visualAnimation) {
+        visualAnimation.kill()
+        visualAnimation = null
+    }
+    
+    // 잠시 대기 후 다시 설정
+    setTimeout(() => {
+        setupScrollAnimation()
+    }, 50)
 }
 
 // 컴포넌트 마운트 시 실행
@@ -194,6 +256,9 @@ onMounted(async () => {
 
     // DOM이 완전히 렌더링될 때까지 대기
     await nextTick()
+    
+    // 추가 대기 시간으로 DOM 완전 렌더링 보장
+    await new Promise(resolve => setTimeout(resolve, 100))
 
     // 비디오 재생 시도
     playVideo()
@@ -207,6 +272,28 @@ onMounted(async () => {
             startTextAnimation()
         }
     }, 1500)
+
+    // 윈도우 리사이즈 시 스크롤 애니메이션 재설정
+    const handleResize = () => {
+        updateHeight()
+        // 리사이즈 후 스크롤 애니메이션 재설정
+        setTimeout(() => {
+            resetScrollAnimation()
+        }, 100)
+    }
+    
+    window.addEventListener('resize', handleResize)
+    
+    // 페이지 가시성 변경 시 스크롤 애니메이션 재설정
+    const handleVisibilityChange = () => {
+        if (!document.hidden) {
+            setTimeout(() => {
+                resetScrollAnimation()
+            }, 100)
+        }
+    }
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange)
 })
 
 // 컴포넌트 언마운트 시 실행
@@ -223,6 +310,10 @@ onUnmounted(() => {
         textAnimation.kill()
         textAnimation = null
     }
+    if (scrollTriggerInstance) {
+        scrollTriggerInstance.kill()
+        scrollTriggerInstance = null
+    }
     
     // ScrollTrigger 인스턴스 정리
     ScrollTrigger.getAll().forEach(trigger => trigger.kill())
@@ -231,7 +322,8 @@ onUnmounted(() => {
 // Loading 컴포넌트의 이벤트를 받기 위해 defineExpose 사용
 defineExpose({
     handleLoadingComplete,
-    initializeComponent
+    initializeComponent,
+    resetScrollAnimation
 })
 </script>
 
