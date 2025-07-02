@@ -46,6 +46,35 @@ const titleRef = ref<HTMLElement | null>(null)
 const videoRef = ref<HTMLVideoElement | null>(null)
 const isAnimationStarted = ref(false)
 
+// GSAP 애니메이션 인스턴스 저장
+let visualAnimation: gsap.core.Timeline | null = null
+let textAnimation: gsap.core.Tween | null = null
+
+// 컴포넌트 초기화 함수
+const initializeComponent = () => {
+    // 상태 초기화
+    isAnimationStarted.value = false
+    
+    // 기존 애니메이션 정리
+    if (visualAnimation) {
+        visualAnimation.kill()
+        visualAnimation = null
+    }
+    if (textAnimation) {
+        textAnimation.kill()
+        textAnimation = null
+    }
+    
+    // 텍스트 초기 상태로 리셋
+    if (titleRef.value) {
+        const texts = titleRef.value.querySelectorAll('.hero__text')
+        gsap.set(texts, {
+            y: 100,
+            opacity: 0
+        })
+    }
+}
+
 // 윈도우 높이 업데이트 함수
 const updateHeight = () => { 
     windowHeight.value = window.innerHeight
@@ -65,14 +94,15 @@ const startTextAnimation = async () => {
     
     if (texts) {
         gsap.set(texts, {
-            y: 100
+            y: 100,
+            opacity: 0
         })
 
         // .2초 지연 후 애니메이션 시작
         await new Promise(resolve => setTimeout(resolve, 200))
 
         // 텍스트 등장 애니메이션
-        gsap.to(texts, {
+        textAnimation = gsap.to(texts, {
             y: 0,
             opacity: 1,
             duration: 1.2,
@@ -104,8 +134,59 @@ const playVideo = async () => {
     }
 }
 
+// 스크롤 애니메이션 설정 함수
+const setupScrollAnimation = () => {
+    if (!heroRef.value) return
+
+    // 기존 ScrollTrigger 정리
+    ScrollTrigger.getAll().forEach(trigger => {
+        if (trigger.vars.trigger === heroRef.value) {
+            trigger.kill()
+        }
+    })
+
+    visualAnimation = gsap.timeline({
+        scrollTrigger: {
+            trigger: heroRef.value,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1,
+            pin: true,
+            anticipatePin: 1
+        }
+    })
+
+    const firstLine = heroRef.value.querySelector('.hero__title-line:first-child')
+    const lastLine = heroRef.value.querySelector('.hero__title-line:last-child')
+    const background = heroRef.value.querySelector('.hero__background-inner')
+
+    if (firstLine && lastLine && background) {
+        visualAnimation
+            .to(firstLine, { 
+                xPercent: -100,
+                opacity: 0,
+                duration: 1,
+                ease: 'power2.inOut'
+            })
+            .to(lastLine, { 
+                xPercent: 100,
+                opacity: 0,
+                duration: 1,
+                ease: 'power2.inOut'
+            }, "<")
+            .to(background, {
+                scale: 1.2,
+                opacity: 0.3,
+                duration: 1
+            }, "<")
+    }
+}
+
 // 컴포넌트 마운트 시 실행
 onMounted(async () => {
+    // 컴포넌트 초기화
+    initializeComponent()
+    
     updateHeight()
     window.addEventListener('resize', updateHeight)
     window.addEventListener('loading-complete', handleLoadingComplete)
@@ -117,64 +198,40 @@ onMounted(async () => {
     // 비디오 재생 시도
     playVideo()
 
+    // 스크롤 애니메이션 설정
+    setupScrollAnimation()
+
     // 로딩 이벤트가 발생하지 않았을 경우를 대비해 직접 애니메이션 시작
     setTimeout(() => {
         if (!isAnimationStarted.value) {
             startTextAnimation()
         }
     }, 1500)
-
-    // 비주얼 섹션 스크롤 애니메이션
-    if (heroRef.value) {
-        const visualAni = gsap.timeline({
-            scrollTrigger: {
-                trigger: heroRef.value,
-                start: 'top top',
-                end: 'bottom top',
-                scrub: 1,
-                pin: true,
-                anticipatePin: 1
-            }
-        })
-
-        const firstLine = heroRef.value.querySelector('.hero__title-line:first-child')
-        const lastLine = heroRef.value.querySelector('.hero__title-line:last-child')
-        const background = heroRef.value.querySelector('.hero__background-inner')
-
-        if (firstLine && lastLine && background) {
-            visualAni
-                .to(firstLine, { 
-                    xPercent: -100,
-                    opacity: 0,
-                    duration: 1,
-                    ease: 'power2.inOut'
-                })
-                .to(lastLine, { 
-                    xPercent: 100,
-                    opacity: 0,
-                    duration: 1,
-                    ease: 'power2.inOut'
-                }, "<")
-                .to(background, {
-                    scale: 1.2,
-                    opacity: 0.3,
-                    duration: 1
-                }, "<")
-        }
-    }
 })
 
 // 컴포넌트 언마운트 시 실행
 onUnmounted(() => {
     window.removeEventListener('resize', updateHeight)
     window.removeEventListener('loading-complete', handleLoadingComplete)
+    
+    // 모든 애니메이션 정리
+    if (visualAnimation) {
+        visualAnimation.kill()
+        visualAnimation = null
+    }
+    if (textAnimation) {
+        textAnimation.kill()
+        textAnimation = null
+    }
+    
     // ScrollTrigger 인스턴스 정리
     ScrollTrigger.getAll().forEach(trigger => trigger.kill())
 })
 
 // Loading 컴포넌트의 이벤트를 받기 위해 defineExpose 사용
 defineExpose({
-    handleLoadingComplete
+    handleLoadingComplete,
+    initializeComponent
 })
 </script>
 
