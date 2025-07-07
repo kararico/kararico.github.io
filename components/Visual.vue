@@ -104,13 +104,14 @@ const startTextAnimation = async () => {
     const texts = titleRef.value.querySelectorAll('.hero__text')
     console.log('texts found:', texts.length)
     
-    if (texts) {
+    if (texts.length > 0) {
+        // 초기 상태 설정
         gsap.set(texts, {
             y: 100,
             opacity: 0
         })
 
-        // .2초 지연 후 애니메이션 시작
+        // 0.2초 지연 후 애니메이션 시작
         await new Promise(resolve => setTimeout(resolve, 200))
 
         // 텍스트 등장 애니메이션
@@ -121,16 +122,21 @@ const startTextAnimation = async () => {
             stagger: 0.2,
             ease: 'power3.out'
         })
+    } else {
+        console.warn('No text elements found for animation')
     }
 }
 
 // 로딩 애니메이션 완료 이벤트 처리 함수
 const handleLoadingComplete = () => {
     console.log('handleLoadingComplete called')
-    setTimeout(() => {
-        console.log('setTimeout callback')
-        startTextAnimation()
-    }, 1000)
+    // DOM이 완전히 렌더링될 때까지 대기
+    nextTick(() => {
+        setTimeout(() => {
+            console.log('setTimeout callback')
+            startTextAnimation()
+        }, 500) // 지연 시간을 줄임
+    })
 }
 
 // 비디오 재생 함수
@@ -251,7 +257,6 @@ onMounted(async () => {
     
     updateHeight()
     window.addEventListener('resize', updateHeight)
-    window.addEventListener('loading-complete', handleLoadingComplete)
     gsap.registerPlugin(ScrollTrigger)
 
     // DOM이 완전히 렌더링될 때까지 대기
@@ -266,12 +271,16 @@ onMounted(async () => {
     // 스크롤 애니메이션 설정
     setupScrollAnimation()
 
+    // 로딩 이벤트 리스너 등록 (한 번만)
+    window.addEventListener('loading-complete', handleLoadingComplete)
+
     // 로딩 이벤트가 발생하지 않았을 경우를 대비해 직접 애니메이션 시작
     setTimeout(() => {
         if (!isAnimationStarted.value) {
+            console.log('Fallback: Starting text animation directly')
             startTextAnimation()
         }
-    }, 1500)
+    }, 2000) // 더 긴 대기 시간
 
     // 윈도우 리사이즈 시 스크롤 애니메이션 재설정
     const handleResize = () => {
@@ -299,7 +308,6 @@ onMounted(async () => {
 // 컴포넌트 언마운트 시 실행
 onUnmounted(() => {
     window.removeEventListener('resize', updateHeight)
-    window.removeEventListener('loading-complete', handleLoadingComplete)
     
     // 모든 애니메이션 정리
     if (visualAnimation) {
