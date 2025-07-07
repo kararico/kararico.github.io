@@ -1,10 +1,9 @@
 <template>
   <div class="project-item">
-    <AnimatedBackground />
     <div class="portfolio-page">
       <main class="main-content">
         <!-- Hero Section -->
-        <section class="hero-section">
+        <section class="hero-section" ref="heroSection">
           <AnimatedBackground />
           <div class="container">
             <h1 class="hero-title">
@@ -72,6 +71,7 @@ import { useHead } from '#imports'
 const line1 = ref<HTMLElement | null>(null);
 const line2 = ref<HTMLElement | null>(null);
 const line3 = ref<HTMLElement | null>(null);
+const heroSection = ref<HTMLElement | null>(null);
 
 const categories = [
   '전체',
@@ -139,9 +139,21 @@ const startTextAnimation = () => {
   });
 };
 
+// 윈도우 리사이즈 시 hero-section 높이 조정
+const updateHeroHeight = () => {
+  if (heroSection.value) {
+    const windowHeight = window.innerHeight;
+    heroSection.value.style.setProperty('--hero-height', `${windowHeight}px`);
+  }
+};
+
 // 컴포넌트 마운트 시 이벤트 리스너 등록
 onMounted(() => {
   window.addEventListener('loading-complete', startTextAnimation);
+  window.addEventListener('resize', updateHeroHeight);
+  
+  // 초기 높이 설정
+  updateHeroHeight();
 
   // 로딩 이벤트가 오지 않을 경우 대비: 1.5초 후 강제 실행
   setTimeout(() => {
@@ -154,6 +166,7 @@ onMounted(() => {
 // 컴포넌트 언마운트 시 이벤트 리스너 제거
 onUnmounted(() => {
   window.removeEventListener('loading-complete', startTextAnimation);
+  window.removeEventListener('resize', updateHeroHeight);
 });
 
 watch(filteredProjects, (newVal) => {
@@ -170,12 +183,12 @@ watch(filteredProjects, (newVal) => {
 
 .portfolio-page {
   min-height: 100vh;
+  min-height: 100dvh;
   background: v.$bg-color;
 }
 
 .hero-section {
-  height: 100vh;
-  height: 100dvh;
+  height: var(--hero-height);
   display: flex;
   align-items: center;
   background-color: #000;

@@ -3,8 +3,8 @@
     <main class="main-content">
       <div class="hero-background"></div>
       <div class="container">
-        <h1 class="section-title">Client</h1>
-        <p class="section-description">다양한 브랜드와의 협업을 통해 쌓은 경험과 노하우로<br />각 프로젝트마다 최적화된 솔루션을 제공해왔습니다.</p>
+        <h1 class="section-title left" ref="sectionTitle">Client</h1>
+        <p class="section-description left" ref="sectionSubtitle">다양한 브랜드와의 협업을 통해 쌓은 경험과 노하우로 각 프로젝트마다 최적화된 솔루션을 제공해왔습니다.</p>
 
         <div class="client-list-section">
           <div class="client-list-grid">
@@ -75,11 +75,47 @@ const clientList = [
   { name: '스타벅스', logo: '/images/clients/starbucks-logo.png', link: 'https://www.starbucks.co.kr' },
 ]
 const clientLogoRefs = ref<(Element | null)[]>([])
+const sectionTitle = ref<HTMLElement | null>(null)
+const sectionSubtitle = ref<HTMLElement | null>(null)
 
 let intervalId: number | null = null
 
 const rotateImages = () => {
   currentImageIndex.value = (currentImageIndex.value + 1) % images.length
+}
+
+// 제목과 부제목 애니메이션
+const initTitleAnimation = () => {
+  if (sectionTitle.value) {
+    gsap.fromTo(sectionTitle.value, 
+      {
+        y: 50,
+        opacity: 0
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        ease: 'power3.out'
+      }
+    )
+  }
+
+  if (sectionSubtitle.value) {
+    gsap.fromTo(sectionSubtitle.value,
+      {
+        y: 30,
+        opacity: 0
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        delay: 0.2,
+        ease: 'power3.out'
+      }
+    )
+  }
 }
 
 // 로딩 애니메이션 완료 이벤트 처리 함수
@@ -115,6 +151,10 @@ const startAnimation = async () => {
   isAnimationStarted.value = true
 
   console.log('startAnimation called')
+  
+  // 제목과 부제목 애니메이션 시작
+  initTitleAnimation()
+  
   intervalId = window.setInterval(rotateImages, 5000)
   gsap.registerPlugin(ScrollTrigger)
   await nextTick()
@@ -123,15 +163,16 @@ const startAnimation = async () => {
     if (el instanceof HTMLElement) {
       gsap.fromTo(
         el,
-        { opacity: 0, y: 40 },
+        { opacity: 0, y: 50 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.7,
-          delay: (i % n) * 0.07,
+          duration: 0.6,
+          delay: (i % n) * 0.1,
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: el,
-            start: 'top 90%',
+            start: 'top bottom-=100',
             toggleActions: 'play none none none',
           },
         }
@@ -201,12 +242,31 @@ useHead({
       }
     }
 
+    .section-title {
+      font-size: rem(48);
+      font-weight: 700;
+      line-height: 1.2;
+      color: #fff;
+      font-family: v.$font-kn1;
+      margin-bottom: rem(17.5);
+      opacity: 0;
+      transform: translateY(50px);
+      @include tablet {
+        font-size: rem(36);
+      }
+      @include mobile {
+        font-size: rem(28);
+      }
+    }
+
     .section-description {
       font-size: rem(16);
       line-height: 1.6;
       color: #fff;
-      text-align: center;
+      text-align: left;
       font-family: v.$font-kn1;
+      opacity: 0;
+      transform: translateY(30px);
       @include tablet {
         font-size: rem(15);
       }

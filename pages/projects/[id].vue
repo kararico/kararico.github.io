@@ -492,10 +492,26 @@ onBeforeUnmount(() => {
       margin-bottom: rem(30);
     }
     .image-container {
+      position: relative;
       width: 100%;
-      img {
-        width: 100%;
+      max-width: rem(1440);
+      margin: 0 auto;
+      @include tablet {
+        img {
+          width: 100%;
+        }
       }
+      @include mobile {
+        img {
+          width: 100%;
+        }
+      }
+      .swiper{
+        .swiper-slide {
+          img{ margin:0 auto; }
+        }
+      }
+  
     }
     .no-image {
       width: 100%;
@@ -788,7 +804,7 @@ onBeforeUnmount(() => {
       background-position: center;
       filter: brightness(0.5);
       z-index: 1;
-      transition: filter 0.2s;
+      transition: filter 0.2s, transform 0.3s ease;
 
       @include tablet {
         display: none !important;
@@ -807,6 +823,28 @@ onBeforeUnmount(() => {
       text-align: center;
       letter-spacing: 0.05em;
       pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: rem(224);
+      transition: all 0.3s ease;
+
+      .nav-label, .nav-arrow {
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .nav-title {
+        position: absolute;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        font-size: rem(24);
+        max-width: 100%;
+        text-align: center;
+        line-height: 1.3;
+      }
+
       @include tablet {
         flex-direction: row;
         align-items: center;
@@ -821,6 +859,12 @@ onBeforeUnmount(() => {
           text-decoration: none !important;
           opacity: 1 !important;
           margin: 0 rem(3.2);
+        }
+
+        .nav-title {
+          position: static;
+          opacity: 1 !important;
+          transform: none !important;
         }
       }
       @include mobile {
@@ -837,6 +881,34 @@ onBeforeUnmount(() => {
           text-decoration: none !important;
           opacity: 1 !important;
           margin: 0 rem(3.2);
+        }
+
+        .nav-title {
+          position: static;
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      }
+    }
+
+    // PC에서 호버 시 애니메이션
+    @media (min-width: 1025px) {
+      &:hover {
+        .nav-bg {
+          filter: brightness(0.7);
+          transform: scale(1.2);
+        }
+
+        .nav-content {
+          .nav-label, .nav-arrow {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+
+          .nav-title {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
       }
     }

@@ -183,7 +183,7 @@ export const useProjectStore = defineStore('projects', {
         </article>
       </section>`,
         companyDescription: '글로벌 커피 브랜드 스타벅스와 함께 임직원들의 업무 효율성을 극대화하는 하이브리드 앱을 개발했습니다.',
-        companyName: '스타벅스',
+        companyName:'STARBUCKS',
         details: [
           {
             size: '720 x 1280',
