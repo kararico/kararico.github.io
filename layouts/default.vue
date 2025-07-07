@@ -43,6 +43,7 @@
   const layoutRef = ref<HTMLElement | null>(null)
 
   const handleLoadingComplete = () => {
+    console.log('Loading complete, showing main content')
     isLoading.value = false
     // 커서 활성화
     cursorRef.value?.activate()

@@ -68,8 +68,8 @@ onMounted(() => {
   tl.to(letterRefs.value, {
     opacity: 1,
     y: 0,
-    duration: 0.6,
-    stagger: 0.1,
+    duration: 0.4,
+    stagger: 0.08,
     ease: "power2.out"
   })
 
@@ -77,10 +77,10 @@ onMounted(() => {
   tl.to(dotRefs.value, {
     opacity: 1,
     y: 0,
-    duration: 0.4,
-    stagger: 0.1,
+    duration: 0.3,
+    stagger: 0.08,
     ease: "power2.out"
-  }, "-=0.2") // 글자 애니메이션이 끝나기 0.2초 전에 시작
+  }, "-=0.1") // 글자 애니메이션이 끝나기 0.1초 전에 시작
 })
 
 // 컴포넌트가 제거되기 전에 스크롤 해제
