@@ -53,6 +53,7 @@ let scrollTriggerInstance: ScrollTrigger | null = null
 
 // 컴포넌트 초기화 함수
 const initializeComponent = () => {
+    console.log('initializeComponent called')
     // 상태 초기화
     isAnimationStarted.value = false
     
@@ -77,14 +78,19 @@ const initializeComponent = () => {
         }
     })
     
-    // 텍스트 초기 상태로 리셋
-    if (titleRef.value) {
-        const texts = titleRef.value.querySelectorAll('.hero__text')
-        gsap.set(texts, {
-            y: 100,
-            opacity: 0
-        })
-    }
+    // 텍스트 초기 상태로 리셋 (nextTick으로 DOM 업데이트 대기)
+    nextTick(() => {
+        if (titleRef.value) {
+            const texts = titleRef.value.querySelectorAll('.hero__text')
+            console.log('Initializing texts:', texts.length)
+            gsap.set(texts, {
+                y: 100,
+                opacity: 0
+            })
+        } else {
+            console.warn('titleRef not available during initialization')
+        }
+    })
 }
 
 // 윈도우 높이 업데이트 함수
@@ -95,6 +101,9 @@ const updateHeight = () => {
 // 텍스트 애니메이션 함수
 const startTextAnimation = async () => {
     console.log('startTextAnimation called')
+    console.log('titleRef:', titleRef.value)
+    console.log('isAnimationStarted:', isAnimationStarted.value)
+    
     if (!titleRef.value || isAnimationStarted.value) {
         console.log('startTextAnimation early return:', { titleRef: !!titleRef.value, isAnimationStarted: isAnimationStarted.value })
         return
@@ -103,6 +112,7 @@ const startTextAnimation = async () => {
     isAnimationStarted.value = true
     const texts = titleRef.value.querySelectorAll('.hero__text')
     console.log('texts found:', texts.length)
+    console.log('texts:', texts)
     
     if (texts.length > 0) {
         // 초기 상태 설정
@@ -120,7 +130,10 @@ const startTextAnimation = async () => {
             opacity: 1,
             duration: 1.2,
             stagger: 0.2,
-            ease: 'power3.out'
+            ease: 'power3.out',
+            onComplete: () => {
+                console.log('Text animation completed')
+            }
         })
     } else {
         console.warn('No text elements found for animation')

@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, provide, type Ref } from 'vue'
+import { onMounted, onUnmounted, ref, provide, nextTick, type Ref } from 'vue'
 import Visual from '~/components/Visual.vue'
 import About from '~/components/About.vue'
 import Project from '~/components/Project.vue'
