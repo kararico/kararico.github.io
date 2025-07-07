@@ -246,6 +246,7 @@ useHead({
       justify-content: center;
       min-height: rem(140);
       box-shadow: 0 rem(2) rem(12) rgba(0,0,0,0.04);
+      opacity: 0;
       img {
         max-width: rem(207);
         max-height: rem(110);
