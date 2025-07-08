@@ -45,7 +45,7 @@
                             </button>
                         </li>
                     </ul>
-                    <div class="header__time-area" role="region" aria-label="현재 날짜 및 날씨 정보">
+                    <!-- <div class="header__time-area" role="region" aria-label="현재 날짜 및 날씨 정보">
                         <div class="header__time-inner">
                             <span class="sr-only">현재 위치 날짜 및 날씨</span>
                             <em>{{ userCity || 'LOADING...' }}</em>
@@ -58,7 +58,7 @@
                                 <span class="header__dot-in"></span>
                             </span>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>
@@ -77,13 +77,13 @@
     const hamburgerButton = ref<HTMLElement | null>(null)
 
     // 위치 및 날씨 정보 상태 관리
-    const userTimezone = ref<string>('')
-    const userCity = ref<string>('')
-    const weatherInfo = ref<{
-        temp: number;
-        description: string;
-        icon: string;
-    } | null>(null)
+    // const userTimezone = ref<string>('')
+    // const userCity = ref<string>('')
+    // const weatherInfo = ref<{
+    //     temp: number;
+    //     description: string;
+    //     icon: string;
+    // } | null>(null)
 
     // 스크롤 상태 관리
     const isScrolled = ref(false)
@@ -183,154 +183,154 @@
     }
 
     // 날씨 정보 가져오기 함수
-    const getWeatherInfo = async (lat: number, lon: number) => {
-        try {
-            const API_KEY = '048b40e147a9bf3ad8ee6763b548a0a3';
-            const response = await fetch(
-                `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
-            )
-            const data = await response.json()
+    // const getWeatherInfo = async (lat: number, lon: number) => {
+    //     try {
+    //         const API_KEY = '048b40e147a9bf3ad8ee6763b548a0a3';
+    //         const response = await fetch(
+    //             `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
+    //         )
+    //         const data = await response.json()
             
-            if (data.main && data.weather && data.weather[0]) {
-                const newWeatherInfo = {
-                    temp: data.main.temp,
-                    description: data.weather[0].description,
-                    icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
-                }
+    //         if (data.main && data.weather && data.weather[0]) {
+    //             const newWeatherInfo = {
+    //                 temp: data.main.temp,
+    //                 description: data.weather[0].description,
+    //                 icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+    //             }
 
-                // 캐시된 날씨 정보와 비교
-                const cachedWeather = localStorage.getItem('weatherInfo')
-                if (cachedWeather) {
-                    const oldWeather = JSON.parse(cachedWeather)
-                    // 온도 차이가 5도 이상이거나 날씨 설명이 변경된 경우
-                    if (Math.abs(oldWeather.temp - newWeatherInfo.temp) > 5 || 
-                        oldWeather.description !== newWeatherInfo.description) {
-                        // 위치 정보 캐시 삭제
-                        localStorage.removeItem('userLocation')
-                        localStorage.removeItem('locationTimestamp')
-                        // 새로운 위치 정보 가져오기
-                        getUserLocation()
-                        return
-                    }
-                }
+    //             // 캐시된 날씨 정보와 비교
+    //             const cachedWeather = localStorage.getItem('weatherInfo')
+    //             if (cachedWeather) {
+    //                 const oldWeather = JSON.parse(cachedWeather)
+    //                 // 온도 차이가 5도 이상이거나 날씨 설명이 변경된 경우
+    //                 if (Math.abs(oldWeather.temp - newWeatherInfo.temp) > 5 || 
+    //                     oldWeather.description !== newWeatherInfo.description) {
+    //                     // 위치 정보 캐시 삭제
+    //                     localStorage.removeItem('userLocation')
+    //                     localStorage.removeItem('locationTimestamp')
+    //                     // 새로운 위치 정보 가져오기
+    //                     getUserLocation()
+    //                     return
+    //                 }
+    //             }
 
-                // 날씨 정보 캐시
-                localStorage.setItem('weatherInfo', JSON.stringify(newWeatherInfo))
-                localStorage.setItem('weatherTimestamp', new Date().getTime().toString())
+    //             // 날씨 정보 캐시
+    //             localStorage.setItem('weatherInfo', JSON.stringify(newWeatherInfo))
+    //             localStorage.setItem('weatherTimestamp', new Date().getTime().toString())
                 
-                weatherInfo.value = newWeatherInfo
-            }
-        } catch (error) {
-            console.error('날씨 정보를 가져오는데 실패했습니다:', error)
-        }
-    }
+    //             // weatherInfo.value = newWeatherInfo
+    //         }
+    //     } catch (error) {
+    //         console.error('날씨 정보를 가져오는데 실패했습니다:', error)
+    //     }
+    // }
 
     // 사용자 위치 정보 가져오기 함수
-    const getUserLocation = async () => {
-        try {
-            // 로컬 스토리지에서 저장된 위치 정보 확인
-            const cachedLocation = localStorage.getItem('userLocation')
-            const cachedTime = localStorage.getItem('locationTimestamp')
-            const currentTime = new Date().getTime()
+    // const getUserLocation = async () => {
+    //     try {
+    //         // 로컬 스토리지에서 저장된 위치 정보 확인
+    //         const cachedLocation = localStorage.getItem('userLocation')
+    //         const cachedTime = localStorage.getItem('locationTimestamp')
+    //         const currentTime = new Date().getTime()
             
-            // 캐시된 정보가 있고 1시간이 지나지 않았다면 캐시된 정보 사용
-            if (cachedLocation && cachedTime && (currentTime - parseInt(cachedTime)) < 60 * 60 * 1000) {
-                const data = JSON.parse(cachedLocation)
-                userCity.value = data.city
-                userTimezone.value = data.timezone
-                if (data.latitude && data.longitude) {
-                    getWeatherInfo(data.latitude, data.longitude)
-                }
-                updateDate()
-                return
-            }
+    //         // 캐시된 정보가 있고 1시간이 지나지 않았다면 캐시된 정보 사용
+    //         if (cachedLocation && cachedTime && (currentTime - parseInt(cachedTime)) < 60 * 60 * 1000) {
+    //             const data = JSON.parse(cachedLocation)
+    //             // userCity.value = data.city
+    //             // userTimezone.value = data.timezone
+    //             if (data.latitude && data.longitude) {
+    //                 getWeatherInfo(data.latitude, data.longitude)
+    //             }
+    //             updateDate()
+    //             return
+    //         }
 
-            // GPS 위치 정보 가져오기
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(async (position) => {
-                    const { latitude, longitude } = position.coords;
+    //         // GPS 위치 정보 가져오기
+    //         if ("geolocation" in navigator) {
+    //             navigator.geolocation.getCurrentPosition(async (position) => {
+    //                 const { latitude, longitude } = position.coords;
                     
-                    // 위도/경도로 도시 정보 가져오기
-                    const response = await fetch(
-                        `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=048b40e147a9bf3ad8ee6763b548a0a3`
-                    );
-                    const locationData = await response.json();
+    //                 // 위도/경도로 도시 정보 가져오기
+    //                 const response = await fetch(
+    //                     `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=048b40e147a9bf3ad8ee6763b548a0a3`
+    //                 );
+    //                 const locationData = await response.json();
                     
-                    if (locationData && locationData[0]) {
-                        const cityData = locationData[0];
-                        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    //                 if (locationData && locationData[0]) {
+    //                     const cityData = locationData[0];
+    //                     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
                         
-                        // 위치 정보를 로컬 스토리지에 저장
-                        localStorage.setItem('userLocation', JSON.stringify({
-                            city: cityData.name,
-                            timezone: timezone,
-                            latitude: latitude,
-                            longitude: longitude
-                        }));
-                        localStorage.setItem('locationTimestamp', currentTime.toString());
+    //                     // 위치 정보를 로컬 스토리지에 저장
+    //                     localStorage.setItem('userLocation', JSON.stringify({
+    //                         city: cityData.name,
+    //                         timezone: timezone,
+    //                         latitude: latitude,
+    //                         longitude: longitude
+    //                     }));
+    //                     localStorage.setItem('locationTimestamp', currentTime.toString());
                         
-                        userCity.value = cityData.name;
-                        userTimezone.value = timezone;
-                        getWeatherInfo(latitude, longitude);
-                        updateDate();
-                    }
-                }, (error) => {
-                    console.error('GPS 위치 정보를 가져오는데 실패했습니다:', error);
-                    userCity.value = 'Unknown';
-                    userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                    updateDate();
-                });
-            } else {
-                console.error('이 브라우저는 GPS 위치 정보를 지원하지 않습니다.');
-                userCity.value = 'Unknown';
-                userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                updateDate();
-            }
-        } catch (error) {
-            console.error('위치 정보를 가져오는데 실패했습니다:', error);
-            userCity.value = 'Unknown';
-            userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            updateDate();
-        }
-    }
+    //                     // userCity.value = cityData.name;
+    //                     // userTimezone.value = timezone;
+    //                     getWeatherInfo(latitude, longitude);
+    //                     updateDate();
+    //                 }
+    //             }, (error) => {
+    //                 console.error('GPS 위치 정보를 가져오는데 실패했습니다:', error);
+    //                 // userCity.value = 'Unknown';
+    //                 // userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    //                 updateDate();
+    //             });
+    //         } else {
+    //             console.error('이 브라우저는 GPS 위치 정보를 지원하지 않습니다.');
+    //             // userCity.value = 'Unknown';
+    //             // userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    //             updateDate();
+    //         }
+    //     } catch (error) {
+    //         console.error('위치 정보를 가져오는데 실패했습니다:', error);
+    //         // userCity.value = 'Unknown';
+    //         // userTimezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    //         updateDate();
+    //     }
+    // }
 
     // 날짜 업데이트 함수
-    const updateDate = () => {
-        const now = new Date()
+    // const updateDate = () => {
+    //     const now = new Date()
         
-        function isValidTimezone(tz: string) {
-            try {
-                if (!tz || typeof tz !== 'string' || tz.trim() === '') return false;
-                Intl.DateTimeFormat(undefined, { timeZone: tz });
-                return true;
-            } catch (e) {
-                return false;
-            }
-        }
-        const timezone = isValidTimezone(userTimezone.value) ? userTimezone.value : 'UTC';
-        const localDate = new Date(now.toLocaleString('en-US', { timeZone: timezone }))
-            .toLocaleDateString('ko-KR', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit'
-            }).replace(/\. /g, '.').replace('.', '')
+    //     function isValidTimezone(tz: string) {
+    //         try {
+    //             if (!tz || typeof tz !== 'string' || tz.trim() === '') return false;
+    //             Intl.DateTimeFormat(undefined, { timeZone: tz });
+    //             return true;
+    //         } catch (e) {
+    //             return false;
+    //         }
+    //     }
+    //     const timezone = isValidTimezone(/* userTimezone.value */) ? /* userTimezone.value */ : 'UTC';
+    //     const localDate = new Date(now.toLocaleString('en-US', { timeZone: timezone }))
+    //         .toLocaleDateString('ko-KR', {
+    //             year: 'numeric',
+    //             month: '2-digit',
+    //             day: '2-digit'
+    //         }).replace(/\. /g, '.').replace('.', '')
         
-        const localDateElement = document.getElementById('header__date')
-        if (localDateElement) localDateElement.textContent = localDate
-    }
+    //     const localDateElement = document.getElementById('header__date')
+    //     if (localDateElement) localDateElement.textContent = localDate
+    // }
 
     // 날짜 업데이트 인터벌
-    let dateInterval: number
+    // let dateInterval: number
 
     // 메뉴 애니메이션 함수
     const menuAnimation = () => {
         const menuItems = document.querySelectorAll('.header__menu-text')
-        const timeArea = document.querySelector('.header__time-area')
+        // const timeArea = document.querySelector('.header__time-area')
         
         if (isMenuOpen.value) {
             // 메뉴 열릴 때
-            gsap.set([menuItems, timeArea], { y: 50, opacity: 0 })
-            gsap.to([menuItems, timeArea], {
+            gsap.set([menuItems], { y: 50, opacity: 0 })
+            gsap.to([menuItems], {
                 y: 0,
                 opacity: 1,
                 duration: 0.8,
@@ -339,7 +339,7 @@
             })
         } else {
             // 메뉴 닫힐 때
-            gsap.to([menuItems, timeArea], {
+            gsap.to([menuItems], {
                 y: -50,
                 opacity: 0,
                 duration: 0.5,
@@ -361,8 +361,8 @@
 
     // 컴포넌트 마운트 시 실행
     onMounted(() => {
-        getUserLocation()
-        dateInterval = window.setInterval(updateDate, 60000)
+        // getUserLocation()
+        // dateInterval = window.setInterval(updateDate, 60000)
         window.addEventListener('scroll', handleScroll)
         window.addEventListener('keydown', handleKeyDown)
         
@@ -374,9 +374,9 @@
 
     // 컴포넌트 언마운트 시 실행
     onUnmounted(() => {
-        if (dateInterval) {
-            clearInterval(dateInterval)
-        }
+        // if (dateInterval) {
+        //     clearInterval(dateInterval)
+        // }
         window.removeEventListener('scroll', handleScroll)
         window.removeEventListener('keydown', handleKeyDown)
         document.body.style.overflow = ''
@@ -603,7 +603,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: rem(32);
+        gap: rem(18);
         @include mobile { gap: rem(16); }
         
         // 메뉴 아이템 스타일

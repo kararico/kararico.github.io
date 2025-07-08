@@ -384,11 +384,9 @@ onMounted(async () => {
                     
                     input, textarea {
                         border-color: v.$main-color;
-                        background: rgba(255, 68, 68, 0.05);
                         
                         &:focus {
                             border-color: v.$main-color;
-                            background: rgba(255, 68, 68, 0.1);
                         }
                     }
                 }
@@ -429,8 +427,6 @@ onMounted(async () => {
                 .error-message {
                     margin-top: 0.5em;
                     padding: 0.5em 0.75em;
-                    background: rgba(255, 68, 68, 0.1);
-                    border: 1px solid rgba(255, 68, 68, 0.3);
                     border-radius: 4px;
                     color: v.$main-color;
                     font-size: 0.9em;
