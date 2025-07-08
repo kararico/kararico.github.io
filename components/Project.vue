@@ -33,13 +33,13 @@
                                             <span>GO SITE</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <a href="#" 
                                            class="project__link" 
                                            @click.prevent="handleDetailClick(index)">
                                             <span>VIEW DETAIL</span>
                                         </a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                         
                             </div>
@@ -128,6 +128,16 @@ const projects = ref([
         poster: '/images/products/project_2-poster.jpg'
     },
     {
+        category: 'Project',
+        title: 'WCONCEPT US',
+        description: 'W컨셉 미국 버전 퍼블리싱 프로젝트입니다.<br />글로벌 사용자 경험을 고려한 UI 구조와 반응형 마크업을 구현한 이커머스 웹사이트입니다.',
+        siteUrl: 'https://www.wconcept.com/category/women.html?canonical_uri=%2F',
+        mediaType: 'video',
+        videoUrl: 'https://videos.pexels.com/video-files/3917524/3917524-uhd_2732_1440_25fps.mp4',
+        skills: ['HTML5', 'JavaScript','React', 'SCSS'],
+        poster: '/images/products/project_10-poster.jpg'
+    },
+    {
         category: 'Operation',
         title: 'MLB KOREA',
         description: '엠엘비 코리아 홈페이지 부분 개편 운영 프로젝트입니다.<br />트렌디한 패션몰을 위한 최적화된 쇼핑 경험을 제공합니다.',
@@ -180,7 +190,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'LG SIGNATURE GLOBAL',
-        description: 'LG시그니처 글로벌 사이트 구축 프로젝트입니다.<br />영문 사이트로 특별한 애니메이션 효과를 구현한 프리미엄 브랜드사이트입니다.',
+        description: 'LG시그니처 글로벌 영문 사이트 구축 프로젝트입니다.',
         siteUrl: 'https://www.lg.com/global/',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/30975000/13241693_2160_1440_24fps.mp4',

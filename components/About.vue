@@ -62,12 +62,12 @@
                     제가 계속 성장하게 만드는 원동력입니다.
                 </p>
             </div>
-            <div class="about__detail-button-wrap">
+            <!-- <div class="about__detail-button-wrap">
                 <NuxtLink to="/about" class="about__detail-button">
                     <span class="detail-icon">👋</span>
                     <span class="detail-text">자세히 보기</span>
                 </NuxtLink>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>

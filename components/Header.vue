@@ -2,7 +2,7 @@
     <header class="header" :class="{ 'header--scrolled': isScrolled, 'black': isBlack }" role="banner">
         <section class="header__container">
             <div class="header__left">
-                <NuxtLink to="/" class="header__logo" aria-label="JUGWON 홈으로 이동">
+                <NuxtLink to="/" class="header__logo" aria-label="JUGWON 홈으로 이동" @click="scrollToTop">
                     <span>PRO-V</span>
                 </NuxtLink>
             </div>
@@ -69,7 +69,6 @@
     import { ref, onMounted, onUnmounted, watch } from 'vue'
     import { inject } from 'vue'
     import gsap from 'gsap'
-    import { useRouter } from 'vue-router'
 
     // 메뉴 상태 관리
     const isMenuOpen = ref(false)
@@ -98,27 +97,12 @@
         isBlack?: boolean
     }>()
 
-    const router = useRouter()
-
     // 메뉴 클릭 처리 함수
     const handleMenuClick = (menu: string) => {
+    if (scrollToSection) {
+        scrollToSection(menu)
         toggleMenu()
-        switch (menu) {
-            case 'about':
-                router.push('/about')
-                break
-            case 'client':
-                router.push('/client')
-                break
-            case 'project':
-                router.push('/projects/item/')
-                break
-            case 'contact':
-                router.push('/contact')
-                break
-            default:
-                router.push('/')
-        }
+    }
     }
 
     // 포커스 트랩 관련 변수
@@ -398,6 +382,11 @@
         document.body.style.overflow = ''
         document.documentElement.style.overflow = ''
     })
+
+    // 스크롤 탑으로 이동 함수
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
 </script>
 
 <style lang="scss" scoped>
@@ -631,7 +620,7 @@
                     line-height: 1.2;
                     position: relative;
                     overflow: hidden;
-                    font-family: v.$font-en3; 
+                    font-family: v.$font-en3;
                     transition: color 0.3s ease;
                 }
 
