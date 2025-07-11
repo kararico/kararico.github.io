@@ -117,7 +117,83 @@ export const useProjectStore = defineStore('projects', {
         ],
         images: [
           {
-            url: '/images/products/project-detail_img01.jpg',
+            url: '/images/products/ezwel/product_01.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_02.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_03.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_04.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_05.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_06.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_07.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_08.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_09.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_10.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_11.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_12.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_13.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_14.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_15.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_16.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_17.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_18.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_19.png',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/ezwel/product_20.png',
             alt: '메인 페이지'
           },
         ],

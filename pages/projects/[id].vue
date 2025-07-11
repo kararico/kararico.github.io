@@ -88,12 +88,14 @@
             </template>
           </Swiper>
         </div>
-        <div v-else-if="project && project.images && project.images.length" class="image-container">
+        <div v-else-if="project && project.images && project.images.length" class="image-container" ref="imageContainerRef">
           <img
             v-for="(img, idx) in project.images"
             :key="`${img.url}-${idx}`"
             :src="img.url"
             :alt="img.alt"
+            :ref="el => imageRefs[idx] = el as HTMLElement"
+            :class="{ 'fade-in': imageVisible[idx] }"
           />
         </div>
         <div v-else class="no-image">
@@ -143,7 +145,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue';
 import { useHead } from '#imports'
 import { useRoute, useRouter } from 'vue-router';
 import { useProjectStore } from '@/stores/projects';
@@ -165,9 +167,11 @@ const heroRef = ref<HTMLElement | null>(null);
 const detailRef = ref<HTMLElement | null>(null);
 const dimdRef = ref<HTMLElement | null>(null);
 const titleHeroRef = ref<HTMLElement | null>(null);
+const imageContainerRef = ref<HTMLElement | null>(null);
 const isPrevHover = ref(false);
 const isNextHover = ref(false);
 const isDesktop = ref(true);
+const imageVisible = ref<boolean[]>([]);
 
 // 현재 프로젝트 정보를 가져오는 computed 속성
 const project = computed(() => {
@@ -185,6 +189,13 @@ const prevProject = computed(() => {
 const nextProject = computed(() => {
   const currentIndex = projectStore.projects.findIndex(p => p.id === project.value?.id);
   return currentIndex < projectStore.projects.length - 1 ? projectStore.projects[currentIndex + 1] : null;
+});
+
+// 이미지 컨테이너용
+const imageRefs = ref<(HTMLElement | null)[]>([]);
+
+watch(() => project.value?.images?.length, (len) => {
+  imageVisible.value = Array(len).fill(false);
 });
 
 function setHeroAndDetailHeight() {
@@ -209,6 +220,21 @@ function handleScroll() {
   // title: 1 → 0
   const titleOpacity = 1 - progress;
   titleHeroRef.value.style.opacity = String(titleOpacity);
+}
+
+function handleImageScroll() {
+  imageRefs.value.forEach((el, idx) => {
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    if (rect.top < windowHeight * 0.9 && rect.bottom > 0) {
+      if (!imageVisible.value[idx]) {
+        setTimeout(() => {
+          imageVisible.value[idx] = true;
+        }, idx * 120); // 120ms씩 순차적 딜레이
+      }
+    }
+  });
 }
 
 function scrollToDetail() {
@@ -259,7 +285,9 @@ onMounted(() => {
     window.addEventListener('resize', setHeroAndDetailHeight);
   }
   window.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('scroll', handleImageScroll, { passive: true });
   handleScroll();
+  handleImageScroll();
   handleResize();
   window.addEventListener('resize', handleResize);
 });
@@ -591,7 +619,7 @@ onBeforeUnmount(() => {
         max-width: 100%;
       }
       @include mobile {
-        padding: 0 rem(19.2);
+        padding: 0 rem(19.2); 
         max-width: 100%;
       }
     h2 {
@@ -1012,6 +1040,16 @@ onBeforeUnmount(() => {
       list-style: disc;
     }
   }
+}
+
+.image-container img {
+  opacity: 0 !important;
+  transform: translateY(40px) !important;
+  transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1) !important;
+}
+.image-container img.fade-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 </style> 
