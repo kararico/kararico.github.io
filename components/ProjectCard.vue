@@ -26,7 +26,7 @@ interface Project {
   image: string;
   description: string;
   companyDescription: string;
-  swiperUi: boolean;
+  swipermode: boolean;
   details: {
     size: string;
     material: string;

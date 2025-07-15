@@ -305,102 +305,6 @@ export const useProjectStore = defineStore('projects', {
       {
         id: '3',
         swipermode: false,
-        title: '패션 이커머스 부분 개편 및 운영',
-        category: 'PC',
-        image: '/images/products/project2.png',
-        bgMedia: 'https://cdn.prod.website-files.com/646a4e539ffa024a48651555/649070038794a919744c0b8f_background-video-1280x720-30fps-transcode.mp4',
-        mediaType: 'video',
-        tags: ['E-commerce', 'Fashion', 'UI 개선'],
-        description: `<section class="project">
-  <h2 class="sr-only">패션 이커머스 부분 개편 및 운영 프로젝트</h2>
-  <p>
-    MLB KOREA 패션 이커머스 플랫폼의 UI/UX를 개선하고, 사용자 중심의 기능을 강화한 프로젝트입니다.<br>
-    웹 퍼블리셔로 참여하여 프론트엔드 마크업, 스타일링, 그리고 다양한 인터랙션을 구현하였습니다.
-  </p>
-  <article class="project-details">
-    <h3>✅ 프로젝트 개요</h3>
-    <ul>
-      <li>기간: 2개월</li>
-      <li>팀 구성: 총 2명</li>
-      <li>역할: 웹퍼블리셔</li>
-      <li>목표: 브랜드 아이덴티티 강화, 사용자 경험 개선, 웹 표준 준수</li>
-    </ul>
-  </article>
-  <article class="tech-stack">
-    <h3>🛠️ 주요 기술 스택</h3>
-    <ul>
-      <li><strong>HTML5</strong> - 시맨틱 마크업 및 웹 표준 준수</li>
-      <li><strong>CSS3</strong> - 반응형 및 적응형 스타일링</li>
-      <li><strong>JavaScript</strong> - 동적 UI 및 사용자 인터랙션 구현</li>
-      <li><strong>jQuery</strong> - 레거시 코드 유지보수 및 인터랙션</li>
-      <li><strong>VS Code, Git</strong> - 협업 및 버전 관리</li>
-    </ul>
-  </article>
-  <article class="features">
-    <h3>✨ 주요 기능</h3>
-    <ul>
-      <li>메인/서브 페이지 UI 개선 및 접근성 강화</li>
-      <li>브랜드 아이덴티티를 반영한 디자인 적용</li>
-      <li>다양한 디바이스 환경 대응(PC/Mobile)</li>
-      <li>크로스 브라우징 및 웹 표준 준수</li>
-    </ul>
-  </article>
-  <article class="collaboration">
-    <h3>🤝 협업 경험</h3>
-    <ul>
-      <li>디자이너와의 긴밀한 협업을 통한 UI/UX 개선</li>
-      <li>Git을 활용한 효율적인 버전 관리 및 코드 리뷰</li>
-    </ul>
-  </article>
-</section>`,
-        companyDescription: 'MLB KOREA와 협업하여 패션 이커머스 플랫폼의 사용자 경험을 혁신적으로 개선했습니다.',
-        companyName: 'MLB KOREA',
-        details: [
-          {
-            size: '1920 x 1080',
-            material: 'HTML, CSS, JavaScript, jQuery',
-            year: '2023 ~ 2024'
-          }
-        ],
-        images: [
-          {
-            url: '/images/products/item01.jpg',
-            alt: '메인 페이지'
-          },
-          {
-            url: '/images/products/item01.jpg',
-            alt: '서브 페이지'
-          }
-        ],
-        overview: {
-          duration: '2개월',
-          team: '총 2명',
-          role: '웹퍼블리셔',
-          goals: ['브랜드 아이덴티티 강화', '사용자 경험 개선', '웹 표준 준수']
-        },
-        techStack: {
-          frontend: ['HTML', 'CSS', 'JavaScript', 'jQuery'],
-          tools: ['VS Code', 'Git']
-        },
-        features: [
-          {
-            title: '주요 기능 1',
-            description: '사용자 UI 개선'
-          },
-          {
-            title: '주요 기능 2',
-            description: '모바일 환경에 최적화된 레이아웃 구현'
-          }
-        ],
-        links: {
-          website: 'https://www.mlb-korea.com/',
-          github: 'https://github.com/example'
-        }
-      },
-  
-      {
-        id: '4',
-        swipermode: false,
         title: '기업 웹사이트 리뉴얼',
         category: '기업브랜딩',
         image: '/images/products/project4.png',
@@ -409,7 +313,7 @@ export const useProjectStore = defineStore('projects', {
         tags: ['Branding', 'Website', 'Renewal'],
         description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
         companyDescription: '혁신적인 디지털 솔루션으로 기업의 브랜드 가치를 극대화하는 웹사이트 리뉴얼을 완료했습니다.',
-        companyName: '테크 솔루션즈',
+        companyName: 'MLB KOREA',
         details: [
           {
             size: '1920 x 1080',
@@ -451,6 +355,60 @@ export const useProjectStore = defineStore('projects', {
         ],
         links: {
           website: 'http://example.com',
+          github: 'https://github.com/example'
+        }
+      },
+      {
+        id: '4',
+        swipermode: false,
+        title: '더블유컨셉 USA 사이트 구축',
+        category: 'PC',
+        image: '/images/products/project5.png',
+        bgMedia: 'https://videos.pexels.com/video-files/32013494/13644778_2560_1440_25fps.mp4',
+        mediaType: 'video',
+        tags: ['React', 'Website', 'USA'],
+        description: '더블유컨셉 USA 브랜드의 공식 웹사이트를 구축한 프로젝트입니다. React를 활용하여 모던하고 인터랙티브한 사용자 경험을 제공합니다.',
+        companyDescription: '더블유컨셉 USA와 협업하여 브랜드 아이덴티티를 반영한 모던한 웹사이트를 구축했습니다.',
+        companyName: '더블유컨셉 USA',
+        details: [
+          {
+            size: '1920 x 1080',
+            material: 'React, JavaScript, CSS',
+            year: '2024'
+          }
+        ],
+        images: [
+          {
+            url: '/images/products/item01.jpg',
+            alt: '메인 페이지'
+          },
+          {
+            url: '/images/products/item01.jpg',
+            alt: '서브 페이지'
+          }
+        ],
+        overview: {
+          duration: '3개월',
+          team: '총 3명',
+          role: '프론트엔드 개발자',
+          goals: ['브랜드 아이덴티티 강화', '모던한 UI/UX 구현', 'React 기반 사이트 구축']
+        },
+        techStack: {
+          frontend: ['React', 'JavaScript', 'CSS3', 'HTML5'],
+          tools: ['VS Code', 'Git', 'npm']
+        },
+        features: [
+          {
+            title: 'React 기반 모던 웹사이트',
+            description: 'React 컴포넌트 기반으로 구축된 모던하고 반응형 웹사이트'
+          },
+          {
+            title: '브랜드 아이덴티티 반영',
+            description: '더블유컨셉 USA 브랜드의 아이덴티티를 완벽하게 반영한 디자인'
+          }
+        ],
+        links: {
+          website: 'https://wconceptusa.com',
           github: 'https://github.com/example'
         }
       },
@@ -513,19 +471,19 @@ export const useProjectStore = defineStore('projects', {
       {
         id: '6',
         swipermode: false,
-        title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
+        title: '이커머스 라이프 사이트 구축 및 운영',
+        category: 'PC',
         image: '/images/products/project6.png',
         bgMedia: 'https://videos.pexels.com/video-files/31646575/13482899_2560_1440_60fps.mp4',
         mediaType: 'video',
-        tags: ['Branding', 'Website', 'Renewal'],
-        description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        companyDescription: '사용자 중심의 디자인으로 기업의 온라인 브랜딩을 완전히 새롭게 재정의했습니다.',
-        companyName: '브랜드 리뉴얼',
+        tags: ['Vue.js', 'E-commerce', 'Website'],
+        description: '라이프스타일 이커머스 플랫폼을 Vue.js로 구축하고 운영한 프로젝트입니다. 사용자 친화적인 인터페이스와 효율적인 쇼핑 경험을 제공합니다.',
+        companyDescription: '라이프스타일 이커머스 플랫폼을 Vue.js로 구축하여 사용자들에게 편리한 쇼핑 경험을 제공하고 있습니다.',
+        companyName: '라이프스타일 이커머스',
         details: [
           {
             size: '1920 x 1080',
-            material: 'HTML, CSS, JavaScript',
+            material: 'Vue.js, JavaScript, CSS',
             year: '2024'
           }
         ],
@@ -540,49 +498,46 @@ export const useProjectStore = defineStore('projects', {
           }
         ],
         overview: {
-          duration: '2개월',
-          team: '팀 크기',
+          duration: '4개월',
+          team: '총 4명',
           role: '프론트엔드 개발자',
-          goals: ['브랜드 아이덴티티 강화', '사용자 경험 개선']
+          goals: ['Vue.js 기반 이커머스 사이트 구축', '사용자 경험 최적화', '지속적인 운영 및 유지보수']
         },
         techStack: {
-          frontend: ['HTML', 'CSS', 'JavaScript'],
-          backend: ['Node.js'],
-          database: ['MongoDB'],
-          tools: ['VS Code', 'Git']
+          frontend: ['Vue.js', 'JavaScript', 'CSS3', 'HTML5'],
+          tools: ['VS Code', 'Git', 'npm']
         },
         features: [
           {
-            title: '주요 기능 1',
-            description: '기능 1에 대한 설명'
+            title: 'Vue.js 기반 이커머스 플랫폼',
+            description: 'Vue.js 컴포넌트 기반으로 구축된 모던한 이커머스 웹사이트'
           },
           {
-            title: '주요 기능 2',
-            description: '기능 2에 대한 설명'
+            title: '라이프스타일 쇼핑몰 운영',
+            description: '라이프스타일 관련 제품들을 효율적으로 관리하고 판매하는 플랫폼'
           }
         ],
         links: {
-          website: 'http://example.com',
+          website: 'https://lifestyle-ecommerce.com',
           github: 'https://github.com/example'
         }
       },
       {
         id: '7',
         swipermode: false,
-        title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
+        title: '까사미아 브랜드 사이트 재구축',
+        category: 'PC',
         image: '/images/products/project7.png',
         bgMedia: 'https://videos.pexels.com/video-files/29792714/12800431_1920_1080_60fps.mp4',
         mediaType: 'video',
-        tags: ['Branding', 'Website', 'Renewal'],
-        description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        companyDescription: '모던한 웹 디자인과 최적화된 사용자 경험으로 기업의 디지털 전환을 성공적으로 이끌었습니다.',
-        companyName: '디지털 전환',
-        
+        tags: ['HTML', 'SCSS', 'JavaScript', 'Branding'],
+        description: '까사미아 브랜드의 기존 사이트를 완전히 재구축한 프로젝트입니다. HTML, SCSS, JavaScript를 활용하여 브랜드 아이덴티티를 강화하고 사용자 경험을 개선했습니다.',
+        companyDescription: '까사미아와 협업하여 기존 브랜드 사이트를 완전히 재구축하여 브랜드 가치를 극대화했습니다.',
+        companyName: '까사미아',
         details: [
           {
             size: '1920 x 1080',
-            material: 'HTML, CSS, JavaScript',
+            material: 'HTML, SCSS, JavaScript',
             year: '2024'
           }
         ],
@@ -597,49 +552,46 @@ export const useProjectStore = defineStore('projects', {
           }
         ],
         overview: {
-          duration: '2개월',
-          team: '팀 크기',
-          role: '프론트엔드 개발자',
-          goals: ['브랜드 아이덴티티 강화', '사용자 경험 개선']
+          duration: '3개월',
+          team: '총 3명',
+          role: '웹퍼블리셔',
+          goals: ['기존 사이트 완전 재구축', '브랜드 아이덴티티 강화', '사용자 경험 개선']
         },
         techStack: {
-          frontend: ['HTML', 'CSS', 'JavaScript'],
-          backend: ['Node.js'],
-          database: ['MongoDB'],
+          frontend: ['HTML5', 'SCSS', 'JavaScript'],
           tools: ['VS Code', 'Git']
         },
         features: [
           {
-            title: '주요 기능 1',
-            description: '기능 1에 대한 설명'
+            title: '브랜드 사이트 완전 재구축',
+            description: '기존 까사미아 사이트를 완전히 새롭게 재구축하여 브랜드 아이덴티티 강화'
           },
           {
-            title: '주요 기능 2',
-            description: '기능 2에 대한 설명'
+            title: '모던한 웹 기술 적용',
+            description: 'HTML5, SCSS, JavaScript를 활용한 모던하고 반응형 웹사이트 구현'
           }
         ],
         links: {
-          website: 'http://example.com',
+          website: 'https://casamia.co.kr',
           github: 'https://github.com/example'
         }
       },
       {
         id: '8',
         swipermode: false,
-        title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
+        title: '불스원 사이트 신규 구축',
+        category: 'PC',
         image: '/images/products/project8.png',
         bgMedia: 'https://videos.pexels.com/video-files/30975000/13241693_2160_1440_24fps.mp4',
         mediaType: 'video',
-        tags: ['Branding', 'Website', 'Renewal'],
-        description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        companyDescription: '반응형 웹 디자인과 인터랙티브 요소를 통해 기업의 온라인 존재감을 대폭 향상시켰습니다.',
-        companyName: '온라인 브랜딩',
-        
+        tags: ['HTML', 'SCSS', 'JavaScript', 'Branding'],
+        description: '불스원 브랜드의 새로운 공식 웹사이트를 신규 구축한 프로젝트입니다. HTML, SCSS, JavaScript를 활용하여 브랜드 아이덴티티를 반영한 모던한 웹사이트를 구현했습니다.',
+        companyDescription: '불스원과 협업하여 브랜드 아이덴티티를 완벽하게 반영한 새로운 공식 웹사이트를 신규 구축했습니다.',
+        companyName: '불스원',
         details: [
           {
             size: '1920 x 1080',
-            material: 'HTML, CSS, JavaScript',
+            material: 'HTML, SCSS, JavaScript',
             year: '2024'
           }
         ],
@@ -654,49 +606,46 @@ export const useProjectStore = defineStore('projects', {
           }
         ],
         overview: {
-          duration: '2개월',
-          team: '팀 크기',
-          role: '프론트엔드 개발자',
-          goals: ['브랜드 아이덴티티 강화', '사용자 경험 개선']
+          duration: '4개월',
+          team: '총 4명',
+          role: '웹퍼블리셔',
+          goals: ['불스원 브랜드 사이트 신규 구축', '브랜드 아이덴티티 반영', '사용자 경험 최적화']
         },
         techStack: {
-          frontend: ['HTML', 'CSS', 'JavaScript'],
-          backend: ['Node.js'],
-          database: ['MongoDB'],
+          frontend: ['HTML5', 'SCSS', 'JavaScript'],
           tools: ['VS Code', 'Git']
         },
         features: [
           {
-            title: '주요 기능 1',
-            description: '기능 1에 대한 설명'
+            title: '브랜드 사이트 신규 구축',
+            description: '불스원 브랜드의 새로운 공식 웹사이트를 완전히 새롭게 구축'
           },
           {
-            title: '주요 기능 2',
-            description: '기능 2에 대한 설명'
+            title: '모던한 웹 기술 적용',
+            description: 'HTML5, SCSS, JavaScript를 활용한 모던하고 반응형 웹사이트 구현'
           }
         ],
         links: {
-          website: 'http://example.com',
+          website: 'https://bullsone.com',
           github: 'https://github.com/example'
         }
       },
       {
         id: '9',
         swipermode: false,
-        title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
+        title: '불스원 사이트 신규 구축',
+        category: 'PC',
         image: '/images/products/project9.png',
         bgMedia: 'https://videos.pexels.com/video-files/10741100/10741100-hd_2560_1440_30fps.mp4',
         mediaType: 'video',
-        tags: ['Branding', 'Website', 'Renewal'],
-        description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        companyDescription: '크리에이티브한 디자인과 기술적 혁신으로 기업의 디지털 아이덴티티를 완전히 새롭게 구축했습니다.',
-        companyName: '크리에이티브 솔루션',
-        
+        tags: ['HTML', 'SCSS', 'JavaScript', 'Branding'],
+        description: '불스원 브랜드의 새로운 공식 웹사이트를 신규 구축한 프로젝트입니다. HTML, SCSS, JavaScript를 활용하여 브랜드 아이덴티티를 반영한 모던한 웹사이트를 구현했습니다.',
+        companyDescription: '불스원과 협업하여 브랜드 아이덴티티를 완벽하게 반영한 새로운 공식 웹사이트를 신규 구축했습니다.',
+        companyName: '불스원',
         details: [
           {
             size: '1920 x 1080',
-            material: 'HTML, CSS, JavaScript',
+            material: 'HTML, SCSS, JavaScript',
             year: '2024'
           }
         ],
@@ -711,49 +660,46 @@ export const useProjectStore = defineStore('projects', {
           }
         ],
         overview: {
-          duration: '2개월',
-          team: '팀 크기',
-          role: '프론트엔드 개발자',
-          goals: ['브랜드 아이덴티티 강화', '사용자 경험 개선']
+          duration: '4개월',
+          team: '총 4명',
+          role: '웹퍼블리셔',
+          goals: ['불스원 브랜드 사이트 신규 구축', '브랜드 아이덴티티 반영', '사용자 경험 최적화']
         },
         techStack: {
-          frontend: ['HTML', 'CSS', 'JavaScript'],
-          backend: ['Node.js'],
-          database: ['MongoDB'],
+          frontend: ['HTML5', 'SCSS', 'JavaScript'],
           tools: ['VS Code', 'Git']
         },
         features: [
           {
-            title: '주요 기능 1',
-            description: '기능 1에 대한 설명'
+            title: '브랜드 사이트 신규 구축',
+            description: '불스원 브랜드의 새로운 공식 웹사이트를 완전히 새롭게 구축'
           },
           {
-            title: '주요 기능 2',
-            description: '기능 2에 대한 설명'
+            title: '모던한 웹 기술 적용',
+            description: 'HTML5, SCSS, JavaScript를 활용한 모던하고 반응형 웹사이트 구현'
           }
         ],
         links: {
-          website: 'http://example.com',
+          website: 'https://bullsone.com',
           github: 'https://github.com/example'
         }
       },
       {
         id: '10',
         swipermode: false,
-        title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
+        title: '팸퍼스 브랜드 사이트 구축',
+        category: 'PC',
         image: '/images/products/project10.png',
         bgMedia: 'https://videos.pexels.com/video-files/32013494/13644778_2560_1440_25fps.mp4',
         mediaType: 'video',
-        tags: ['Branding', 'Website', 'Renewal'],
-        description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        companyDescription: '최첨단 웹 기술과 창의적인 디자인으로 기업의 온라인 브랜드 가치를 극대화했습니다.',
-        companyName: '브랜드 가치',
-        
+        tags: ['Vue.js', 'SCSS', 'Branding'],
+        description: '팸퍼스 브랜드의 공식 웹사이트를 Vue.js와 SCSS를 활용하여 구축한 프로젝트입니다. 모던한 프레임워크와 스타일링을 통해 브랜드 아이덴티티를 완벽하게 반영했습니다.',
+        companyDescription: '팸퍼스와 협업하여 Vue.js와 SCSS를 활용한 모던한 브랜드 웹사이트를 구축했습니다.',
+        companyName: '팸퍼스',
         details: [
           {
             size: '1920 x 1080',
-            material: 'HTML, CSS, JavaScript',
+            material: 'Vue.js, SCSS, JavaScript',
             year: '2024'
           }
         ],
@@ -768,49 +714,46 @@ export const useProjectStore = defineStore('projects', {
           }
         ],
         overview: {
-          duration: '2개월',
-          team: '팀 크기',
+          duration: '3개월',
+          team: '총 3명',
           role: '프론트엔드 개발자',
-          goals: ['브랜드 아이덴티티 강화', '사용자 경험 개선']
+          goals: ['팸퍼스 브랜드 사이트 구축', 'Vue.js 기반 모던 웹사이트 구현', '브랜드 아이덴티티 반영']
         },
         techStack: {
-          frontend: ['HTML', 'CSS', 'JavaScript'],
-          backend: ['Node.js'],
-          database: ['MongoDB'],
-          tools: ['VS Code', 'Git']
+          frontend: ['Vue.js', 'SCSS', 'JavaScript'],
+          tools: ['VS Code', 'Git', 'npm']
         },
         features: [
           {
-            title: '주요 기능 1',
-            description: '기능 1에 대한 설명'
+            title: 'Vue.js 기반 브랜드 사이트',
+            description: 'Vue.js 컴포넌트 기반으로 구축된 모던하고 반응형 브랜드 웹사이트'
           },
           {
-            title: '주요 기능 2',
-            description: '기능 2에 대한 설명'
+            title: 'SCSS 스타일링 시스템',
+            description: 'SCSS를 활용한 체계적이고 유지보수가 용이한 스타일링 시스템 구축'
           }
         ],
         links: {
-          website: 'http://example.com',
+          website: 'https://pampers.com',
           github: 'https://github.com/example'
         }
       },
       {
         id: '11',
         swipermode: false,
-        title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
+        title: '샤니 브랜드 사이트 구축',
+        category: 'PC',
         image: '/images/products/project11.png',
         bgMedia: 'https://videos.pexels.com/video-files/31646575/13482899_2560_1440_60fps.mp4',
         mediaType: 'video',
-        tags: ['Branding', 'Website', 'Renewal'],
-        description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        companyDescription: '사용자 경험 중심의 디자인과 최적화된 성능으로 기업의 디지털 마케팅 효과를 대폭 증대시켰습니다.',
-        companyName: '디지털 마케팅',
-        
+        tags: ['HTML', 'SCSS', 'JavaScript', 'Branding'],
+        description: '샤니 브랜드의 공식 웹사이트를 HTML, SCSS, JavaScript를 활용하여 구축한 프로젝트입니다. 브랜드 아이덴티티를 완벽하게 반영한 모던한 웹사이트를 구현했습니다.',
+        companyDescription: '샤니와 협업하여 HTML, SCSS, JavaScript를 활용한 브랜드 아이덴티티가 반영된 웹사이트를 구축했습니다.',
+        companyName: '샤니',
         details: [
           {
             size: '1920 x 1080',
-            material: 'HTML, CSS, JavaScript',
+            material: 'HTML, SCSS, JavaScript',
             year: '2024'
           }
         ],
@@ -825,49 +768,46 @@ export const useProjectStore = defineStore('projects', {
           }
         ],
         overview: {
-          duration: '2개월',
-          team: '팀 크기',
-          role: '프론트엔드 개발자',
-          goals: ['브랜드 아이덴티티 강화', '사용자 경험 개선']
+          duration: '3개월',
+          team: '총 3명',
+          role: '웹퍼블리셔',
+          goals: ['샤니 브랜드 사이트 구축', '브랜드 아이덴티티 반영', '사용자 경험 최적화']
         },
         techStack: {
-          frontend: ['HTML', 'CSS', 'JavaScript'],
-          backend: ['Node.js'],
-          database: ['MongoDB'],
+          frontend: ['HTML5', 'SCSS', 'JavaScript'],
           tools: ['VS Code', 'Git']
         },
         features: [
           {
-            title: '주요 기능 1',
-            description: '기능 1에 대한 설명'
+            title: '브랜드 사이트 구축',
+            description: '샤니 브랜드의 공식 웹사이트를 완전히 새롭게 구축'
           },
           {
-            title: '주요 기능 2',
-            description: '기능 2에 대한 설명'
+            title: '모던한 웹 기술 적용',
+            description: 'HTML5, SCSS, JavaScript를 활용한 모던하고 반응형 웹사이트 구현'
           }
         ],
         links: {
-          website: 'http://example.com',
+          website: 'https://shani.com',
           github: 'https://github.com/example'
         }
       },
       {
         id: '12',
         swipermode: false,
-        title: '기업 웹사이트 리뉴얼',
-        category: '기업브랜딩',
+        title: '좋은사람들 리뉴얼 사이트',
+        category: 'PC',
         image: '/images/products/project12.png',
         bgMedia: 'https://videos.pexels.com/video-files/30975000/13241693_2160_1440_24fps.mp4',
         mediaType: 'video',
-        tags: ['Branding', 'Website', 'Renewal'],
-        description: '기업의 브랜드 아이덴티티를 강화하고 사용자 경험을 개선한 웹사이트 리뉴얼 프로젝트입니다.',
-        companyDescription: '혁신적인 UI/UX 디자인과 최신 웹 표준을 적용하여 기업의 온라인 경쟁력을 크게 향상시켰습니다.',
-        companyName: 'UI/UX 혁신',
-        
+        tags: ['HTML', 'SCSS', 'JavaScript', 'Renewal'],
+        description: '좋은사람들 브랜드의 기존 사이트를 완전히 리뉴얼한 프로젝트입니다. HTML, SCSS, JavaScript를 활용하여 브랜드 아이덴티티를 강화하고 사용자 경험을 개선했습니다.',
+        companyDescription: '좋은사람들과 협업하여 기존 브랜드 사이트를 완전히 리뉴얼하여 브랜드 가치를 극대화했습니다.',
+        companyName: '좋은사람들',
         details: [
           {
             size: '1920 x 1080',
-            material: 'HTML, CSS, JavaScript',
+            material: 'HTML, SCSS, JavaScript',
             year: '2024'
           }
         ],
@@ -882,29 +822,27 @@ export const useProjectStore = defineStore('projects', {
           }
         ],
         overview: {
-          duration: '2개월',
-          team: '팀 크기',
-          role: '프론트엔드 개발자',
-          goals: ['브랜드 아이덴티티 강화', '사용자 경험 개선']
+          duration: '4개월',
+          team: '총 6명',
+          role: '웹퍼블리셔',
+          goals: ['기존 사이트 완전 리뉴얼', '브랜드 아이덴티티 강화', '사용자 경험 개선']
         },
         techStack: {
-          frontend: ['HTML', 'CSS', 'JavaScript'],
-          backend: ['Node.js'],
-          database: ['MongoDB'],
+          frontend: ['HTML5', 'SCSS', 'JavaScript'],
           tools: ['VS Code', 'Git']
         },
         features: [
           {
-            title: '주요 기능 1',
-            description: '기능 1에 대한 설명'
+            title: '브랜드 사이트 완전 리뉴얼',
+            description: '기존 좋은사람들 사이트를 완전히 새롭게 리뉴얼하여 브랜드 아이덴티티 강화'
           },
           {
-            title: '주요 기능 2',
-            description: '기능 2에 대한 설명'
+            title: '모던한 웹 기술 적용',
+            description: 'HTML5, SCSS, JavaScript를 활용한 모던하고 반응형 웹사이트 구현'
           }
         ],
         links: {
-          website: 'http://example.com',
+          website: 'https://goodpeople.co.kr',
           github: 'https://github.com/example'
         }
       },
