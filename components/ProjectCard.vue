@@ -9,15 +9,7 @@
    
     <div class="project-info">
       <h3 class="project-title">
-        <span>
-          {{ project.companyName }}
-        </span>
-        <span>
-          {{ project.year }}
-        </span>
-        <span>
-          {{ project.websiteType }}
-        </span>
+        <span>{{ project.companyName }}</span>/<span>{{ project.year }}</span>/<span>{{ project.websiteType }}</span>
       </h3>
       <p class="project-description">{{ project.title }}</p>
     </div>
