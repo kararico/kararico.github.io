@@ -2,13 +2,24 @@
   <div ref="cardRef" class="project-card" @click="handleCardClick">
     <div class="project-image">
       <img :src="project.image" :alt="project.title">
+      <div class="project-tags" v-if="project.tags && project.tags.length">
+        <span v-for="tag in project.tags" :key="tag" class="project-tag">{{ tag }}</span>
+      </div>
     </div>  
-    <div class="project-tags" v-if="project.tags && project.tags.length">
-      <span v-for="tag in project.tags" :key="tag" class="project-tag">{{ tag }}</span>
-    </div>
+   
     <div class="project-info">
-      <h3 class="project-title">{{ project.title }}</h3>
-      <p class="project-description">{{ project.companyDescription }}</p>
+      <h3 class="project-title">
+        <span>
+          {{ project.companyName }}
+        </span>
+        <span>
+          {{ project.year }}
+        </span>
+        <span>
+          {{ project.websiteType }}
+        </span>
+      </h3>
+      <p class="project-description">{{ project.title }}</p>
     </div>
   </div>
 </template>
@@ -23,8 +34,11 @@ interface Project {
   title: string;
   category: string;
   image: string;
+  year: string;
   description: string;
   companyDescription: string;
+  companyName: string;
+  websiteType: string;
   swipermode: boolean;
   details: {
     size: string;
@@ -180,6 +194,7 @@ onUnmounted(() => {
     }
 
     .project-image {
+      position: relative;
       width: 100%;
       height: rem(250);
       overflow: hidden;
@@ -197,6 +212,9 @@ onUnmounted(() => {
     }
 
     .project-tags {
+      position: absolute;
+      bottom: rem(4);
+      left: rem(8);
       display: flex;
       gap: rem(8);
       flex-wrap: wrap;
@@ -224,32 +242,42 @@ onUnmounted(() => {
     }
     
     .project-info {
-      padding: 0 rem(14);
-      
+      padding: rem(20) rem(14);
       .project-title {
+        display: flex;
+        align-items: center;
+        gap: rem(8);
         font-size: rem(19);
         font-weight: 600;
         margin: 0 0 rem(8) 0;
         color: #fff;
         font-family: v.$font-en3;
         transition: color 0.3s ease;
-        
-        @include mobile {
-          font-size: rem(16);
+        span{
+          font-size: rem(19);
+          font-weight: 600;
+          color: #fff;
+          font-family: v.$font-kn2;
+          @include mobile {
+            font-size: rem(20);
+          }
         }
+    
       }
       
       .project-description {
         font-size: rem(14);
-        color: #bbb;
+        color: #dbdbdb;
         margin: 0 0 rem(12) 0;
         line-height: 1.5;
         transition: color 0.3s ease;
+        @include mobile {
+          font-size: rem(16);
+        }
       }
 
       .project-links {
         margin-top: rem(12);
-        
         .project-link {
           display: inline-flex;
           align-items: center;
