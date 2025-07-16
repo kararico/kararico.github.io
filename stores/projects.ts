@@ -408,8 +408,8 @@ export const useProjectStore = defineStore('projects', {
           }
         ],
         links: {
-          website: 'https://wconceptusa.com',
-          github: 'https://github.com/example'
+          website: 'https://www.wconcept.com/',
+          github: ''
         }
       },
       {

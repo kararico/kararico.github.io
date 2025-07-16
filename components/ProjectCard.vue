@@ -1,5 +1,5 @@
 <template>
-  <div ref="cardRef" class="project-card" @click="navigateToProject">
+  <div ref="cardRef" class="project-card" @click="handleCardClick">
     <div class="project-image">
       <img :src="project.image" :alt="project.title">
     </div>  
@@ -14,7 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import { navigateTo } from 'nuxt/app';
 import { ref, onMounted, onUnmounted } from 'vue';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -68,8 +67,23 @@ const props = defineProps<{
 const cardRef = ref<HTMLElement | null>(null);
 let scrollTrigger: ScrollTrigger | null = null;
 
-const navigateToProject = () => {
-  navigateTo(`/projects/${props.project.id}`);
+// 카드 클릭 핸들러
+const handleCardClick = () => {
+  const website = props.project.links?.website;
+  
+  if (website && website.trim() !== '') {
+    // 웹사이트 링크가 있으면 새창에서 열기
+    window.open(website, '_blank', 'noopener,noreferrer');
+  } else {
+    // 웹사이트 링크가 없거나 빈 값이면 얼럿 표시
+    alert('비공개 프로젝트입니다.');
+  }
+};
+
+// 링크 텍스트 반환
+const getLinkText = () => {
+  const website = props.project.links?.website;
+  return website && website.trim() !== '' ? '웹사이트 방문' : '비공개 프로젝트';
 };
 
 // 애니메이션 초기화 함수
@@ -228,9 +242,41 @@ onUnmounted(() => {
       .project-description {
         font-size: rem(14);
         color: #bbb;
-        margin: 0;
+        margin: 0 0 rem(12) 0;
         line-height: 1.5;
         transition: color 0.3s ease;
+      }
+
+      .project-links {
+        margin-top: rem(12);
+        
+        .project-link {
+          display: inline-flex;
+          align-items: center;
+          gap: rem(6);
+          color: #667eea;
+          font-size: rem(13);
+          font-weight: 500;
+          text-decoration: none;
+          padding: rem(6) rem(12);
+          border-radius: rem(4);
+          background: rgba(102, 126, 234, 0.1);
+          transition: all 0.3s ease;
+          
+          &:hover {
+            background: rgba(102, 126, 234, 0.2);
+            color: #7c8ff5;
+            transform: translateX(rem(2));
+          }
+          
+          svg {
+            transition: transform 0.3s ease;
+          }
+          
+          &:hover svg {
+            transform: translate(rem(2), rem(-2));
+          }
+        }
       }
     }
     

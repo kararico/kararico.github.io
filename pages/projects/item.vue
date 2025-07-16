@@ -14,45 +14,28 @@
           </div>
         </section>
 
-        <!-- Project Categories -->
-        <section class="categories-section">
-          <div class="container">
-            <div class="category-filters">
-              <button
-                v-for="(category, idx) in categories"
-                :key="category"
-                class="category-btn"
-                :class="{ active: selectedCategory === category }"
-                @click="handleCategoryChange(category, idx)"
-                :ref="el => categoryBtnRefs[idx] = el as Element"
-              >
-                {{ category }}
-              </button>
-            </div>
-          </div>
-        </section>
-
         <!-- Projects Grid -->
-        <section class="projects-section">
+        <section class="projects-section" ref="projectsSection">
           <div class="container">
-            <div v-if="isLoading" class="projects-grid">
-              <div v-for="n in 6" :key="n" class="skeleton-card">
-                <div class="skeleton-image"></div>
-                <div class="skeleton-content">
-                  <div class="skeleton-title"></div>
-                  <div class="skeleton-category"></div>
-                </div>
-              </div>
-            </div>
-            <div v-else-if="filteredProjects.length > 0" class="projects-grid">
+            <div class="projects-grid" ref="projectsGrid">
               <ProjectCard
-                v-for="project in filteredProjects"
+                v-for="project in displayedProjects"
                 :key="project.id"
                 :project="project"
+                class="project-card"
               />
             </div>
-            <div v-else class="no-projects">
-              <p>해당 카테고리의 프로젝트가 없습니다.</p>
+            
+            <!-- Load More Button -->
+            <div v-if="hasMoreProjects" class="load-more-container">
+              <button 
+                @click="loadMoreProjects" 
+                class="load-more-btn"
+                :disabled="isLoadingMore"
+              >
+                <span v-if="!isLoadingMore">더보기 ({{ remainingCount }}개)</span>
+                <span v-else class="loading-text">로딩 중...</span>
+              </button>
             </div>
           </div>
         </section>
@@ -64,49 +47,109 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useProjectStore } from '@/stores/projects';
 import AnimatedBackground from '@/components/common/AnimatedBackground.vue'
 import { useHead } from '#imports'
+
+// GSAP 플러그인 등록
+gsap.registerPlugin(ScrollTrigger);
 
 const line1 = ref<HTMLElement | null>(null);
 const line2 = ref<HTMLElement | null>(null);
 const line3 = ref<HTMLElement | null>(null);
 const heroSection = ref<HTMLElement | null>(null);
-
-const categories = [
-  '전체',
-  'PC',
-  'MOBILE',
-  '반응형',
-  '이벤트',
-];
-
-const selectedCategory = ref('전체');
-const isLoading = ref(false);
-
-const categoryBtnRefs = ref<(Element | null)[]>([]);
+const projectsSection = ref<HTMLElement | null>(null);
+const projectsGrid = ref<HTMLElement | null>(null);
 
 const projectStore = useProjectStore();
 
-const filteredProjects = computed(() => {
-  return projectStore.getProjectsByCategory(selectedCategory.value);
+const projects = computed(() => {
+  return projectStore.projects;
 });
 
-const handleCategoryChange = (category: string, idx: number) => {
-  // 선택한 카테고리에 해당하는 프로젝트가 있는지 확인
-  const hasProjects = category === '전체' || projectStore.projects.some(project => project.category === category);
-  if (hasProjects) {
-    isLoading.value = true;
-  }
-  selectedCategory.value = category;
-  setTimeout(() => {
-    isLoading.value = false;
-  }, 1000);
+// 반응형 표시 개수 설정
+const getInitialDisplayCount = () => {
+  if (typeof window === 'undefined') return 6;
+  
+  const width = window.innerWidth;
+  if (width >= 1024) return 6; // PC
+  if (width >= 768) return 4;  // Tablet
+  return 4; // Mobile - 4개로 변경
+};
 
-  // 스크롤 중앙 이동
-  const btn = categoryBtnRefs.value[idx];
-  if (btn instanceof HTMLElement && typeof btn.scrollIntoView === 'function') {
-    btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+const getLoadMoreCount = () => {
+  if (typeof window === 'undefined') return 6;
+  
+  const width = window.innerWidth;
+  if (width >= 1024) return 6; // PC
+  return 4; // Tablet & Mobile
+};
+
+const displayCount = ref(getInitialDisplayCount());
+const isLoadingMore = ref(false);
+
+// 현재 표시되는 프로젝트들
+const displayedProjects = computed(() => {
+  return projects.value.slice(0, displayCount.value);
+});
+
+// 더 표시할 프로젝트가 있는지
+const hasMoreProjects = computed(() => {
+  return displayCount.value < projects.value.length;
+});
+
+// 남은 프로젝트 개수
+const remainingCount = computed(() => {
+  return projects.value.length - displayCount.value;
+});
+
+// 더보기 버튼 클릭 핸들러
+const loadMoreProjects = async () => {
+  if (isLoadingMore.value) return;
+  
+  isLoadingMore.value = true;
+  
+  // 로딩 시뮬레이션 (실제로는 필요 없을 수 있음)
+  await new Promise(resolve => setTimeout(resolve, 500));
+  
+  const loadCount = getLoadMoreCount();
+  displayCount.value += loadCount;
+  
+  // 새로 추가된 카드들에 애니메이션 적용
+  nextTick(() => {
+    const newCards = projectsGrid.value?.querySelectorAll('.project-card');
+    if (newCards) {
+      const startIndex = displayCount.value - loadCount;
+      for (let i = startIndex; i < newCards.length; i++) {
+        gsap.fromTo(newCards[i], 
+          {
+            y: 60,
+            opacity: 0,
+            scale: 0.95
+          },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            ease: "power3.out",
+            delay: (i - startIndex) * 0.1
+          }
+        );
+      }
+    }
+  });
+  
+  isLoadingMore.value = false;
+};
+
+// 윈도우 리사이즈 시 표시 개수 조정
+const handleResize = () => {
+  const newInitialCount = getInitialDisplayCount();
+  // 모바일에서 리사이즈 시 초기 개수로 리셋하지 않도록 수정
+  if (displayCount.value < newInitialCount) {
+    displayCount.value = newInitialCount;
   }
 };
 
@@ -139,6 +182,35 @@ const startTextAnimation = () => {
   });
 };
 
+// 프로젝트 카드 애니메이션
+const animateProjectCards = () => {
+  if (!projectsGrid.value) return;
+
+  const cards = projectsGrid.value.querySelectorAll('.project-card');
+  
+  gsap.fromTo(cards, 
+    {
+      y: 60,
+      opacity: 0,
+      scale: 0.95
+    },
+    {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      duration: 0.8,
+      ease: "power3.out",
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: projectsSection.value,
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none reverse"
+      }
+    }
+  );
+};
+
 // 윈도우 리사이즈 시 hero-section 높이 조정
 const updateHeroHeight = () => {
   if (heroSection.value) {
@@ -151,9 +223,15 @@ const updateHeroHeight = () => {
 onMounted(() => {
   window.addEventListener('loading-complete', startTextAnimation);
   window.addEventListener('resize', updateHeroHeight);
+  window.addEventListener('resize', handleResize);
   
   // 초기 높이 설정
   updateHeroHeight();
+
+  // 프로젝트 카드 애니메이션 설정
+  nextTick(() => {
+    animateProjectCards();
+  });
 
   // 로딩 이벤트가 오지 않을 경우 대비: 1.5초 후 강제 실행
   setTimeout(() => {
@@ -167,12 +245,10 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('loading-complete', startTextAnimation);
   window.removeEventListener('resize', updateHeroHeight);
-});
-
-watch(filteredProjects, (newVal) => {
-  if (newVal.length === 0) {
-    isLoading.value = false;
-  }
+  window.removeEventListener('resize', handleResize);
+  
+  // ScrollTrigger 정리
+  ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 });
 </script>
 
@@ -220,97 +296,6 @@ watch(filteredProjects, (newVal) => {
   will-change: transform, opacity;
 }
 
-.categories-section {
-  padding: 1.4rem 0 0;
-  background-color: rgba(24, 24, 24, 0.8);
-  backdrop-filter: blur(10px);
-  position: sticky;
-  top: 4rem;
-  z-index: 100;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.3s ease;
-}
-
-.category-filters {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  position: relative;
-  padding-bottom: 1rem;
-  overflow-x: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #444 #181818;
-
-  &::-webkit-scrollbar {
-    height: 6px;
-    background: #181818;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #444;
-    border-radius: 3px;
-  }
-
-  @include tablet {
-    justify-content: flex-start;
-  }
-
-  @include mobile {
-    justify-content: flex-start;
-  }
-}
-
-.category-btn {
-  position: relative;
-  padding: 0.5rem 0;
-  border: none;
-  background: none;
-  font-size: 0.9rem;
-  color: #bbb;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  min-width: 6rem;
-  text-align: center;
-  margin-right: 0.5rem;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -0.125rem;
-    left: 0;
-    width: 100%;
-    height: 0.125rem;
-    background-color: #fff;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.3s ease;
-  }
-
-  &:hover {
-    color: #fff;
-  }
-
-  &:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  &.active {
-    color: #fff;
-    font-weight: 500;
-
-    &::after {
-      transform: scaleX(1);
-    }
-  }
-
-  @include mobile {
-    font-size: 0.85rem;
-  }
-}
-
 .projects-section {
   padding: 2.5rem 0;
   background-color: #181818;
@@ -332,57 +317,71 @@ watch(filteredProjects, (newVal) => {
   padding: 1.25rem 0;
 }
 
-.skeleton-card {
-  background: #222;
-  border-radius: 0.5rem;
+.project-card {
+  will-change: transform, opacity;
+  transform: translateY(60px);
+  opacity: 0;
+}
+
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0 1rem;
+}
+
+.load-more-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 2rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  position: relative;
   overflow: hidden;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
-}
 
-.skeleton-image {
-  width: 100%;
-  padding-top: 75%;
-  background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-}
-
-.skeleton-content {
-  padding: 1rem;
-}
-
-.skeleton-title {
-  height: 1.5rem;
-  background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 0.25rem;
-  margin-bottom: 0.75rem;
-}
-
-.skeleton-category {
-  height: 1rem;
-  width: 40%;
-  background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 0.25rem;
-}
-
-.no-projects {
-  text-align: center;
-  padding: 3rem 0;
-  color: #bbb;
-  font-size: 1.1rem;
-  letter-spacing: 0.02em;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
   }
-  100% {
-    background-position: -200% 0;
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
   }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  @include mobile {
+    font-size: 0.9rem;
+    padding: 0.875rem 1.75rem;
+  }
+}
+
+.loading-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &::after {
+    content: '';
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style> 
