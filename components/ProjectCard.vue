@@ -253,6 +253,9 @@ onUnmounted(() => {
         color: #fff;
         font-family: v.$font-en3;
         transition: color 0.3s ease;
+        @include mobile {
+          gap: rem(4);
+        }
         span{
           font-size: rem(19);
           font-weight: 600;
