@@ -241,29 +241,7 @@ export const useProjectStore = defineStore('projects', {
         bgMedia: 'https://videos.pexels.com/video-files/28043968/12290715_2560_1440_24fps.mp4',
         mediaType: 'video',
         tags: ['Hybrid App', 'Mobile', 'UX/UI'],
-        description: `<section class="project">
-        <h2 class="sr-only">스타벅스 임직원 하이브리드 웹 프로젝트</h2>
-        <p>
-          스타벅스 임직원 전용 하이브리드 웹앱 구축 프로젝트입니다.<br>
-          HTML5, SCSS, jQuery만을 사용하여 모바일 환경에 최적화된 UI/UX를 구현하였습니다.
-        </p>
-        <article class="project-details">
-          <h3>✅ 주요 기술 스택</h3>
-          <ul>
-            <li><strong>HTML5</strong> - 시맨틱 마크업 및 웹 표준 준수</li>
-            <li><strong>SCSS</strong> - 컴포넌트 기반 스타일링 및 유지보수성 강화</li>
-            <li><strong>jQuery</strong> - 동적 UI 및 사용자 인터랙션 구현</li>
-          </ul>
-        </article>
-        <article class="optimization">
-          <h3>📱 모바일 웹 최적화</h3>
-          <ul>
-            <li>모바일 디바이스에 맞춘 반응형 레이아웃</li>
-            <li>터치 기반 인터페이스 및 빠른 로딩 속도 구현</li>
-            <li>임직원 업무 효율성을 위한 직관적인 UI 설계</li>
-          </ul>
-        </article>
-      </section>`,
+        description: `스타벅스 임직원 사내용 하이브리드 앱 프로젝트입니다.<br />임직원들의 업무 효율성과 커뮤니케이션을 향상시키는 앱입니다.`,
         companyDescription: '글로벌 커피 브랜드 스타벅스와 함께 임직원들의 업무 효율성을 극대화하는 하이브리드 앱을 개발했습니다.',
         companyName:'STARBUCKS',
         details: [
@@ -377,7 +355,7 @@ export const useProjectStore = defineStore('projects', {
         bgMedia: 'https://videos.pexels.com/video-files/32013494/13644778_2560_1440_25fps.mp4',
         mediaType: 'video',
         tags: ['React', 'Website', 'USA'],
-        description: '더블유컨셉 USA 브랜드의 공식 웹사이트를 구축한 프로젝트입니다. React를 활용하여 모던하고 인터랙티브한 사용자 경험을 제공합니다.',
+        description: `W컨셉 미국 버전 퍼블리싱 프로젝트입니다.<br />글로벌 사용자 경험을 고려한 UI 구조와 반응형 마크업을 구현한 이커머스 웹사이트입니다.`,
         companyDescription: '더블유컨셉 USA와 협업하여 브랜드 아이덴티티를 반영한 모던한 웹사이트를 구축했습니다.',
         companyName: '더블유컨셉 USA',
         details: [

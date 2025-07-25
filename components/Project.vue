@@ -110,7 +110,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'EZWEL',
-        description: '복잡한 복지 시스템을 사용자 친화적으로 개선하여<br />더 나은 서비스 경험을 제공하는 차세대 프로젝트입니다.',
+        description: '비공개 프로젝트.',
         siteUrl: '',
         mediaType: 'video',
         videoUrl: 'https://img.ezwelfare.net/welfare_corp/css/user/front/renew/images/main_visual01.mp4',
@@ -120,7 +120,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'STARBUCKS',
-        description: '스타벅스 임직원 사내용 하이브리드 앱 프로젝트입니다.<br />임직원들의 업무 효율성과 커뮤니케이션을 향상시키는 앱입니다.',
+        description: '스타벅스 임직원 사내용 하이브리드 앱 프로젝트',
         siteUrl: 'https://ricoplgrim.github.io/StarbucksSiren119/',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/28043968/12290715_2560_1440_24fps.mp4',
@@ -130,7 +130,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'WCONCEPT US',
-        description: 'W컨셉 미국 버전 퍼블리싱 프로젝트입니다.<br />글로벌 사용자 경험을 고려한 UI 구조와 반응형 마크업을 구현한 이커머스 웹사이트입니다.',
+        description: ' W컨셉 미국 버전 프로젝트입니다.',
         siteUrl: 'https://www.wconcept.com/category/women.html?canonical_uri=%2F',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/3917524/3917524-uhd_2732_1440_25fps.mp4',
@@ -140,7 +140,7 @@ const projects = ref([
     {
         category: 'Operation',
         title: 'MLB KOREA',
-        description: '엠엘비 코리아 홈페이지 부분 개편 운영 프로젝트입니다.<br />트렌디한 패션몰을 위한 최적화된 쇼핑 경험을 제공합니다.',
+        description: '엠엘비 코리아 홈페이지 부분 개편 운영 프로젝트',
         siteUrl: 'https://www.mlb-korea.com/',
         mediaType: 'video',
         videoUrl: 'https://cdn.prod.website-files.com/646a4e539ffa024a48651555/649070038794a919744c0b8f_background-video-1280x720-30fps-transcode.mp4',
@@ -150,7 +150,7 @@ const projects = ref([
     {
         category: 'Operation',
         title: 'DISCOVERY',
-        description: '디스커버리 홈페이지 부분 개편 및 운영 프로젝트입니다.<br />아웃도어 브랜드의 모던하고 역동적인 웹 경험을 구현합니다.',
+        description: '디스커버리 홈페이지 부분 개편 및 운영 프로젝트',
         siteUrl: 'https://www.discovery-expedition.com',
         mediaType: 'video',
         videoUrl: 'https://homepage-static.fnf.co.kr/pcVideo_67db5edf809283.56040568.mp4',
@@ -160,7 +160,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'CASAMINA',
-        description: '까사미아 홈페이지 개편 프로젝트입니다.<br />브랜드 아이덴티티를 강화하는 브랜드 알리사이트를 구현합니다.',
+        description: '까사미아 홈페이지 개편 프로젝트',
         siteUrl: 'https://casamia.co.kr/home',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/32013494/13644778_2560_1440_25fps.mp4',
@@ -170,7 +170,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'GUUD',
-        description: '굳닷컴 개편 및 운영 프로젝트입니다.<br />홈퍼니싱 이커머스 쇼핑몰의 최적화된 쇼핑 경험을 제공합니다.',
+        description: '굳닷컴 개편 및 운영 프로젝트',
         siteUrl: 'https://guud.com',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/31646575/13482899_2560_1440_60fps.mp4',
@@ -180,7 +180,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'BULLSONE',
-        description: '불스원 구축 프로젝트입니다.<br />국영문 지원 브랜드사이트로 글로벌 브랜드 아이덴티티를 구현합니다.',
+        description: '불스원 구축 프로젝트',
         siteUrl: 'https://bullsone.com/',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/29792714/12800431_1920_1080_60fps.mp4',
@@ -190,7 +190,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'LG SIGNATURE GLOBAL',
-        description: 'LG시그니처 글로벌 영문 사이트 구축 프로젝트입니다.',
+        description: 'LG시그니처 글로벌 영문 사이트 구축 프로젝트',
         siteUrl: 'https://www.lg.com/global/',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/30975000/13241693_2160_1440_24fps.mp4',
@@ -200,7 +200,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'Funbeerking',
-        description: '펀비어킹 구축 프로젝트입니다.<br />반응형 프랜차이즈 사이트로 다양한 디바이스에서 최적화된 경험을 제공합니다.',
+        description: '펀비어킹 구축 프로젝트',
         siteUrl: 'http://www.funbeerking.com/index.php',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/10741100/10741100-hd_2560_1440_30fps.mp4',

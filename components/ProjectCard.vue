@@ -81,8 +81,8 @@ const handleCardClick = () => {
     // 웹사이트 링크가 있으면 새창에서 열기
     window.open(website, '_blank', 'noopener,noreferrer');
   } else {
-    // 웹사이트 링크가 없거나 빈 값이면 얼럿 표시
-    alert('비공개 프로젝트입니다.');
+    // 웹사이트 링크가 없거나 빈 값이면 부드러운 얼럿 표시
+    alert('이 프로젝트는 비공개로 설정되어 있어 웹사이트를 제공하지 않습니다.');
   }
 };
 
