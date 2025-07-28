@@ -110,7 +110,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'EZWEL',
-        description: '비공개 프로젝트.',
+        description: '차세대 복지 사이트 비공개 프로젝트.',
         siteUrl: '',
         mediaType: 'video',
         videoUrl: 'https://img.ezwelfare.net/welfare_corp/css/user/front/renew/images/main_visual01.mp4',
@@ -130,7 +130,7 @@ const projects = ref([
     {
         category: 'Project',
         title: 'WCONCEPT US',
-        description: ' W컨셉 미국 버전 프로젝트입니다.',
+        description: ' W컨셉 미국 버전 프로젝트',
         siteUrl: 'https://www.wconcept.com/category/women.html?canonical_uri=%2F',
         mediaType: 'video',
         videoUrl: 'https://videos.pexels.com/video-files/3917524/3917524-uhd_2732_1440_25fps.mp4',
@@ -140,7 +140,7 @@ const projects = ref([
     {
         category: 'Operation',
         title: 'MLB KOREA',
-        description: '엠엘비 코리아 홈페이지 부분 개편 운영 프로젝트',
+        description: '엠엘비 코리아 홈페이지 부분 개편 및및 운영 프로젝트',
         siteUrl: 'https://www.mlb-korea.com/',
         mediaType: 'video',
         videoUrl: 'https://cdn.prod.website-files.com/646a4e539ffa024a48651555/649070038794a919744c0b8f_background-video-1280x720-30fps-transcode.mp4',
