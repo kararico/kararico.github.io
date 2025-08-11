@@ -1,0 +1,7 @@
+<svg width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="360" rx="32" fill="#2F70C6"/>
+  <text x="50%" y="45%" text-anchor="middle" fill="#fff" font-size="56" font-family="Arial, sans-serif" font-weight="bold" letter-spacing="2">WELFARE</text>
+  <circle cx="320" cy="220" r="38" fill="#fff" opacity="0.15"/>
+  <polygon points="332,220 312,208 312,232" fill="#fff" opacity="0.8"/>
+  <text x="50%" y="88%" text-anchor="middle" fill="#fff" font-size="22" font-family="Arial, sans-serif" opacity="0.7">main_visual01.mp4</text>
+</svg> 
