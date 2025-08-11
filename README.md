@@ -153,7 +153,7 @@ npm run yarn-install
 - **배포 플랫폼**: GitHub Pages
 - **배포 방식**: 정적 사이트 생성 (SSG)
 - **SSR**: 비활성화 (SPA 모드)
-
+<!-- 
 ## 📋 환경 변수
 
 프로젝트에서 사용하는 환경 변수들:
@@ -167,7 +167,7 @@ runtimeConfig: {
     emailjsPublicKey: '2mwZfZ5PDdllye2lc'
   }
 }
-```
+``` -->
 
 ## 🎨 디자인 시스템
 
